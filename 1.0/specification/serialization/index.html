@@ -78,6 +78,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#jelly-serialization-format" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -342,6 +347,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Serialization
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -352,6 +370,141 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-specification" class="md-nav__link">
+    Format specification
+  </a>
+  
+    <nav class="md-nav" aria-label="Format specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-options" class="md-nav__link">
+    Stream options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    Stream types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefix-name-and-datatype-lookups" class="md-nav__link">
+    Prefix, name, and datatype lookups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-statements" class="md-nav__link">
+    RDF statements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-terms" class="md-nav__link">
+    RDF terms
+  </a>
+  
+    <nav class="md-nav" aria-label="RDF terms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iris" class="md-nav__link">
+    IRIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blank-nodes" class="md-nav__link">
+    Blank nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literals" class="md-nav__link">
+    Literals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quoted-triples-rdf-star" class="md-nav__link">
+    Quoted triples (RDF-star)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeated-terms" class="md-nav__link">
+    Repeated terms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-graph-nodes" class="md-nav__link">
+    RDF graph nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delimited-variant" class="md-nav__link">
+    Delimited variant
+  </a>
+  
+    <nav class="md-nav" aria-label="Delimited variant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -789,6 +942,132 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format-specification" class="md-nav__link">
+    Format specification
+  </a>
+  
+    <nav class="md-nav" aria-label="Format specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-options" class="md-nav__link">
+    Stream options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    Stream types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefix-name-and-datatype-lookups" class="md-nav__link">
+    Prefix, name, and datatype lookups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-statements" class="md-nav__link">
+    RDF statements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-terms" class="md-nav__link">
+    RDF terms
+  </a>
+  
+    <nav class="md-nav" aria-label="RDF terms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iris" class="md-nav__link">
+    IRIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blank-nodes" class="md-nav__link">
+    Blank nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literals" class="md-nav__link">
+    Literals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quoted-triples-rdf-star" class="md-nav__link">
+    Quoted triples (RDF-star)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeated-terms" class="md-nav__link">
+    Repeated terms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-graph-nodes" class="md-nav__link">
+    RDF graph nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delimited-variant" class="md-nav__link">
+    Delimited variant
+  </a>
+  
+    <nav class="md-nav" aria-label="Delimited variant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -806,9 +1085,42 @@
   
 
 
-  <h1>Serialization</h1>
-
-
+<h1 id="jelly-serialization-format">Jelly serialization format</h1>
+<p>TODO: intro, reference to RDF 1.1 and RDF-star</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
+</div>
+<h2 id="format-specification">Format specification</h2>
+<p>TODO: overall structure, stream frames and rows, mention lookup tables, multiple types</p>
+<h3 id="stream-options">Stream options</h3>
+<p>TODO</p>
+<h3 id="stream-types">Stream types</h3>
+<p>TODO</p>
+<h3 id="prefix-name-and-datatype-lookups">Prefix, name, and datatype lookups</h3>
+<p>TODO</p>
+<h3 id="rdf-statements">RDF statements</h3>
+<h3 id="rdf-terms">RDF terms</h3>
+<h4 id="iris">IRIs</h4>
+<h4 id="blank-nodes">Blank nodes</h4>
+<h4 id="literals">Literals</h4>
+<h4 id="quoted-triples-rdf-star">Quoted triples (RDF-star)</h4>
+<h4 id="repeated-terms">Repeated terms</h4>
+<h3 id="rdf-graph-nodes">RDF graph nodes</h3>
+<h2 id="delimited-variant">Delimited variant</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Protobuf messages <a href="https://protobuf.dev/programming-guides/techniques/#streaming">are not delimited</a>, so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. </p>
+</div>
+<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message.</p>
+<p>Implementing the delimited variant is OPTIONAL.</p>
+<h3 id="implementations">Implementations</h3>
+<p>The delimiting convention is implemented in:</p>
+<ul>
+<li>C++: <a href="https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc">delimited_message_util.cc</a></li>
+<li>Java / Scala: <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-">writeDelimitedTo</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-">parseDelimitedFrom</a></li>
+</ul>
+<p>The JVM (Scala) implementation of Jelly also supports the delimited variant – <a href="../../jvm/reactive/#byte-streams">see the documentation</a>.</p>
 
 
 
