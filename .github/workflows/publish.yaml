@@ -21,6 +21,13 @@ jobs:
           repository: Jelly-RDF/jelly-protobuf
           path: proto
 
+      - id: proto_release
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          owner: Jelly-RDF
+          repo: jelly-protobuf
+          excludes: prerelease, draft
+
       - name: Generate Protobuf reference
         run: docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
 
@@ -37,7 +44,10 @@ jobs:
       - name: Deploy site
         working-directory: ./pages
         run: |
+          PROTO_TAG=${{ steps.proto_release.outputs.tag_name }}
+          V_MAJOR=echo ${PROTO_TAG#v} | awk -F '.' '{print $1}'
+          V_MINOR=echo ${PROTO_TAG#v} | awk -F '.' '{print $2}'
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
           git config user.email ci-bot@example.com
-          mike deploy --push --update-aliases 1.0 latest
+          mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}" latest
