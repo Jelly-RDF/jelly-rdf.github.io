@@ -23,7 +23,7 @@ jobs:
 
       - name: Generate Protobuf reference
         run: |
-          docker run --rm -v $(pwd):/proto -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
+          docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
           cd pages
 
       - uses: actions/setup-python@v4
