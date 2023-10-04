@@ -27,4 +27,8 @@ jobs:
         run: pip install -r requirements.txt 
 
       - name: Deploy site
-        run: mike deploy --push --update-aliases 1.0 latest
+        run: |
+          git fetch origin gh-pages --depth=1
+          git config user.name ci-bot
+          git config user.email ci-bot@example.com
+          mike deploy --push --update-aliases 1.0 latest
