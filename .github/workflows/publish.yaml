@@ -21,12 +21,10 @@ jobs:
           repository: Jelly-RDF/jelly-protobuf
           path: proto
 
-      - uses: docker://pseudomuto/protoc-gen-doc
-        with:
-          args: --plugin=protoc-gen-doc=./protoc-gen-doc --doc_opt=markdown,reference.md --doc_out=/github/workspace/pages/docs/specification /github/workspace/proto/*.proto
-          entrypoint: protoc
-
-      - run: cd pages
+      - name: Generate Protobuf reference
+        run: |
+          docker run --rm -v $(pwd):/proto -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
+          cd pages
 
       - uses: actions/setup-python@v4
         with:
