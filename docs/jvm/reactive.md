@@ -2,4 +2,10 @@
 
 TODO
 
-## Example: streaming with Kafka
+### Example: streaming with Kafka
+
+## Byte streams
+
+TODO
+
+(referenced by specification/serialization.md)
