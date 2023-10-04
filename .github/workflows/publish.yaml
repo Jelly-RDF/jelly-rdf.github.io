@@ -13,11 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        path: pages
+        with:
+          path: pages
 
       - uses: actions/checkout@v4
-        repository: Jelly-RDF/jelly-protobuf
-        path: proto
+        with:
+          repository: Jelly-RDF/jelly-protobuf
+          path: proto
 
       - uses: docker://pseudomuto/protoc-gen-doc
         with:
