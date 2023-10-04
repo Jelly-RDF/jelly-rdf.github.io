@@ -5,6 +5,7 @@ site_url: https://jelly-rdf.github.io/
 plugins:
   - search
   - include-markdown
+  - mike
 
 markdown_extensions:
   - attr_list
@@ -68,6 +69,9 @@ theme:
     repo: fontawesome/brands/github
 
 extra:
+  version:
+    provider: mike
+    default: latest
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/Jelly-RDF
