@@ -22,23 +22,25 @@ jobs:
           path: proto
 
       - name: Generate Protobuf reference
-        run: |
-          docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
-          cd pages
+        run: docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
 
       - uses: actions/setup-python@v4
+        working-directory: ./pages
         with:
           python-version: 3.x
 
       - uses: actions/cache@v3
+        working-directory: ./pages
         with:
           key: ${{ github.ref }}
           path: .cache
 
       - name: Install dependencies
+        working-directory: ./pages
         run: pip install -r requirements.txt 
 
       - name: Deploy site
+        working-directory: ./pages
         run: |
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
