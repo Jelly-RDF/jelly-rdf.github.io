@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/specification/serialization/">
+        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/specification/reference/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../streaming/">
       
       
-        <link rel="next" href="../streaming/">
+        <link rel="next" href="../media-type/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Serialization - Jelly</title>
+        <title>Protobuf reference - Jelly</title>
       
     
     
@@ -78,6 +78,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#protocol-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -114,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Serialization
+              Protobuf reference
             
           </span>
         </div>
@@ -334,16 +339,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../serialization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -352,7 +350,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -382,9 +379,29 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Protobuf reference
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -393,6 +410,213 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    Table of Contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grpcproto" class="md-nav__link">
+    grpc.proto
+  </a>
+  
+    <nav class="md-nav" aria-label="grpc.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamreceived" class="md-nav__link">
+    RdfStreamReceived
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamsubscribe" class="md-nav__link">
+    RdfStreamSubscribe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamservice" class="md-nav__link">
+    RdfStreamService
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdfproto" class="md-nav__link">
+    rdf.proto
+  </a>
+  
+    <nav class="md-nav" aria-label="rdf.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfdatatypeentry" class="md-nav__link">
+    RdfDatatypeEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfdefaultgraph" class="md-nav__link">
+    RdfDefaultGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraph" class="md-nav__link">
+    RdfGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphend" class="md-nav__link">
+    RdfGraphEnd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphstart" class="md-nav__link">
+    RdfGraphStart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfiri" class="md-nav__link">
+    RdfIri
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfliteral" class="md-nav__link">
+    RdfLiteral
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfliteralsimple" class="md-nav__link">
+    RdfLiteralSimple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfnameentry" class="md-nav__link">
+    RdfNameEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfprefixentry" class="md-nav__link">
+    RdfPrefixEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfquad" class="md-nav__link">
+    RdfQuad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfrepeat" class="md-nav__link">
+    RdfRepeat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamframe" class="md-nav__link">
+    RdfStreamFrame
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamoptions" class="md-nav__link">
+    RdfStreamOptions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamrow" class="md-nav__link">
+    RdfStreamRow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfterm" class="md-nav__link">
+    RdfTerm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdftriple" class="md-nav__link">
+    RdfTriple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamtype" class="md-nav__link">
+    RdfStreamType
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalar-value-types" class="md-nav__link">
+    Scalar Value Types
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -789,6 +1013,203 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    Table of Contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grpcproto" class="md-nav__link">
+    grpc.proto
+  </a>
+  
+    <nav class="md-nav" aria-label="grpc.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamreceived" class="md-nav__link">
+    RdfStreamReceived
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamsubscribe" class="md-nav__link">
+    RdfStreamSubscribe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamservice" class="md-nav__link">
+    RdfStreamService
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdfproto" class="md-nav__link">
+    rdf.proto
+  </a>
+  
+    <nav class="md-nav" aria-label="rdf.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfdatatypeentry" class="md-nav__link">
+    RdfDatatypeEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfdefaultgraph" class="md-nav__link">
+    RdfDefaultGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraph" class="md-nav__link">
+    RdfGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphend" class="md-nav__link">
+    RdfGraphEnd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphstart" class="md-nav__link">
+    RdfGraphStart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfiri" class="md-nav__link">
+    RdfIri
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfliteral" class="md-nav__link">
+    RdfLiteral
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfliteralsimple" class="md-nav__link">
+    RdfLiteralSimple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfnameentry" class="md-nav__link">
+    RdfNameEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfprefixentry" class="md-nav__link">
+    RdfPrefixEntry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfquad" class="md-nav__link">
+    RdfQuad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfrepeat" class="md-nav__link">
+    RdfRepeat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamframe" class="md-nav__link">
+    RdfStreamFrame
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamoptions" class="md-nav__link">
+    RdfStreamOptions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamrow" class="md-nav__link">
+    RdfStreamRow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfterm" class="md-nav__link">
+    RdfTerm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdftriple" class="md-nav__link">
+    RdfTriple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamtype" class="md-nav__link">
+    RdfStreamType
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalar-value-types" class="md-nav__link">
+    Scalar Value Types
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -806,9 +1227,807 @@
   
 
 
-  <h1>Serialization</h1>
+<h1 id="protocol-documentation">Protocol Documentation</h1>
+<p><a name="top"></a></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li>
+<p><a href="#grpc-proto">grpc.proto</a></p>
+<ul>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamReceived">RdfStreamReceived</a></li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamSubscribe">RdfStreamSubscribe</a></p>
+</li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamService">RdfStreamService</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#rdf-proto">rdf.proto</a></p>
+<ul>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntry">RdfDatatypeEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph">RdfDefaultGraph</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraph">RdfGraph</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd">RdfGraphEnd</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart">RdfGraphStart</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteralSimple">RdfLiteralSimple</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry">RdfNameEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry">RdfPrefixEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfQuad">RdfQuad</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfRepeat">RdfRepeat</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions">RdfStreamOptions</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamRow">RdfStreamRow</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></p>
+</li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamType">RdfStreamType</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#scalar-value-types">Scalar Value Types</a></p>
+</li>
+</ul>
+<p><a name="grpc-proto"></a></p>
+<p align="right"><a href="#top">Top</a></p>
 
+<h2 id="grpcproto">grpc.proto</h2>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamReceived"></a></p>
+<h3 id="rdfstreamreceived">RdfStreamReceived</h3>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamSubscribe"></a></p>
+<h3 id="rdfstreamsubscribe">RdfStreamSubscribe</h3>
+<p>=== Pub/Sub ===</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>The topic to which the client wants to subscribe.</td>
+</tr>
+<tr>
+<td>requested_options</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions">RdfStreamOptions</a></td>
+<td></td>
+<td>Optional: the stream options requested by the client. The server should respond with a stream that matches these options. In case that is not possible, the server must respond with the INVALID_ARGUMENT error.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamService"></a></p>
+<h3 id="rdfstreamservice">RdfStreamService</h3>
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Request Type</th>
+<th>Response Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SubscribeRdf</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamSubscribe">RdfStreamSubscribe</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a> stream</td>
+<td></td>
+</tr>
+<tr>
+<td>PublishRdf</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a> stream</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamReceived">RdfStreamReceived</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="rdf-proto"></a></p>
+<p align="right"><a href="#top">Top</a></p>
 
+<h2 id="rdfproto">rdf.proto</h2>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntry"></a></p>
+<h3 id="rdfdatatypeentry">RdfDatatypeEntry</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph"></a></p>
+<h3 id="rdfdefaultgraph">RdfDefaultGraph</h3>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfGraph"></a></p>
+<h3 id="rdfgraph">RdfGraph</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>default_graph</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph">RdfDefaultGraph</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>repeat</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfRepeat">RdfRepeat</a></td>
+<td></td>
+<td>Only valid in a QUADS stream.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd"></a></p>
+<h3 id="rdfgraphend">RdfGraphEnd</h3>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart"></a></p>
+<h3 id="rdfgraphstart">RdfGraphStart</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>graph</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraph">RdfGraph</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfIri"></a></p>
+<h3 id="rdfiri">RdfIri</h3>
+<p>=== Rdf Terms ===</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefix_id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Either of these can be zero if the prefix or the suffix are not used.</td>
+</tr>
+<tr>
+<td>name_id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral"></a></p>
+<h3 id="rdfliteral">RdfLiteral</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lex</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>simple</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteralSimple">RdfLiteralSimple</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>langtag</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>datatype</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfLiteralSimple"></a></p>
+<h3 id="rdfliteralsimple">RdfLiteralSimple</h3>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry"></a></p>
+<h3 id="rdfnameentry">RdfNameEntry</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry"></a></p>
+<h3 id="rdfprefixentry">RdfPrefixEntry</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfQuad"></a></p>
+<h3 id="rdfquad">RdfQuad</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>p</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>o</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>g</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraph">RdfGraph</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfRepeat"></a></p>
+<h3 id="rdfrepeat">RdfRepeat</h3>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame"></a></p>
+<h3 id="rdfstreamframe">RdfStreamFrame</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rows</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamRow">RdfStreamRow</a></td>
+<td>repeated</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions"></a></p>
+<h3 id="rdfstreamoptions">RdfStreamOptions</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream_name</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Name of the stream (completely optional). This may be used for, e.g., topic names in a pub/sub system.</td>
+</tr>
+<tr>
+<td>stream_type</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamType">RdfStreamType</a></td>
+<td></td>
+<td>Type of the stream (required)</td>
+</tr>
+<tr>
+<td>generalized_statements</td>
+<td><a href="#bool">bool</a></td>
+<td></td>
+<td>Whether the stream may contain generalized triples, quads, or datasets</td>
+</tr>
+<tr>
+<td>use_repeat</td>
+<td><a href="#bool">bool</a></td>
+<td></td>
+<td>Whether RdfRepeat will be used</td>
+</tr>
+<tr>
+<td>rdf_star</td>
+<td><a href="#bool">bool</a></td>
+<td></td>
+<td>Whether the stream may contain RDF-star statements</td>
+</tr>
+<tr>
+<td>max_name_table_size</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Prefix tables</td>
+</tr>
+<tr>
+<td>max_prefix_table_size</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>max_datatype_table_size</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamRow"></a></p>
+<h3 id="rdfstreamrow">RdfStreamRow</h3>
+<p>=== Streams ===</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions">RdfStreamOptions</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>triple</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF triple statement. Valid in TRIPLES and GRAPHS streams.</td>
+</tr>
+<tr>
+<td>quad</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfQuad">RdfQuad</a></td>
+<td></td>
+<td>RDF quad statement. Only valid in a QUADS stream.</td>
+</tr>
+<tr>
+<td>graph_start</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart">RdfGraphStart</a></td>
+<td></td>
+<td>Graph boundary: ends the currently transmitted graph and starts a new one Only valid in a GRAPHS stream.</td>
+</tr>
+<tr>
+<td>graph_end</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd">RdfGraphEnd</a></td>
+<td></td>
+<td>Explicit end of a graph. Signals the consumer that the transmitted graph is complete.</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry">RdfNameEntry</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>prefix</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry">RdfPrefixEntry</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>datatype</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntry">RdfDatatypeEntry</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfTerm"></a></p>
+<h3 id="rdfterm">RdfTerm</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>repeat</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfRepeat">RdfRepeat</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfTriple"></a></p>
+<h3 id="rdftriple">RdfTriple</h3>
+<p>=== Triples, quads, graphs ===</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>p</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>o</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTerm">RdfTerm</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamType"></a></p>
+<h3 id="rdfstreamtype">RdfStreamType</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Number</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RDF_STREAM_TYPE_UNSPECIFIED</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>RDF_STREAM_TYPE_TRIPLES</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>RDF_STREAM_TYPE_QUADS</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>RDF_STREAM_TYPE_GRAPHS</td>
+<td>3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="scalar-value-types">Scalar Value Types</h2>
+<table>
+<thead>
+<tr>
+<th>.proto Type</th>
+<th>Notes</th>
+<th>C++</th>
+<th>Java</th>
+<th>Python</th>
+<th>Go</th>
+<th>C#</th>
+<th>PHP</th>
+<th>Ruby</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a name="double" /> double</td>
+<td></td>
+<td>double</td>
+<td>double</td>
+<td>float</td>
+<td>float64</td>
+<td>double</td>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td><a name="float" /> float</td>
+<td></td>
+<td>float</td>
+<td>float</td>
+<td>float</td>
+<td>float32</td>
+<td>float</td>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td><a name="int32" /> int32</td>
+<td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+<td>int32</td>
+<td>int</td>
+<td>int</td>
+<td>int32</td>
+<td>int</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="int64" /> int64</td>
+<td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+<td>int64</td>
+<td>long</td>
+<td>int/long</td>
+<td>int64</td>
+<td>long</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="uint32" /> uint32</td>
+<td>Uses variable-length encoding.</td>
+<td>uint32</td>
+<td>int</td>
+<td>int/long</td>
+<td>uint32</td>
+<td>uint</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="uint64" /> uint64</td>
+<td>Uses variable-length encoding.</td>
+<td>uint64</td>
+<td>long</td>
+<td>int/long</td>
+<td>uint64</td>
+<td>ulong</td>
+<td>integer/string</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="sint32" /> sint32</td>
+<td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+<td>int32</td>
+<td>int</td>
+<td>int</td>
+<td>int32</td>
+<td>int</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="sint64" /> sint64</td>
+<td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+<td>int64</td>
+<td>long</td>
+<td>int/long</td>
+<td>int64</td>
+<td>long</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="fixed32" /> fixed32</td>
+<td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+<td>uint32</td>
+<td>int</td>
+<td>int</td>
+<td>uint32</td>
+<td>uint</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="fixed64" /> fixed64</td>
+<td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+<td>uint64</td>
+<td>long</td>
+<td>int/long</td>
+<td>uint64</td>
+<td>ulong</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="sfixed32" /> sfixed32</td>
+<td>Always four bytes.</td>
+<td>int32</td>
+<td>int</td>
+<td>int</td>
+<td>int32</td>
+<td>int</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="sfixed64" /> sfixed64</td>
+<td>Always eight bytes.</td>
+<td>int64</td>
+<td>long</td>
+<td>int/long</td>
+<td>int64</td>
+<td>long</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="bool" /> bool</td>
+<td></td>
+<td>bool</td>
+<td>boolean</td>
+<td>boolean</td>
+<td>bool</td>
+<td>bool</td>
+<td>boolean</td>
+<td>TrueClass/FalseClass</td>
+</tr>
+<tr>
+<td><a name="string" /> string</td>
+<td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+<td>string</td>
+<td>String</td>
+<td>str/unicode</td>
+<td>string</td>
+<td>string</td>
+<td>string</td>
+<td>String (UTF-8)</td>
+</tr>
+<tr>
+<td><a name="bytes" /> bytes</td>
+<td>May contain any arbitrary sequence of bytes.</td>
+<td>string</td>
+<td>ByteString</td>
+<td>str</td>
+<td>[]byte</td>
+<td>ByteString</td>
+<td>string</td>
+<td>String (ASCII-8BIT)</td>
+</tr>
+</tbody>
+</table>
 
 
 
