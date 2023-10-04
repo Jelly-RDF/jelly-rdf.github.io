@@ -12,7 +12,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        path: pages
+
+      - uses: actions/checkout@v4
+        repository: Jelly-RDF/jelly-protobuf
+        path: proto
+
+      - uses: docker://pseudomuto/protoc-gen-doc
+        with:
+          args: --plugin=protoc-gen-doc=./protoc-gen-doc --doc_opt=markdown,reference.md --doc_out=pages/docs/specification proto/*.proto
+          entrypoint: protoc
+
+      - run: cd pages
 
       - uses: actions/setup-python@v4
         with:
