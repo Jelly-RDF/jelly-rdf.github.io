@@ -32,6 +32,7 @@ theme:
   features:
     # Behave like an SPA
     - navigation.instant
+    - navigation.instant.progress
     # Update anchors in the address bar
     - navigation.tracking
     - navigation.top
@@ -71,3 +72,28 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/Jelly-RDF
       name: Jelly on GitHub
+
+nav:
+  - Home: 'index.md'
+
+  - Protocol specification:
+    - 'specification/index.md'
+    - Serialization: 'specification/serialization.md'
+    - Streaming: 'specification/streaming.md'
+    - Protobuf reference: 'specification/reference.md'
+    - File extension and media type: 'specification/media-type.md'
+
+  - JVM (Scala) implementation:
+    - 'jvm/index.md'
+    - Getting started: 'jvm/getting-started.md'
+    - User guide:
+      - Apache Jena integration: 'jvm/jena.md'
+      - RDF4J integration: 'jvm/rdf4j.md'
+      - Reactive streaming: 'jvm/reactive.md'
+      - gRPC: 'jvm/grpc.md'
+    - Developer guide:
+      - Releases: 'jvm/releases.md'
+      - Implementing Jelly for other libraries: 'jvm/implementation.md'
+
+  - Contributing: 'contributing.md'
+  - Licensing and citation: 'licensing.md'
