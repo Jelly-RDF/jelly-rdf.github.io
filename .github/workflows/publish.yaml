@@ -23,7 +23,7 @@ jobs:
 
       - uses: docker://pseudomuto/protoc-gen-doc
         with:
-          args: --plugin=protoc-gen-doc=./protoc-gen-doc --doc_opt=markdown,reference.md --doc_out=pages/docs/specification proto/*.proto
+          args: --plugin=protoc-gen-doc=./protoc-gen-doc --doc_opt=markdown,reference.md --doc_out=/github/workspace/pages/docs/specification /github/workspace/proto/*.proto
           entrypoint: protoc
 
       - run: cd pages
