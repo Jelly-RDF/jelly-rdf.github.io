@@ -44,9 +44,9 @@ jobs:
       - name: Deploy site
         working-directory: ./pages
         run: |
-          PROTO_TAG=${{ steps.proto_release.outputs.release }}
-          V_MAJOR=echo ${PROTO_TAG#v} | awk -F '.' '{print $1}'
-          V_MINOR=echo ${PROTO_TAG#v} | awk -F '.' '{print $2}'
+          PROTO_TAG='${{ steps.proto_release.outputs.release }}'
+          V_MAJOR=`echo ${PROTO_TAG#v} | awk -F '.' '{print $1}'`
+          V_MINOR=`echo ${PROTO_TAG#v} | awk -F '.' '{print $2}'`
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
           git config user.email ci-bot@example.com
