@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
     
     
       
@@ -28,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.79e020e9.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bd3936ea.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.a5377069.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -1209,6 +1209,9 @@
 
 <h1 id="jelly-serialization-format">Jelly serialization format</h1>
 <p>TODO: intro, reference to RDF 1.1 and RDF-star, link to the proto reference, status of this spec</p>
+<p>define consumer, producer</p>
+<p>examples: https://protobuf.dev/reference/protobuf/textformat-spec/</p>
+<p>UTF-8</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
@@ -1298,17 +1301,120 @@
 <li><code>generalized_statements</code> (3) – whether the stream contains <a href="https://www.w3.org/TR/rdf11-concepts/#section-generalized-rdf">generalized RDF triples or graphs</a>. This field MUST be set to true if the stream contains generalized RDF triples or graphs. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
 <li><code>use_repeat</code> (4) – whether the stream uses <a href="#repeated-terms">repeated terms compression</a>. This field MUST be set to true if the stream uses repeated terms. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
 <li><code>rdf_star</code> (5) – whether the stream uses <a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">RDF-star</a> (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
-<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookups">name lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used and the size of the lookup MUST NOT exceed the value of this field.</li>
-<li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookups">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used and the size of the lookup MUST NOT exceed the value of this field.</li>
-<li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of <a href="#literals">datatype literals</a>). If the field is set to a positive value, the datatype lookup SHOULD be used and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookups">name lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookups">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of <a href="#literals">datatype literals</a>). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
 </ul>
 <h3 id="prefix-name-and-datatype-lookups">Prefix, name, and datatype lookups</h3>
-<p>TODO</p>
+<p>Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (postfixes), and datatypes. The lookups are used to compress the IRIs and datatypes in the stream. All lookups function in the same way:</p>
+<ul>
+<li>The lookup is a map from a varint to a valid UTF-8 string.</li>
+<li>The lookup can be modified at any point in the stream. The modification consists of setting the lookup for a given varint to a given string. The modification MUST be applied to all subsequent rows in the stream.</li>
+<li>The first use of a given lookup element MUST be after it is defined in the lookup. If the consumer encounters a lookup element that is not defined in the lookup, it SHOULD throw an error.</li>
+<li>The lookups are indexed from 1. The default value of 0 MUST NOT be used as a key in the lookup.</li>
+<li>The maximum size of the lookup is communicated at the start of the stream (see <a href="#stream-options">stream options header</a>). The producer of the stream MUST NOT exceed the maximum size of the lookup. The consumer of the stream MAY implement the lookup as a fixed-size array, or extend it dynamically.</li>
+<li>The lookup is updated with different messages, depending on the type of the lookup:<ul>
+<li><a href="../reference/#rdfnameentry"><code>RdfNameEntry</code></a> for the name lookup,</li>
+<li><a href="../reference/#rdfprefixentry"><code>RdfPrefixEntry</code></a> for the prefix lookup,</li>
+<li><a href="../reference/#rdfdatatypeentry"><code>RdfDatatypeEntry</code></a> for the datatype lookup.</li>
+</ul>
+</li>
+<li>The producer may use any strategy to update the lookup.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
+<p>The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.</p>
+</div>
 <h3 id="rdf-statements-and-graphs">RDF statements and graphs</h3>
+<p>RDF statements (triples or quads) are communicated in three different ways, depending on the type of the stream:</p>
+<ul>
+<li><code>RDF_STREAM_TYPE_TRIPLES</code> – triples are encoded using <a href="../reference/#rdftriple"><code>RdfTriple</code></a> messages.<ul>
+<li><code>RdfTriple</code> has three fields: <code>s</code>, <code>p</code>, <code>o</code>, corresponding to the subject, predicate, and object of the triple. All of these fields are <a href="#rdf-terms">RDF terms</a> and are REQUIRED.</li>
+</ul>
+</li>
+<li><code>RDF_STREAM_TYPE_QUADS</code> – quads are encoded using <a href="../reference/#rdfquad"><code>RdfQuad</code></a> messages.<ul>
+<li><code>RdfQuad</code> has four fields: <code>s</code>, <code>p</code>, <code>o</code>, <code>g</code>, corresponding to the subject, predicate, object, and graph of the quad. The <code>s</code>, <code>p</code>, <code>o</code> are <a href="#rdf-terms">RDF terms</a> and are REQUIRED. The <code>g</code> field is an <a href="#rdf-graph-nodes">RDF graph node</a> and is REQUIRED.</li>
+</ul>
+</li>
+<li><code>RDF_STREAM_TYPE_GRAPHS</code> – graphs are encoded using <a href="../reference/#rdfgraphstart"><code>RdfGraphStart</code></a> and <a href="../reference/#rdfgraphend"><code>RdfGraphEnd</code></a> messages. Triples between the start and end of the graph are encoded using <a href="../reference/#rdftriple"><code>RdfTriple</code></a> messages. If a triple is between the start and end of the graph, it is considered to be in the graph.<ul>
+<li>In this type of stream, triples MUST NOT occur outside of a graph. If a triple is encountered outside a graph, the consumer SHOULD throw an error.</li>
+<li>A graph start MUST NOT occur inside another graph. If a graph start is encountered inside another graph, the consumer SHOULD throw an error.</li>
+<li>A graph end MUST NOT occur outside a graph. If a graph end is encountered outside a graph, the consumer MAY throw an error.</li>
+<li>A graph MAY be empty (i.e., it may contain no triples).</li>
+<li>A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.</li>
+</ul>
+</li>
+</ul>
 <h3 id="rdf-terms">RDF terms</h3>
+<p>RDF terms are encoded using the <a href="../reference/#rdfterm"><code>RdfTerm</code></a> message. The message has one of the following fields set: <code>iri</code>, <code>bnode</code>, <code>literal</code>, <code>triple_term</code>, <code>repeat</code>, corresponding to RDF IRIs, blank nodes, literals, RDF-star quoted triples, and repeated terms, respectively. Exactly one of these fields MUST be set.</p>
 <h4 id="iris">IRIs</h4>
+<p>The IRIs are encoded using the <a href="../reference/#rdfiri"><code>RdfIri</code></a> message. The message has two fields that together make up the IRI:</p>
+<ul>
+<li><code>prefix_id</code> (1) – 1-based index of the prefix of the IRI, corresponding to an entry in the prefix lookup. This field is OPTIONAL and the default value (0) indicates an empty prefix.</li>
+<li><code>name_id</code> (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup. This field is OPTIONAL and the default value (0) indicates an empty name.</li>
+</ul>
+<p>At least one of the <code>prefix_id</code> and <code>name_id</code> fields MUST be set to a non-default, positive value. The IRI is then constructed by concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987</a>.</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>Assume the following lookup entries were defined in the stream (wrapping <code>RdfStreamRow</code>s were omitted for brevity):</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">RdfPrefixEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">prefix</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;example&quot;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://test.com/test&quot;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Then the following IRIs are encoded as follows:</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/example</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//test.com/test</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. The prefixes are not meant to be user-facing, but you can also use user-defined prefixes (e.g., <code>@prefix</code> in Turtle) to split the IRIs.</p>
+</div>
 <h4 id="blank-nodes">Blank nodes</h4>
+<p>RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.</p>
+<p>Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across the stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The producer SHOULD specify in the documentation which strategy it uses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the stream is meant to represent a single RDF graph or dataset, then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets, then the blank node identifiers should be unique only within a single frame.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many RDF libraries (e.g., RDF4J, Apache Jena) use internal identifiers for blank nodes, which can be used as the identifiers in Jelly streams. You can also use a different format, for example with shorter identifiers to preserve space.</p>
+</div>
 <h4 id="literals">Literals</h4>
+<p>RDF literals are represented using the <code>RdfLiteral</code> message (<a href="../reference/#rdfliteral">reference</a>). The message has the following fields:</p>
+<ul>
+<li><code>lex</code> (1) – the lexical form of the literal in UTF-8. This field is OPTIONAL and defaults to an empty string.</li>
+<li><code>literalKind</code> oneof. This field is REQUIRED and exactly one of the following fields MUST be set:<ul>
+<li><code>simple</code> (2) – empty message of type <code>RdfLiteralSimple</code> indicating that the literal is a simple literal (has datatype IRI equal to <code>http://www.w3.org/2001/XMLSchema#string</code>).</li>
+<li><code>langtag</code> (3) – UTF-8 language tag, indicating that the literal is a language-tagged string (has datatype IRI equal to <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#langString</code>). The language tag SHOULD be a valid <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> language tag.</li>
+<li><code>datatype</code> (4) – 1-based index of the datatype in the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>, indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.</li>
+</ul>
+</li>
+</ul>
 <h4 id="quoted-triples-rdf-star">Quoted triples (RDF-star)</h4>
 <h4 id="repeated-terms">Repeated terms</h4>
 <h3 id="rdf-graph-nodes">RDF graph nodes</h3>
@@ -1317,10 +1423,10 @@
 <p class="admonition-title">Note</p>
 <p>Protobuf messages <a href="https://protobuf.dev/programming-guides/techniques/#streaming">are not delimited</a>, so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. </p>
 </div>
-<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message.</p>
+<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message in bytes.</p>
 <p>Implementing the delimited variant is OPTIONAL.</p>
 <h3 id="implementations">Implementations</h3>
-<p>The delimiting convention is implemented in:</p>
+<p>The delimiting convention is implemented in Protobuf libraries for:</p>
 <ul>
 <li>C++: <a href="https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc">delimited_message_util.cc</a></li>
 <li>Java / Scala: <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-">writeDelimitedTo</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-">parseDelimitedFrom</a></li>
@@ -1356,7 +1462,7 @@
         <a href="https://creativecommons.org/licenses/by/4.0/">
         <span style="font-size: 1.1em;">
         <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m245.83 214.87-33.22 17.28c-9.43-19.58-25.24-19.93-27.46-19.93-22.13 0-33.22 14.61-33.22 43.84 0 23.57 9.21 43.84 33.22 43.84 14.47 0 24.65-7.09 30.57-21.26l30.55 15.5c-6.17 11.51-25.69 38.98-65.1 38.98-22.6 0-73.96-10.32-73.96-77.05 0-58.69 43-77.06 72.63-77.06 30.72-.01 52.7 11.95 65.99 35.86zm143.05 0-32.78 17.28c-9.5-19.77-25.72-19.93-27.9-19.93-22.14 0-33.22 14.61-33.22 43.84 0 23.55 9.23 43.84 33.22 43.84 14.45 0 24.65-7.09 30.54-21.26l31 15.5c-2.1 3.75-21.39 38.98-65.09 38.98-22.69 0-73.96-9.87-73.96-77.05 0-58.67 42.97-77.06 72.63-77.06 30.71-.01 52.58 11.95 65.56 35.86zM247.56 8.05C104.74 8.05 0 123.11 0 256.05c0 138.49 113.6 248 247.56 248 129.93 0 248.44-100.87 248.44-248 0-137.87-106.62-248-248.44-248zm.87 450.81c-112.54 0-203.7-93.04-203.7-202.81 0-105.42 85.43-203.27 203.72-203.27 112.53 0 202.82 89.46 202.82 203.26-.01 121.69-99.68 202.82-202.84 202.82z"></path></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M314.9 194.4v101.4h-28.3v120.5h-77.1V295.9h-28.3V194.4c0-4.4 1.6-8.2 4.6-11.3 3.1-3.1 6.9-4.7 11.3-4.7H299c4.1 0 7.8 1.6 11.1 4.7 3.1 3.2 4.8 6.9 4.8 11.3zm-101.5-63.7c0-23.3 11.5-35 34.5-35s34.5 11.7 34.5 35c0 23-11.5 34.5-34.5 34.5s-34.5-11.5-34.5-34.5zM247.6 8C389.4 8 496 118.1 496 256c0 147.1-118.5 248-248.4 248C113.6 504 0 394.5 0 256 0 123.1 104.7 8 247.6 8zm.8 44.7C130.2 52.7 44.7 150.6 44.7 256c0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8.1-113.8-90.2-203.3-202.8-203.3z"></path></svg></span>
-        </span>Creative Commons Attribution 4.0</a><br />Jelly's documentation is licensed under CC BY 4.0. The code is licensed under Apache 2.0. See also: <strong><a href="/licensing">licensing</a></strong>.
+        </span>Creative Commons Attribution 4.0</a><br />Jelly's documentation is licensed under CC BY 4.0. The code is licensed under Apache 2.0. See also: <strong><a href="/latest/licensing">licensing</a></strong>.
     </div>
   
   
@@ -1391,10 +1497,10 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.6eac0284.min.js"></script>
+      <script src="../../assets/javascripts/bundle.94c44541.min.js"></script>
       
     
   </body>
