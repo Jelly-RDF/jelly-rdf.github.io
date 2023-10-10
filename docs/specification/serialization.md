@@ -1,5 +1,7 @@
 # Jelly serialization format
 
+**Author:** TODO
+
 TODO: intro, reference to RDF 1.1 and RDF-star, link to the proto reference, status of this spec
 
 define consumer, producer
@@ -265,3 +267,9 @@ The delimiting convention is implemented in Protobuf libraries for:
 - Java / Scala: [writeDelimitedTo](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-) and [parseDelimitedFrom](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-)
 
 The JVM (Scala) implementation of Jelly also supports the delimited variant – [see the documentation](../jvm/reactive.md#byte-streams).
+
+## Internet media type and file extension
+
+The RECOMMENDED media type for Jelly is `application/x-jelly-rdf`. The RECOMMENDED file extension is `.jelly`.
+
+The files SHOULD be saved in the [delimited variant of Jelly](#delimited-variant-of-jelly).
