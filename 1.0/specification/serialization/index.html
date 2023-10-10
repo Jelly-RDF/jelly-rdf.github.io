@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.bd3936ea.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6a10b989.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
@@ -1243,7 +1243,24 @@
 </div>
 <p>Implementations MAY also choose to extend Jelly with additional features that SHOULD NOT interfere with the serialization being readable by implementations which follow the specification.</p>
 <h2 id="versioning">Versioning</h2>
-<p>The protocol follows the <a href="https://semver.org/">Semantic Versioning 2.0</a> scheme. </p>
+<p>The protocol follows the <a href="https://semver.org/">Semantic Versioning 2.0</a> scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the protocol. The version tag is encoded in the <code>version</code> field of the <a href="../reference/#rdfstreamoptions"><code>RdfStreamOptions</code></a> message. See also the <a href="#stream-options">section on stream options</a> for more information on how to handle the version tags in serialized streams.</p>
+<p>The following versions of the protocol are defined:</p>
+<table>
+<thead>
+<tr>
+<th>Version tag</th>
+<th>Semantic version</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1.0.x</td>
+<td><strong>(current)</strong></td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Releases of the protocol are published on <a href="https://github.com/Jelly-RDF/jelly-protobuf/releases">GitHub</a>.</p>
@@ -1319,6 +1336,15 @@
 <li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookups">name lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
 <li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookups">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
 <li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of <a href="#literals">datatype literals</a>). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>version</code> (15) – <a href="#versioning">version tag</a> of the stream. This field is REQUIRED.<ul>
+<li>The version tag is encoded as a varint. The version tag MUST be greater than 0.</li>
+<li>The producer of the stream MUST set the version tag to the version tag of the implementation.</li>
+<li>The consumer SHOULD throw an error if the version tag is greater than the version tag of the implementation.</li>
+<li>The consumer SHOULD throw an error if the version tag is zero.</li>
+<li>The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.</li>
+<li>The producer may use version tags greater than 1000 to indicate non-standard versions of the protocol.</li>
+</ul>
+</li>
 </ul>
 <h3 id="prefix-name-and-datatype-lookups">Prefix, name, and datatype lookups</h3>
 <p>Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (postfixes), and datatypes. The lookups are used to compress the IRIs and datatypes in the stream. All lookups function in the same way:</p>
@@ -1518,7 +1544,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.94c44541.min.js"></script>
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
       
     
   </body>
