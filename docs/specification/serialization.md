@@ -1,14 +1,20 @@
 # Jelly serialization format
 
-**Author:** TODO
+**This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
-TODO: intro, reference to RDF 1.1 and RDF-star, link to the proto reference, status of this spec
+This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`rdf.proto`](https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto)).
 
-define consumer, producer
+The following assumptions are used in this document:
 
-examples: https://protobuf.dev/reference/protobuf/textformat-spec/
+- The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/rdf11-concepts/)).
+- In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
+- All strings in the serialization are assumed to be UTF-8 encoded.
 
-UTF-8
+**Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
+
+**Version:** 1.0.0
+
+**Document status**: Stable specification
 
 !!! info
 
@@ -17,6 +23,10 @@ UTF-8
 !!! note
 
     The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.
+
+!!! note
+
+    The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format. The examples use the [Protocol Buffers Text Format Language](https://protobuf.dev/reference/protobuf/textformat-spec/).
 
 ## Conformance
 
@@ -53,6 +63,12 @@ Implementations SHOULD ensure backward compatibility. To achieve backward compat
 ### Forward compatibility
 
 Forward compatibility is not guaranteed. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.
+
+## Actors and implementations
+
+Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.
+
+Implementations may include only the producer, only the consumer, or both.
 
 ## Format specification
 
@@ -345,7 +361,7 @@ A byte stream (or file) in the delimited variant MUST consist of a series of del
 
 Implementing the delimited variant is OPTIONAL.
 
-### Implementations
+### Delimited variant implementations
 
 The delimiting convention is implemented in Protobuf libraries for:
 
@@ -359,3 +375,13 @@ The JVM (Scala) implementation of Jelly also supports the delimited variant – 
 The RECOMMENDED media type for Jelly is `application/x-jelly-rdf`. The RECOMMENDED file extension is `.jelly`.
 
 The files SHOULD be saved in the [delimited variant of Jelly](#delimited-variant-of-jelly).
+
+## Implementations
+
+The following implementations of the Jelly specification are available:
+
+- [Jelly JVM (Scala) implementation](../jvm/index.md)
+    - Specification version: 1.0.0
+    - Implemented actors: producer, consumer
+    - Conformance: full
+    - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/)
