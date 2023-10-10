@@ -421,6 +421,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#actors-and-implementations" class="md-nav__link">
+    Actors and implementations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#format-specification" class="md-nav__link">
     Format specification
   </a>
@@ -552,8 +559,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#implementations" class="md-nav__link">
-    Implementations
+  <a href="#delimited-variant-implementations" class="md-nav__link">
+    Delimited variant implementations
   </a>
   
 </li>
@@ -566,6 +573,13 @@
         <li class="md-nav__item">
   <a href="#internet-media-type-and-file-extension" class="md-nav__link">
     Internet media type and file extension
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
   </a>
   
 </li>
@@ -1054,6 +1068,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#actors-and-implementations" class="md-nav__link">
+    Actors and implementations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#format-specification" class="md-nav__link">
     Format specification
   </a>
@@ -1185,8 +1206,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#implementations" class="md-nav__link">
-    Implementations
+  <a href="#delimited-variant-implementations" class="md-nav__link">
+    Delimited variant implementations
   </a>
   
 </li>
@@ -1199,6 +1220,13 @@
         <li class="md-nav__item">
   <a href="#internet-media-type-and-file-extension" class="md-nav__link">
     Internet media type and file extension
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
   </a>
   
 </li>
@@ -1222,11 +1250,17 @@
 
 
 <h1 id="jelly-serialization-format">Jelly serialization format</h1>
-<p><strong>Author:</strong> TODO</p>
-<p>TODO: intro, reference to RDF 1.1 and RDF-star, link to the proto reference, status of this spec</p>
-<p>define consumer, producer</p>
-<p>examples: https://protobuf.dev/reference/protobuf/textformat-spec/</p>
-<p>UTF-8</p>
+<p><strong>This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
+<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto"><code>rdf.proto</code></a>).</p>
+<p>The following assumptions are used in this document:</p>
+<ul>
+<li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/rdf11-concepts/">W3C Recommendation 25 February 2014</a>).</li>
+<li>In parts referring to RDF-star, the RDF-star draft specification (<a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">W3C Community Group Draft Report 29 June 2023</a>) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.</li>
+<li>All strings in the serialization are assumed to be UTF-8 encoded.</li>
+</ul>
+<p><strong>Author:</strong> <a href="https://orcid.org/0000-0002-2543-9461">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>)</p>
+<p><strong>Version:</strong> 1.0.0</p>
+<p><strong>Document status</strong>: Stable specification</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
@@ -1234,6 +1268,10 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format. The examples use the <a href="https://protobuf.dev/reference/protobuf/textformat-spec/">Protocol Buffers Text Format Language</a>.</p>
 </div>
 <h2 id="conformance">Conformance</h2>
 <p>Implementations MAY choose to implement only a subset of the following specification. In this case, they SHOULD clearly specify which parts of the specification they implement. In the rest of this specification, the keywords "MUST", "MUST NOT", etc. refer to full (not partial) implementations.</p>
@@ -1273,6 +1311,9 @@
 </div>
 <h3 id="forward-compatibility">Forward compatibility</h3>
 <p>Forward compatibility is not guaranteed. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.</p>
+<h2 id="actors-and-implementations">Actors and implementations</h2>
+<p>Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
+<p>Implementations may include only the producer, only the consumer, or both.</p>
 <h2 id="format-specification">Format specification</h2>
 <p>The Jelly serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
 <p>The Jelly format is a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
@@ -1535,7 +1576,7 @@
 </div>
 <p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message in bytes.</p>
 <p>Implementing the delimited variant is OPTIONAL.</p>
-<h3 id="implementations">Implementations</h3>
+<h3 id="delimited-variant-implementations">Delimited variant implementations</h3>
 <p>The delimiting convention is implemented in Protobuf libraries for:</p>
 <ul>
 <li>C++: <a href="https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc">delimited_message_util.cc</a></li>
@@ -1545,6 +1586,17 @@
 <h2 id="internet-media-type-and-file-extension">Internet media type and file extension</h2>
 <p>The RECOMMENDED media type for Jelly is <code>application/x-jelly-rdf</code>. The RECOMMENDED file extension is <code>.jelly</code>.</p>
 <p>The files SHOULD be saved in the <a href="#delimited-variant-of-jelly">delimited variant of Jelly</a>.</p>
+<h2 id="implementations">Implementations</h2>
+<p>The following implementations of the Jelly specification are available:</p>
+<ul>
+<li><a href="../../jvm/">Jelly JVM (Scala) implementation</a><ul>
+<li>Specification version: 1.0.0</li>
+<li>Implemented actors: producer, consumer</li>
+<li>Conformance: full</li>
+<li>Supported RDF libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a></li>
+</ul>
+</li>
+</ul>
 
 
 
