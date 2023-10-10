@@ -30,7 +30,13 @@ Implementations MAY also choose to extend Jelly with additional features that SH
 
 ## Versioning
 
-The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. 
+The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the protocol. The version tag is encoded in the `version` field of the [`RdfStreamOptions`](reference.md#rdfstreamoptions) message. See also the [section on stream options](#stream-options) for more information on how to handle the version tags in serialized streams.
+
+The following versions of the protocol are defined:
+
+| Version tag | Semantic version |  |
+| ----------- | ---------------- | ----------- |
+| 1           | 1.0.x            | **(current)** |
 
 !!! note
     
@@ -126,6 +132,13 @@ The stream options header contains the following fields:
 - `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of [datatype literals](#literals)). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED.
+    - The version tag is encoded as a varint. The version tag MUST be greater than 0.
+    - The producer of the stream MUST set the version tag to the version tag of the implementation.
+    - The consumer SHOULD throw an error if the version tag is greater than the version tag of the implementation.
+    - The consumer SHOULD throw an error if the version tag is zero.
+    - The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.
+    - The producer may use version tags greater than 1000 to indicate non-standard versions of the protocol.
 
 ### Prefix, name, and datatype lookups
 
