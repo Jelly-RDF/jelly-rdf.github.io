@@ -258,9 +258,82 @@ RDF literals are represented using the `RdfLiteral` message ([reference](referen
 
 #### Quoted triples (RDF-star)
 
+RDF-star quoted triples are represented using the `RdfTriple` message ([reference](reference.md#rdftriple)). Quoted triples are encoded in the same manner as triple statements, with the only difference being that [repeated terms](#repeated-terms) (`RdfRepeat`) MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.
+
+Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
+
 #### Repeated terms
 
+Repeated terms indicate that a term in a given position (subject, predicate, object, or graph node in quads) is the same as the term in the same position in the previous row. The repeated terms are encoded using the `RdfRepeat` message ([reference](reference.md#rdfrepeat)). The message does not have any fields.
+
+- Repeated terms MUST NOT occur in quoted triples.
+- Repeated terms MUST NOT occur in the first statement row of the stream.
+- Repeated terms MAY occur in the first statement row of a stream frame. In this case, the repeated terms MUST be interpreted as repeated from the previous stream frame.
+- A repeated term in a given position MAY occur after a repeated term. The consumer MUST interpret all consecutive appearances of the repeated term as the same term.
+
+??? example "Example (click to expand)"
+
+    In the example the wrapping `RdfStreamRow`s were omitted for brevity:
+
+    ```protobuf
+    # First row
+    RdfTriple {
+        s: RdfTerm {
+            iri: RdfIri {
+                prefix_id: 1
+                name_id: 1
+            }
+        }
+        p: RdfTerm {
+            iri: RdfIri {
+                prefix_id: 1
+                name_id: 2
+            }
+        }
+        o: RdfTerm {
+            bnode: "b1"
+        }
+    }
+
+    # Second row – repeating the subject and predicate
+    RdfTriple {
+        s: RdfRepeat {} # RdfTerm(iri: RdfIri(1, 1))
+        p: RdfRepeat {} # RdfTerm(iri: RdfIri(1, 2))
+        o: RdfTerm {
+            bnode: "b2"
+        }
+    }
+
+    # Third row – repeating the subject and object
+    RdfTriple {
+        s: RdfRepeat {} # RdfTerm(iri: RdfIri(1, 1))
+        p: RdfTerm {
+            iri: RdfIri {
+                prefix_id: 2
+                name_id: 3
+            }
+        }
+        o: RdfRepeat {} # RdfTerm(bnode = "b2")
+    }
+    ```
+
+!!! note
+
+    Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.
+
+!!! note
+
+    Although repeated terms can stretch across stream frame boundaries (i.e., refer to values last seen in the previous stream frame), you don't have to use this feature. If your use case requires the stream frames to be more independent of each other (see: [stream frame ordering](#ordering)), you can just reset the repeated terms at the start of each stream frame.
+
 ### RDF graph nodes
+
+RDF graph nodes are encoded using the [`RdfGraph`](reference.md#rdfgraph) message. The message is used both in the `RdfGraphStart` message for GRAPHS streams and in the `RdfQuad` message for QUADS streams. The message MUST have exactly one of the following fields set:
+
+- `iri` (1) – the graph node is an IRI. The field is of type `RdfIri` (see: [RDF terms – IRIs](#iris)).
+- `bnode` (2) – the graph node is a blank node. The field is of type `string` (see: [RDF terms – blank nodes](#blank-nodes)).
+- `literal` (3) – the graph node is a literal. The field is of type `RdfLiteral` (see: [RDF terms – literals](#literals)). This field is only valid for generalized RDF streams (see: [stream options header](#stream-options)).
+- `default_graph` (4) – the graph node is the default graph. The field is of type [`RdfDefaultGraph`](reference.md#rdfdefaultgraph), which is an empty message.
+- `repeat` (10) – the graph node is the same as in the previous row. The field is of type [`RdfRepeat`](reference.md#rdfrepeat) (see: [repeated terms](#repeated-terms)). This field is only valid for QUADS streams, within the `RdfQuad` message. It MUST NOT occur within the `RdfGraphStart` message.
 
 ## Delimited variant of Jelly
 
