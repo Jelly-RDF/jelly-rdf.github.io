@@ -16,6 +16,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jelly-rdf.github.io/1.0/user-guide/</loc>
+         <lastmod>2023-10-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/</loc>
          <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>

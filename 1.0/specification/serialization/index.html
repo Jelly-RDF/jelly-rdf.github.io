@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#jelly-serialization-format" class="md-skip">
+        <a href="#jelly-serialization-format-specification" class="md-skip">
           Skip to content
         </a>
       
@@ -277,6 +277,25 @@
       
   
   
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -304,7 +323,7 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
@@ -320,14 +339,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Protocol specification
           </label>
@@ -603,7 +622,7 @@
         
   
   <span class="md-ellipsis">
-    Streaming
+    gRPC streaming protocol
   </span>
   
 
@@ -687,7 +706,7 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           
@@ -703,14 +722,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             JVM (Scala) implementation
           </label>
@@ -763,10 +782,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -777,8 +796,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
             <span class="md-nav__icon md-icon"></span>
             User guide
           </label>
@@ -893,10 +912,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -907,8 +926,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             Developer guide
           </label>
@@ -1249,7 +1268,7 @@
   
 
 
-<h1 id="jelly-serialization-format">Jelly serialization format</h1>
+<h1 id="jelly-serialization-format-specification">Jelly serialization format specification</h1>
 <p><strong>This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
 <p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto"><code>rdf.proto</code></a>).</p>
 <p>The following assumptions are used in this document:</p>
@@ -1329,8 +1348,8 @@
 <p>Stream frames can also be used to indicate individual stream elements. For example, in the case of a stream of RDF datasets, each frame may contain one dataset. <a href="https://w3id.org/riverbench/datasets">RiverBench datasets</a> use this convention in their distributions.</p>
 </div>
 <h4 id="ordering">Ordering</h4>
-<p>Stream frames MUST be processed strictly in order to preserve the semantics of the stream.</p>
-<p>Implementations MAY choose to adopt a <strong>non-standard</strong> solution where the order of the frames is not guaranteed and the stream can be read in more than one order. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.</p>
+<p>Stream frames MUST be processed strictly in order to preserve the semantics of the stream. Each stream frame MUST be processed in its entirety before the next stream frame is processed.</p>
+<p>Implementations MAY choose to adopt a <strong>non-standard</strong> solution where the order or delivery of the frames is not guaranteed and the stream can be read in more than one order or without some frames. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>An example where not adhering to the strict ordering may be useful is when you are dealing with a network streaming protocol that does not guarantee the order of the messages (e.g., MQTT).</p>
@@ -1425,9 +1444,14 @@
 <li>A graph end MUST NOT occur outside a graph. If a graph end is encountered outside a graph, the consumer MAY throw an error.</li>
 <li>A graph MAY be empty (i.e., it may contain no triples).</li>
 <li>A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.</li>
+<li>A graph MAY span more than one stream frame. The consumer MUST treat the graph spanning several stream frames as a single RDF graph.</li>
 </ul>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the stream is meant to represent a single RDF dataset, then the graphs should be able to stretch across several stream frames. If the stream is meant to represent a stream of RDF datasets, then the graphs should be contained within a single stream frame.</p>
+</div>
 <h3 id="rdf-terms">RDF terms</h3>
 <p>RDF terms are encoded using the <a href="../reference/#rdfterm"><code>RdfTerm</code></a> message. The message has one of the following fields set: <code>iri</code>, <code>bnode</code>, <code>literal</code>, <code>triple_term</code>, <code>repeat</code>, corresponding to RDF IRIs, blank nodes, literals, RDF-star quoted triples, and repeated terms, respectively. Exactly one of these fields MUST be set.</p>
 <h4 id="iris">IRIs</h4>

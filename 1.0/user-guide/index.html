@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/specification/">
+        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/user-guide/">
       
       
-        <link rel="prev" href="../user-guide/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="serialization/">
+        <link rel="next" href="../specification/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Jelly protocol specification - Jelly</title>
+        <title>User guide - Jelly</title>
       
     
     
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#jelly-protocol-specification" class="md-skip">
+        <a href="#jelly-user-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Jelly protocol specification
+              User guide
             
           </span>
         </div>
@@ -277,9 +277,29 @@
       
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../user-guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    User guide
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -288,6 +308,122 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-can-it-do" class="md-nav__link">
+    What can it do?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-it" class="md-nav__link">
+    How to use it?
+  </a>
+  
+    <nav class="md-nav" aria-label="How to use it?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    Stream types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-cookbook" class="md-nav__link">
+    Common patterns cookbook
+  </a>
+  
+    <nav class="md-nav" aria-label="Common patterns cookbook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#triple-stream-just-a-bunch-of-triples" class="md-nav__link">
+    Triple stream – "just a bunch of triples"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triple-stream-a-stream-of-graphs" class="md-nav__link">
+    Triple stream – "a stream of graphs"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quad-stream-just-a-bunch-of-quads" class="md-nav__link">
+    Quad stream – "just a bunch of quads"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quad-stream-a-stream-of-datasets" class="md-nav__link">
+    Quad stream – "a stream of datasets"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-stream-just-a-bunch-of-named-graphs" class="md-nav__link">
+    Graph stream – "just a bunch of named graphs"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-stream-a-stream-of-datasets" class="md-nav__link">
+    Graph stream – "a stream of datasets"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordering-and-delivery-guarantees" class="md-nav__link">
+    Ordering and delivery guarantees
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-jelly" class="md-nav__link">
+    Implementing Jelly
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -296,8 +432,6 @@
       
   
   
-    
-  
   
     
     
@@ -318,17 +452,17 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../specification/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -339,13 +473,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Protocol specification
@@ -360,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="serialization/" class="md-nav__link">
+      <a href="../specification/serialization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -380,7 +514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="streaming/" class="md-nav__link">
+      <a href="../specification/streaming/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -400,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/" class="md-nav__link">
+      <a href="../specification/reference/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -420,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="media-type/" class="md-nav__link">
+      <a href="../specification/media-type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -808,6 +942,110 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-can-it-do" class="md-nav__link">
+    What can it do?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-it" class="md-nav__link">
+    How to use it?
+  </a>
+  
+    <nav class="md-nav" aria-label="How to use it?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    Stream types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-cookbook" class="md-nav__link">
+    Common patterns cookbook
+  </a>
+  
+    <nav class="md-nav" aria-label="Common patterns cookbook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#triple-stream-just-a-bunch-of-triples" class="md-nav__link">
+    Triple stream – "just a bunch of triples"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triple-stream-a-stream-of-graphs" class="md-nav__link">
+    Triple stream – "a stream of graphs"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quad-stream-just-a-bunch-of-quads" class="md-nav__link">
+    Quad stream – "just a bunch of quads"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quad-stream-a-stream-of-datasets" class="md-nav__link">
+    Quad stream – "a stream of datasets"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-stream-just-a-bunch-of-named-graphs" class="md-nav__link">
+    Graph stream – "just a bunch of named graphs"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-stream-a-stream-of-datasets" class="md-nav__link">
+    Graph stream – "a stream of datasets"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordering-and-delivery-guarantees" class="md-nav__link">
+    Ordering and delivery guarantees
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-jelly" class="md-nav__link">
+    Implementing Jelly
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -824,15 +1062,261 @@
   
 
 
-<h1 id="jelly-protocol-specification">Jelly protocol specification</h1>
-<p><strong>The Jelly protocol consists of two parts: the <a href="streaming/">gRPC streaming protocol</a> and the <a href="serialization/">serialization format</a>.</strong> The serialization format is the basis for Jelly, specifying how to turn RDF data into bytes and back. The gRPC streaming protocol defines a publish/subscribe mechanism for exchanging RDF data between a client and a server, using gRPC.</p>
-<p><strong>See the <a href="../user-guide/">user guide</a> for a friendly introduction to Jelly.</strong></p>
-<p>See the specification pages for more details:</p>
+<h1 id="jelly-user-guide">Jelly user guide</h1>
+<p><strong>Jelly is a high-performance protocol for streaming and non-streaming RDF data. It is designed to be simple, fast, and easy to implement. This guide will help you get started with Jelly.</strong></p>
+<p>Jelly uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers 3</a> as the basis of its serialization. This means that you can quickly <a href="#implementing-jelly">create a new Jelly implementation using code generation</a>. You can also use an existing implementation, such as the <a href="../jvm/">JVM (Scala) implementation</a>.</p>
+<h2 id="what-can-it-do">What can it do?</h2>
+<p>Jelly is designed to be a protocol for <em>streaming</em> RDF data, but it can also be used with "classic", static RDF data. The main design goals of Jelly are speed, simplicity, and wide coverage of use cases. </p>
 <ul>
-<li><a href="serialization/">Serialization format</a></li>
-<li><a href="streaming/">gRPC streaming protocol</a></li>
-<li><a href="media-type/">File extension and media type</a></li>
+<li>Jelly can work with <strong>any RDF data</strong>, including RDF-star, RDF 1.1, and generalized RDF.</li>
+<li>Jelly can be used to represent <strong>streams of triples, quads, graphs, or datasets</strong>.</li>
+<li>Jelly can also be used to represent a <strong>single graph or dataset</strong>.</li>
+<li>Jelly can be used for <strong>streaming data over the network</strong> (e.g., with MQTT, Kafka, gRPC), but also for <strong>working with flat files</strong>.</li>
+<li>Jelly can <strong>compress RDF data on the fly</strong>, without having to know the data in advance.</li>
+<li>Jelly is super-fast and lightweight, scaling both down to <strong>embedded devices</strong> and up to <strong>high-performance servers</strong>.</li>
 </ul>
+<h2 id="how-to-use-it">How to use it?</h2>
+<p>To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: <strong><a href="../jvm/">Jelly JVM (Scala)</a></strong>, which supports both <a href="https://jena.apache.org/">Apache Jena</a> and <a href="https://rdf4j.org/">Eclipse RDF4J</a>. It also has support for reactive streams and gRPC.</p>
+<p>The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see <a href="#stream-types">stream types</a> below).</p>
+<p>All stream types use the same concept of <strong>stream frames</strong> – discrete elements into which the stream is divided. Each frame contains a number of <strong>rows</strong>, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not define the semantics of stream frames – it's up to you to decide what they mean (see examples below).</p>
+<div class="admonition question">
+<p class="admonition-title">Why doesn't Jelly define the semantics of stream frames?</p>
+<p>There are many, many ways in which streams of RDF data can be used – there are different use cases, network protocols, QoS settings, ordering guarantees, stream semantics, etc. Picking specific semantics for stream frames would hopelessly overcomplicate the protocol and make it less useful in some use cases.</p>
+<p>Jelly tries to make as few assumptions as possible about the streams to ensure it is widely applicable. It is the responsibility of the end users to define the semantics of stream frames for their use case. To help with that, this user guide contains some common patterns and examples.</p>
+</div>
+<h3 id="stream-types">Stream types</h3>
+<ul>
+<li><strong>Triple stream</strong>: A stream of triple statements. You can use it to represent:<ul>
+<li>A single unnamed RDF graph – stream frames are just batches of triples.</li>
+<li>A stream of triple statements – stream frames are just batches of triples.</li>
+<li>A stream of default (unnamed) RDF graphs – each stream frame corresponds to a different RDF graph.</li>
+</ul>
+</li>
+<li><strong>Quad stream</strong>: A stream of quad (triple with graph node) statements. You can use it to represent:<ul>
+<li>A single RDF dataset – stream frames are just batches of quads.</li>
+<li>A stream of quad statements – stream frames are just batches of quads.</li>
+<li>A stream of RDF datasets – each stream frame corresponds to a different RDF dataset.</li>
+</ul>
+</li>
+<li><strong>Graph stream</strong>: A stream of triples grouped into graphs (named or unnamed). You can use it to represent:<ul>
+<li>A single RDF dataset – stream frames are just batches of graphs (possibly partial graphs).</li>
+<li>A stream of named RDF graphs – each stream frame corresponds to a different named graph.</li>
+<li>A stream of RDF datasets – each stream frame corresponds to a different RDF dataset.</li>
+</ul>
+</li>
+</ul>
+<h3 id="common-patterns-cookbook">Common patterns cookbook</h3>
+<p>Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the <a href="../jvm/reactive/">Jelly JVM (Scala) implementation</a> with the Reactive Streaming module.</p>
+<h4 id="triple-stream-just-a-bunch-of-triples">Triple stream – "just a bunch of triples"</h4>
+<p>Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.</p>
+<p>You can use a triple stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Triple 1</li>
+<li>Triple 2</li>
+<li>...</li>
+<li>Triple 1000</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Triple 1001</li>
+<li>Triple 1002</li>
+<li>...</li>
+<li>Triple 2000</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>You can then send these frames one-by-one over gRPC or Kafka, or write them to a file. The consumer will be able to read the triples one frame at a time, without having to know how many triples there are in total.</p>
+<h4 id="triple-stream-a-stream-of-graphs">Triple stream – "a stream of graphs"</h4>
+<p>In this case we have an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like <a href="https://www.w3.org/TR/vocab-ssn/">SOSA/SSN</a>). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.</p>
+<p>You can use a triple stream, where the stream frames correspond to different unnamed (default) graphs:</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Triple 1 (of graph 1)</li>
+<li>Triple 2 (of graph 1)</li>
+<li>...</li>
+<li>Triple 134 (of graph 1)</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Triple 1 (of graph 2)</li>
+<li>Triple 2 (of graph 2)</li>
+<li>...</li>
+<li>Triple 97 (of graph 2)</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.</p>
+<p><a href="http://w3id.org/riverbench">RiverBench</a> uses this pattern for distributing its triple streams (see <a href="https://w3id.org/riverbench/datasets/lod-katrina/dev">example</a>). Note that in RiverBench the stream may be equivalently considered "just a bunch of triples" – the serialization is the same, it only depends on the interpretation on the side of the consumer.</p>
+<h4 id="quad-stream-just-a-bunch-of-quads">Quad stream – "just a bunch of quads"</h4>
+<p>You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. You can use a quad stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Quad 1</li>
+<li>Quad 2</li>
+<li>...</li>
+<li>Quad 1000</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Quad 1001</li>
+<li>Quad 1002</li>
+<li>...</li>
+<li>Quad 2000</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>The mechanism is exactly the same as with a triple stream.</p>
+<h4 id="quad-stream-a-stream-of-datasets">Quad stream – "a stream of datasets"</h4>
+<p>You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. You can use a quad stream, where the stream frames correspond to different datasets:</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Quad 1 (of dataset 1)</li>
+<li>Quad 2 (of dataset 1)</li>
+<li>...</li>
+<li>Quad 454 (of dataset 1)</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Quad 1 (of dataset 2)</li>
+<li>Quad 2 (of dataset 2)</li>
+<li>...</li>
+<li>Quad 323 (of dataset 2)</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>The mechanism is exactly the same as with a triple stream of graphs.</p>
+<p><a href="http://w3id.org/riverbench">RiverBench</a> uses this pattern for distributing its quad and graph streams (see <a href="https://w3id.org/riverbench/datasets/nanopubs/dev">example</a>). Note that in RiverBench the stream may be equivalently considered "just a bunch of quads" – the serialization is the same, it only depends on the interpretation on the side of the consumer.</p>
+<h4 id="graph-stream-just-a-bunch-of-named-graphs">Graph stream – "just a bunch of named graphs"</h4>
+<p>This a slightly different take on the problem of "just a bunch of quads" – you also want to transmit what is essentially an RDF dataset, but instead of sending individual quads, you want to send it graph-by-graph. This makes most sense if your data changes on a per-graph basis, or you are streaming a static RDF dataset.</p>
+<p>You can use a graph stream, batching the triples in the graphs into frames of an arbitrary size (let's say, 1000 triples each):</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Start graph (named 1)</li>
+<li>Triple 1 (of graph 1)</li>
+<li>Triple 2 (of graph 1)</li>
+<li>...</li>
+<li>Triple 134 (of graph 1)</li>
+<li>End graph</li>
+<li>Start graph (named 2)</li>
+<li>Triple 1 (of graph 2)</li>
+<li>Triple 2 (of graph 2)</li>
+<li>...</li>
+<li>Triple 97 (of graph 2)</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Triple 98 (of graph 2)</li>
+<li>...</li>
+<li>Triple 130 (of graph 2)</li>
+<li>End graph</li>
+<li>Start graph (named 3)</li>
+<li>Triple 1 (of graph 3)</li>
+<li>Triple 2 (of graph 3)</li>
+<li>...</li>
+<li>Triple 77 (of graph 3)</li>
+<li>End graph</li>
+<li>Start graph (named 4)</li>
+<li>Triple 1 (of graph 4)</li>
+<li>Triple 2 (of graph 4)</li>
+<li>...</li>
+<li>Triple 21 (of graph 4)</li>
+<li>End graph</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>Notice that one graph can span multiple stream frames, and one stream frame can contain multiple graphs. The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.</p>
+<h4 id="graph-stream-a-stream-of-datasets">Graph stream – "a stream of datasets"</h4>
+<p>You want to stream RDF datasets – for example using the <a href="https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/">RSP Data Model</a>, where each element is a named graph and a bunch of statements about this graph in the default graph. You can use a graph stream, where the stream frames correspond to different datasets:</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Start graph (default)    </li>
+<li>Triple 1 (of default graph)</li>
+<li>Triple 2 (of default graph)</li>
+<li>...</li>
+<li>Triple 134 (of default graph)</li>
+<li>End graph</li>
+<li>Start graph (named)</li>
+<li>Triple 1 (of named graph)</li>
+<li>Triple 2 (of named graph)</li>
+<li>...</li>
+<li>Triple 97 (of named graph)</li>
+<li>End graph</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Start graph (default)</li>
+<li>Triple 1 (of default graph)</li>
+<li>Triple 2 (of default graph)</li>
+<li>...</li>
+<li>Triple 77 (of default graph)</li>
+<li>End graph</li>
+<li>Start graph (named)</li>
+<li>Triple 1 (of named graph)</li>
+<li>Triple 2 (of named graph)</li>
+<li>...</li>
+<li>Triple 21 (of named graph)</li>
+<li>End graph</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>Of course each stream frame can contain more than one named graph, and the graphs can be of different sizes.</p>
+<h2 id="ordering-and-delivery-guarantees">Ordering and delivery guarantees</h2>
+<p>To be able to compress RDF streams on-the-fly, Jelly requires that stream frames are kept strictly in order (see also <a href="../specification/serialization/#ordering">the spec</a>). This is because the compression algorithm updates its lookup tables dynamically over the course of the stream, and a given frame depends on the lookups defined in previous frames. If the frames are out of order, the compression may fail.</p>
+<p>There are use cases where it's hard to guarantee strict ordering of messages, such as IoT messaging (e.g., MQTT with QoS 0) or high-throughput streams with parallel partitions (e.g., Kafka). In these cases you may want to employ one of these strategies:</p>
+<ul>
+<li><strong>Emit shared lookup tables at the start of the stream</strong>: If you know the vocabulary of the stream, you can emit most of the content of the lookup tables at the start of the stream, and then only update the lookup elements that vary frame-to-frame, keeping the updates local to the frame. This strategy is especially useful in IoT scenarios, where the vocabulary is usually known in advance. You don't need to modify the consumer in this case.<ul>
+<li>A variation of this strategy is to communicate the lookup tables over a separate channel before starting the stream. This is useful if you can't guarantee that the lookup tables will be delivered before the stream frames.</li>
+</ul>
+</li>
+<li><strong>Use a "frame ID" to keep track of the order</strong>: If you can't guarantee the order of the frames, you can add a "frame ID" to each frame, which will allow the consumer to reorder the frames before processing them. This strategy is useful in high-throughput scenarios, where you can't guarantee the order of the frames. You will need to modify the consumer to reorder the frames before processing them. However, handling failures in this scenario may be complicated.</li>
+<li><strong>Use partitions that are guaranteed to be in-order</strong>: If you can't guarantee the order of the frames, you can use partitions that are guaranteed to be in-order (e.g., Kafka partitions). Then, each partition should have its own set of lookups (essentially treating each partition as a separate stream in Jelly's terms). This strategy is useful in high-throughput scenarios.</li>
+</ul>
+<p>Note that Jelly by default also assumes that frames are delivered at least once. At-least-once delivery is good enough (as long as the order is kept), as lookup updates are idempotent – you may only need to de-duplicate the frames afterwards. At-most-once delivery requires you to make the frames independent of each other, such as with the IoT strategy above.</p>
+<h2 id="implementing-jelly">Implementing Jelly</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is intended only for those who want to write a new Jelly implementation from scratch. It's much easier to use an existing implementation, such as the <a href="../jvm/">JVM (Scala) implementation</a>.</p>
+</div>
+<p>Implementing Jelly from scratch is greatly simplified by the existing Protobuf and RDF libraries. Essentially, the only thing you'll need to do is to glue them together:</p>
+<ul>
+<li>Find a Protobuf library for your language. You can find a list of official Protobuf implementations <a href="https://protobuf.dev/reference/">here</a> and a list of community-maintained implementations <a href="https://github.com/protocolbuffers/protobuf/blob/main/docs/third_party.md">here</a>.</li>
+<li>Use the library to generate the code for the Jelly messages (this usually involves using <code>protoc</code>). You can find the Protobuf definitions in the <a href="https://github.com/Jelly-RDF/jelly-protobuf">jelly-protobuf</a> repository.</li>
+<li>Find an RDF library for your language. You can find a list of RDF libraries <a href="https://github.com/semantalytics/awesome-semantic-web#programming">here</a>.</li>
+<li>Implement conversions to and/or from the RDF library's data structures. You can find an example of the conversion code in the <a href="https://github.com/Jelly-RDF/jelly-jvm">Jelly JVM (Scala) implementation</a> (<code>core</code>, <code>jena</code>, and <code>rdf4j</code> modules).</li>
+<li>In the implementation follow the <a href="../specification/">specification</a> to ensure compatibility.</li>
+</ul>
+<p>That's it! You may also want to implement streaming facilities, such as <a href="https://www.reactive-streams.org/">Reactive Streams</a> in Java/Scala. Implementing the <a href="../specification/streaming/">gRPC publish/subscribe mechanism</a> follows a very similar procedure – many Protobuf libraries have built-in support for gRPC with code generation.</p>
 
 
 
