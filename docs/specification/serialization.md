@@ -1,4 +1,4 @@
-# Jelly serialization format
+# Jelly serialization format specification
 
 **This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
@@ -92,9 +92,9 @@ A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#r
 
 #### Ordering
 
-Stream frames MUST be processed strictly in order to preserve the semantics of the stream.
+Stream frames MUST be processed strictly in order to preserve the semantics of the stream. Each stream frame MUST be processed in its entirety before the next stream frame is processed.
 
-Implementations MAY choose to adopt a **non-standard** solution where the order of the frames is not guaranteed and the stream can be read in more than one order. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.
+Implementations MAY choose to adopt a **non-standard** solution where the order or delivery of the frames is not guaranteed and the stream can be read in more than one order or without some frames. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.
 
 !!! note
 
@@ -191,6 +191,11 @@ RDF statements (triples or quads) are communicated in three different ways, depe
     - A graph end MUST NOT occur outside a graph. If a graph end is encountered outside a graph, the consumer MAY throw an error.
     - A graph MAY be empty (i.e., it may contain no triples).
     - A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.
+    - A graph MAY span more than one stream frame. The consumer MUST treat the graph spanning several stream frames as a single RDF graph.
+
+!!! note
+
+    If the stream is meant to represent a single RDF dataset, then the graphs should be able to stretch across several stream frames. If the stream is meant to represent a stream of RDF datasets, then the graphs should be contained within a single stream frame.
 
 ### RDF terms
 
