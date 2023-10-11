@@ -389,6 +389,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    gRPC streaming protocol
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -398,6 +409,147 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conformance" class="md-nav__link">
+    Conformance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    Versioning
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backward-compatibility" class="md-nav__link">
+    Backward compatibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-compatibility" class="md-nav__link">
+    Forward compatibility
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actors-and-implementations" class="md-nav__link">
+    Actors and implementations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol-specification" class="md-nav__link">
+    Protocol specification
+  </a>
+  
+    <nav class="md-nav" aria-label="Protocol specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topics" class="md-nav__link">
+    Topics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscribing-to-a-stream" class="md-nav__link">
+    Subscribing to a stream
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscribing to a stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-options-handling" class="md-nav__link">
+    Stream options handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    Error handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-a-stream" class="md-nav__link">
+    Publishing a stream
+  </a>
+  
+    <nav class="md-nav" aria-label="Publishing a stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-options-handling_1" class="md-nav__link">
+    Stream options handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling_1" class="md-nav__link">
+    Error handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -818,6 +970,136 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conformance" class="md-nav__link">
+    Conformance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    Versioning
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backward-compatibility" class="md-nav__link">
+    Backward compatibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-compatibility" class="md-nav__link">
+    Forward compatibility
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actors-and-implementations" class="md-nav__link">
+    Actors and implementations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol-specification" class="md-nav__link">
+    Protocol specification
+  </a>
+  
+    <nav class="md-nav" aria-label="Protocol specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topics" class="md-nav__link">
+    Topics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscribing-to-a-stream" class="md-nav__link">
+    Subscribing to a stream
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscribing to a stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-options-handling" class="md-nav__link">
+    Stream options handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    Error handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-a-stream" class="md-nav__link">
+    Publishing a stream
+  </a>
+  
+    <nav class="md-nav" aria-label="Publishing a stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-options-handling_1" class="md-nav__link">
+    Stream options handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling_1" class="md-nav__link">
+    Error handling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    Implementations
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -835,6 +1117,59 @@
 
 
 <h1 id="jelly-grpc-streaming-protocol-specification">Jelly gRPC streaming protocol specification</h1>
+<p><strong>This document is the specification of the Jelly gRPC streaming protocol (publish/subscribe mechanism). It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
+<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/grpc.proto"><code>grpc.proto</code></a>).</p>
+<p>The following assumptions are used in this document:</p>
+<ul>
+<li>This document uses the <a href="../serialization/">specification for the Jelly serialization format</a>.</li>
+<li>All strings in the mentioned Protobuf messages are assumed to be UTF-8 encoded.</li>
+</ul>
+<p><strong>Author:</strong> <a href="https://orcid.org/0000-0002-2543-9461">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>)</p>
+<p><strong>Version:</strong> 1.0.0</p>
+<p><strong>Document status</strong>: Draft specification</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format. The examples use the <a href="https://protobuf.dev/reference/protobuf/textformat-spec/">Protocol Buffers Text Format Language</a>.</p>
+</div>
+<h2 id="conformance">Conformance</h2>
+<p>Implementations MAY choose to implement only a subset of the following specification. In this case, they SHOULD clearly specify which parts of the specification they implement. In the rest of this specification, the keywords "MUST", "MUST NOT", etc. refer to full (not partial) implementations.</p>
+<h2 id="versioning">Versioning</h2>
+<p>The streaming protocol follows the <a href="https://semver.org/">Semantic Versioning 2.0</a> scheme. The version of the gRPC streaming protocol is equal to the version of the corresponding serialization format (1:1 equivalence). The version of the protocol is specified in the stream options – see the <a href="../serialization/#versioning">serialization specification</a> for details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Releases of the protocol are published on <a href="https://github.com/Jelly-RDF/jelly-protobuf/releases">GitHub</a>.</p>
+</div>
+<h3 id="backward-compatibility">Backward compatibility</h3>
+<p>Implementations SHOULD ensure backward compatibility. To achieve backward compatibility, the implementation MUST be able to respond to all RPCs from the previous releases of the protocol with the same MAJOR version. The implementation MAY also be able to respond to RPCs from previous releases of the protocol with a different MAJOR version.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The protocol is designed in such a way that you don't need to worry about backward compatibility. The only thing you need to do is to implement the latest version of the protocol, and you will automatically get backward compatibility with all previous versions (of the same MAJOR).</p>
+</div>
+<h3 id="forward-compatibility">Forward compatibility</h3>
+<p>Forward compatibility is not guaranteed. Implementations MAY be able to respond to RPCs from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to respond to RPCs from future releases of the protocol with a different MAJOR version.</p>
+<h2 id="actors-and-implementations">Actors and implementations</h2>
+<p>The Jelly gRPC streaming protocol assumes there to be two actors: the server and the client. These actors can both play the role of the producer or the consumer of the stream (see <a href="../serialization/#actors-and-implementations">serialization specification</a>), depending on the direction of the stream.</p>
+<p>Implementations may include only the server, only the client, or both.</p>
+<h2 id="protocol-specification">Protocol specification</h2>
+<h3 id="topics">Topics</h3>
+<h3 id="subscribing-to-a-stream">Subscribing to a stream</h3>
+<p>TODO</p>
+<h4 id="stream-options-handling">Stream options handling</h4>
+<h4 id="error-handling">Error handling</h4>
+<h3 id="publishing-a-stream">Publishing a stream</h3>
+<p>TODO</p>
+<h4 id="stream-options-handling_1">Stream options handling</h4>
+<h4 id="error-handling_1">Error handling</h4>
+<h2 id="implementations">Implementations</h2>
+<p>TODO</p>
 
 
 
