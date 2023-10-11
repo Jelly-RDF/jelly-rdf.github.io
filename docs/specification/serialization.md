@@ -14,7 +14,7 @@ The following assumptions are used in this document:
 
 **Version:** 1.0.0
 
-**Document status**: Stable specification
+**Document status**: Draft specification
 
 !!! info
 
