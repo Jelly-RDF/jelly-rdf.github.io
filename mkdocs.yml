@@ -80,6 +80,7 @@ extra:
 nav:
   - Home: 'index.md'
   - User guide: 'user-guide.md'
+  - Performance: 'performance.md'
 
   - Protocol specification:
     - 'specification/index.md'
