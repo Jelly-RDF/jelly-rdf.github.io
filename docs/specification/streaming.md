@@ -8,7 +8,7 @@ The following assumptions are used in this document:
 
 - This document uses the [specification for the Jelly serialization format](serialization.md).
 - All strings in the mentioned Protobuf messages are assumed to be UTF-8 encoded.
-- Standard gRPC error codes are used, as defined in [gRPC documentation](https://grpc.github.io/grpc/core/md_doc_statuscodes.html).
+- Standard gRPC status codes are used, as defined in [gRPC documentation](https://grpc.github.io/grpc/core/md_doc_statuscodes.html).
 
 **Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
 
@@ -61,7 +61,15 @@ Implementations may include only the server, only the client, or both.
 
 ## Protocol specification
 
-The protocol specifies a simple publish/subscribe mechanism topics identified with UTF-8 strings. The client can subscribe to a topic and receive messages published to that topic by the server. The client can also publish messages to a topic. The protocol does not specify what happens to the messages on the server – this is NOT a broker or message queue specification. The protocol is meant to enable point-to-point communication, but can also be used to implement a broker or a similar service.
+The protocol specifies a simple publish/subscribe mechanism topics identified with UTF-8 strings. The client can subscribe to a topic and receive messages published to that topic by the server. The client can also publish messages to a topic.
+
+The described protocol is implemented as a gRPC service `RdfStreamService` ([reference](reference.md#rdfstreamservice)).
+
+!!! note
+
+    The protocol does not specify what happens to the messages on the server – this is NOT a broker or message queue specification. The protocol is meant to enable point-to-point communication, but can also be used to implement a broker or a similar service (see [Usage notes](#usage-notes) below).
+
+    You can also ignore the topics and use the protocol as a simple streaming protocol.
 
 ### Topics
 
@@ -84,7 +92,7 @@ The server MUST respond with either a stream of [`RdfStreamFrame`](reference.md#
 
 The client MAY request specific options for the stream it subscribes to. In that case, the client MUST include the `options` field in the `RdfStreamSubscribe` message. The server SHOULD respond with a stream that uses options that are compatible with the options requested by the client. If the server cannot respond with a stream that uses options that are compatible with the options requested by the client, the server MUST respond with the `INVALID_ARGUMENT` error.
 
-The following rules are used to determine if the options are compatible:
+The following rules are used to determine if the options are compatible. All rules MUST be satisfied for the options to be compatible.
 
 | Option | Client request | Server response |
 | --- | --- | --- |
@@ -92,21 +100,40 @@ The following rules are used to determine if the options are compatible:
 | `stream_type` | `x` | MUST be `x` |
 | `generalized_statements` | `x` | MUST be `x` or false |
 | `use_repeat` | `x` | MUST be `x` or false |
-
-TODO
+| `rdf_star` | `x` | MUST be `x` or false |
+| `max_name_table_size` | `x` | MUST be <= `x` |
+| `max_prefix_table_size` | `x` | MUST be <= `x` |
+| `max_datatype_table_size` | `x` | MUST be <= `x` |
 | `version` | `x` | MUST be <= `x` |
 
+!!! notes
 
-#### Error handling
+    The server should implement some limits for the stream options it supports, for example the maximum size of the name table. Otherwise, a client may request a name table that takes up all the server's memory.
 
 ### Publishing a stream
 
-TODO
+The client publishes a stream to the server with the `PublishRdf` RPC ([reference](reference.md#publishrdf)). The RPC is initiated with a stream of [`RdfStreamFrame`](reference.md#rdfstreamframe) messages from the client. The stream MUST include at least one message. The first frame MUST include a row with the stream options as the first row. After the stream successfully completes, the server MUST respond with the `RdfStreamReceived` message ([reference](reference.md#rdfstreamreceived)).
 
-#### Stream options handling
+If the server cannot handle the stream with the specified options, the server MUST respond with the `INVALID_ARGUMENT` error.
 
-#### Error handling
+## Usage notes
+
+*This section is not part of the specification.*
+
+The protocol is deliberately very general and unrestrictive. The pub/sub mechanism can be used in a number of ways, possibly extending the existing base protocol. The following are some examples of how the protocol can be used:
+
+- Server publishing a number of streams, each with a different topic.
+- RDF stream broker or message queue – the server acts as a "hub" aggregating RDF data sent to a topic by clients, and then forwarding it to other clients.
+- Microservice chains – one service can process an RDF stream, forward it to another service, etc.
+
+These use cases can be implemented with the protocol as-is, or by extending the protocol with additional messages and/or RPCs. In either case, the protocol provides a base layer for compatibility between different implementations.
 
 ## Implementations
 
-TODO
+*This section is not part of the specification.*
+
+The following implementations of the Jelly gRPC streaming protocol specification are available:
+
+- [Jelly JVM (Scala) implementation](../jvm/index.md)
+    - Specification version: 1.0.0
+    - Partial (boilerplate) implementation based on [Apache Pekko gRPC](https://pekko.apache.org/docs/pekko-grpc/current/). Requires the end user to implement their own code for handling the streams.

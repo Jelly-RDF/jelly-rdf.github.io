@@ -383,7 +383,9 @@ The files SHOULD be saved in the [delimited variant of Jelly](#delimited-variant
 
 ## Implementations
 
-The following implementations of the Jelly specification are available:
+*This section is not part of the specification.*
+
+The following implementations of the Jelly serialization format specification are available:
 
 - [Jelly JVM (Scala) implementation](../jvm/index.md)
     - Specification version: 1.0.0
