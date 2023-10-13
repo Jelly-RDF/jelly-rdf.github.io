@@ -8,6 +8,7 @@ The following assumptions are used in this document:
 
 - This document uses the [specification for the Jelly serialization format](serialization.md).
 - All strings in the mentioned Protobuf messages are assumed to be UTF-8 encoded.
+- Standard gRPC error codes are used, as defined in [gRPC documentation](https://grpc.github.io/grpc/core/md_doc_statuscodes.html).
 
 **Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
 
@@ -60,13 +61,41 @@ Implementations may include only the server, only the client, or both.
 
 ## Protocol specification
 
+The protocol specifies a simple publish/subscribe mechanism topics identified with UTF-8 strings. The client can subscribe to a topic and receive messages published to that topic by the server. The client can also publish messages to a topic. The protocol does not specify what happens to the messages on the server – this is NOT a broker or message queue specification. The protocol is meant to enable point-to-point communication, but can also be used to implement a broker or a similar service.
+
 ### Topics
+
+Topics are identified with UTF-8 strings. The topic string MUST be valid UTF-8. There are no further restrictions on the topic string.
+
+!!! note
+
+    The topic can be whatever you like – it can also be empty. It is up the user to decide what to use the topics for, or if to use them at all.
 
 ### Subscribing to a stream
 
-TODO
+The client subscribes to a stream from the server with the `SubscribeRdf` RPC ([reference](reference.md#subscriberdf)). The RPC is initiated with an `RdfStreamSubscribe` message ([reference](reference.md#rdfstreamsubscribe)) from the client. The message includes two OPTIONAL fields:
+
+- `topic` (1) – the topic to subscribe to. The default is an empty string.
+- `options` (2) – the stream options ([`RdfStreamOptions`](reference.md#rdfstreamoptions)). The default is an empty message.
+
+The server MUST respond with either a stream of [`RdfStreamFrame`](reference.md#rdfstreamframe) messages or an error.
 
 #### Stream options handling
+
+The client MAY request specific options for the stream it subscribes to. In that case, the client MUST include the `options` field in the `RdfStreamSubscribe` message. The server SHOULD respond with a stream that uses options that are compatible with the options requested by the client. If the server cannot respond with a stream that uses options that are compatible with the options requested by the client, the server MUST respond with the `INVALID_ARGUMENT` error.
+
+The following rules are used to determine if the options are compatible:
+
+| Option | Client request | Server response |
+| --- | --- | --- |
+| `stream_name` | `x` | MAY be `x` |
+| `stream_type` | `x` | MUST be `x` |
+| `generalized_statements` | `x` | MUST be `x` or false |
+| `use_repeat` | `x` | MUST be `x` or false |
+
+TODO
+| `version` | `x` | MUST be <= `x` |
+
 
 #### Error handling
 
