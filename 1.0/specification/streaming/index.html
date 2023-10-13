@@ -515,13 +515,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    Error handling
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -532,30 +525,17 @@
     Publishing a stream
   </a>
   
-    <nav class="md-nav" aria-label="Publishing a stream">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#stream-options-handling_1" class="md-nav__link">
-    Stream options handling
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-handling_1" class="md-nav__link">
-    Error handling
-  </a>
-  
 </li>
         
       </ul>
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#usage-notes" class="md-nav__link">
+    Usage notes
+  </a>
   
 </li>
       
@@ -1066,13 +1046,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    Error handling
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1083,30 +1056,17 @@
     Publishing a stream
   </a>
   
-    <nav class="md-nav" aria-label="Publishing a stream">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#stream-options-handling_1" class="md-nav__link">
-    Stream options handling
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-handling_1" class="md-nav__link">
-    Error handling
-  </a>
-  
 </li>
         
       </ul>
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#usage-notes" class="md-nav__link">
+    Usage notes
+  </a>
   
 </li>
       
@@ -1142,7 +1102,7 @@
 <ul>
 <li>This document uses the <a href="../serialization/">specification for the Jelly serialization format</a>.</li>
 <li>All strings in the mentioned Protobuf messages are assumed to be UTF-8 encoded.</li>
-<li>Standard gRPC error codes are used, as defined in <a href="https://grpc.github.io/grpc/core/md_doc_statuscodes.html">gRPC documentation</a>.</li>
+<li>Standard gRPC status codes are used, as defined in <a href="https://grpc.github.io/grpc/core/md_doc_statuscodes.html">gRPC documentation</a>.</li>
 </ul>
 <p><strong>Author:</strong> <a href="https://orcid.org/0000-0002-2543-9461">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>)</p>
 <p><strong>Version:</strong> 1.0.0</p>
@@ -1179,7 +1139,13 @@
 <p>The Jelly gRPC streaming protocol assumes there to be two actors: the server and the client. These actors can both play the role of the producer or the consumer of the stream (see <a href="../serialization/#actors-and-implementations">serialization specification</a>), depending on the direction of the stream.</p>
 <p>Implementations may include only the server, only the client, or both.</p>
 <h2 id="protocol-specification">Protocol specification</h2>
-<p>The protocol specifies a simple publish/subscribe mechanism topics identified with UTF-8 strings. The client can subscribe to a topic and receive messages published to that topic by the server. The client can also publish messages to a topic. The protocol does not specify what happens to the messages on the server – this is NOT a broker or message queue specification. The protocol is meant to enable point-to-point communication, but can also be used to implement a broker or a similar service.</p>
+<p>The protocol specifies a simple publish/subscribe mechanism topics identified with UTF-8 strings. The client can subscribe to a topic and receive messages published to that topic by the server. The client can also publish messages to a topic.</p>
+<p>The described protocol is implemented as a gRPC service <code>RdfStreamService</code> (<a href="../reference/#rdfstreamservice">reference</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The protocol does not specify what happens to the messages on the server – this is NOT a broker or message queue specification. The protocol is meant to enable point-to-point communication, but can also be used to implement a broker or a similar service (see <a href="#usage-notes">Usage notes</a> below).</p>
+<p>You can also ignore the topics and use the protocol as a simple streaming protocol.</p>
+</div>
 <h3 id="topics">Topics</h3>
 <p>Topics are identified with UTF-8 strings. The topic string MUST be valid UTF-8. There are no further restrictions on the topic string.</p>
 <div class="admonition note">
@@ -1195,7 +1161,7 @@
 <p>The server MUST respond with either a stream of <a href="../reference/#rdfstreamframe"><code>RdfStreamFrame</code></a> messages or an error.</p>
 <h4 id="stream-options-handling">Stream options handling</h4>
 <p>The client MAY request specific options for the stream it subscribes to. In that case, the client MUST include the <code>options</code> field in the <code>RdfStreamSubscribe</code> message. The server SHOULD respond with a stream that uses options that are compatible with the options requested by the client. If the server cannot respond with a stream that uses options that are compatible with the options requested by the client, the server MUST respond with the <code>INVALID_ARGUMENT</code> error.</p>
-<p>The following rules are used to determine if the options are compatible:</p>
+<p>The following rules are used to determine if the options are compatible. All rules MUST be satisfied for the options to be compatible.</p>
 <table>
 <thead>
 <tr>
@@ -1225,17 +1191,59 @@
 <td><code>x</code></td>
 <td>MUST be <code>x</code> or false</td>
 </tr>
+<tr>
+<td><code>rdf_star</code></td>
+<td><code>x</code></td>
+<td>MUST be <code>x</code> or false</td>
+</tr>
+<tr>
+<td><code>max_name_table_size</code></td>
+<td><code>x</code></td>
+<td>MUST be &lt;= <code>x</code></td>
+</tr>
+<tr>
+<td><code>max_prefix_table_size</code></td>
+<td><code>x</code></td>
+<td>MUST be &lt;= <code>x</code></td>
+</tr>
+<tr>
+<td><code>max_datatype_table_size</code></td>
+<td><code>x</code></td>
+<td>MUST be &lt;= <code>x</code></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td><code>x</code></td>
+<td>MUST be &lt;= <code>x</code></td>
+</tr>
 </tbody>
 </table>
-<p>TODO
-| <code>version</code> | <code>x</code> | MUST be &lt;= <code>x</code> |</p>
-<h4 id="error-handling">Error handling</h4>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<p>The server should implement some limits for the stream options it supports, for example the maximum size of the name table. Otherwise, a client may request a name table that takes up all the server's memory.</p>
+</div>
 <h3 id="publishing-a-stream">Publishing a stream</h3>
-<p>TODO</p>
-<h4 id="stream-options-handling_1">Stream options handling</h4>
-<h4 id="error-handling_1">Error handling</h4>
+<p>The client publishes a stream to the server with the <code>PublishRdf</code> RPC (<a href="../reference/#publishrdf">reference</a>). The RPC is initiated with a stream of <a href="../reference/#rdfstreamframe"><code>RdfStreamFrame</code></a> messages from the client. The stream MUST include at least one message. The first frame MUST include a row with the stream options as the first row. After the stream successfully completes, the server MUST respond with the <code>RdfStreamReceived</code> message (<a href="../reference/#rdfstreamreceived">reference</a>).</p>
+<p>If the server cannot handle the stream with the specified options, the server MUST respond with the <code>INVALID_ARGUMENT</code> error.</p>
+<h2 id="usage-notes">Usage notes</h2>
+<p><em>This section is not part of the specification.</em></p>
+<p>The protocol is deliberately very general and unrestrictive. The pub/sub mechanism can be used in a number of ways, possibly extending the existing base protocol. The following are some examples of how the protocol can be used:</p>
+<ul>
+<li>Server publishing a number of streams, each with a different topic.</li>
+<li>RDF stream broker or message queue – the server acts as a "hub" aggregating RDF data sent to a topic by clients, and then forwarding it to other clients.</li>
+<li>Microservice chains – one service can process an RDF stream, forward it to another service, etc.</li>
+</ul>
+<p>These use cases can be implemented with the protocol as-is, or by extending the protocol with additional messages and/or RPCs. In either case, the protocol provides a base layer for compatibility between different implementations.</p>
 <h2 id="implementations">Implementations</h2>
-<p>TODO</p>
+<p><em>This section is not part of the specification.</em></p>
+<p>The following implementations of the Jelly gRPC streaming protocol specification are available:</p>
+<ul>
+<li><a href="../../jvm/">Jelly JVM (Scala) implementation</a><ul>
+<li>Specification version: 1.0.0</li>
+<li>Partial (boilerplate) implementation based on <a href="https://pekko.apache.org/docs/pekko-grpc/current/">Apache Pekko gRPC</a>. Requires the end user to implement their own code for handling the streams.</li>
+</ul>
+</li>
+</ul>
 
 
 
