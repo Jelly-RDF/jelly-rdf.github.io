@@ -333,6 +333,8 @@
       
         
       
+        
+      
     
     
     
@@ -383,7 +385,7 @@
         
   
   <span class="md-ellipsis">
-    Serialization
+    Serialization format
   </span>
   
 
@@ -424,6 +426,26 @@
   
   <span class="md-ellipsis">
     Protobuf reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="protobuf-source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Protobuf source
   </span>
   
 
@@ -845,11 +867,13 @@
 
 <h1 id="jelly-protocol-specification">Jelly protocol specification</h1>
 <p><strong>The Jelly protocol consists of two parts: the <a href="streaming/">gRPC streaming protocol</a> and the <a href="serialization/">serialization format</a>.</strong> The serialization format is the basis for Jelly, specifying how to turn RDF data into bytes and back. The gRPC streaming protocol defines a publish/subscribe mechanism for exchanging RDF data between a client and a server, using gRPC.</p>
-<p><strong>See the <a href="../user-guide/">user guide</a> for a friendly introduction to Jelly.</strong></p>
+<p><strong>See the <a href="../user-guide/">user guide</a> for a friendlier introduction to Jelly.</strong></p>
 <p>See the specification pages for more details:</p>
 <ul>
-<li><a href="serialization/">Serialization format</a></li>
-<li><a href="streaming/">gRPC streaming protocol</a></li>
+<li><a href="serialization/">Serialization format specification</a></li>
+<li><a href="streaming/">gRPC streaming protocol specification</a></li>
+<li><a href="reference/">Protobuf reference</a></li>
+<li><a href="protobuf-source/">Protobuf sources</a></li>
 <li><a href="media-type/">File extension and media type</a></li>
 </ul>
 
