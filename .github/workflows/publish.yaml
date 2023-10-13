@@ -29,7 +29,10 @@ jobs:
           excludes: prerelease, draft
 
       - name: Generate Protobuf reference
-        run: docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
+        run: |
+          docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
+          mkdir pages/docs/specification/proto || true
+          cp proto/*.proto pages/docs/specification/proto
 
       - uses: actions/setup-python@v4
         with:
