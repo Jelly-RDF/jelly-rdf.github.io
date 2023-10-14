@@ -62,9 +62,8 @@ theme:
         icon: material/brightness-3
         name: Switch to light mode
 
-  # TODO
-  # logo: assets/vector_icon_white.png
-  # favicon: assets/vector_icon.png
+  logo: assets/jelly_white.png
+  favicon: assets/jelly_color.png
   icon:
     repo: fontawesome/brands/github
 
