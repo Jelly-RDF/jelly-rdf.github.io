@@ -39,7 +39,7 @@ The following table shows the compatibility of the Jelly JVM implementation with
 
 ## Documentation
 
-Below is a list of all documentation pages about Jelly JVM. You can also browse the Javadoc using the badges in the module list above.
+Below is a list of all documentation pages about Jelly JVM. You can also browse the Javadoc using the badges in the module list above. The documentation uses examples written in Scala, but the libraries can be used from Java as well.
 
 - [Getting started](getting-started.md)
 - User guide
