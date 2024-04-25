@@ -29,13 +29,13 @@ The implementation is split into a few modules that can be used separately:
 
 ## Compatibility
 
-The Jelly JVM implementation is compatible with Java 11 and newer. Java 11, 17, and 21 are tested in CI and are guaranteed to work.
+The Jelly JVM implementation is compatible with Java 11 and newer. Java 11, 17, and 21 are tested in CI and are guaranteed to work. Jelly is built with [Scala 3 LTS releases](https://www.scala-lang.org/blog/2022/08/17/long-term-compatibility-plans.html).
 
 The following table shows the compatibility of the Jelly JVM implementation with other libraries:
 
-| Jelly | Scala | Java | RDF4J | Apache Jena | Apache Pekko |
-| ----- | ----- | ---- | ----- | ----------- | ------------ |
-| 1.0.x | 3.3.1 | 11–21| 4.x   | 4.x         | 1.x          |
+| Jelly | Scala       | Java | RDF4J | Apache Jena | Apache Pekko |
+| ----- | ----------- | ---- | ----- | ----------- | ------------ |
+| 1.0.x | 3.3.x (LTS) | 11–21| 4.x   | 4.x         | 1.x          |
 
 ## Documentation
 

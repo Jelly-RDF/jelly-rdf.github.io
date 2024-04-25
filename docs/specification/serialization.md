@@ -8,6 +8,7 @@ The following assumptions are used in this document:
 
 - The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/rdf11-concepts/)).
 - In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
+- In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version 1.1.0 ontology](https://w3id.org/stax/1.1.0/ontology) and [taxonomy](https://w3id.org/stax/1.1.0/taxonomy) are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! -->
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
 **Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
@@ -76,7 +77,7 @@ The Jelly serialization format uses [Protocol Buffers version 3](https://protobu
 
 The Jelly format is a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the [delimited variant](#delimited-variant-of-jelly).
 
-Jelly supports several distinct [types of streams](#stream-types), and uses a simple and configurable compression mechanism using [lookup tables](#prefix-name-and-datatype-lookups).
+Jelly supports several distinct [physical types of streams](#physical-stream-types), and uses a simple and configurable compression mechanism using [lookup tables](#prefix-name-and-datatype-lookups).
 
 ### Stream frames
 
@@ -109,28 +110,112 @@ Implementations MAY choose to adopt a **non-standard** solution where the order 
 A stream row is a message of type `RdfStreamRow`. It has one of the following fields set:
 
 - `options` (1) – [stream options header](#stream-options), indicating the compression options and the used RDF features in the stream.
-- `triple` (2) – [RDF triple statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `RDF_STREAM_TYPE_TRIPLES` or `RDF_STREAM_TYPE_GRAPHS`.
-- `quad` (3) – [RDF quad statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `RDF_STREAM_TYPE_QUADS`.
-- `graph_start` (4) – indicates the [start of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `RDF_STREAM_TYPE_GRAPHS`.
-- `graph_end` (5) – indicates the [end of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `RDF_STREAM_TYPE_GRAPHS`.
+- `triple` (2) – [RDF triple statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_TRIPLES` or `PHYSICAL_STREAM_TYPE_GRAPHS`.
+- `quad` (3) – [RDF quad statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_QUADS`.
+- `graph_start` (4) – indicates the [start of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_GRAPHS`.
+- `graph_end` (5) – indicates the [end of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_GRAPHS`.
 - `name` (9) – entry in the [name lookup](#prefix-name-and-datatype-lookups).
 - `prefix` (10) – entry in the [prefix lookup](#prefix-name-and-datatype-lookups).
 - `datatype` (11) – entry in the [datatype lookup](#prefix-name-and-datatype-lookups).
 
 Stream rows MUST be processed strictly in order to preserve the semantics of the stream.
 
-### Stream types
+### Physical stream types
 
-The type of the stream MUST be explicitly specified in the (stream options header)[#stream-options]. The type of the stream is defined by the `RdfStreamType` enum ([reference](reference.md#rdfstreamtype)). The following types are defined:
+The physical type of the stream MUST be explicitly specified in the [stream options header](#stream-options). The physical type of the stream is defined by the `PhysicalStreamType` enum ([reference](reference.md#PhysicalStreamType)). The following types are defined:
 
-- `RDF_STREAM_TYPE_UNSPECIFIED` (0) – default value. This stream type MUST NOT be used. The implementations SHOULD treat this value as an error.
-- `RDF_STREAM_TYPE_TRIPLES` (1) – stream of [RDF triple statements](https://www.w3.org/TR/rdf11-concepts/#section-triples). Each stream frame (or the entire stream) corresponds to an [RDF graph](https://www.w3.org/TR/rdf11-concepts/#section-rdf-graph). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad`, `graph_start`, or `graph_end` fields set.
-- `RDF_STREAM_TYPE_QUADS` (2) – stream of RDF quad statements (same as [*simple statements* in N-Quads](https://www.w3.org/TR/n-quads/#simple-triples)). Each stream frame (or the entire stream) corresponds to an [RDF dataset](https://www.w3.org/TR/rdf11-concepts/#section-dataset). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `triple`, `graph_start`, or `graph_end` fields set.
-- `RDF_STREAM_TYPE_GRAPHS` (3) – stream of RDF graphs (named or default). Each stream frame (or the entire stream) corresponds to an [RDF dataset](https://www.w3.org/TR/rdf11-concepts/#section-dataset). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad` fields set.
+- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. The implementations SHOULD treat this value as an error.
+- `PHYSICAL_STREAM_TYPE_TRIPLES` (1) – stream of [RDF triple statements](https://www.w3.org/TR/rdf11-concepts/#section-triples). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad`, `graph_start`, or `graph_end` fields set.
+- `PHYSICAL_STREAM_TYPE_QUADS` (2) – stream of RDF quad statements (same as [*simple statements* in N-Quads](https://www.w3.org/TR/n-quads/#simple-triples)). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `triple`, `graph_start`, or `graph_end` fields set.
+- `PHYSICAL_STREAM_TYPE_GRAPHS` (3) – stream of RDF graphs (named or default). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad` fields set.
 
 !!! note
 
-    See also [a more human explanation](index.md#stream-types) of the available stream types.
+    See also [a more human explanation](index.md#stream-types) of the available physical stream types.
+
+!!! note
+
+    The physical stream type only specifies how the data is encoded, not how it should be interpreted. See the [logical stream types](#logical-stream-types) for a mechanism to specify the semantics of the stream.
+
+### Logical stream types
+
+Specifying the logical stream type in the [stream options header](#stream-options) is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the `LogicalStreamType` enum ([reference](reference.md#LogicalStreamType)).
+
+This version of Jelly uses the [RDF Stream Taxonomy (RDF-STaX) 1.1.0](https://w3id.org/stax/1.1.0) and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:
+
+- `LOGICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This logical stream type is used when the serializer chooses not to specify the logical stream type.
+- `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1)
+    - RDF-STaX name: Flat RDF triple stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#flatTripleStream`
+- `LOGICAL_STREAM_TYPE_FLAT_QUADS` (2)
+    - RDF-STaX name: Flat RDF quad stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#flatQuadStream`
+- `LOGICAL_STREAM_TYPE_GRAPHS` (3)
+    - RDF-STaX name: RDF graph stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#graphStream`
+- `LOGICAL_STREAM_TYPE_DATASETS` (4)
+    - RDF-STaX name: RDF dataset stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#datasetStream`
+- `LOGICAL_STREAM_TYPE_SUBJECT_GRAPHS` (13)
+    - RDF-STaX name: RDF subject graph stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#subjectGraphStream`
+    - Subtype of: `LOGICAL_STREAM_TYPE_GRAPHS` (3)
+- `LOGICAL_STREAM_TYPE_NAMED_GRAPHS` (14)
+    - RDF-STaX name: RDF named graph stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#namedGraphStream`
+    - Subtype of: `LOGICAL_STREAM_TYPE_DATASETS` (4)
+- `LOGICAL_STREAM_TYPE_TIMESTAMPED_NAMED_GRAPHS` (114)
+    - RDF-STaX name: Timestamped RDF named graph stream
+    - RDF-STaX IRI: `https://w3id.org/stax/ontology#timestampedNamedGraphStream`
+    - Subtype of: `LOGICAL_STREAM_TYPE_NAMED_GRAPHS` (14)
+
+#### Version compatibility and base types
+
+In all Jelly versions 1.x.y there MUST be the same four base logical stream types (numbered 1, 2, 3, 4). The remaining logical stream types (with numbers greater than 10) may change between releases in the 1.x.y family, following the [versioning rules](#versioning). The four base types (1–4) are thus fixed, enabling forward compatibility for implementations that only support the base types.
+
+Each remaining logical stream type is a subtype of a base type (including recursive subtyping). To determine the base type of a logical stream type, the implementation MUST take the last digit of the logical stream type number, which is equivalent to the modulo 10 operation. Implementations MAY choose to treat a subtype of a base type in the same manner as the base type itself.
+
+??? example "Example (click to expand)"
+
+    The base type of `LOGICAL_STREAM_TYPE_NAMED_GRAPHS` (14) is `LOGICAL_STREAM_TYPE_DATASETS` (4).
+
+    The base type of `LOGICAL_STREAM_TYPE_TIMESTAMPED_NAMED_GRAPHS` (114) is `LOGICAL_STREAM_TYPE_DATASETS` (4).
+
+    The base type of `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1) is `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1).
+
+!!! note
+
+    In practice, the base logical stream types (1–4) are the most important part, determining how the data should be shaped and processed. The other logical stream types are used to provide additional information about the stream. If you are implementing a streaming serializer/deserializer, you should focus on the base types and treat their subtypes in the same way. So, do a modulo 10 on the stream type and you are good to go.
+
+#### Consistency with physical stream types
+
+Implementations MAY choose to use the logical stream type to determine how to interpret the stream. In that case, the implementation SHOULD ensure that the logical stream type is consistent with the physical stream type in the sense that the implementation supports this combination of stream types. If the logical stream type is inconsistent with the physical stream type, the implementation MAY throw an error.
+
+The following table shows the RECOMMENDED support matrix for the logical stream types and physical stream types, along with the RECOMMENDED manner in which the stream should be interpreted:
+
+| RDF-STaX (logical type) / Physical type | `TRIPLES` | `QUADS` | `GRAPHS` |
+|:--|:-:|:-:|:-:|
+| `LOGICAL_STREAM_TYPE_GRAPHS` | Framed | ✘ | ✘ |
+| `LOGICAL_STREAM_TYPE_SUBJECT_GRAPHS` | Framed | ✘ | ✘ |
+| `LOGICAL_STREAM_TYPE_DATASETS` | ✘ | Framed | Framed |
+| `LOGICAL_STREAM_TYPE_NAMED_GRAPHS` | ✘ | Framed | Framed |
+| `LOGICAL_STREAM_TYPE_TIMESTAMPED_NAMED_GRAPHS` | ✘ | Framed | Framed |
+| `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` | Continuous | ✘ | ✘ |
+| `LOGICAL_STREAM_TYPE_FLAT_QUADS` | ✘ | Continuous | Continuous |
+
+In the table above, the following interpretations are used:
+
+- **Framed** – each stream frame SHOULD be interpreted as a stream element, as per RDF-STaX definition.
+- **Continuous** – the stream SHOULD be interpreted as a continuous stream of elements, as per RDF-STaX definition. In this case, the stream frames carry no meaning.
+- **✘** – the combination of the logical stream type and the physical stream type is not directly supported.
+
+The implementations MAY choose to interpret the stream in a different manner than the one specified in the table.
+
+!!! note
+
+    See the [user's guide](../user-guide.md#stream-types) for a more intuitive explanation of what this means.
+
+    In any case, you can choose to entirely ignore this table which should only be treated as a recommended starting point. For example, you could have an RDF graph stream with physical type `GRAPHS`, where each graph spans multiple stream frames. This and other non-standard combinations are completely fine, just make sure that all actors involved support it.
 
 ### Stream options
 
@@ -141,13 +226,14 @@ The stream options header instructs the consumer of the stream (parser) on the s
 The stream options header contains the following fields:
 
 - `stream_name` (1) – name of the stream. This field is OPTIONAL and its use is not defined by the protocol. It MAY be used to identify the stream.
-- `stream_type` (2) – [type of the stream](#stream-types). This field is REQUIRED.
+- `physical_type` (2) – [physical type of the stream](#physical-stream-types). This field is REQUIRED.
 - `generalized_statements` (3) – whether the stream contains [generalized RDF triples or graphs](https://www.w3.org/TR/rdf11-concepts/#section-generalized-rdf). This field MUST be set to true if the stream contains generalized RDF triples or graphs. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
 - `use_repeat` (4) – whether the stream uses [repeated terms compression](#repeated-terms). This field MUST be set to true if the stream uses repeated terms. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
 - `rdf_star` (5) – whether the stream uses [RDF-star](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html) (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
 - `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of [datatype literals](#literals)). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `logical_type` (14) – [logical type of the stream](#logical-stream-types), based on RDF-STaX. This field is OPTIONAL and defaults to `LOGICAL_STREAM_TYPE_UNSPECIFIED`.
 - `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED.
     - The version tag is encoded as a varint. The version tag MUST be greater than 0.
     - The producer of the stream MUST set the version tag to the version tag of the implementation.
@@ -181,11 +267,11 @@ Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (post
 
 RDF statements (triples or quads) are communicated in three different ways, depending on the type of the stream:
 
-- `RDF_STREAM_TYPE_TRIPLES` – triples are encoded using [`RdfTriple`](reference.md#rdftriple) messages.
+- `PHYSICAL_STREAM_TYPE_TRIPLES` – triples are encoded using [`RdfTriple`](reference.md#rdftriple) messages.
     - `RdfTriple` has three fields: `s`, `p`, `o`, corresponding to the subject, predicate, and object of the triple. All of these fields are [RDF terms](#rdf-terms) and are REQUIRED.
-- `RDF_STREAM_TYPE_QUADS` – quads are encoded using [`RdfQuad`](reference.md#rdfquad) messages.
+- `PHYSICAL_STREAM_TYPE_QUADS` – quads are encoded using [`RdfQuad`](reference.md#rdfquad) messages.
     - `RdfQuad` has four fields: `s`, `p`, `o`, `g`, corresponding to the subject, predicate, object, and graph of the quad. The `s`, `p`, `o` are [RDF terms](#rdf-terms) and are REQUIRED. The `g` field is an [RDF graph node](#rdf-graph-nodes) and is REQUIRED.
-- `RDF_STREAM_TYPE_GRAPHS` – graphs are encoded using [`RdfGraphStart`](reference.md#rdfgraphstart) and [`RdfGraphEnd`](reference.md#rdfgraphend) messages. Triples between the start and end of the graph are encoded using [`RdfTriple`](reference.md#rdftriple) messages. If a triple is between the start and end of the graph, it is considered to be in the graph.
+- `PHYSICAL_STREAM_TYPE_GRAPHS` – graphs are encoded using [`RdfGraphStart`](reference.md#rdfgraphstart) and [`RdfGraphEnd`](reference.md#rdfgraphend) messages. Triples between the start and end of the graph are encoded using [`RdfTriple`](reference.md#rdftriple) messages. If a triple is between the start and end of the graph, it is considered to be in the graph.
     - In this type of stream, triples MUST NOT occur outside of a graph. If a triple is encountered outside a graph, the consumer SHOULD throw an error.
     - A graph start MUST NOT occur inside another graph. If a graph start is encountered inside another graph, the consumer SHOULD throw an error.
     - A graph end MUST NOT occur outside a graph. If a graph end is encountered outside a graph, the consumer MAY throw an error.
