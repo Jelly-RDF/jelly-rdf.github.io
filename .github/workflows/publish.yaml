@@ -22,7 +22,10 @@ jobs:
           path: proto
 
       - id: proto_release
-        uses: pozetroninc/github-action-get-latest-release@master
+        # Use forked version with support for node 20
+        # https://github.com/pozetroninc/github-action-get-latest-release/pull/33
+        uses: baywet/github-action-get-latest-release@feature/node-20
+        # uses: pozetroninc/github-action-get-latest-release@master
         with:
           owner: Jelly-RDF
           repo: jelly-protobuf
@@ -36,7 +39,7 @@ jobs:
 
       - uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: '3.11'
           cache: pip
           cache-dependency-path: 'pages/requirements.txt'
 
