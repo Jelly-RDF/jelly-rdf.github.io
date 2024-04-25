@@ -21,38 +21,54 @@ To use Jelly you firstly need an implementation of the protocol. There is curren
 
 The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see [stream types](#stream-types) below).
 
-All stream types use the same concept of **stream frames** – discrete elements into which the stream is divided. Each frame contains a number of **rows**, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not define the semantics of stream frames – it's up to you to decide what they mean (see examples below).
+All stream types use the same concept of **stream frames** – discrete elements into which the stream is divided. Each frame contains a number of **rows**, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not enforce the semantics of stream frames, although it does have a mechanism to suggest to consumers and producers how should they understand the stream. Still, you can interpret the stream however you like.
 
-!!! question "Why doesn't Jelly define the semantics of stream frames?"
+!!! question "Why doesn't Jelly enforce the semantics of stream frames?"
 
-    There are many, many ways in which streams of RDF data can be used – there are different use cases, network protocols, QoS settings, ordering guarantees, stream semantics, etc. Picking specific semantics for stream frames would hopelessly overcomplicate the protocol and make it less useful in some use cases.
+    There are many, many ways in which streams of RDF data can be used – there are different use cases, network protocols, QoS settings, ordering guarantees, stream semantics, etc. One stream is also often viewed from different perspectives by the different actors producing and consuming it. Picking and enforcing specific semantics for stream frames would hopelessly overcomplicate the protocol and make it less useful in some use cases.
 
-    Jelly tries to make as few assumptions as possible about the streams to ensure it is widely applicable. It is the responsibility of the end users to define the semantics of stream frames for their use case. To help with that, this user guide contains some common patterns and examples.
+    Jelly does have a system of **logical stream types** based on the RDF Stream Taxonomy ([RDF-STaX](https://w3id.org/stax)), which can be used to suggest how the stream should be interpreted. However, these are just suggestions – you can interpret the stream however you like.
 
 ### Stream types
 
-- **Triple stream**: A stream of triple statements. You can use it to represent:
-    - A single unnamed RDF graph – stream frames are just batches of triples.
-    - A stream of triple statements – stream frames are just batches of triples.
-    - A stream of default (unnamed) RDF graphs – each stream frame corresponds to a different RDF graph.
-- **Quad stream**: A stream of quad (triple with graph node) statements. You can use it to represent:
-    - A single RDF dataset – stream frames are just batches of quads.
-    - A stream of quad statements – stream frames are just batches of quads.
-    - A stream of RDF datasets – each stream frame corresponds to a different RDF dataset.
-- **Graph stream**: A stream of triples grouped into graphs (named or unnamed). You can use it to represent:
-    - A single RDF dataset – stream frames are just batches of graphs (possibly partial graphs).
-    - A stream of named RDF graphs – each stream frame corresponds to a different named graph.
-    - A stream of RDF datasets – each stream frame corresponds to a different RDF dataset.
+Jelly has the notions of **physical stream types** and **logical stream types**. The physical type tells you how Jelly sends the data on the wire, which is a technical detail. The logical type tells you how you should interpret the stream. Specifying the logical type is optional and is only a suggestion to the consumer. You can **always** interpret the stream however you like.
+
+There are three physical stream types in Jelly:
+
+- **`TRIPLES`**: Data is encoded using triple statements. There is no information about the graph name in this type of stream.
+- **`QUADS`**: Data is encoded using quad statements. Each quad has a graph name, which can also be empty for the default graph.
+- **`GRAPHS`**: Data is encoded using named graphs, where the graph name can also be empty for the default graph. Each named graph can contain multiple triples.
+
+As for logical stream types, they are taken directly from [RDF-STaX](https://w3id.org/stax/dev/taxonomy) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
+
+| RDF-STaX (logical type) / Physical type | `TRIPLES` | `QUADS` | `GRAPHS` |
+|:--|:-:|:-:|:-:|
+| [Graph stream](https://w3id.org/stax/dev/taxonomy#rdf-graph-stream) | Framed | ✘ | ✘ |
+| [Subject graph stream](https://w3id.org/stax/dev/taxonomy#rdf-subject-graph-stream) | Framed | ✘ | ✘ |
+| [Dataset stream](https://w3id.org/stax/dev/taxonomy#rdf-dataset-stream) | ✘ | Framed | Framed |
+| [Named graph stream](https://w3id.org/stax/dev/taxonomy#rdf-named-graph-stream) | ✘ | Framed | Framed |
+| [Timestamped named graph stream](https://w3id.org/stax/dev/taxonomy#timestamped-rdf-named-graph-stream) | ✘ | Framed | Framed |
+| [Flat triple stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream) | Continuous | ✘ | ✘ |
+| [Flat quad stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream) | ✘ | Continuous | Continuous |
+
+
+The values in the table mean the following:
+
+- **Framed**: Each stream frame corresponds to exactly one logical element of the stream type. For example, in a graph stream, each frame corresponds to a single RDF graph. This usage pattern is common in real-time streaming scenarios like IoT systems.
+- **Continuous**: The stream is a continuous sequence of logical elements. For example, in a flat triple stream, the stream is just a sequence of triples.
+- **✘**: The physical stream type is not directly supported for the logical stream type. However, you may still find a way to use it, depending on your use case.
+
+The flat logical stream types ([flat RDF triple stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream) and [flat RDF quad stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream) in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.
 
 ### Common patterns cookbook
 
 Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the [Jelly JVM (Scala) implementation](jvm/reactive.md) with the Reactive Streaming module.
 
-#### Triple stream – "just a bunch of triples"
+#### Flat RDF triple stream – "just a bunch of triples"
 
 Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.
 
-You can use a triple stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):
+This means you are using logically a [flat RDF triple stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream). It can be physically encoded as as `TRIPLES` stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):
 
 ??? example "Example (click to expand)"
 
@@ -71,11 +87,11 @@ You can use a triple stream, batching the triples into frames of an arbitrary si
 
 You can then send these frames one-by-one over gRPC or Kafka, or write them to a file. The consumer will be able to read the triples one frame at a time, without having to know how many triples there are in total.
 
-#### Triple stream – "a stream of graphs"
+#### RDF graph stream
 
-In this case we have an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like [SOSA/SSN](https://www.w3.org/TR/vocab-ssn/)). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.
+In this case we have (for example) an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like [SOSA/SSN](https://www.w3.org/TR/vocab-ssn/)). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.
 
-You can use a triple stream, where the stream frames correspond to different unnamed (default) graphs:
+This means you are using logically an [RDF graph stream](https://w3id.org/stax/dev/taxonomy#rdf-graph-stream). You can encode it as a `TRIPLES` stream, where the stream frames correspond to different unnamed (default) graphs:
 
 ??? example "Example (click to expand)"
 
@@ -96,9 +112,9 @@ The consumer will be able to read the graphs one frame at a time, without having
 
 [RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its triple streams (see [example](https://w3id.org/riverbench/datasets/lod-katrina/dev)). Note that in RiverBench the stream may be equivalently considered "just a bunch of triples" – the serialization is the same, it only depends on the interpretation on the side of the consumer.
 
-#### Quad stream – "just a bunch of quads"
+#### Flat RDF quad stream – "just a bunch of quads"
 
-You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. You can use a quad stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):
+You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This is logically a [flat RDF quad stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream). It can be physically encoded as a `QUADS` stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):
 
 ??? example "Example (click to expand)"
 
@@ -115,36 +131,13 @@ You want to stream a lot of quads – similar to the "just a bunch of triples" c
         - Quad 2000
     - ...
 
-The mechanism is exactly the same as with a triple stream.
+The mechanism is exactly the same as with a flat RDF triple stream.
 
-#### Quad stream – "a stream of datasets"
+#### Flat RDF quad stream (as `GRAPHS`)
 
-You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. You can use a quad stream, where the stream frames correspond to different datasets:
+This a slightly different take on the problem of "just a bunch of quads" – you also want to transmit what is essentially a single RDF dataset, but instead of sending individual quads, you want to send it graph-by-graph. This makes most sense if your data changes on a per-graph basis, or you are streaming a static RDF dataset.
 
-??? example "Example (click to expand)"
-
-    - Stream frame 1
-        - Stream options
-        - Quad 1 (of dataset 1)
-        - Quad 2 (of dataset 1)
-        - ...
-        - Quad 454 (of dataset 1)
-    - Stream frame 2
-        - Quad 1 (of dataset 2)
-        - Quad 2 (of dataset 2)
-        - ...
-        - Quad 323 (of dataset 2)
-    - ...
-
-The mechanism is exactly the same as with a triple stream of graphs.
-
-[RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its quad and graph streams (see [example](https://w3id.org/riverbench/datasets/nanopubs/dev)). Note that in RiverBench the stream may be equivalently considered "just a bunch of quads" – the serialization is the same, it only depends on the interpretation on the side of the consumer.
-
-#### Graph stream – "just a bunch of named graphs"
-
-This a slightly different take on the problem of "just a bunch of quads" – you also want to transmit what is essentially an RDF dataset, but instead of sending individual quads, you want to send it graph-by-graph. This makes most sense if your data changes on a per-graph basis, or you are streaming a static RDF dataset.
-
-You can use a graph stream, batching the triples in the graphs into frames of an arbitrary size (let's say, 1000 triples each):
+This is logically again a flat RDF quad stream, but it can be physically encoded as a `GRAPHS` stream, batching the triples in the graphs into frames of an arbitrary size (let's say, 1000 triples each):
 
 ??? example "Example (click to expand)"
 
@@ -180,44 +173,67 @@ You can use a graph stream, batching the triples in the graphs into frames of an
         - End graph
     - ...
 
-Notice that one graph can span multiple stream frames, and one stream frame can contain multiple graphs. The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.
+Notice that one named graph can span multiple stream frames, and one stream frame can contain multiple graphs. The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.
 
-#### Graph stream – "a stream of datasets"
+#### RDF dataset stream (as `QUADS`)
 
-You want to stream RDF datasets – for example using the [RSP Data Model](https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/), where each element is a named graph and a bunch of statements about this graph in the default graph. You can use a graph stream, where the stream frames correspond to different datasets:
+You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an [RDF dataset stream](https://w3id.org/stax/dev/taxonomy#rdf-dataset-stream), which can be physically encoded as a `QUADS` stream, where the stream frames correspond to different datasets:
 
 ??? example "Example (click to expand)"
 
     - Stream frame 1
         - Stream options
-        - Start graph (default)    
-        - Triple 1 (of default graph)
-        - Triple 2 (of default graph)
+        - Quad 1 (of dataset 1)
+        - Quad 2 (of dataset 1)
         - ...
-        - Triple 134 (of default graph)
+        - Quad 454 (of dataset 1)
+    - Stream frame 2
+        - Quad 1 (of dataset 2)
+        - Quad 2 (of dataset 2)
+        - ...
+        - Quad 323 (of dataset 2)
+    - ...
+
+The mechanism is exactly the same as with a triple stream of graphs.
+
+[RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its RDF dataset streams (see [example](https://w3id.org/riverbench/datasets/nanopubs/dev)). Note that in RiverBench the stream may be equivalently considered a flat RDF quad stream – the serialization is the same, it only depends on the interpretation on the side of the consumer.
+
+#### RDF dataset stream (as `GRAPHS`)
+
+You want to stream RDF datasets or a subclass of them – for example [timestamped named graphs](https://w3id.org/stax/dev/taxonomy#timestamped-rdf-named-graph-stream), using the [RSP Data Model](https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/), where each stream element is a named graph and a bunch of statements about this graph in the default graph. This can be physically encoded as a `GRAPHS` stream, where the stream frames correspond to different datasets:
+
+??? example "Example (click to expand)"
+
+    - Stream frame 1
+        - Stream options
+        - Start graph (default)
+        - Triple 1 (of default graph, dataset 1)
+        - Triple 2 (of default graph, dataset 1)
+        - ...
+        - Triple 134 (of default graph, dataset 1)
         - End graph
         - Start graph (named)
-        - Triple 1 (of named graph)
-        - Triple 2 (of named graph)
+        - Triple 1 (of named graph, dataset 1)
+        - Triple 2 (of named graph, dataset 1)
         - ...
-        - Triple 97 (of named graph)
+        - Triple 97 (of named graph, dataset 1)
         - End graph
     - Stream frame 2
         - Start graph (default)
-        - Triple 1 (of default graph)
-        - Triple 2 (of default graph)
+        - Triple 1 (of default graph, dataset 2)
+        - Triple 2 (of default graph, dataset 2)
         - ...
-        - Triple 77 (of default graph)
+        - Triple 77 (of default graph, dataset 2)
         - End graph
         - Start graph (named)
-        - Triple 1 (of named graph)
-        - Triple 2 (of named graph)
+        - Triple 1 (of named graph, dataset 2)
+        - Triple 2 (of named graph, dataset 2)
         - ...
-        - Triple 21 (of named graph)
+        - Triple 21 (of named graph, dataset 2)
         - End graph
     - ...
 
-Of course each stream frame can contain more than one named graph, and the graphs can be of different sizes.
+Of course each stream frame could contain more than one named graph, and the graphs can be of different sizes.
 
 ## Ordering and delivery guarantees
 

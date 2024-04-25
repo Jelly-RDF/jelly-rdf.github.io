@@ -97,18 +97,30 @@ The following rules are used to determine if the options are compatible. All rul
 | Option | Client request | Server response |
 | --- | --- | --- |
 | `stream_name` | `x` | MAY be `x` |
-| `stream_type` | `x` | MUST be `x` |
+| `physical_type` | `x` | MUST be `x` |
 | `generalized_statements` | `x` | MUST be `x` or false |
 | `use_repeat` | `x` | MUST be `x` or false |
 | `rdf_star` | `x` | MUST be `x` or false |
 | `max_name_table_size` | `x` | MUST be <= `x` |
 | `max_prefix_table_size` | `x` | MUST be <= `x` |
 | `max_datatype_table_size` | `x` | MUST be <= `x` |
+| `logical_type` | `x` | MAY be `x` |
 | `version` | `x` | MUST be <= `x` |
 
-!!! notes
+!!! note
 
     The server should implement some limits for the stream options it supports, for example the maximum size of the name table. Otherwise, a client may request a name table that takes up all the server's memory.
+
+Logical stream type handling is entirely dependent on the server implementation:
+
+1. The server MAY respect the client's request in the `logical_type` field in the stream options and respond with the same type.
+2. The server MAY respect the client's request in the `logical_type` field in the stream options and respond with a subtype of the requested type.
+3. The server MAY ignore the `logical_type` field in the client request and respond with its own type or with no type at all.
+4. The server MAY respond with an `INVALID_ARGUMENT` error if the client requests a type that the server does not support with the specified physical stream type.
+
+!!! note
+
+    How you implement this behavior depends on your use case, possibly combining the above options. For example, you may want to allow the client to request a specific logical type, but only if it is compatible with the physical type. Or, if your server supports stream type conversion, you may want to allow the client to request a specific logical type and let the server handle the conversion.
 
 ### Publishing a stream
 
