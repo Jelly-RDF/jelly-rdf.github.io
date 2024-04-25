@@ -97,6 +97,7 @@ nav:
       - RDF4J integration: 'jvm/rdf4j.md'
       - Reactive streaming: 'jvm/reactive.md'
       - gRPC: 'jvm/grpc.md'
+      - Useful utilities: 'jvm/utilities.md'
     - Developer guide:
       - Releases: 'jvm/releases.md'
       - Implementing Jelly for other libraries: 'jvm/implementation.md'
