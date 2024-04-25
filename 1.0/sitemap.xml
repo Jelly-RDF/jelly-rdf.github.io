@@ -2,97 +2,102 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jelly-rdf.github.io/1.0/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/contributing/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/licensing/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/performance/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/user-guide/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/getting-started/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/grpc/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/implementation/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/jena/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/rdf4j/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/reactive/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/releases/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.0/jvm/utilities/</loc>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/specification/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/specification/media-type/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/specification/protobuf-source/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/specification/reference/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/specification/serialization/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.0/specification/streaming/</loc>
-         <lastmod>2023-10-14</lastmod>
+         <lastmod>2024-04-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
