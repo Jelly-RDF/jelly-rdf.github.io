@@ -206,7 +206,7 @@ The following table shows the RECOMMENDED support matrix for the logical stream 
 In the table above, the following interpretations are used:
 
 - **Framed** – each stream frame SHOULD be interpreted as a stream element, as per RDF-STaX definition.
-- **Continuous** – the stream SHOULD be interpreted as a continuous stream of elements, as per RDF-STaX definition. In this case, the stream frames carry no meaning.
+- **Continuous** – the stream SHOULD be interpreted as a continuous flat stream of elements, as per RDF-STaX definition. In this case, the stream frames carry no meaning.
 - **✘** – the combination of the logical stream type and the physical stream type is not directly supported.
 
 The implementations MAY choose to interpret the stream in a different manner than the one specified in the table.
@@ -348,9 +348,9 @@ Both `RdfTriple` and `RdfQuad` offer a simple compression mechanism – repeated
 
     Although repeated terms can stretch across stream frame boundaries (i.e., refer to values last seen in the previous stream frame), you don't have to use this feature. If your use case requires the stream frames to be more independent of each other (see: [stream frame ordering](#ordering)), you can just reset the repeated terms at the start of each stream frame.
 
-### RDF terms
+### RDF terms and graph nodes
 
-RDF terms are encoded using oneofs in [`RdfTriple`](reference.md#rdftriple) and [`RdfQuad`](reference.md#rdfquad). The oneofs have at most one of the following fields set: `*_iri`, `*_bnode`, `*_literal`, `*_triple_term`, corresponding to RDF IRIs, blank nodes, literals, and RDF-star quoted triples, respectively.
+RDF terms and graph nodes are encoded using oneofs in [`RdfTriple`](reference.md#rdftriple), [`RdfQuad`](reference.md#rdfquad), and [`RdfGraphStart`](reference.md#rdfgraphstart). The oneofs have each several fields, depending on the type of the term: `*_iri`, `*_bnode`, `*_literal`, `*_triple_term`, `g_default_graph`, corresponding to RDF IRIs, blank nodes, literals, RDF-star quoted triples, and the default RDF graph in an RDF dataset, respectively. At most one field in each oneof MUST be set.
 
 #### IRIs
 
@@ -368,25 +368,25 @@ For the default value behavior to work correctly, IRIs in the stream MUST be pro
 
 The IRI is then constructed by first decoding the prefix and the name using the [prefix and name lookup tables](#prefix-name-and-datatype-lookup-entries), and then concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in [RFC 3987](https://tools.ietf.org/html/rfc3987).
 
-??? example "Example 1 (click to expand)"
+??? example "Example with the prefix table (click to expand)"
 
     Assume the following lookup entries were defined in the stream (wrapping `RdfStreamRow`s were omitted for brevity):
 
     ```protobuf
     RdfPrefixEntry {
-        id: 1
+        id: 0 # default value, interpreted as 1
         prefix: "http://example.com/"
     }
     RdfNameEntry {
-        id: 1
+        id: 0 # default value, interpreted as 1
         name: "example"
     }
     RdfNameEntry {
-        id: 2
+        id: 0 # default value, interpreted as 1 + 1 = 2
         name: ""
     }
     RdfNameEntry {
-        id: 3
+        id: 0 # default value, interpreted as 2 + 1 = 3
         name: "test"
     }
     ```
@@ -415,18 +415,18 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
     Note that the default values (zeroes) are not encoded at all in Protobuf and therefore take up zero bytes in the stream.
 
-??? example "Example 2 (click to expand)"
+??? example "Example without the prefix table (click to expand)"
 
     In this example, the prefix lookup table is not used. The lookup entries are defined as follows:
 
     ```protobuf
     RdfNameEntry {
-        id: 1
+        id: 0 # default value, interpreted as 1
         name: "http://example.com/example"
     }
 
     RdfNameEntry {
-        id: 2
+        id: 0 # default value, interpreted as 1 + 1 = 2
         name: "http://example.com/test"
     }
     ```
@@ -460,11 +460,11 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
 RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.
 
-Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The producer SHOULD specify in the documentation which strategy it uses.
+Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The consumer MAY use the [logical stream type](#logical-stream-types) to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.
 
 !!! note
 
-    If the stream is meant to represent a single RDF graph or dataset, then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets, then the blank node identifiers should be unique only within a single frame.
+    If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets (grouped RDF stream in RDF-STaX), then the blank node identifiers should be unique only within a single frame.
 
 !!! note
 
@@ -475,26 +475,27 @@ Because the spec does not define the semantics of the stream frames, blank node 
 RDF literals are represented using the `RdfLiteral` message ([reference](reference.md#rdfliteral)). The message has the following fields:
 
 - `lex` (1) – the lexical form of the literal in UTF-8. This field is OPTIONAL and defaults to an empty string.
-- `literalKind` oneof. This field is REQUIRED and exactly one of the following fields MUST be set:
-    - `simple` (2) – empty message of type `RdfLiteralSimple` indicating that the literal is a simple literal (has datatype IRI equal to `http://www.w3.org/2001/XMLSchema#string`).
-    - `langtag` (3) – UTF-8 language tag, indicating that the literal is a language-tagged string (has datatype IRI equal to `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString`). The language tag SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
-    - `datatype` (4) – 1-based index of the datatype in the [datatype lookup](#prefix-name-and-datatype-lookup-entries), indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.
+- `literalKind` oneof. At most one of the following fields MUST be set:
+    - `langtag` (2) – UTF-8 language tag, indicating that the literal is a language-tagged string (has datatype IRI equal to `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString`). The language tag SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
+    - `datatype` (3) – 1-based index of the datatype in the [datatype lookup](#prefix-name-and-datatype-lookup-entries), indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.
+
+If no field in the `literalKind` oneof is set, then the literal MUST be interpreted as a simple literal (has datatype IRI equal to `http://www.w3.org/2001/XMLSchema#string`).
+
+!!! note
+
+    Using the default value of `0` for the `datatype` field is not allowed, in contrast to names and prefixes in RdfIri. This is because the `datatype` field itself is optional and the default value would be ambiguous.
 
 #### Quoted triples (RDF-star)
 
-RDF-star quoted triples are represented using the `RdfTriple` message ([reference](reference.md#rdftriple)). Quoted triples are encoded in the same manner as triple statements, with the only difference being that [repeated terms](#repeated-terms) (`RdfRepeat`) MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.
+RDF-star quoted triples are represented using the `RdfTriple` message ([reference](reference.md#rdftriple)). Quoted triples are encoded in the same manner as triple statements, with the only difference being that [repeated terms](#repeated-terms) MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.
 
 Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
 
-### RDF graph nodes
+#### Graph nodes
 
-RDF graph nodes are encoded using the [`RdfGraph`](reference.md#rdfgraph) message. The message is used both in the `RdfGraphStart` message for GRAPHS streams and in the `RdfQuad` message for QUADS streams. The message MUST have exactly one of the following fields set:
+Literal, IRI, and blank node values for graph nodes are encoded in the same manner as for the subject, predicate, and object terms.
 
-- `iri` (1) – the graph node is an IRI. The field is of type `RdfIri` (see: [RDF terms – IRIs](#iris)).
-- `bnode` (2) – the graph node is a blank node. The field is of type `string` (see: [RDF terms – blank nodes](#blank-nodes)).
-- `literal` (3) – the graph node is a literal. The field is of type `RdfLiteral` (see: [RDF terms – literals](#literals)). This field is only valid for generalized RDF streams (see: [stream options header](#stream-options)).
-- `default_graph` (4) – the graph node is the default graph. The field is of type [`RdfDefaultGraph`](reference.md#rdfdefaultgraph), which is an empty message.
-- `repeat` (10) – the graph node is the same as in the previous row. The field is of type [`RdfRepeat`](reference.md#rdfrepeat) (see: [repeated terms](#repeated-terms)). This field is only valid for QUADS streams, within the `RdfQuad` message. It MUST NOT occur within the `RdfGraphStart` message.
+The default graph node is represented using the `RdfDefaultGraph` message ([reference](reference.md#rdfdefaultgraph)). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.
 
 ## Delimited variant of Jelly
 
