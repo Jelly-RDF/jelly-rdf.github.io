@@ -8,7 +8,7 @@ The following assumptions are used in this document:
 
 - The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/rdf11-concepts/)).
 - In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
-- In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version 1.1.0 ontology](https://w3id.org/stax/1.1.0/ontology) and [taxonomy](https://w3id.org/stax/1.1.0/taxonomy) are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! -->
+- In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version 1.1.1 ontology](https://w3id.org/stax/1.1.1/ontology) and [taxonomy](https://w3id.org/stax/1.1.1/taxonomy) are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! -->
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
 **Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
@@ -45,8 +45,8 @@ The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. 
 
 The following versions of the protocol are defined:
 
-| Version tag | Semantic version |  |
-| ----------- | ---------------- | ----------- |
+| Version tag | Semantic version |               |
+| ----------- | ---------------- | ------------- |
 | 1           | 1.0.x            | **(current)** |
 
 !!! note
@@ -77,7 +77,7 @@ The Jelly serialization format uses [Protocol Buffers version 3](https://protobu
 
 The Jelly format is a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the [delimited variant](#delimited-variant-of-jelly).
 
-Jelly supports several distinct [physical types of streams](#physical-stream-types), and uses a simple and configurable compression mechanism using [lookup tables](#prefix-name-and-datatype-lookups).
+Jelly supports several distinct [physical types of streams](#physical-stream-types), and uses a simple and configurable compression mechanism using [lookup tables](#prefix-name-and-datatype-lookup-entries).
 
 ### Stream frames
 
@@ -114,9 +114,9 @@ A stream row is a message of type `RdfStreamRow`. It has one of the following fi
 - `quad` (3) – [RDF quad statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_QUADS`.
 - `graph_start` (4) – indicates the [start of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_GRAPHS`.
 - `graph_end` (5) – indicates the [end of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_GRAPHS`.
-- `name` (9) – entry in the [name lookup](#prefix-name-and-datatype-lookups).
-- `prefix` (10) – entry in the [prefix lookup](#prefix-name-and-datatype-lookups).
-- `datatype` (11) – entry in the [datatype lookup](#prefix-name-and-datatype-lookups).
+- `name` (9) – entry in the [name lookup](#prefix-name-and-datatype-lookup-entries).
+- `prefix` (10) – entry in the [prefix lookup](#prefix-name-and-datatype-lookup-entries).
+- `datatype` (11) – entry in the [datatype lookup](#prefix-name-and-datatype-lookup-entries).
 
 Stream rows MUST be processed strictly in order to preserve the semantics of the stream.
 
@@ -141,7 +141,7 @@ The physical type of the stream MUST be explicitly specified in the [stream opti
 
 Specifying the logical stream type in the [stream options header](#stream-options) is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the `LogicalStreamType` enum ([reference](reference.md#LogicalStreamType)).
 
-This version of Jelly uses the [RDF Stream Taxonomy (RDF-STaX) 1.1.0](https://w3id.org/stax/1.1.0) and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:
+This version of Jelly uses the [RDF Stream Taxonomy (RDF-STaX) 1.1.1](https://w3id.org/stax/1.1.1) and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:
 
 - `LOGICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This logical stream type is used when the serializer chooses not to specify the logical stream type.
 - `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1)
@@ -225,14 +225,13 @@ The stream options header instructs the consumer of the stream (parser) on the s
 
 The stream options header contains the following fields:
 
-- `stream_name` (1) – name of the stream. This field is OPTIONAL and its use is not defined by the protocol. It MAY be used to identify the stream.
+- `stream_name` (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream.
 - `physical_type` (2) – [physical type of the stream](#physical-stream-types). This field is REQUIRED.
 - `generalized_statements` (3) – whether the stream contains [generalized RDF triples or graphs](https://www.w3.org/TR/rdf11-concepts/#section-generalized-rdf). This field MUST be set to true if the stream contains generalized RDF triples or graphs. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
-- `use_repeat` (4) – whether the stream uses [repeated terms compression](#repeated-terms). This field MUST be set to true if the stream uses repeated terms. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
-- `rdf_star` (5) – whether the stream uses [RDF-star](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html) (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
-- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
-- `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
-- `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookups). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of [datatype literals](#literals)). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `rdf_star` (4) – whether the stream uses [RDF-star](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html) (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
+- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of [datatype literals](#literals)). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `logical_type` (14) – [logical type of the stream](#logical-stream-types), based on RDF-STaX. This field is OPTIONAL and defaults to `LOGICAL_STREAM_TYPE_UNSPECIFIED`.
 - `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED.
     - The version tag is encoded as a varint. The version tag MUST be greater than 0.
@@ -242,14 +241,16 @@ The stream options header contains the following fields:
     - The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.
     - The producer may use version tags greater than 1000 to indicate non-standard versions of the protocol.
 
-### Prefix, name, and datatype lookups
+### Prefix, name, and datatype lookup entries
 
-Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (postfixes), and datatypes. The lookups are used to compress the IRIs and datatypes in the stream. All lookups function in the same way:
+Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (postfixes), and datatypes. The lookups are used to compress the IRIs and datatypes in the stream. All lookups share the same base mechanism:
 
 - The lookup is a map from a varint to a valid UTF-8 string.
 - The lookup can be modified at any point in the stream. The modification consists of setting the lookup for a given varint to a given string. The modification MUST be applied to all subsequent rows in the stream.
 - The first use of a given lookup element MUST be after it is defined in the lookup. If the consumer encounters a lookup element that is not defined in the lookup, it SHOULD throw an error.
-- The lookups are indexed from 1. The default value of 0 MUST NOT be used as a key in the lookup.
+- The lookups are indexed from `1`. The default value of `0` is a special value:
+    - If the index is set to `0` in the first entry of the lookup in the stream, it MUST be interpreted as the value `1`.
+    - If the index is set to `0` in any other lookup entry, it MUST be interpreted as `previous_index + 1`, that is, the index of the previous entry incremented by one.
 - The maximum size of the lookup is communicated at the start of the stream (see [stream options header](#stream-options)). The producer of the stream MUST NOT exceed the maximum size of the lookup. The consumer of the stream MAY implement the lookup as a fixed-size array, or extend it dynamically.
 - The lookup is updated with different messages, depending on the type of the lookup:
     - [`RdfNameEntry`](reference.md#rdfnameentry) for the name lookup,
@@ -263,14 +264,22 @@ Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (post
 
     The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.
 
+
+!!! note
+
+    The default value of `0` has a special meaning in lookup entries. You should take advantage of that and use it whenever possible. As the value of `0` is encoded with exactly zero bytes, you can save some space by using it.
+
+
 ### RDF statements and graphs
 
 RDF statements (triples or quads) are communicated in three different ways, depending on the type of the stream:
 
 - `PHYSICAL_STREAM_TYPE_TRIPLES` – triples are encoded using [`RdfTriple`](reference.md#rdftriple) messages.
-    - `RdfTriple` has three fields: `s`, `p`, `o`, corresponding to the subject, predicate, and object of the triple. All of these fields are [RDF terms](#rdf-terms) and are REQUIRED.
+    - `RdfTriple` consists of three oneofs: `subject`, `predicate`, `object`, corresponding to the three terms in an RDF triple. Each of these oneofs has four fields, out of which at most one MUST be set.
+    - If no field in a given oneof is set, the term is considered to be a repeated term (see [repeated terms](#repeated-terms)).
 - `PHYSICAL_STREAM_TYPE_QUADS` – quads are encoded using [`RdfQuad`](reference.md#rdfquad) messages.
-    - `RdfQuad` has four fields: `s`, `p`, `o`, `g`, corresponding to the subject, predicate, object, and graph of the quad. The `s`, `p`, `o` are [RDF terms](#rdf-terms) and are REQUIRED. The `g` field is an [RDF graph node](#rdf-graph-nodes) and is REQUIRED.
+    - `RdfQuad` consists of four oneofs: `subject`, `predicate`, `object`, `graph`, corresponding to the three terms and one graph node of the quad. Each of these oneofs has four fields, out of which at most one MUST be set.
+    - If no field in a given oneof is set, the term is considered to be a repeated term/graph node (see [repeated terms](#repeated-terms)).
 - `PHYSICAL_STREAM_TYPE_GRAPHS` – graphs are encoded using [`RdfGraphStart`](reference.md#rdfgraphstart) and [`RdfGraphEnd`](reference.md#rdfgraphend) messages. Triples between the start and end of the graph are encoded using [`RdfTriple`](reference.md#rdftriple) messages. If a triple is between the start and end of the graph, it is considered to be in the graph.
     - In this type of stream, triples MUST NOT occur outside of a graph. If a triple is encountered outside a graph, the consumer SHOULD throw an error.
     - A graph start MUST NOT occur inside another graph. If a graph start is encountered inside another graph, the consumer SHOULD throw an error.
@@ -278,25 +287,88 @@ RDF statements (triples or quads) are communicated in three different ways, depe
     - A graph MAY be empty (i.e., it may contain no triples).
     - A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.
     - A graph MAY span more than one stream frame. The consumer MUST treat the graph spanning several stream frames as a single RDF graph.
+    - Exactly one field in the `RdfGraphStart` message MUST be set – no repeated terms are allowed here. The consumer SHOULD throw an error if no field in the `graph` oneof is set.
 
 !!! note
 
     If the stream is meant to represent a single RDF dataset, then the graphs should be able to stretch across several stream frames. If the stream is meant to represent a stream of RDF datasets, then the graphs should be contained within a single stream frame.
 
+#### Repeated terms
+
+Both `RdfTriple` and `RdfQuad` offer a simple compression mechanism – repeated terms. If a term in a given position (subject, predicate, object, or graph node in quads) is not set, then it is interpreted to be the same as the term in the same position in the previous triple or quad. Repeated terms are encoded simply by not setting any field in the corresponding oneof, and therefore take up zero bytes in the stream.
+
+- Repeated terms MUST NOT occur in quoted triples.
+- Repeated terms MUST NOT occur in the first statement row of the stream.
+- Repeated terms MAY occur in the first statement row of a stream frame. In this case, the repeated terms MUST be interpreted as repeated from the previous stream frame.
+- A repeated term in a given position MAY occur after a repeated term. The consumer MUST interpret all consecutive appearances of the repeated term as the same term.
+
+??? example "Example (click to expand)"
+
+    In the example the wrapping `RdfStreamRow`s were omitted for brevity:
+
+    ```protobuf
+    # First row
+    RdfTriple {
+        s_iri: RdfIri {
+            prefix_id: 1
+            name_id: 1
+        }
+        p_iri: RdfIri {
+            prefix_id: 1
+            name_id: 2
+        }
+        o_bnode: "b1"
+    }
+
+    # Second row – repeating the subject and predicate
+    # s_iri and p_iri are reused from the previous row
+    RdfTriple {
+        o_bnode: "b2"
+    }
+
+    # Third row – repeating the subject and object
+    # s_iri and o_bnode are reused from the first row
+    RdfTriple {
+        p_iri: RdfIri {
+            prefix_id: 2
+            name_id: 3
+        }
+    }
+    ```
+
+!!! note
+
+    Repeated terms are a simple, yet incredibly effective compression mechanism and you should use them whenever possible. They are doubly effective: not only you save space by not repeating the terms, but also repeated terms are not encoded at all (zero bytes on the wire), which saves even more space.
+
+!!! note
+
+    Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.
+
+!!! note
+
+    Although repeated terms can stretch across stream frame boundaries (i.e., refer to values last seen in the previous stream frame), you don't have to use this feature. If your use case requires the stream frames to be more independent of each other (see: [stream frame ordering](#ordering)), you can just reset the repeated terms at the start of each stream frame.
+
 ### RDF terms
 
-RDF terms are encoded using the [`RdfTerm`](reference.md#rdfterm) message. The message has one of the following fields set: `iri`, `bnode`, `literal`, `triple_term`, `repeat`, corresponding to RDF IRIs, blank nodes, literals, RDF-star quoted triples, and repeated terms, respectively. Exactly one of these fields MUST be set.
+RDF terms are encoded using oneofs in [`RdfTriple`](reference.md#rdftriple) and [`RdfQuad`](reference.md#rdfquad). The oneofs have at most one of the following fields set: `*_iri`, `*_bnode`, `*_literal`, `*_triple_term`, corresponding to RDF IRIs, blank nodes, literals, and RDF-star quoted triples, respectively.
 
 #### IRIs
 
 The IRIs are encoded using the [`RdfIri`](reference.md#rdfiri) message. The message has two fields that together make up the IRI:
 
-- `prefix_id` (1) – 1-based index of the prefix of the IRI, corresponding to an entry in the prefix lookup. This field is OPTIONAL and the default value (0) indicates an empty prefix.
+- `prefix_id` (1) – 1-based index of the prefix of the IRI, corresponding to an entry in the prefix lookup.
+    - The default value of `0` MUST be interpreted as the same value as in the last explictly specified (non-zero) prefix identifier.
+    - If `0` appears in the first IRI of the stream (and in any subsequent IRI), this MUST be interpreted as an empty prefix (zero-length string). This is for example used when the prefix lookup table is set to size zero.
 - `name_id` (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup. This field is OPTIONAL and the default value (0) indicates an empty name.
+    - The default value of `0` MUST be interpreted as `previous_name_id + 1`, that is, the `name_id` of the previous IRI incremented by one.
+    - If `0` appears in the first IRI of the stream it MUST be interpreted as `1`.
+    - Multiple `0` values in a row may occur, in which case the `name_id` MUST be interpreted as incrementing by one for each `0` value.
 
-At least one of the `prefix_id` and `name_id` fields MUST be set to a non-default, positive value. The IRI is then constructed by concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in [RFC 3987](https://tools.ietf.org/html/rfc3987).
+For the default value behavior to work correctly, IRIs in the stream MUST be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples.
 
-??? example "Example (click to expand)"
+The IRI is then constructed by first decoding the prefix and the name using the [prefix and name lookup tables](#prefix-name-and-datatype-lookup-entries), and then concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in [RFC 3987](https://tools.ietf.org/html/rfc3987).
+
+??? example "Example 1 (click to expand)"
 
     Assume the following lookup entries were defined in the stream (wrapping `RdfStreamRow`s were omitted for brevity):
 
@@ -306,12 +378,16 @@ At least one of the `prefix_id` and `name_id` fields MUST be set to a non-defaul
         prefix: "http://example.com/"
     }
     RdfNameEntry {
-        id: 4
+        id: 1
         name: "example"
     }
     RdfNameEntry {
-        id: 1
-        name: "http://test.com/test"
+        id: 2
+        name: ""
+    }
+    RdfNameEntry {
+        id: 3
+        name: "test"
     }
     ```
 
@@ -321,29 +397,70 @@ At least one of the `prefix_id` and `name_id` fields MUST be set to a non-defaul
     # http://example.com/example
     RdfIri {
         prefix_id: 1
-        name_id: 4
+        name_id: 0 # default value, interpreted as 1
     } 
 
     # http://example.com/
     RdfIri {
-        prefix_id: 1
+        prefix_id: 0 # default value, interpreted as 1
+        name_id: 0 # default value, interpreted as 1 + 1 = 2
     }
 
     # http://test.com/test
     RdfIri {
-        name_id: 1
+        prefix_id: 0 # default value, interpreted as 1
+        name_id: 0 # default value, interpreted as 2 + 1 = 3
     }
     ```
+
+    Note that the default values (zeroes) are not encoded at all in Protobuf and therefore take up zero bytes in the stream.
+
+??? example "Example 2 (click to expand)"
+
+    In this example, the prefix lookup table is not used. The lookup entries are defined as follows:
+
+    ```protobuf
+    RdfNameEntry {
+        id: 1
+        name: "http://example.com/example"
+    }
+
+    RdfNameEntry {
+        id: 2
+        name: "http://example.com/test"
+    }
+    ```
+
+    Then the following IRIs are encoded as follows:
+
+    ```protobuf
+    # http://example.com/example
+    RdfIri {
+        prefix_id: 0 # default value, interpreted as empty prefix
+        name_id: 0 # default value, interpreted as 1
+    }
+
+    # http://example.com/test
+    RdfIri {
+        prefix_id: 0 # default value, interpreted as empty prefix
+        name_id: 0 # default value, interpreted as 1 + 1 = 2
+    }
+    ```
+    
 
 !!! note
 
     The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Scala implementation uses. The prefixes are not meant to be user-facing, but you can also use user-defined prefixes (e.g., `@prefix` in Turtle) to split the IRIs.
 
+!!! note
+
+    The behavior of the default values is designed to save space in the stream. Usually in RDF many IRIs share the same prefix, so you can save space by not repeating the prefix in the stream. At the same time the name part of the IRI is often unique, so for each name you will need a new entry in the lookup table – which is often the next entry after the one you have just created.
+
 #### Blank nodes
 
 RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.
 
-Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across the stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The producer SHOULD specify in the documentation which strategy it uses.
+Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The producer SHOULD specify in the documentation which strategy it uses.
 
 !!! note
 
@@ -361,76 +478,13 @@ RDF literals are represented using the `RdfLiteral` message ([reference](referen
 - `literalKind` oneof. This field is REQUIRED and exactly one of the following fields MUST be set:
     - `simple` (2) – empty message of type `RdfLiteralSimple` indicating that the literal is a simple literal (has datatype IRI equal to `http://www.w3.org/2001/XMLSchema#string`).
     - `langtag` (3) – UTF-8 language tag, indicating that the literal is a language-tagged string (has datatype IRI equal to `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString`). The language tag SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
-    - `datatype` (4) – 1-based index of the datatype in the [datatype lookup](#prefix-name-and-datatype-lookups), indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.
+    - `datatype` (4) – 1-based index of the datatype in the [datatype lookup](#prefix-name-and-datatype-lookup-entries), indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.
 
 #### Quoted triples (RDF-star)
 
 RDF-star quoted triples are represented using the `RdfTriple` message ([reference](reference.md#rdftriple)). Quoted triples are encoded in the same manner as triple statements, with the only difference being that [repeated terms](#repeated-terms) (`RdfRepeat`) MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.
 
 Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
-
-#### Repeated terms
-
-Repeated terms indicate that a term in a given position (subject, predicate, object, or graph node in quads) is the same as the term in the same position in the previous row. The repeated terms are encoded using the `RdfRepeat` message ([reference](reference.md#rdfrepeat)). The message does not have any fields.
-
-- Repeated terms MUST NOT occur in quoted triples.
-- Repeated terms MUST NOT occur in the first statement row of the stream.
-- Repeated terms MAY occur in the first statement row of a stream frame. In this case, the repeated terms MUST be interpreted as repeated from the previous stream frame.
-- A repeated term in a given position MAY occur after a repeated term. The consumer MUST interpret all consecutive appearances of the repeated term as the same term.
-
-??? example "Example (click to expand)"
-
-    In the example the wrapping `RdfStreamRow`s were omitted for brevity:
-
-    ```protobuf
-    # First row
-    RdfTriple {
-        s: RdfTerm {
-            iri: RdfIri {
-                prefix_id: 1
-                name_id: 1
-            }
-        }
-        p: RdfTerm {
-            iri: RdfIri {
-                prefix_id: 1
-                name_id: 2
-            }
-        }
-        o: RdfTerm {
-            bnode: "b1"
-        }
-    }
-
-    # Second row – repeating the subject and predicate
-    RdfTriple {
-        s: RdfRepeat {} # RdfTerm(iri: RdfIri(1, 1))
-        p: RdfRepeat {} # RdfTerm(iri: RdfIri(1, 2))
-        o: RdfTerm {
-            bnode: "b2"
-        }
-    }
-
-    # Third row – repeating the subject and object
-    RdfTriple {
-        s: RdfRepeat {} # RdfTerm(iri: RdfIri(1, 1))
-        p: RdfTerm {
-            iri: RdfIri {
-                prefix_id: 2
-                name_id: 3
-            }
-        }
-        o: RdfRepeat {} # RdfTerm(bnode = "b2")
-    }
-    ```
-
-!!! note
-
-    Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.
-
-!!! note
-
-    Although repeated terms can stretch across stream frame boundaries (i.e., refer to values last seen in the previous stream frame), you don't have to use this feature. If your use case requires the stream frames to be more independent of each other (see: [stream frame ordering](#ordering)), you can just reset the repeated terms at the start of each stream frame.
 
 ### RDF graph nodes
 
