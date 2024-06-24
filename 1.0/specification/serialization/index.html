@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.19">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -192,7 +192,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -585,9 +585,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#prefix-name-and-datatype-lookups" class="md-nav__link">
+  <a href="#prefix-name-and-datatype-lookup-entries" class="md-nav__link">
     <span class="md-ellipsis">
-      Prefix, name, and datatype lookups
+      Prefix, name, and datatype lookup entries
     </span>
   </a>
   
@@ -600,16 +600,31 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="RDF statements and graphs">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rdf-terms" class="md-nav__link">
+  <a href="#repeated-terms" class="md-nav__link">
     <span class="md-ellipsis">
-      RDF terms
+      Repeated terms
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="RDF terms">
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-terms-and-graph-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      RDF terms and graph nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RDF terms and graph nodes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -649,9 +664,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#repeated-terms" class="md-nav__link">
+  <a href="#graph-nodes" class="md-nav__link">
     <span class="md-ellipsis">
-      Repeated terms
+      Graph nodes
     </span>
   </a>
   
@@ -659,15 +674,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rdf-graph-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      RDF graph nodes
-    </span>
-  </a>
   
 </li>
         
@@ -1366,9 +1372,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#prefix-name-and-datatype-lookups" class="md-nav__link">
+  <a href="#prefix-name-and-datatype-lookup-entries" class="md-nav__link">
     <span class="md-ellipsis">
-      Prefix, name, and datatype lookups
+      Prefix, name, and datatype lookup entries
     </span>
   </a>
   
@@ -1381,16 +1387,31 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="RDF statements and graphs">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rdf-terms" class="md-nav__link">
+  <a href="#repeated-terms" class="md-nav__link">
     <span class="md-ellipsis">
-      RDF terms
+      Repeated terms
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="RDF terms">
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-terms-and-graph-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      RDF terms and graph nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RDF terms and graph nodes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1430,9 +1451,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#repeated-terms" class="md-nav__link">
+  <a href="#graph-nodes" class="md-nav__link">
     <span class="md-ellipsis">
-      Repeated terms
+      Graph nodes
     </span>
   </a>
   
@@ -1440,15 +1461,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rdf-graph-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      RDF graph nodes
-    </span>
-  </a>
   
 </li>
         
@@ -1524,7 +1536,7 @@
 <ul>
 <li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/rdf11-concepts/">W3C Recommendation 25 February 2014</a>).</li>
 <li>In parts referring to RDF-star, the RDF-star draft specification (<a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">W3C Community Group Draft Report 29 June 2023</a>) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.</li>
-<li>In parts referring to the RDF Stream Taxonomy (RDF-STaX), the <a href="https://w3id.org/stax/1.1.0/ontology">RDF-STaX version 1.1.0 ontology</a> and <a href="https://w3id.org/stax/1.1.0/taxonomy">taxonomy</a> are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! --></li>
+<li>In parts referring to the RDF Stream Taxonomy (RDF-STaX), the <a href="https://w3id.org/stax/1.1.1/ontology">RDF-STaX version 1.1.1 ontology</a> and <a href="https://w3id.org/stax/1.1.1/taxonomy">taxonomy</a> are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! --></li>
 <li>All strings in the serialization are assumed to be UTF-8 encoded.</li>
 </ul>
 <p><strong>Author:</strong> <a href="https://orcid.org/0000-0002-2543-9461">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>)</p>
@@ -1586,7 +1598,7 @@
 <h2 id="format-specification">Format specification</h2>
 <p>The Jelly serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
 <p>The Jelly format is a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
-<p>Jelly supports several distinct <a href="#physical-stream-types">physical types of streams</a>, and uses a simple and configurable compression mechanism using <a href="#prefix-name-and-datatype-lookups">lookup tables</a>.</p>
+<p>Jelly supports several distinct <a href="#physical-stream-types">physical types of streams</a>, and uses a simple and configurable compression mechanism using <a href="#prefix-name-and-datatype-lookup-entries">lookup tables</a>.</p>
 <h3 id="stream-frames">Stream frames</h3>
 <p>A stream frame is a message of type <code>RdfStreamFrame</code> (<a href="../reference/#rdfstreamframe">reference</a>). The message has only one field (<code>rows</code>), which is a repeated field of type <code>RdfStreamRow</code> (<a href="../reference/#rdfstreamrow">reference</a>). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.</p>
 <div class="admonition note">
@@ -1616,9 +1628,9 @@
 <li><code>quad</code> (3) – <a href="#rdf-statements-and-graphs">RDF quad statement</a>. It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_QUADS</code>.</li>
 <li><code>graph_start</code> (4) – indicates the <a href="#rdf-statements-and-graphs">start of a graph</a> (named or default). It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_GRAPHS</code>.</li>
 <li><code>graph_end</code> (5) – indicates the <a href="#rdf-statements-and-graphs">end of a graph</a> (named or default). It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_GRAPHS</code>.</li>
-<li><code>name</code> (9) – entry in the <a href="#prefix-name-and-datatype-lookups">name lookup</a>.</li>
-<li><code>prefix</code> (10) – entry in the <a href="#prefix-name-and-datatype-lookups">prefix lookup</a>.</li>
-<li><code>datatype</code> (11) – entry in the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>.</li>
+<li><code>name</code> (9) – entry in the <a href="#prefix-name-and-datatype-lookup-entries">name lookup</a>.</li>
+<li><code>prefix</code> (10) – entry in the <a href="#prefix-name-and-datatype-lookup-entries">prefix lookup</a>.</li>
+<li><code>datatype</code> (11) – entry in the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a>.</li>
 </ul>
 <p>Stream rows MUST be processed strictly in order to preserve the semantics of the stream.</p>
 <h3 id="physical-stream-types">Physical stream types</h3>
@@ -1639,7 +1651,7 @@
 </div>
 <h3 id="logical-stream-types">Logical stream types</h3>
 <p>Specifying the logical stream type in the <a href="#stream-options">stream options header</a> is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the <code>LogicalStreamType</code> enum (<a href="../reference/#LogicalStreamType">reference</a>).</p>
-<p>This version of Jelly uses the <a href="https://w3id.org/stax/1.1.0">RDF Stream Taxonomy (RDF-STaX) 1.1.0</a> and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:</p>
+<p>This version of Jelly uses the <a href="https://w3id.org/stax/1.1.1">RDF Stream Taxonomy (RDF-STaX) 1.1.1</a> and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:</p>
 <ul>
 <li><code>LOGICAL_STREAM_TYPE_UNSPECIFIED</code> (0) – default value. This logical stream type is used when the serializer chooses not to specify the logical stream type.</li>
 <li><code>LOGICAL_STREAM_TYPE_FLAT_TRIPLES</code> (1)<ul>
@@ -1754,7 +1766,7 @@
 <p>In the table above, the following interpretations are used:</p>
 <ul>
 <li><strong>Framed</strong> – each stream frame SHOULD be interpreted as a stream element, as per RDF-STaX definition.</li>
-<li><strong>Continuous</strong> – the stream SHOULD be interpreted as a continuous stream of elements, as per RDF-STaX definition. In this case, the stream frames carry no meaning.</li>
+<li><strong>Continuous</strong> – the stream SHOULD be interpreted as a continuous flat stream of elements, as per RDF-STaX definition. In this case, the stream frames carry no meaning.</li>
 <li><strong>✘</strong> – the combination of the logical stream type and the physical stream type is not directly supported.</li>
 </ul>
 <p>The implementations MAY choose to interpret the stream in a different manner than the one specified in the table.</p>
@@ -1768,14 +1780,13 @@
 <p>The stream options header instructs the consumer of the stream (parser) on the size of the needed lookups to decode the stream and the features used by the stream.</p>
 <p>The stream options header contains the following fields:</p>
 <ul>
-<li><code>stream_name</code> (1) – name of the stream. This field is OPTIONAL and its use is not defined by the protocol. It MAY be used to identify the stream.</li>
+<li><code>stream_name</code> (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream.</li>
 <li><code>physical_type</code> (2) – <a href="#physical-stream-types">physical type of the stream</a>. This field is REQUIRED.</li>
 <li><code>generalized_statements</code> (3) – whether the stream contains <a href="https://www.w3.org/TR/rdf11-concepts/#section-generalized-rdf">generalized RDF triples or graphs</a>. This field MUST be set to true if the stream contains generalized RDF triples or graphs. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
-<li><code>use_repeat</code> (4) – whether the stream uses <a href="#repeated-terms">repeated terms compression</a>. This field MUST be set to true if the stream uses repeated terms. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
-<li><code>rdf_star</code> (5) – whether the stream uses <a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">RDF-star</a> (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
-<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookups">name lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
-<li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookups">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
-<li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of <a href="#literals">datatype literals</a>). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>rdf_star</code> (4) – whether the stream uses <a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">RDF-star</a> (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
+<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">name lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of <a href="#literals">datatype literals</a>). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
 <li><code>logical_type</code> (14) – <a href="#logical-stream-types">logical type of the stream</a>, based on RDF-STaX. This field is OPTIONAL and defaults to <code>LOGICAL_STREAM_TYPE_UNSPECIFIED</code>.</li>
 <li><code>version</code> (15) – <a href="#versioning">version tag</a> of the stream. This field is REQUIRED.<ul>
 <li>The version tag is encoded as a varint. The version tag MUST be greater than 0.</li>
@@ -1787,13 +1798,17 @@
 </ul>
 </li>
 </ul>
-<h3 id="prefix-name-and-datatype-lookups">Prefix, name, and datatype lookups</h3>
-<p>Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (postfixes), and datatypes. The lookups are used to compress the IRIs and datatypes in the stream. All lookups function in the same way:</p>
+<h3 id="prefix-name-and-datatype-lookup-entries">Prefix, name, and datatype lookup entries</h3>
+<p>Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (postfixes), and datatypes. The lookups are used to compress the IRIs and datatypes in the stream. All lookups share the same base mechanism:</p>
 <ul>
 <li>The lookup is a map from a varint to a valid UTF-8 string.</li>
 <li>The lookup can be modified at any point in the stream. The modification consists of setting the lookup for a given varint to a given string. The modification MUST be applied to all subsequent rows in the stream.</li>
 <li>The first use of a given lookup element MUST be after it is defined in the lookup. If the consumer encounters a lookup element that is not defined in the lookup, it SHOULD throw an error.</li>
-<li>The lookups are indexed from 1. The default value of 0 MUST NOT be used as a key in the lookup.</li>
+<li>The lookups are indexed from <code>1</code>. The default value of <code>0</code> is a special value:<ul>
+<li>If the index is set to <code>0</code> in the first entry of the lookup in the stream, it MUST be interpreted as the value <code>1</code>.</li>
+<li>If the index is set to <code>0</code> in any other lookup entry, it MUST be interpreted as <code>previous_index + 1</code>, that is, the index of the previous entry incremented by one.</li>
+</ul>
+</li>
 <li>The maximum size of the lookup is communicated at the start of the stream (see <a href="#stream-options">stream options header</a>). The producer of the stream MUST NOT exceed the maximum size of the lookup. The consumer of the stream MAY implement the lookup as a fixed-size array, or extend it dynamically.</li>
 <li>The lookup is updated with different messages, depending on the type of the lookup:<ul>
 <li><a href="../reference/#rdfnameentry"><code>RdfNameEntry</code></a> for the name lookup,</li>
@@ -1808,15 +1823,21 @@
 <p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
 <p>The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default value of <code>0</code> has a special meaning in lookup entries. You should take advantage of that and use it whenever possible. As the value of <code>0</code> is encoded with exactly zero bytes, you can save some space by using it.</p>
+</div>
 <h3 id="rdf-statements-and-graphs">RDF statements and graphs</h3>
 <p>RDF statements (triples or quads) are communicated in three different ways, depending on the type of the stream:</p>
 <ul>
 <li><code>PHYSICAL_STREAM_TYPE_TRIPLES</code> – triples are encoded using <a href="../reference/#rdftriple"><code>RdfTriple</code></a> messages.<ul>
-<li><code>RdfTriple</code> has three fields: <code>s</code>, <code>p</code>, <code>o</code>, corresponding to the subject, predicate, and object of the triple. All of these fields are <a href="#rdf-terms">RDF terms</a> and are REQUIRED.</li>
+<li><code>RdfTriple</code> consists of three oneofs: <code>subject</code>, <code>predicate</code>, <code>object</code>, corresponding to the three terms in an RDF triple. Each of these oneofs has four fields, out of which at most one MUST be set.</li>
+<li>If no field in a given oneof is set, the term is considered to be a repeated term (see <a href="#repeated-terms">repeated terms</a>).</li>
 </ul>
 </li>
 <li><code>PHYSICAL_STREAM_TYPE_QUADS</code> – quads are encoded using <a href="../reference/#rdfquad"><code>RdfQuad</code></a> messages.<ul>
-<li><code>RdfQuad</code> has four fields: <code>s</code>, <code>p</code>, <code>o</code>, <code>g</code>, corresponding to the subject, predicate, object, and graph of the quad. The <code>s</code>, <code>p</code>, <code>o</code> are <a href="#rdf-terms">RDF terms</a> and are REQUIRED. The <code>g</code> field is an <a href="#rdf-graph-nodes">RDF graph node</a> and is REQUIRED.</li>
+<li><code>RdfQuad</code> consists of four oneofs: <code>subject</code>, <code>predicate</code>, <code>object</code>, <code>graph</code>, corresponding to the three terms and one graph node of the quad. Each of these oneofs has four fields, out of which at most one MUST be set.</li>
+<li>If no field in a given oneof is set, the term is considered to be a repeated term/graph node (see <a href="#repeated-terms">repeated terms</a>).</li>
 </ul>
 </li>
 <li><code>PHYSICAL_STREAM_TYPE_GRAPHS</code> – graphs are encoded using <a href="../reference/#rdfgraphstart"><code>RdfGraphStart</code></a> and <a href="../reference/#rdfgraphend"><code>RdfGraphEnd</code></a> messages. Triples between the start and end of the graph are encoded using <a href="../reference/#rdftriple"><code>RdfTriple</code></a> messages. If a triple is between the start and end of the graph, it is considered to be in the graph.<ul>
@@ -1826,6 +1847,7 @@
 <li>A graph MAY be empty (i.e., it may contain no triples).</li>
 <li>A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.</li>
 <li>A graph MAY span more than one stream frame. The consumer MUST treat the graph spanning several stream frames as a single RDF graph.</li>
+<li>Exactly one field in the <code>RdfGraphStart</code> message MUST be set – no repeated terms are allowed here. The consumer SHOULD throw an error if no field in the <code>graph</code> oneof is set.</li>
 </ul>
 </li>
 </ul>
@@ -1833,80 +1855,8 @@
 <p class="admonition-title">Note</p>
 <p>If the stream is meant to represent a single RDF dataset, then the graphs should be able to stretch across several stream frames. If the stream is meant to represent a stream of RDF datasets, then the graphs should be contained within a single stream frame.</p>
 </div>
-<h3 id="rdf-terms">RDF terms</h3>
-<p>RDF terms are encoded using the <a href="../reference/#rdfterm"><code>RdfTerm</code></a> message. The message has one of the following fields set: <code>iri</code>, <code>bnode</code>, <code>literal</code>, <code>triple_term</code>, <code>repeat</code>, corresponding to RDF IRIs, blank nodes, literals, RDF-star quoted triples, and repeated terms, respectively. Exactly one of these fields MUST be set.</p>
-<h4 id="iris">IRIs</h4>
-<p>The IRIs are encoded using the <a href="../reference/#rdfiri"><code>RdfIri</code></a> message. The message has two fields that together make up the IRI:</p>
-<ul>
-<li><code>prefix_id</code> (1) – 1-based index of the prefix of the IRI, corresponding to an entry in the prefix lookup. This field is OPTIONAL and the default value (0) indicates an empty prefix.</li>
-<li><code>name_id</code> (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup. This field is OPTIONAL and the default value (0) indicates an empty name.</li>
-</ul>
-<p>At least one of the <code>prefix_id</code> and <code>name_id</code> fields MUST be set to a non-default, positive value. The IRI is then constructed by concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987</a>.</p>
-<details class="example">
-<summary>Example (click to expand)</summary>
-<p>Assume the following lookup entries were defined in the stream (wrapping <code>RdfStreamRow</code>s were omitted for brevity):</p>
-<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">RdfPrefixEntry</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">prefix</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;example&quot;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://test.com/test&quot;</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Then the following IRIs are encoded as follows:</p>
-<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/example</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">4</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span><span class="w"> </span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//test.com/test</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
-</span></code></pre></div>
-</details>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. The prefixes are not meant to be user-facing, but you can also use user-defined prefixes (e.g., <code>@prefix</code> in Turtle) to split the IRIs.</p>
-</div>
-<h4 id="blank-nodes">Blank nodes</h4>
-<p>RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.</p>
-<p>Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across the stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The producer SHOULD specify in the documentation which strategy it uses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the stream is meant to represent a single RDF graph or dataset, then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets, then the blank node identifiers should be unique only within a single frame.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Many RDF libraries (e.g., RDF4J, Apache Jena) use internal identifiers for blank nodes, which can be used as the identifiers in Jelly streams. You can also use a different format, for example with shorter identifiers to preserve space.</p>
-</div>
-<h4 id="literals">Literals</h4>
-<p>RDF literals are represented using the <code>RdfLiteral</code> message (<a href="../reference/#rdfliteral">reference</a>). The message has the following fields:</p>
-<ul>
-<li><code>lex</code> (1) – the lexical form of the literal in UTF-8. This field is OPTIONAL and defaults to an empty string.</li>
-<li><code>literalKind</code> oneof. This field is REQUIRED and exactly one of the following fields MUST be set:<ul>
-<li><code>simple</code> (2) – empty message of type <code>RdfLiteralSimple</code> indicating that the literal is a simple literal (has datatype IRI equal to <code>http://www.w3.org/2001/XMLSchema#string</code>).</li>
-<li><code>langtag</code> (3) – UTF-8 language tag, indicating that the literal is a language-tagged string (has datatype IRI equal to <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#langString</code>). The language tag SHOULD be a valid <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> language tag.</li>
-<li><code>datatype</code> (4) – 1-based index of the datatype in the <a href="#prefix-name-and-datatype-lookups">datatype lookup</a>, indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.</li>
-</ul>
-</li>
-</ul>
-<h4 id="quoted-triples-rdf-star">Quoted triples (RDF-star)</h4>
-<p>RDF-star quoted triples are represented using the <code>RdfTriple</code> message (<a href="../reference/#rdftriple">reference</a>). Quoted triples are encoded in the same manner as triple statements, with the only difference being that <a href="#repeated-terms">repeated terms</a> (<code>RdfRepeat</code>) MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.</p>
-<p>Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.</p>
 <h4 id="repeated-terms">Repeated terms</h4>
-<p>Repeated terms indicate that a term in a given position (subject, predicate, object, or graph node in quads) is the same as the term in the same position in the previous row. The repeated terms are encoded using the <code>RdfRepeat</code> message (<a href="../reference/#rdfrepeat">reference</a>). The message does not have any fields.</p>
+<p>Both <code>RdfTriple</code> and <code>RdfQuad</code> offer a simple compression mechanism – repeated terms. If a term in a given position (subject, predicate, object, or graph node in quads) is not set, then it is interpreted to be the same as the term in the same position in the previous triple or quad. Repeated terms are encoded simply by not setting any field in the corresponding oneof, and therefore take up zero bytes in the stream.</p>
 <ul>
 <li>Repeated terms MUST NOT occur in quoted triples.</li>
 <li>Repeated terms MUST NOT occur in the first statement row of the stream.</li>
@@ -1916,47 +1866,39 @@
 <details class="example">
 <summary>Example (click to expand)</summary>
 <p>In the example the wrapping <code>RdfStreamRow</code>s were omitted for brevity:</p>
-<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">#</span><span class="w"> </span><span class="n">First</span><span class="w"> </span><span class="n">row</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">RdfTriple</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">s</span><span class="o">:</span><span class="w"> </span><span class="n">RdfTerm</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="n">iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">            </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">p</span><span class="o">:</span><span class="w"> </span><span class="n">RdfTerm</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="n">iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">            </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">            </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">o</span><span class="o">:</span><span class="w"> </span><span class="n">RdfTerm</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="n">bnode</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;b1&quot;</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="p">}</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="err">#</span><span class="w"> </span><span class="n">Second</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">repeating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">subject</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">predicate</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="n">RdfTriple</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="n">s</span><span class="o">:</span><span class="w"> </span><span class="n">RdfRepeat</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">RdfTerm</span><span class="p">(</span><span class="n">iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="n">p</span><span class="o">:</span><span class="w"> </span><span class="n">RdfRepeat</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">RdfTerm</span><span class="p">(</span><span class="n">iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="n">o</span><span class="o">:</span><span class="w"> </span><span class="n">RdfTerm</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">        </span><span class="n">bnode</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;b2&quot;</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="p">}</span>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="err">#</span><span class="w"> </span><span class="n">Third</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">repeating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">subject</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">object</span>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="n">RdfTriple</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="n">s</span><span class="o">:</span><span class="w"> </span><span class="n">RdfRepeat</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">RdfTerm</span><span class="p">(</span><span class="n">iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
-</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">    </span><span class="n">p</span><span class="o">:</span><span class="w"> </span><span class="n">RdfTerm</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">        </span><span class="n">iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">            </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span>
-</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">            </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span>
-</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">    </span><span class="n">o</span><span class="o">:</span><span class="w"> </span><span class="n">RdfRepeat</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">RdfTerm</span><span class="p">(</span><span class="na">bnode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;b2&quot;</span><span class="p">)</span>
-</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="p">}</span>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="err">#</span><span class="w"> </span><span class="n">First</span><span class="w"> </span><span class="n">row</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">RdfTriple</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">s_iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">p_iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">o_bnode</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;b1&quot;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="err">#</span><span class="w"> </span><span class="n">Second</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">repeating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">subject</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">predicate</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="err">#</span><span class="w"> </span><span class="n">s_iri</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">p_iri</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">reused</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="n">row</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">RdfTriple</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">o_bnode</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;b2&quot;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="err">#</span><span class="w"> </span><span class="n">Third</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">repeating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">subject</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">object</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="err">#</span><span class="w"> </span><span class="n">s_iri</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">o_bnode</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">reused</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="n">row</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">RdfTriple</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">p_iri</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="p">}</span>
 </span></code></pre></div>
 </details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Repeated terms are a simple, yet incredibly effective compression mechanism and you should use them whenever possible. They are doubly effective: not only you save space by not repeating the terms, but also repeated terms are not encoded at all (zero bytes on the wire), which saves even more space.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.</p>
@@ -1965,15 +1907,133 @@
 <p class="admonition-title">Note</p>
 <p>Although repeated terms can stretch across stream frame boundaries (i.e., refer to values last seen in the previous stream frame), you don't have to use this feature. If your use case requires the stream frames to be more independent of each other (see: <a href="#ordering">stream frame ordering</a>), you can just reset the repeated terms at the start of each stream frame.</p>
 </div>
-<h3 id="rdf-graph-nodes">RDF graph nodes</h3>
-<p>RDF graph nodes are encoded using the <a href="../reference/#rdfgraph"><code>RdfGraph</code></a> message. The message is used both in the <code>RdfGraphStart</code> message for GRAPHS streams and in the <code>RdfQuad</code> message for QUADS streams. The message MUST have exactly one of the following fields set:</p>
+<h3 id="rdf-terms-and-graph-nodes">RDF terms and graph nodes</h3>
+<p>RDF terms and graph nodes are encoded using oneofs in <a href="../reference/#rdftriple"><code>RdfTriple</code></a>, <a href="../reference/#rdfquad"><code>RdfQuad</code></a>, and <a href="../reference/#rdfgraphstart"><code>RdfGraphStart</code></a>. The oneofs have each several fields, depending on the type of the term: <code>*_iri</code>, <code>*_bnode</code>, <code>*_literal</code>, <code>*_triple_term</code>, <code>g_default_graph</code>, corresponding to RDF IRIs, blank nodes, literals, RDF-star quoted triples, and the default RDF graph in an RDF dataset, respectively. At most one field in each oneof MUST be set.</p>
+<h4 id="iris">IRIs</h4>
+<p>The IRIs are encoded using the <a href="../reference/#rdfiri"><code>RdfIri</code></a> message. The message has two fields that together make up the IRI:</p>
 <ul>
-<li><code>iri</code> (1) – the graph node is an IRI. The field is of type <code>RdfIri</code> (see: <a href="#iris">RDF terms – IRIs</a>).</li>
-<li><code>bnode</code> (2) – the graph node is a blank node. The field is of type <code>string</code> (see: <a href="#blank-nodes">RDF terms – blank nodes</a>).</li>
-<li><code>literal</code> (3) – the graph node is a literal. The field is of type <code>RdfLiteral</code> (see: <a href="#literals">RDF terms – literals</a>). This field is only valid for generalized RDF streams (see: <a href="#stream-options">stream options header</a>).</li>
-<li><code>default_graph</code> (4) – the graph node is the default graph. The field is of type <a href="../reference/#rdfdefaultgraph"><code>RdfDefaultGraph</code></a>, which is an empty message.</li>
-<li><code>repeat</code> (10) – the graph node is the same as in the previous row. The field is of type <a href="../reference/#rdfrepeat"><code>RdfRepeat</code></a> (see: <a href="#repeated-terms">repeated terms</a>). This field is only valid for QUADS streams, within the <code>RdfQuad</code> message. It MUST NOT occur within the <code>RdfGraphStart</code> message.</li>
+<li><code>prefix_id</code> (1) – 1-based index of the prefix of the IRI, corresponding to an entry in the prefix lookup.<ul>
+<li>The default value of <code>0</code> MUST be interpreted as the same value as in the last explictly specified (non-zero) prefix identifier.</li>
+<li>If <code>0</code> appears in the first IRI of the stream (and in any subsequent IRI), this MUST be interpreted as an empty prefix (zero-length string). This is for example used when the prefix lookup table is set to size zero.</li>
 </ul>
+</li>
+<li><code>name_id</code> (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup. This field is OPTIONAL and the default value (0) indicates an empty name.<ul>
+<li>The default value of <code>0</code> MUST be interpreted as <code>previous_name_id + 1</code>, that is, the <code>name_id</code> of the previous IRI incremented by one.</li>
+<li>If <code>0</code> appears in the first IRI of the stream it MUST be interpreted as <code>1</code>.</li>
+<li>Multiple <code>0</code> values in a row may occur, in which case the <code>name_id</code> MUST be interpreted as incrementing by one for each <code>0</code> value.</li>
+</ul>
+</li>
+</ul>
+<p>For the default value behavior to work correctly, IRIs in the stream MUST be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples.</p>
+<p>The IRI is then constructed by first decoding the prefix and the name using the <a href="#prefix-name-and-datatype-lookup-entries">prefix and name lookup tables</a>, and then concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987</a>.</p>
+<details class="example">
+<summary>Example with the prefix table (click to expand)</summary>
+<p>Assume the following lookup entries were defined in the stream (wrapping <code>RdfStreamRow</code>s were omitted for brevity):</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">RdfPrefixEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">prefix</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/&quot;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;example&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">}</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;test&quot;</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Then the following IRIs are encoded as follows:</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/example</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//test.com/test</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Note that the default values (zeroes) are not encoded at all in Protobuf and therefore take up zero bytes in the stream.</p>
+</details>
+<details class="example">
+<summary>Example without the prefix table (click to expand)</summary>
+<p>In this example, the prefix lookup table is not used. The lookup entries are defined as follows:</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/example&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/test&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Then the following IRIs are encoded as follows:</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/example</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">prefix</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">#</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/test</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">prefix</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. The prefixes are not meant to be user-facing, but you can also use user-defined prefixes (e.g., <code>@prefix</code> in Turtle) to split the IRIs.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The behavior of the default values is designed to save space in the stream. Usually in RDF many IRIs share the same prefix, so you can save space by not repeating the prefix in the stream. At the same time the name part of the IRI is often unique, so for each name you will need a new entry in the lookup table – which is often the next entry after the one you have just created.</p>
+</div>
+<h4 id="blank-nodes">Blank nodes</h4>
+<p>RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.</p>
+<p>Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The consumer MAY use the <a href="#logical-stream-types">logical stream type</a> to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets (grouped RDF stream in RDF-STaX), then the blank node identifiers should be unique only within a single frame.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many RDF libraries (e.g., RDF4J, Apache Jena) use internal identifiers for blank nodes, which can be used as the identifiers in Jelly streams. You can also use a different format, for example with shorter identifiers to preserve space.</p>
+</div>
+<h4 id="literals">Literals</h4>
+<p>RDF literals are represented using the <code>RdfLiteral</code> message (<a href="../reference/#rdfliteral">reference</a>). The message has the following fields:</p>
+<ul>
+<li><code>lex</code> (1) – the lexical form of the literal in UTF-8. This field is OPTIONAL and defaults to an empty string.</li>
+<li><code>literalKind</code> oneof. At most one of the following fields MUST be set:<ul>
+<li><code>langtag</code> (2) – UTF-8 language tag, indicating that the literal is a language-tagged string (has datatype IRI equal to <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#langString</code>). The language tag SHOULD be a valid <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> language tag.</li>
+<li><code>datatype</code> (3) – 1-based index of the datatype in the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a>, indicating that the literal is a typed literal. The value of this field MUST be greater than 0 and it MUST correspond to a valid entry in the datatype lookup.</li>
+</ul>
+</li>
+</ul>
+<p>If no field in the <code>literalKind</code> oneof is set, then the literal MUST be interpreted as a simple literal (has datatype IRI equal to <code>http://www.w3.org/2001/XMLSchema#string</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using the default value of <code>0</code> for the <code>datatype</code> field is not allowed, in contrast to names and prefixes in RdfIri. This is because the <code>datatype</code> field itself is optional and the default value would be ambiguous.</p>
+</div>
+<h4 id="quoted-triples-rdf-star">Quoted triples (RDF-star)</h4>
+<p>RDF-star quoted triples are represented using the <code>RdfTriple</code> message (<a href="../reference/#rdftriple">reference</a>). Quoted triples are encoded in the same manner as triple statements, with the only difference being that <a href="#repeated-terms">repeated terms</a> MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.</p>
+<p>Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.</p>
+<h4 id="graph-nodes">Graph nodes</h4>
+<p>Literal, IRI, and blank node values for graph nodes are encoded in the same manner as for the subject, predicate, and object terms.</p>
+<p>The default graph node is represented using the <code>RdfDefaultGraph</code> message (<a href="../reference/#rdfdefaultgraph">reference</a>). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.</p>
 <h2 id="delimited-variant-of-jelly">Delimited variant of Jelly</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2079,7 +2139,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.dd8806f2.min.js"></script>
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
     
   </body>
