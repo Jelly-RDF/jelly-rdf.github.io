@@ -22,10 +22,7 @@ jobs:
           path: proto
 
       - id: proto_release
-        # Use forked version with support for node 20
-        # https://github.com/pozetroninc/github-action-get-latest-release/pull/33
-        uses: baywet/github-action-get-latest-release@feature/node-20
-        # uses: pozetroninc/github-action-get-latest-release@master
+        uses: pozetroninc/github-action-get-latest-release@v0.8.0
         with:
           owner: Jelly-RDF
           repo: jelly-protobuf
