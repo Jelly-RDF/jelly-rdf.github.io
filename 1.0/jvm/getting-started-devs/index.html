@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/jvm/releases/">
+        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/jvm/getting-started-devs/">
       
       
-        <link rel="prev" href="../utilities/">
+        <link rel="prev" href="../getting-started-plugins/">
       
       
-        <link rel="next" href="../implementing/">
+        <link rel="next" href="../jena/">
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Releases - Jelly</title>
+        <title>Getting started (developers) - Jelly</title>
       
     
     
@@ -62,7 +62,7 @@
         
     
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jelly – Releases" />
+    <meta property="og:title" content="Jelly – Getting started (developers)" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
     <meta property="og:image" content="https://jelly-rdf.github.io/1.0/assets/social.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#developer-guide-releases" class="md-skip">
+        <a href="#jelly-jvm-getting-started-for-developers" class="md-skip">
           Skip to content
         </a>
       
@@ -127,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Releases
+              Getting started (developers)
             
           </span>
         </div>
@@ -583,10 +583,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../getting-started-devs/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -595,6 +604,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -764,10 +774,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -778,11 +786,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
           <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
@@ -796,7 +804,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             Developer guide
@@ -807,30 +815,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Releases
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../releases/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -839,44 +827,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#full-versioned-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Full (versioned) releases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snapshot-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Snapshot releases
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -978,32 +928,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#full-versioned-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Full (versioned) releases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snapshot-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Snapshot releases
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1020,18 +944,9 @@
   
 
 
-<h1 id="developer-guide-releases">Developer guide – releases</h1>
-<h2 id="full-versioned-releases">Full (versioned) releases</h2>
-<p>Full (versioned) releases are created manually and follow the <a href="https://semver.org/">Semantic Versioning</a> scheme for binary compatibility.</p>
-<p>To create a new tagged release (example for version 1.2.3):
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$<span class="w"> </span>git<span class="w"> </span>pull
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>v1.2.3
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.2.3
-</span></code></pre></div></p>
-<p>The rest (packaging and release creation) will be handled automatically by the CI. The release will be pushed to Maven Central.</p>
-<h2 id="snapshot-releases">Snapshot releases</h2>
-<p>Snapshot releases are triggered automatically by commits in the <code>main</code> branch. Snapshots are pushed to the Sonatype snapshot repository.</p>
+<h1 id="jelly-jvm-getting-started-for-developers">Jelly JVM – getting started for developers</h1>
+<p><em>If you don't want to code anything and only use Jelly with your Apache Jena/RDF4J application, see <a href="../getting-started-plugins/">the dedicated guide</a> about using Jelly-JVM as a plugin.</em></p>
+<p>TODO: for </p>
 
 
 

@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/jvm/releases/">
+        <link rel="canonical" href="https://jelly-rdf.github.io/1.0/jvm/getting-started-plugins/">
       
       
-        <link rel="prev" href="../utilities/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../implementing/">
+        <link rel="next" href="../getting-started-devs/">
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Releases - Jelly</title>
+        <title>Getting started (Jena/RDF4J plugin) - Jelly</title>
       
     
     
@@ -62,7 +62,7 @@
         
     
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jelly – Releases" />
+    <meta property="og:title" content="Jelly – Getting started (Jena/RDF4J plugin)" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
     <meta property="og:image" content="https://jelly-rdf.github.io/1.0/assets/social.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#developer-guide-releases" class="md-skip">
+        <a href="#jelly-jvm-getting-started-with-jenardf4j-plugins" class="md-skip">
           Skip to content
         </a>
       
@@ -127,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Releases
+              Getting started (Jena/RDF4J plugin)
             
           </span>
         </div>
@@ -562,10 +562,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../getting-started-plugins/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Getting started (Jena/RDF4J plugin)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -574,6 +594,77 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-jena-apache-jena-fuseki" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apache Jena, Apache Jena Fuseki
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eclipse-rdf4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eclipse RDF4J
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported features
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -764,10 +855,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -778,11 +867,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
         
           
           <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
@@ -796,7 +885,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             Developer guide
@@ -807,30 +896,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Releases
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../releases/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -839,44 +908,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#full-versioned-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Full (versioned) releases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snapshot-releases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Snapshot releases
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -985,18 +1016,51 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#full-versioned-releases" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Full (versioned) releases
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-jena-apache-jena-fuseki" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apache Jena, Apache Jena Fuseki
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eclipse-rdf4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eclipse RDF4J
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported features
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot-releases" class="md-nav__link">
+  <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
-      Snapshot releases
+      See also
     </span>
   </a>
   
@@ -1020,18 +1084,49 @@
   
 
 
-<h1 id="developer-guide-releases">Developer guide – releases</h1>
-<h2 id="full-versioned-releases">Full (versioned) releases</h2>
-<p>Full (versioned) releases are created manually and follow the <a href="https://semver.org/">Semantic Versioning</a> scheme for binary compatibility.</p>
-<p>To create a new tagged release (example for version 1.2.3):
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$<span class="w"> </span>git<span class="w"> </span>pull
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>v1.2.3
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.2.3
-</span></code></pre></div></p>
-<p>The rest (packaging and release creation) will be handled automatically by the CI. The release will be pushed to Maven Central.</p>
-<h2 id="snapshot-releases">Snapshot releases</h2>
-<p>Snapshot releases are triggered automatically by commits in the <code>main</code> branch. Snapshots are pushed to the Sonatype snapshot repository.</p>
+<h1 id="jelly-jvm-getting-started-with-jenardf4j-plugins">Jelly JVM – getting started with Jena/RDF4J plugins</h1>
+<p>This guide explains how to use Jelly JVM with Apache Jena or RDF4J as a plugin, <strong>without writing a single line of code</strong>. Jelly JVM provides plugin JARs that you can simply drop in the appropriate directory to get Jelly format support in your application.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="apache-jena-apache-jena-fuseki">Apache Jena, Apache Jena Fuseki</h3>
+<p>You can simply add Jelly format support to <a href="https://jena.apache.org/index.html">Apache Jena</a> or <a href="https://jena.apache.org/documentation/fuseki2/index.html">Apacha Jena Fuseki</a> with Jelly's plugin JAR.</p>
+<ul>
+<li>First, download the plugin JAR. You can download the <strong><a href="https://github.com/Jelly-RDF/jelly-jvm/releases/latest/download/jelly-jena-plugin.jar">latest stable version from here</a></strong>, or you can go the the <a href="https://github.com/Jelly-RDF/jelly-jvm/releases">releases page</a> on GitHub to download a specific version of the <code>jelly-jena-plugin.jar</code> file.<ul>
+<li>Note that the Jelly version must be compatible with your Apache Jena version. Consult the <a href="../#compatibility">compatibility table</a>.</li>
+</ul>
+</li>
+<li>Place the file in your classpath:<ul>
+<li>For Apache Jena Fuseki, simply place the file in <code>$FUSEKI_BASE/extra/</code> directory. <code>$FUSEKI_BASE</code> is the directory usually called <code>run</code> where you have files such as <code>config.ttl</code> and <code>shiro.ini</code>. You will most likely need to create the <code>extra</code> directory yourself.</li>
+<li>For Apache Jena, place the file in the <code>lib/</code> directory of your Jena installation.</li>
+<li>For other applications, consult the manual of the application.</li>
+</ul>
+</li>
+<li>You can now use Jelly format for parsing, serialization, and streaming serialization in your Jena application.</li>
+</ul>
+<h3 id="eclipse-rdf4j">Eclipse RDF4J</h3>
+<p>You can simply add Jelly format support to an application based on RDF4J with Jelly's plugin JAR.</p>
+<ul>
+<li>First, download the plugin JAR. You can download the <strong><a href="https://github.com/Jelly-RDF/jelly-jvm/releases/latest/download/jelly-rdf4j-plugin.jar">latest stable version from here</a></strong>, or you can go the the <a href="https://github.com/Jelly-RDF/jelly-jvm/releases">releases page</a> on GitHub to download a specific version of the <code>jelly-rdf4j-plugin.jar</code> file.<ul>
+<li>Note that the Jelly version must be compatible with your RDF4J version. Consult the <a href="../#compatibility">compatibility table</a>.</li>
+</ul>
+</li>
+<li>Place the file in your classpath. Consult the manual of your application for the exact location.</li>
+<li>You can now use Jelly format for parsing, serialization, and streaming serialization in your RDF4J application.</li>
+</ul>
+<h2 id="supported-features">Supported features</h2>
+<p>The Jelly JVM plugin JARs provide the following features:</p>
+<ul>
+<li>Full support for parsing and serialization of RDF data (triples and quads) in the Jelly format.<ul>
+<li>In Apache Jena also the stream serialization is supported.</li>
+</ul>
+</li>
+<li>Recognizing the <code>.jelly</code> file extension.</li>
+<li>Recognizing the <code>application/x-jelly-rdf</code> media type.</li>
+</ul>
+<p>The Jelly format is registered under the name <code>jelly</code> in the RDF libraries, so you can use it in the same way as other formats like Turtle, RDF/XML, or JSON-LD.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><strong><a href="../getting-started-devs/">Getting started for developers</a></strong> – if you want to get your hands dirty with code and get more features out of Jelly.</li>
+</ul>
 
 
 

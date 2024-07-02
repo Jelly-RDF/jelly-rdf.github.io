@@ -31,7 +31,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jelly-rdf.github.io/1.0/jvm/getting-started-devs/</loc>
+         <lastmod>2024-07-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.0/jvm/getting-started-plugins/</loc>
+         <lastmod>2024-07-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jelly-rdf.github.io/1.0/jvm/grpc/</loc>
+         <lastmod>2024-07-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.0/jvm/implementing/</loc>
          <lastmod>2024-07-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
