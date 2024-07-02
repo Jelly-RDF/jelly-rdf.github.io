@@ -91,7 +91,8 @@ nav:
 
   - JVM (Scala) implementation:
     - 'jvm/index.md'
-    - Getting started: 'jvm/getting-started.md'
+    - Getting started (Jena/RDF4J plugin): 'jvm/getting-started-plugins.md'
+    - Getting started (developers): 'jvm/getting-started-devs.md'
     - User guide:
       - Apache Jena integration: 'jvm/jena.md'
       - RDF4J integration: 'jvm/rdf4j.md'
@@ -100,7 +101,7 @@ nav:
       - Useful utilities: 'jvm/utilities.md'
     - Developer guide:
       - Releases: 'jvm/releases.md'
-      - Implementing Jelly for other libraries: 'jvm/implementation.md'
+      - Implementing Jelly for other libraries: 'jvm/implementing.md'
 
   - Contributing: 'contributing.md'
   - Licensing and citation: 'licensing.md'

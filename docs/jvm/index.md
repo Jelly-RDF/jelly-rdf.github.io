@@ -4,9 +4,13 @@
 
 This collection of libraries aims to provide the full stack of utilities for fast and scalable RDF streaming with the [Jelly protocol](../specification/index.md).
 
-!!! tip "Getting started"
+!!! tip "Getting started with plugins – no code required"
 
-    See the **[Getting started guide](getting-started.md)** for a quick introduction to the Jelly JVM implementation.
+    See the **[Getting started guide](getting-started-plugins.md)** for a quick way to use Jelly with your Apache Jena or RDF4J application without writing any code.
+
+!!! tip "Getting started for developers"
+
+    If you want to use the full feature set of Jelly JVM in your code, see the **[Getting started guide](getting-started-devs.md)** for developers.
 
 ## Library modules
 
@@ -27,6 +31,8 @@ The implementation is split into a few modules that can be used separately:
 - `jelly-grpc` – implementation of a gRPC client and server for the [Jelly gRPC streaming protocol](../specification/streaming.md).
     - [![jelly-grpc Scala version support](https://index.scala-lang.org/jelly-rdf/jelly-jvm/jelly-grpc/latest.svg)](https://index.scala-lang.org/jelly-rdf/jelly-jvm/jelly-grpc) [![javadoc](https://javadoc.io/badge2/eu.ostrzyciel.jelly/jelly-grpc_3/javadoc.svg)](https://javadoc.io/doc/eu.ostrzyciel.jelly/jelly-grpc_3)
 
+## TODO: PLUGIN JARS
+
 ## Compatibility
 
 The Jelly JVM implementation is compatible with Java 11 and newer. Java 11, 17, and 21 are tested in CI and are guaranteed to work. Jelly is built with [Scala 3 LTS releases](https://www.scala-lang.org/blog/2022/08/17/long-term-compatibility-plans.html).
@@ -35,13 +41,14 @@ The following table shows the compatibility of the Jelly JVM implementation with
 
 | Jelly | Scala       | Java | RDF4J | Apache Jena | Apache Pekko |
 | ----- | ----------- | ---- | ----- | ----------- | ------------ |
-| 1.0.x | 3.3.x (LTS) | 11–21| 4.x   | 4.x         | 1.x          |
+| **1.0.x (current)** | 3.3.x (LTS) | 11+  | 4.x.y | 4.x.y       | 1.0.x        |
 
 ## Documentation
 
 Below is a list of all documentation pages about Jelly JVM. You can also browse the Javadoc using the badges in the module list above. The documentation uses examples written in Scala, but the libraries can be used from Java as well.
 
-- [Getting started](getting-started.md)
+- [Getting started with Jena/RDF4J plugins](getting-started-plugins.md) – how to use Jelly JVM as a plugin for Apache Jena or RDF4J, without writing any code.
+- [Getting started for developers](getting-started-devs.md) – how to use Jelly JVM in code.
 - User guide
     - [Apache Jena integration](jena.md)
     - [RDF4J integration](rdf4j.md)
