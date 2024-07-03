@@ -1,0 +1,50 @@
+name: Compile documentation (dev/pre-release)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [publish-docs-dev]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pages
+
+      - uses: actions/checkout@v4
+        with:
+          repository: Jelly-RDF/jelly-protobuf
+          path: proto
+
+      - name: Generate Protobuf reference
+        run: |
+          docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
+          mkdir pages/docs/specification/proto || true
+          cp proto/*.proto pages/docs/specification/proto
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: 'pages/requirements.txt'
+
+      - name: Install dependencies
+        working-directory: ./pages
+        run: pip install -r requirements.txt 
+
+      - name: Deploy site
+        working-directory: ./pages
+        run: |
+          export TAG='main'
+          export JVM_TAG='main'
+          git fetch origin gh-pages --depth=1
+          git config user.name ci-bot
+          git config user.email ci-bot@example.com
+          mike deploy --push --update-aliases dev latest

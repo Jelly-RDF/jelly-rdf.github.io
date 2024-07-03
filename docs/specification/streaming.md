@@ -146,6 +146,6 @@ These use cases can be implemented with the protocol as-is, or by extending the 
 
 The following implementations of the Jelly gRPC streaming protocol specification are available:
 
-- [Jelly JVM (Scala) implementation](../jvm/index.md)
+- [Jelly-JVM (Scala) implementation]({{ jvm_link() }})
     - Specification version: 1.0.0
     - Partial (boilerplate) implementation based on [Apache Pekko gRPC](https://pekko.apache.org/docs/pekko-grpc/current/). Requires the end user to implement their own code for handling the streams.

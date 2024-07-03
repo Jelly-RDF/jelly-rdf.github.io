@@ -514,7 +514,7 @@ The delimiting convention is implemented in Protobuf libraries for:
 - C++: [delimited_message_util.cc](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc)
 - Java / Scala: [writeDelimitedTo](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-) and [parseDelimitedFrom](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-)
 
-The JVM (Scala) implementation of Jelly also supports the delimited variant – [see the documentation](../jvm/reactive.md#byte-streams).
+The JVM (Scala) implementation of Jelly also supports the delimited variant – [see the documentation]({{ jvm_link('user/reactive#byte-streams') }}).
 
 ## Internet media type and file extension
 
@@ -528,7 +528,7 @@ The files SHOULD be saved in the [delimited variant of Jelly](#delimited-variant
 
 The following implementations of the Jelly serialization format specification are available:
 
-- [Jelly JVM (Scala) implementation](../jvm/index.md)
+- [Jelly-JVM (Scala) implementation]({{ jvm_link() }})
     - Specification version: 1.0.0
     - Implemented actors: producer, consumer
     - Conformance: full

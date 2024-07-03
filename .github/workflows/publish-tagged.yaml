@@ -1,15 +1,15 @@
-name: Compile documentation
+name: Compile documentation (tagged release)
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: {}
+  repository_dispatch:
+    types: [publish-docs-tagged]
 
 permissions:
   contents: write
 
 jobs:
   deploy:
+    env:
+      TAG: ${{ github.event.client_payload.tag }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,12 +20,13 @@ jobs:
         with:
           repository: Jelly-RDF/jelly-protobuf
           path: proto
+          ref: ${{ github.event.client_payload.tag }}
 
-      - id: proto_release
+      - id: jvm_release
         uses: pozetroninc/github-action-get-latest-release@v0.8.0
         with:
           owner: Jelly-RDF
-          repo: jelly-protobuf
+          repo: jelly-jvm
           excludes: prerelease, draft
 
       - name: Generate Protobuf reference
@@ -47,10 +48,14 @@ jobs:
       - name: Deploy site
         working-directory: ./pages
         run: |
-          PROTO_TAG='${{ steps.proto_release.outputs.release }}'
-          V_MAJOR=`echo ${PROTO_TAG#v} | awk -F '.' '{print $1}'`
-          V_MINOR=`echo ${PROTO_TAG#v} | awk -F '.' '{print $2}'`
+          export JVM_TAG='${{ steps.jvm_release.outputs.release }}'
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
           git config user.email ci-bot@example.com
-          mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}" latest
+          V_MAJOR=`echo ${TAG#v} | awk -F '.' '{print $1}'`
+          V_MINOR=`echo ${TAG#v} | awk -F '.' '{print $2}'`
+          if [[ $TAG == *-* ]] ; then
+            mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}.x" "${TAG#v}"
+          else
+            mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}.x" "${TAG#v}" stable
+          fi
