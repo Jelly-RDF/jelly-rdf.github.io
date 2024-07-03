@@ -81,7 +81,7 @@ Topics are identified with UTF-8 strings. The topic string MUST be valid UTF-8. 
 
 ### Subscribing to a stream
 
-The client subscribes to a stream from the server with the `SubscribeRdf` RPC ([reference](reference.md#subscriberdf)). The RPC is initiated with an `RdfStreamSubscribe` message ([reference](reference.md#rdfstreamsubscribe)) from the client. The message includes two OPTIONAL fields:
+The client subscribes to a stream from the server with the `SubscribeRdf` RPC ([reference](reference.md#rdfstreamservice)). The RPC is initiated with an `RdfStreamSubscribe` message ([reference](reference.md#rdfstreamsubscribe)) from the client. The message includes two OPTIONAL fields:
 
 - `topic` (1) – the topic to subscribe to. The default is an empty string.
 - `options` (2) – the stream options ([`RdfStreamOptions`](reference.md#rdfstreamoptions)). The default is an empty message.
@@ -124,7 +124,7 @@ Logical stream type handling is entirely dependent on the server implementation:
 
 ### Publishing a stream
 
-The client publishes a stream to the server with the `PublishRdf` RPC ([reference](reference.md#publishrdf)). The RPC is initiated with a stream of [`RdfStreamFrame`](reference.md#rdfstreamframe) messages from the client. The stream MUST include at least one message. The first frame MUST include a row with the stream options as the first row. After the stream successfully completes, the server MUST respond with the `RdfStreamReceived` message ([reference](reference.md#rdfstreamreceived)).
+The client publishes a stream to the server with the `PublishRdf` RPC ([reference](reference.md#rdfstreamservice)). The RPC is initiated with a stream of [`RdfStreamFrame`](reference.md#rdfstreamframe) messages from the client. The stream MUST include at least one message. The first frame MUST include a row with the stream options as the first row. After the stream successfully completes, the server MUST respond with the `RdfStreamReceived` message ([reference](reference.md#rdfstreamreceived)).
 
 If the server cannot handle the stream with the specified options, the server MUST respond with the `INVALID_ARGUMENT` error.
 

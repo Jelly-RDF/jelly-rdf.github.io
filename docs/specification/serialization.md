@@ -122,7 +122,7 @@ Stream rows MUST be processed strictly in order to preserve the semantics of the
 
 ### Physical stream types
 
-The physical type of the stream MUST be explicitly specified in the [stream options header](#stream-options). The physical type of the stream is defined by the `PhysicalStreamType` enum ([reference](reference.md#PhysicalStreamType)). The following types are defined:
+The physical type of the stream MUST be explicitly specified in the [stream options header](#stream-options). The physical type of the stream is defined by the `PhysicalStreamType` enum ([reference](reference.md#physicalstreamtype)). The following types are defined:
 
 - `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. The implementations SHOULD treat this value as an error.
 - `PHYSICAL_STREAM_TYPE_TRIPLES` (1) – stream of [RDF triple statements](https://www.w3.org/TR/rdf11-concepts/#section-triples). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad`, `graph_start`, or `graph_end` fields set.
@@ -131,7 +131,7 @@ The physical type of the stream MUST be explicitly specified in the [stream opti
 
 !!! note
 
-    See also [a more human explanation](index.md#stream-types) of the available physical stream types.
+    See also [a more human explanation](../user-guide.md#stream-types) of the available physical stream types.
 
 !!! note
 
@@ -139,7 +139,7 @@ The physical type of the stream MUST be explicitly specified in the [stream opti
 
 ### Logical stream types
 
-Specifying the logical stream type in the [stream options header](#stream-options) is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the `LogicalStreamType` enum ([reference](reference.md#LogicalStreamType)).
+Specifying the logical stream type in the [stream options header](#stream-options) is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the `LogicalStreamType` enum ([reference](reference.md#logicalstreamtype)).
 
 This version of Jelly uses the [RDF Stream Taxonomy (RDF-STaX) 1.1.1](https://w3id.org/stax/1.1.1) and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:
 

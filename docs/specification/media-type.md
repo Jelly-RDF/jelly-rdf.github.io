@@ -5,7 +5,7 @@ Jelly is not tied to any specific file extension and does not have a registered 
 - File extension: `.jelly`
 - Media type: `application/x-jelly-rdf`
 
-The files should be saved in the [delimited variant of Jelly](serialization.md#delimited-variant).
+The files should be saved in the [delimited variant of Jelly](serialization.md#delimited-variant-of-jelly).
 
 ## See also
 
