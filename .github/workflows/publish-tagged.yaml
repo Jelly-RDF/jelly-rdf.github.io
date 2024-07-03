@@ -54,8 +54,4 @@ jobs:
           git config user.email ci-bot@example.com
           V_MAJOR=`echo ${TAG#v} | awk -F '.' '{print $1}'`
           V_MINOR=`echo ${TAG#v} | awk -F '.' '{print $2}'`
-          if [[ $TAG == *-* ]] ; then
-            mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}.x" "${TAG#v}"
-          else
-            mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}.x" "${TAG#v}" stable
-          fi
+          mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}.x" "${TAG#v}" stable
