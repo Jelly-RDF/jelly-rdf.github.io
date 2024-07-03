@@ -2,7 +2,7 @@
 
 **This document is the specification of the Jelly gRPC streaming protocol (publish/subscribe mechanism). It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
-This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`grpc.proto`](https://github.com/Jelly-RDF/jelly-protobuf/blob/main/grpc.proto)).
+This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`grpc.proto`]({{ git_proto_link('grpc.proto') }})).
 
 The following assumptions are used in this document:
 
@@ -12,9 +12,9 @@ The following assumptions are used in this document:
 
 **Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
 
-**Version:** 1.0.0
+**Version:** {{ proto_version() }}
 
-**Document status**: Draft specification
+**Document status**: {{ specification_status() }} specification
 
 !!! info
 
@@ -147,5 +147,5 @@ These use cases can be implemented with the protocol as-is, or by extending the 
 The following implementations of the Jelly gRPC streaming protocol specification are available:
 
 - [Jelly-JVM (Scala) implementation]({{ jvm_link() }})
-    - Specification version: 1.0.0
+    - Specification version: {{ proto_version() }}
     - Partial (boilerplate) implementation based on [Apache Pekko gRPC](https://pekko.apache.org/docs/pekko-grpc/current/). Requires the end user to implement their own code for handling the streams.

@@ -44,6 +44,7 @@ jobs:
         run: |
           export TAG='main'
           export JVM_TAG='main'
+          export PROTO_PATH='../proto'
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
           git config user.email ci-bot@example.com

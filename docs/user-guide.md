@@ -39,17 +39,17 @@ There are three physical stream types in Jelly:
 - **`QUADS`**: Data is encoded using quad statements. Each quad has a graph name, which can also be empty for the default graph.
 - **`GRAPHS`**: Data is encoded using named graphs, where the graph name can also be empty for the default graph. Each named graph can contain multiple triples.
 
-As for logical stream types, they are taken directly from [RDF-STaX](https://w3id.org/stax/dev/taxonomy) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
+As for logical stream types, they are taken directly from [RDF-STaX]({{ stax_link('taxonomy') }}) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
 
 | RDF-STaX (logical type) / Physical type | `TRIPLES` | `QUADS` | `GRAPHS` |
 |:--|:-:|:-:|:-:|
-| [Graph stream](https://w3id.org/stax/dev/taxonomy#rdf-graph-stream) | Framed | ✘ | ✘ |
-| [Subject graph stream](https://w3id.org/stax/dev/taxonomy#rdf-subject-graph-stream) | Framed | ✘ | ✘ |
-| [Dataset stream](https://w3id.org/stax/dev/taxonomy#rdf-dataset-stream) | ✘ | Framed | Framed |
-| [Named graph stream](https://w3id.org/stax/dev/taxonomy#rdf-named-graph-stream) | ✘ | Framed | Framed |
-| [Timestamped named graph stream](https://w3id.org/stax/dev/taxonomy#timestamped-rdf-named-graph-stream) | ✘ | Framed | Framed |
-| [Flat triple stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream) | Continuous | ✘ | ✘ |
-| [Flat quad stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream) | ✘ | Continuous | Continuous |
+| [Graph stream]({{ stax_link('taxonomy#rdf-graph-stream') }}) | Framed | ✘ | ✘ |
+| [Subject graph stream]({{ stax_link('taxonomy#rdf-subject-graph-stream') }}) | Framed | ✘ | ✘ |
+| [Dataset stream]({{ stax_link('taxonomy#rdf-dataset-stream') }}) | ✘ | Framed | Framed |
+| [Named graph stream]({{ stax_link('taxonomy#rdf-named-graph-stream') }}) | ✘ | Framed | Framed |
+| [Timestamped named graph stream]({{ stax_link('taxonomy#timestamped-rdf-named-graph-stream') }}) | ✘ | Framed | Framed |
+| [Flat triple stream]({{ stax_link('taxonomy#flat-rdf-triple-stream') }}) | Continuous | ✘ | ✘ |
+| [Flat quad stream]({{ stax_link('taxonomy#flat-rdf-quad-stream') }}) | ✘ | Continuous | Continuous |
 
 
 The values in the table mean the following:
@@ -58,7 +58,7 @@ The values in the table mean the following:
 - **Continuous**: The stream is a continuous sequence of logical elements. For example, in a flat triple stream, the stream is just a sequence of triples.
 - **✘**: The physical stream type is not directly supported for the logical stream type. However, you may still find a way to use it, depending on your use case.
 
-The flat logical stream types ([flat RDF triple stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream) and [flat RDF quad stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream) in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.
+The flat logical stream types ([flat RDF triple stream]({{ stax_link('taxonomy#flat-rdf-triple-stream') }}) and [flat RDF quad stream]({{ stax_link('taxonomy#flat-rdf-quad-stream') }}) in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.
 
 ### Common patterns cookbook
 
@@ -68,7 +68,7 @@ Below you will find some common patterns for using Jelly. These are just example
 
 Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.
 
-This means you are using logically a [flat RDF triple stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream). It can be physically encoded as as `TRIPLES` stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):
+This means you are using logically a [flat RDF triple stream]({{ stax_link('taxonomy#flat-rdf-triple-stream') }}). It can be physically encoded as as `TRIPLES` stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):
 
 ??? example "Example (click to expand)"
 
@@ -91,7 +91,7 @@ You can then send these frames one-by-one over gRPC or Kafka, or write them to a
 
 In this case we have (for example) an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like [SOSA/SSN](https://www.w3.org/TR/vocab-ssn/)). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.
 
-This means you are using logically an [RDF graph stream](https://w3id.org/stax/dev/taxonomy#rdf-graph-stream). You can encode it as a `TRIPLES` stream, where the stream frames correspond to different unnamed (default) graphs:
+This means you are using logically an [RDF graph stream]({{ stax_link('taxonomy#rdf-graph-stream') }}). You can encode it as a `TRIPLES` stream, where the stream frames correspond to different unnamed (default) graphs:
 
 ??? example "Example (click to expand)"
 
@@ -114,7 +114,7 @@ The consumer will be able to read the graphs one frame at a time, without having
 
 #### Flat RDF quad stream – "just a bunch of quads"
 
-You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This is logically a [flat RDF quad stream](https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream). It can be physically encoded as a `QUADS` stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):
+You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This is logically a [flat RDF quad stream]({{ stax_link('taxonomy#flat-rdf-quad-stream') }}). It can be physically encoded as a `QUADS` stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):
 
 ??? example "Example (click to expand)"
 
@@ -177,7 +177,7 @@ Notice that one named graph can span multiple stream frames, and one stream fram
 
 #### RDF dataset stream (as `QUADS`)
 
-You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an [RDF dataset stream](https://w3id.org/stax/dev/taxonomy#rdf-dataset-stream), which can be physically encoded as a `QUADS` stream, where the stream frames correspond to different datasets:
+You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an [RDF dataset stream]({{ stax_link('taxonomy#rdf-dataset-stream') }}), which can be physically encoded as a `QUADS` stream, where the stream frames correspond to different datasets:
 
 ??? example "Example (click to expand)"
 
@@ -200,7 +200,7 @@ The mechanism is exactly the same as with a triple stream of graphs.
 
 #### RDF dataset stream (as `GRAPHS`)
 
-You want to stream RDF datasets or a subclass of them – for example [timestamped named graphs](https://w3id.org/stax/dev/taxonomy#timestamped-rdf-named-graph-stream), using the [RSP Data Model](https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/), where each stream element is a named graph and a bunch of statements about this graph in the default graph. This can be physically encoded as a `GRAPHS` stream, where the stream frames correspond to different datasets:
+You want to stream RDF datasets or a subclass of them – for example [timestamped named graphs]({{ stax_link('taxonomy#timestamped-rdf-named-graph-stream') }}), using the [RSP Data Model](https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/), where each stream element is a named graph and a bunch of statements about this graph in the default graph. This can be physically encoded as a `GRAPHS` stream, where the stream frames correspond to different datasets:
 
 ??? example "Example (click to expand)"
 
