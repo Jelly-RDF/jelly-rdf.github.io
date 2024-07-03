@@ -1220,11 +1220,11 @@
 <ul>
 <li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/rdf11-concepts/">W3C Recommendation 25 February 2014</a>).</li>
 <li>In parts referring to RDF-star, the RDF-star draft specification (<a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">W3C Community Group Draft Report 29 June 2023</a>) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.</li>
-<li>In parts referring to the RDF Stream Taxonomy (RDF-STaX), the <a href="https://w3id.org/stax/1.1.1/ontology">RDF-STaX version 1.1.1 ontology</a> and <a href="https://w3id.org/stax/1.1.1/taxonomy">taxonomy</a> are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! --></li>
+<li>In parts referring to the RDF Stream Taxonomy (RDF-STaX), the <a href="https://w3id.org/stax/1.1.0/ontology">RDF-STaX version 1.1.0 ontology</a> and <a href="https://w3id.org/stax/1.1.0/taxonomy">taxonomy</a> are used.</li>
 <li>All strings in the serialization are assumed to be UTF-8 encoded.</li>
 </ul>
 <p><strong>Author:</strong> <a href="https://orcid.org/0000-0002-2543-9461">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>)</p>
-<p><strong>Version:</strong> 1.0.0</p>
+<p><strong>Version:</strong> dev</p>
 <p><strong>Document status</strong>: Draft specification</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -1335,44 +1335,44 @@
 </div>
 <h3 id="logical-stream-types">Logical stream types</h3>
 <p>Specifying the logical stream type in the <a href="#stream-options">stream options header</a> is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the <code>LogicalStreamType</code> enum (<a href="../reference/#logicalstreamtype">reference</a>).</p>
-<p>This version of Jelly uses the <a href="https://w3id.org/stax/1.1.1">RDF Stream Taxonomy (RDF-STaX) 1.1.1</a> and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:</p>
+<p>This version of Jelly uses the <a href="https://w3id.org/stax/1.1.0/">RDF Stream Taxonomy (RDF-STaX) 1.1.0</a> and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:</p>
 <ul>
 <li><code>LOGICAL_STREAM_TYPE_UNSPECIFIED</code> (0) – default value. This logical stream type is used when the serializer chooses not to specify the logical stream type.</li>
 <li><code>LOGICAL_STREAM_TYPE_FLAT_TRIPLES</code> (1)<ul>
 <li>RDF-STaX name: Flat RDF triple stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#flatTripleStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#flatTripleStream"><code>https://w3id.org/stax/ontology#flatTripleStream</code></a></li>
 </ul>
 </li>
 <li><code>LOGICAL_STREAM_TYPE_FLAT_QUADS</code> (2)<ul>
 <li>RDF-STaX name: Flat RDF quad stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#flatQuadStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#flatQuadStream"><code>https://w3id.org/stax/ontology#flatQuadStream</code></a></li>
 </ul>
 </li>
 <li><code>LOGICAL_STREAM_TYPE_GRAPHS</code> (3)<ul>
 <li>RDF-STaX name: RDF graph stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#graphStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#graphStream"><code>https://w3id.org/stax/ontology#graphStream</code></a></li>
 </ul>
 </li>
 <li><code>LOGICAL_STREAM_TYPE_DATASETS</code> (4)<ul>
 <li>RDF-STaX name: RDF dataset stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#datasetStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#datasetStream"><code>https://w3id.org/stax/ontology#datasetStream</code></a></li>
 </ul>
 </li>
 <li><code>LOGICAL_STREAM_TYPE_SUBJECT_GRAPHS</code> (13)<ul>
 <li>RDF-STaX name: RDF subject graph stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#subjectGraphStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#subjectGraphStream"><code>https://w3id.org/stax/ontology#subjectGraphStream</code></a></li>
 <li>Subtype of: <code>LOGICAL_STREAM_TYPE_GRAPHS</code> (3)</li>
 </ul>
 </li>
 <li><code>LOGICAL_STREAM_TYPE_NAMED_GRAPHS</code> (14)<ul>
 <li>RDF-STaX name: RDF named graph stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#namedGraphStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#namedGraphStream"><code>https://w3id.org/stax/ontology#namedGraphStream</code></a></li>
 <li>Subtype of: <code>LOGICAL_STREAM_TYPE_DATASETS</code> (4)</li>
 </ul>
 </li>
 <li><code>LOGICAL_STREAM_TYPE_TIMESTAMPED_NAMED_GRAPHS</code> (114)<ul>
 <li>RDF-STaX name: Timestamped RDF named graph stream</li>
-<li>RDF-STaX IRI: <code>https://w3id.org/stax/ontology#timestampedNamedGraphStream</code></li>
+<li>RDF-STaX IRI: <a href="https://w3id.org/stax/1.1.0/ontology#timestampedNamedGraphStream"><code>https://w3id.org/stax/ontology#timestampedNamedGraphStream</code></a></li>
 <li>Subtype of: <code>LOGICAL_STREAM_TYPE_NAMED_GRAPHS</code> (14)</li>
 </ul>
 </li>
@@ -1740,7 +1740,7 @@
 <p>The following implementations of the Jelly serialization format specification are available:</p>
 <ul>
 <li><a href="https://jelly-rdf.github.io/jelly-jvm/dev/">Jelly-JVM (Scala) implementation</a><ul>
-<li>Specification version: 1.0.0</li>
+<li>Specification version: dev</li>
 <li>Implemented actors: producer, consumer</li>
 <li>Conformance: full</li>
 <li>Supported RDF libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a></li>

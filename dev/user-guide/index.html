@@ -911,7 +911,7 @@
 <li><strong><code>QUADS</code></strong>: Data is encoded using quad statements. Each quad has a graph name, which can also be empty for the default graph.</li>
 <li><strong><code>GRAPHS</code></strong>: Data is encoded using named graphs, where the graph name can also be empty for the default graph. Each named graph can contain multiple triples.</li>
 </ul>
-<p>As for logical stream types, they are taken directly from <a href="https://w3id.org/stax/dev/taxonomy">RDF-STaX</a> – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the <a href="../specification/">Jelly protocol specification</a> and its official implementations.</p>
+<p>As for logical stream types, they are taken directly from <a href="https://w3id.org/stax/1.1.0/taxonomy">RDF-STaX</a> – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the <a href="../specification/">Jelly protocol specification</a> and its official implementations.</p>
 <table>
 <thead>
 <tr>
@@ -923,43 +923,43 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#rdf-graph-stream">Graph stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#rdf-graph-stream">Graph stream</a></td>
 <td style="text-align: center;">Framed</td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">✘</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#rdf-subject-graph-stream">Subject graph stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#rdf-subject-graph-stream">Subject graph stream</a></td>
 <td style="text-align: center;">Framed</td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">✘</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#rdf-dataset-stream">Dataset stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#rdf-dataset-stream">Dataset stream</a></td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">Framed</td>
 <td style="text-align: center;">Framed</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#rdf-named-graph-stream">Named graph stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#rdf-named-graph-stream">Named graph stream</a></td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">Framed</td>
 <td style="text-align: center;">Framed</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#timestamped-rdf-named-graph-stream">Timestamped named graph stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#timestamped-rdf-named-graph-stream">Timestamped named graph stream</a></td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">Framed</td>
 <td style="text-align: center;">Framed</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream">Flat triple stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#flat-rdf-triple-stream">Flat triple stream</a></td>
 <td style="text-align: center;">Continuous</td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">✘</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream">Flat quad stream</a></td>
+<td style="text-align: left;"><a href="https://w3id.org/stax/1.1.0/taxonomy#flat-rdf-quad-stream">Flat quad stream</a></td>
 <td style="text-align: center;">✘</td>
 <td style="text-align: center;">Continuous</td>
 <td style="text-align: center;">Continuous</td>
@@ -972,12 +972,12 @@
 <li><strong>Continuous</strong>: The stream is a continuous sequence of logical elements. For example, in a flat triple stream, the stream is just a sequence of triples.</li>
 <li><strong>✘</strong>: The physical stream type is not directly supported for the logical stream type. However, you may still find a way to use it, depending on your use case.</li>
 </ul>
-<p>The flat logical stream types (<a href="https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream">flat RDF triple stream</a> and <a href="https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream">flat RDF quad stream</a> in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.</p>
+<p>The flat logical stream types (<a href="https://w3id.org/stax/1.1.0/taxonomy#flat-rdf-triple-stream">flat RDF triple stream</a> and <a href="https://w3id.org/stax/1.1.0/taxonomy#flat-rdf-quad-stream">flat RDF quad stream</a> in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.</p>
 <h3 id="common-patterns-cookbook">Common patterns cookbook</h3>
 <p>Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the <a href="https://jelly-rdf.github.io/jelly-jvm/dev/user/reactive">Jelly-JVM (Scala) implementation</a> with the Reactive Streaming module.</p>
 <h4 id="flat-rdf-triple-stream-just-a-bunch-of-triples">Flat RDF triple stream – "just a bunch of triples"</h4>
 <p>Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.</p>
-<p>This means you are using logically a <a href="https://w3id.org/stax/dev/taxonomy#flat-rdf-triple-stream">flat RDF triple stream</a>. It can be physically encoded as as <code>TRIPLES</code> stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):</p>
+<p>This means you are using logically a <a href="https://w3id.org/stax/1.1.0/taxonomy#flat-rdf-triple-stream">flat RDF triple stream</a>. It can be physically encoded as as <code>TRIPLES</code> stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):</p>
 <details class="example">
 <summary>Example (click to expand)</summary>
 <ul>
@@ -1002,7 +1002,7 @@
 <p>You can then send these frames one-by-one over gRPC or Kafka, or write them to a file. The consumer will be able to read the triples one frame at a time, without having to know how many triples there are in total.</p>
 <h4 id="rdf-graph-stream">RDF graph stream</h4>
 <p>In this case we have (for example) an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like <a href="https://www.w3.org/TR/vocab-ssn/">SOSA/SSN</a>). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.</p>
-<p>This means you are using logically an <a href="https://w3id.org/stax/dev/taxonomy#rdf-graph-stream">RDF graph stream</a>. You can encode it as a <code>TRIPLES</code> stream, where the stream frames correspond to different unnamed (default) graphs:</p>
+<p>This means you are using logically an <a href="https://w3id.org/stax/1.1.0/taxonomy#rdf-graph-stream">RDF graph stream</a>. You can encode it as a <code>TRIPLES</code> stream, where the stream frames correspond to different unnamed (default) graphs:</p>
 <details class="example">
 <summary>Example (click to expand)</summary>
 <ul>
@@ -1027,7 +1027,7 @@
 <p>The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.</p>
 <p><a href="http://w3id.org/riverbench">RiverBench</a> uses this pattern for distributing its triple streams (see <a href="https://w3id.org/riverbench/datasets/lod-katrina/dev">example</a>). Note that in RiverBench the stream may be equivalently considered "just a bunch of triples" – the serialization is the same, it only depends on the interpretation on the side of the consumer.</p>
 <h4 id="flat-rdf-quad-stream-just-a-bunch-of-quads">Flat RDF quad stream – "just a bunch of quads"</h4>
-<p>You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This is logically a <a href="https://w3id.org/stax/dev/taxonomy#flat-rdf-quad-stream">flat RDF quad stream</a>. It can be physically encoded as a <code>QUADS</code> stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):</p>
+<p>You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This is logically a <a href="https://w3id.org/stax/1.1.0/taxonomy#flat-rdf-quad-stream">flat RDF quad stream</a>. It can be physically encoded as a <code>QUADS</code> stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):</p>
 <details class="example">
 <summary>Example (click to expand)</summary>
 <ul>
@@ -1095,7 +1095,7 @@
 </details>
 <p>Notice that one named graph can span multiple stream frames, and one stream frame can contain multiple graphs. The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.</p>
 <h4 id="rdf-dataset-stream-as-quads">RDF dataset stream (as <code>QUADS</code>)</h4>
-<p>You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an <a href="https://w3id.org/stax/dev/taxonomy#rdf-dataset-stream">RDF dataset stream</a>, which can be physically encoded as a <code>QUADS</code> stream, where the stream frames correspond to different datasets:</p>
+<p>You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an <a href="https://w3id.org/stax/1.1.0/taxonomy#rdf-dataset-stream">RDF dataset stream</a>, which can be physically encoded as a <code>QUADS</code> stream, where the stream frames correspond to different datasets:</p>
 <details class="example">
 <summary>Example (click to expand)</summary>
 <ul>
@@ -1120,7 +1120,7 @@
 <p>The mechanism is exactly the same as with a triple stream of graphs.</p>
 <p><a href="http://w3id.org/riverbench">RiverBench</a> uses this pattern for distributing its RDF dataset streams (see <a href="https://w3id.org/riverbench/datasets/nanopubs/dev">example</a>). Note that in RiverBench the stream may be equivalently considered a flat RDF quad stream – the serialization is the same, it only depends on the interpretation on the side of the consumer.</p>
 <h4 id="rdf-dataset-stream-as-graphs">RDF dataset stream (as <code>GRAPHS</code>)</h4>
-<p>You want to stream RDF datasets or a subclass of them – for example <a href="https://w3id.org/stax/dev/taxonomy#timestamped-rdf-named-graph-stream">timestamped named graphs</a>, using the <a href="https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/">RSP Data Model</a>, where each stream element is a named graph and a bunch of statements about this graph in the default graph. This can be physically encoded as a <code>GRAPHS</code> stream, where the stream frames correspond to different datasets:</p>
+<p>You want to stream RDF datasets or a subclass of them – for example <a href="https://w3id.org/stax/1.1.0/taxonomy#timestamped-rdf-named-graph-stream">timestamped named graphs</a>, using the <a href="https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/">RSP Data Model</a>, where each stream element is a named graph and a bunch of statements about this graph in the default graph. This can be physically encoded as a <code>GRAPHS</code> stream, where the stream frames correspond to different datasets:</p>
 <details class="example">
 <summary>Example (click to expand)</summary>
 <ul>
