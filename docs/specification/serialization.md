@@ -2,20 +2,20 @@
 
 **This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
-This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`rdf.proto`](https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto)).
+This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`rdf.proto`]({{ git_proto_link('rdf.proto') }})).
 
 The following assumptions are used in this document:
 
 - The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/rdf11-concepts/)).
 - In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
-- In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version 1.1.1 ontology](https://w3id.org/stax/1.1.1/ontology) and [taxonomy](https://w3id.org/stax/1.1.1/taxonomy) are used. <!-- !!! When updating the RDF-STaX version, also update it in text in the "Logical stream types" section and in the links to RDF-STaX. !!! -->
+- In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version {{ stax_version() }} ontology]({{ stax_link('ontology') }}) and [taxonomy]({{ stax_link('taxonomy') }}) are used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
 **Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
 
-**Version:** 1.0.0
+**Version:** {{ proto_version() }}
 
-**Document status**: Draft specification
+**Document status**: {{ specification_status() }} specification
 
 !!! info
 
@@ -73,7 +73,7 @@ Implementations may include only the producer, only the consumer, or both.
 
 ## Format specification
 
-The Jelly serialization format uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in `rdf.proto` ([source code](https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto), [reference](reference.md#rdfproto)).
+The Jelly serialization format uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in `rdf.proto` ([source code]({{ git_proto_link('rdf.proto') }}), [reference](reference.md#rdfproto)).
 
 The Jelly format is a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the [delimited variant](#delimited-variant-of-jelly).
 
@@ -141,32 +141,32 @@ The physical type of the stream MUST be explicitly specified in the [stream opti
 
 Specifying the logical stream type in the [stream options header](#stream-options) is OPTIONAL. When it is specified, the implementations MAY use it to determine the semantics of the stream. The implementations also MAY ignore the specified logical stream type and interpret the stream in any other manner. The logical stream type is defined by the `LogicalStreamType` enum ([reference](reference.md#logicalstreamtype)).
 
-This version of Jelly uses the [RDF Stream Taxonomy (RDF-STaX) 1.1.1](https://w3id.org/stax/1.1.1) and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:
+This version of Jelly uses the [RDF Stream Taxonomy (RDF-STaX) {{ stax_version() }}]({{ stax_link() }}) and implements all stream types of RDF-STaX as logical stream types. The following logical stream types are defined:
 
 - `LOGICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This logical stream type is used when the serializer chooses not to specify the logical stream type.
 - `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1)
     - RDF-STaX name: Flat RDF triple stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#flatTripleStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#flatTripleStream`]({{ stax_link('ontology#flatTripleStream') }})
 - `LOGICAL_STREAM_TYPE_FLAT_QUADS` (2)
     - RDF-STaX name: Flat RDF quad stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#flatQuadStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#flatQuadStream`]({{ stax_link('ontology#flatQuadStream') }})
 - `LOGICAL_STREAM_TYPE_GRAPHS` (3)
     - RDF-STaX name: RDF graph stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#graphStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#graphStream`]({{ stax_link('ontology#graphStream') }})
 - `LOGICAL_STREAM_TYPE_DATASETS` (4)
     - RDF-STaX name: RDF dataset stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#datasetStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#datasetStream`]({{ stax_link('ontology#datasetStream') }})
 - `LOGICAL_STREAM_TYPE_SUBJECT_GRAPHS` (13)
     - RDF-STaX name: RDF subject graph stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#subjectGraphStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#subjectGraphStream`]({{ stax_link('ontology#subjectGraphStream') }})
     - Subtype of: `LOGICAL_STREAM_TYPE_GRAPHS` (3)
 - `LOGICAL_STREAM_TYPE_NAMED_GRAPHS` (14)
     - RDF-STaX name: RDF named graph stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#namedGraphStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#namedGraphStream`]({{ stax_link('ontology#namedGraphStream') }})
     - Subtype of: `LOGICAL_STREAM_TYPE_DATASETS` (4)
 - `LOGICAL_STREAM_TYPE_TIMESTAMPED_NAMED_GRAPHS` (114)
     - RDF-STaX name: Timestamped RDF named graph stream
-    - RDF-STaX IRI: `https://w3id.org/stax/ontology#timestampedNamedGraphStream`
+    - RDF-STaX IRI: [`https://w3id.org/stax/ontology#timestampedNamedGraphStream`]({{ stax_link('ontology#timestampedNamedGraphStream') }})
     - Subtype of: `LOGICAL_STREAM_TYPE_NAMED_GRAPHS` (14)
 
 #### Version compatibility and base types
@@ -529,7 +529,7 @@ The files SHOULD be saved in the [delimited variant of Jelly](#delimited-variant
 The following implementations of the Jelly serialization format specification are available:
 
 - [Jelly-JVM (Scala) implementation]({{ jvm_link() }})
-    - Specification version: 1.0.0
+    - Specification version: {{ proto_version() }}
     - Implemented actors: producer, consumer
     - Conformance: full
     - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/)

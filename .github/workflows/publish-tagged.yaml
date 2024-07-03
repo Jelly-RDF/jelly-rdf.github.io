@@ -49,6 +49,7 @@ jobs:
         working-directory: ./pages
         run: |
           export JVM_TAG='${{ steps.jvm_release.outputs.release }}'
+          export PROTO_PATH='../proto'
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
           git config user.email ci-bot@example.com

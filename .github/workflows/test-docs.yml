@@ -41,4 +41,5 @@ jobs:
         run: |
           export TAG='main'
           export JVM_TAG='main'
+          export PROTO_PATH='../proto'
           mkdocs build -s
