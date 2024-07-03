@@ -2,7 +2,7 @@
 
 **Jelly is a high-performance protocol for streaming and non-streaming RDF data. It is designed to be simple, fast, and easy to implement. This guide will help you get started with Jelly.**
 
-Jelly uses [Protocol Buffers 3](https://protobuf.dev/programming-guides/proto3/) as the basis of its serialization. This means that you can quickly [create a new Jelly implementation using code generation](#implementing-jelly). You can also use an existing implementation, such as the [JVM (Scala) implementation](jvm/index.md).
+Jelly uses [Protocol Buffers 3](https://protobuf.dev/programming-guides/proto3/) as the basis of its serialization. This means that you can quickly [create a new Jelly implementation using code generation](#implementing-jelly). You can also use an existing implementation, such as the [JVM (Scala) implementation]({{ jvm_link() }}).
 
 ## What can it do?
 
@@ -17,7 +17,7 @@ Jelly is designed to be a protocol for *streaming* RDF data, but it can also be 
 
 ## How to use it?
 
-To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: **[Jelly JVM (Scala)](jvm/index.md)**, which supports both [Apache Jena](https://jena.apache.org/) and [Eclipse RDF4J](https://rdf4j.org/). It also has support for reactive streams and gRPC.
+To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: **[Jelly-JVM (Scala)]({{ jvm_link() }})**, which supports both [Apache Jena](https://jena.apache.org/) and [Eclipse RDF4J](https://rdf4j.org/). It also has support for reactive streams and gRPC.
 
 The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see [stream types](#stream-types) below).
 
@@ -62,7 +62,7 @@ The flat logical stream types ([flat RDF triple stream](https://w3id.org/stax/de
 
 ### Common patterns cookbook
 
-Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the [Jelly JVM (Scala) implementation](jvm/reactive.md) with the Reactive Streaming module.
+Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the [Jelly-JVM (Scala) implementation]( {{ jvm_link('user/reactive') }}) with the Reactive Streaming module.
 
 #### Flat RDF triple stream – "just a bunch of triples"
 
@@ -252,14 +252,14 @@ Note that Jelly by default also assumes that frames are delivered at least once.
 
 !!! note
     
-    This section is intended only for those who want to write a new Jelly implementation from scratch. It's much easier to use an existing implementation, such as the [JVM (Scala) implementation](jvm/index.md).
+    This section is intended only for those who want to write a new Jelly implementation from scratch. It's much easier to use an existing implementation, such as the [JVM (Scala) implementation]({{ jvm_link() }}).
 
 Implementing Jelly from scratch is greatly simplified by the existing Protobuf and RDF libraries. Essentially, the only thing you'll need to do is to glue them together:
 
 - Find a Protobuf library for your language. You can find a list of official Protobuf implementations [here](https://protobuf.dev/reference/) and a list of community-maintained implementations [here](https://github.com/protocolbuffers/protobuf/blob/main/docs/third_party.md).
 - Use the library to generate the code for the Jelly messages (this usually involves using `protoc`). You can find the Protobuf definitions in the [jelly-protobuf](https://github.com/Jelly-RDF/jelly-protobuf) repository.
 - Find an RDF library for your language. You can find a list of RDF libraries [here](https://github.com/semantalytics/awesome-semantic-web#programming).
-- Implement conversions to and/or from the RDF library's data structures. You can find an example of the conversion code in the [Jelly JVM (Scala) implementation](https://github.com/Jelly-RDF/jelly-jvm) (`core`, `jena`, and `rdf4j` modules).
+- Implement conversions to and/or from the RDF library's data structures. You can find an example of the conversion code in the [Jelly-JVM (Scala) implementation](https://github.com/Jelly-RDF/jelly-jvm) (`core`, `jena`, and `rdf4j` modules).
 - In the implementation follow the [specification](specification/index.md) to ensure compatibility.
 
 That's it! You may also want to implement streaming facilities, such as [Reactive Streams](https://www.reactive-streams.org/) in Java/Scala. Implementing the [gRPC publish/subscribe mechanism](specification/streaming.md) follows a very similar procedure – many Protobuf libraries have built-in support for gRPC with code generation.

@@ -6,6 +6,7 @@ plugins:
   - search
   - include-markdown
   - mike
+  - macros
 
 markdown_extensions:
   - attr_list
@@ -20,8 +21,8 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 repo_url: https://github.com/Jelly-RDF/jelly-protobuf
 repo_name: Jelly-RDF/jelly-protobuf
@@ -89,19 +90,7 @@ nav:
     - Protobuf source: 'specification/protobuf-source.md'
     - File extension and media type: 'specification/media-type.md'
 
-  - JVM (Scala) implementation:
-    - 'jvm/index.md'
-    - Getting started (Jena/RDF4J plugin): 'jvm/getting-started-plugins.md'
-    - Getting started (developers): 'jvm/getting-started-devs.md'
-    - User guide:
-      - Apache Jena integration: 'jvm/jena.md'
-      - RDF4J integration: 'jvm/rdf4j.md'
-      - Reactive streaming: 'jvm/reactive.md'
-      - gRPC: 'jvm/grpc.md'
-      - Useful utilities: 'jvm/utilities.md'
-    - Developer guide:
-      - Releases: 'jvm/releases.md'
-      - Implementing Jelly for other libraries: 'jvm/implementing.md'
+  - JVM (Scala) implementation ⮺: 'https://jelly-rdf.github.io/jelly-jvm/'
 
   - Contributing: 'contributing.md'
   - Licensing and citation: 'licensing.md'
