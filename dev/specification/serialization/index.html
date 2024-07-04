@@ -1687,7 +1687,7 @@
 <p>The behavior of the default values is designed to save space in the stream. Usually in RDF many IRIs share the same prefix, so you can save space by not repeating the prefix in the stream. At the same time the name part of the IRI is often unique, so for each name you will need a new entry in the lookup table – which is often the next entry after the one you have just created.</p>
 </div>
 <h4 id="blank-nodes">Blank nodes</h4>
-<p>RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.</p>
+<p>RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier MUST be a valid UTF-8 string.</p>
 <p>Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The consumer MAY use the <a href="#logical-stream-types">logical stream type</a> to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
