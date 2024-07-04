@@ -458,7 +458,7 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
 #### Blank nodes
 
-RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier may be any valid UTF-8 string.
+RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier MUST be a valid UTF-8 string.
 
 Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The consumer MAY use the [logical stream type](#logical-stream-types) to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.
 
