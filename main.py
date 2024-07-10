@@ -7,9 +7,13 @@ import re
 
 def define_env(env):
 
-    with open(Path(os.environ.get('PROTO_PATH'), 'rdf.proto'), 'r') as file:
-        # Find the version of RDF-STaX
-        _stax_version = re.search(r'https://w3id.org/stax/(\d+\.\d+\.\d+)', file.read()).group(1)
+    try:
+        with open(Path(os.environ.get('PROTO_PATH'), 'rdf.proto'), 'r') as file:
+            # Find the version of RDF-STaX
+            _stax_version = re.search(r'https://w3id.org/stax/(\d+\.\d+\.\d+)', file.read()).group(1)
+    except Exception as e:
+        print('Warning: Failed to read RDF-STaX version, using dev as the default: ', e)
+        _stax_version = 'dev'
 
     @env.macro
     def proto_version():

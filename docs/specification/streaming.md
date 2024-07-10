@@ -140,6 +140,20 @@ The protocol is deliberately very general and unrestrictive. The pub/sub mechani
 
 These use cases can be implemented with the protocol as-is, or by extending the protocol with additional messages and/or RPCs. In either case, the protocol provides a base layer for compatibility between different implementations.
 
+### Stream frame size
+
+*This section is not part of the specification.*
+
+The size of the stream frame is not limited by the protocol, nor by gRPC itself. However, many gRPC implementations have a limit on the size of the message at around 4 MB. It is recommended to use much smaller messages (e.g., 100 KB), which will also make it easier to serialize and deserialize the messages. For most use cases of [RDF graph/dataset streams]({{ stax_link( 'taxonomy/#concrete-stream-types-grouped' ) }}) (like IoT messaging), this should be sufficient. Otherwise, you will have to split the frames into smaller messages.
+
+### Long-running streams and keep-alive pings
+
+*This section is not part of the specification.*
+
+The gRPC protocol does support long-running streams, but due to how it's implemented (over HTTP/2 and TCP), some networking equipment or network stack implementations may terminate a connection if there is no activity for a long time. If you are working with a stream that can be "quiet" for more than a minute, this may be a problem.
+
+To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the [`pekko.http.server.http2.ping-interval`](https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304) configuration option to a non-zero value. This is done in [Jelly-JVM's gRPC module]({{ jvm_link( 'user/grpc' ) }}) by default.
+
 ## Implementations
 
 *This section is not part of the specification.*
