@@ -575,6 +575,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Usage notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-frame-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stream frame size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-running-streams-and-keep-alive-pings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Long-running streams and keep-alive pings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -866,6 +890,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Usage notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-frame-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stream frame size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-running-streams-and-keep-alive-pings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Long-running streams and keep-alive pings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1050,6 +1098,13 @@
 <li>Microservice chains – one service can process an RDF stream, forward it to another service, etc.</li>
 </ul>
 <p>These use cases can be implemented with the protocol as-is, or by extending the protocol with additional messages and/or RPCs. In either case, the protocol provides a base layer for compatibility between different implementations.</p>
+<h3 id="stream-frame-size">Stream frame size</h3>
+<p><em>This section is not part of the specification.</em></p>
+<p>The size of the stream frame is not limited by the protocol, nor by gRPC itself. However, many gRPC implementations have a limit on the size of the message at around 4 MB. It is recommended to use much smaller messages (e.g., 100 KB), which will also make it easier to serialize and deserialize the messages. For most use cases of <a href="https://w3id.org/stax/1.1.2/taxonomy/#concrete-stream-types-grouped">RDF graph/dataset streams</a> (like IoT messaging), this should be sufficient. Otherwise, you will have to split the frames into smaller messages.</p>
+<h3 id="long-running-streams-and-keep-alive-pings">Long-running streams and keep-alive pings</h3>
+<p><em>This section is not part of the specification.</em></p>
+<p>The gRPC protocol does support long-running streams, but due to how it's implemented (over HTTP/2 and TCP), some networking equipment or network stack implementations may terminate a connection if there is no activity for a long time. If you are working with a stream that can be "quiet" for more than a minute, this may be a problem.</p>
+<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://jelly-rdf.github.io/jelly-jvm/dev/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
 <p>The following implementations of the Jelly gRPC streaming protocol specification are available:</p>
