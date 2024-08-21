@@ -50,6 +50,25 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
+### Making a Jelly protocol release
+
+Jelly protocol releases are handled from the `jelly-protobuf` repository. To make a new tagged release, follow these steps:
+
+1. Clone the [`jelly-protobuf` repository](https://github.com/Jelly-RDF/jelly-protobuf).
+2. Make sure you are on the `main` branch and that it is up-to-date: `git checkout main && git pull`
+3. Create a new tag for the release. For example, for version 1.2.3: `git tag v1.2.3`
+4. Push the tag to GitHub: `git push origin v1.2.3`
+
+The CI/CD pipeline will automatically pick up the new tag and make a tagged release of the documentation, including the protocol specification. The [spec pages](specification/index.md) use [macros](#macros) to display the current version, so they will be updated automatically.
+
+After a new protocol release, you should also update the implementations to use it.
+
+### Further reading
+
+- [Material for MkDocs reference](https://squidfunk.github.io/mkdocs-material/reference/)
+- [MkDocs documentation](https://www.mkdocs.org/user-guide/writing-your-docs/)
+- [Macro plugin documentation](https://mkdocs-macros-plugin.readthedocs.io/en/latest/)
+
 ### Editing Jelly-JVM documentation
 
 Use the exact same process as for the website documentation. The Jelly-JVM documentation sources are in the [`jelly-jvm` repository](https://github.com/Jelly-RDF/jelly-jvm), `docs/docs` directory.
