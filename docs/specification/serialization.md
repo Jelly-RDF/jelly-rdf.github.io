@@ -239,7 +239,7 @@ The stream options header contains the following fields:
     - The consumer SHOULD throw an error if the version tag is greater than the version tag of the implementation.
     - The consumer SHOULD throw an error if the version tag is zero.
     - The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.
-    - The producer may use version tags greater than 1000 to indicate non-standard versions of the protocol.
+    - The producer may use version tags greater than 10000 to indicate non-standard versions of the protocol.
 
 ### Prefix, name, and datatype lookup entries
 
