@@ -607,6 +607,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#making-a-jelly-protocol-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making a Jelly protocol release
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further reading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#editing-jelly-jvm-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Editing Jelly-JVM documentation
@@ -641,6 +659,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
   
 </li>
       
@@ -736,6 +763,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#making-a-jelly-protocol-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making a Jelly protocol release
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further reading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#editing-jelly-jvm-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Editing Jelly-JVM documentation
@@ -770,6 +815,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
   
 </li>
       
@@ -828,6 +882,22 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Run the local server</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>mkdocs<span class="w"> </span>serve
 </span></code></pre></div>
+<h3 id="making-a-jelly-protocol-release">Making a Jelly protocol release</h3>
+<p>Jelly protocol releases are handled from the <code>jelly-protobuf</code> repository. To make a new tagged release, follow these steps:</p>
+<ol>
+<li>Clone the <a href="https://github.com/Jelly-RDF/jelly-protobuf"><code>jelly-protobuf</code> repository</a>.</li>
+<li>Make sure you are on the <code>main</code> branch and that it is up-to-date: <code>git checkout main &amp;&amp; git pull</code></li>
+<li>Create a new tag for the release. For example, for version 1.2.3: <code>git tag v1.2.3</code></li>
+<li>Push the tag to GitHub: <code>git push origin v1.2.3</code></li>
+</ol>
+<p>The CI/CD pipeline will automatically pick up the new tag and make a tagged release of the documentation, including the protocol specification. The <a href="../specification/">spec pages</a> use <a href="#macros">macros</a> to display the current version, so they will be updated automatically.</p>
+<p>After a new protocol release, you should also update the implementations to use it.</p>
+<h3 id="further-reading">Further reading</h3>
+<ul>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/">Material for MkDocs reference</a></li>
+<li><a href="https://www.mkdocs.org/user-guide/writing-your-docs/">MkDocs documentation</a></li>
+<li><a href="https://mkdocs-macros-plugin.readthedocs.io/en/latest/">Macro plugin documentation</a></li>
+</ul>
 <h3 id="editing-jelly-jvm-documentation">Editing Jelly-JVM documentation</h3>
 <p>Use the exact same process as for the website documentation. The Jelly-JVM documentation sources are in the <a href="https://github.com/Jelly-RDF/jelly-jvm"><code>jelly-jvm</code> repository</a>, <code>docs/docs</code> directory.</p>
 <h2 id="contributing-to-jelly-implementations">Contributing to Jelly implementations</h2>
@@ -836,6 +906,11 @@
 <li><strong><a href="https://jelly-rdf.github.io/jelly-jvm/dev/">Jelly-JVM documentation</a></strong> includes the developer guide, explaining the technical aspects of contributing to it.</li>
 <li><strong><a href="https://github.com/Jelly-RDF/jelly-jvm">GitHub repository</a></strong></li>
 <li><strong><a href="https://github.com/Jelly-RDF/jelly-jvm/issues">Issue tracker</a></strong></li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../licensing/">License and citation</a></li>
+<li><a href="../user-guide/">User guide</a></li>
 </ul>
 
 
