@@ -9,7 +9,6 @@ plugins:
   - macros
   - git-revision-date-localized:
       enable_creation_date: true
-  - git-authors
 
 markdown_extensions:
   - attr_list
