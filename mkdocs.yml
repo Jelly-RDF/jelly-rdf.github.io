@@ -7,6 +7,9 @@ plugins:
   - include-markdown
   - mike
   - macros
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-authors
 
 markdown_extensions:
   - attr_list
@@ -24,8 +27,9 @@ markdown_extensions:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
-repo_url: https://github.com/Jelly-RDF/jelly-protobuf
-repo_name: Jelly-RDF/jelly-protobuf
+repo_url: https://github.com/Jelly-RDF/jelly-rdf.github.io
+repo_name: Jelly-RDF/jelly-rdf.github.io
+edit_uri: edit/main/docs/
 
 theme:
   name: material
@@ -43,6 +47,7 @@ theme:
     - search.suggest
     - search.highlight
     - content.code.copy
+    - content.action.edit
 
   palette: 
     # Palette toggle for light mode
