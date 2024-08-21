@@ -263,3 +263,7 @@ Implementing Jelly from scratch is greatly simplified by the existing Protobuf a
 - In the implementation follow the [specification](specification/index.md) to ensure compatibility.
 
 That's it! You may also want to implement streaming facilities, such as [Reactive Streams](https://www.reactive-streams.org/) in Java/Scala. Implementing the [gRPC publish/subscribe mechanism](specification/streaming.md) follows a very similar procedure – many Protobuf libraries have built-in support for gRPC with code generation.
+
+## See also
+
+- [Jelly-JVM getting started guide]({{ jvm_link('getting-started-devs') }})

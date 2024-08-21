@@ -35,4 +35,6 @@ Jelly was created and is maintained by [Piotr Sowiński (Ostrzyciel)](https://os
   ![Jelly (superfast jellyfish)](https://jelly-rdf.github.io/dev/assets/jelly.webp){ align=right width="320" }
 </figure>
 
+## See also
 
+- [Contributing to Jelly](contributing.md)
