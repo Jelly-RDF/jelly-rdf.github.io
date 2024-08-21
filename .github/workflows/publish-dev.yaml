@@ -26,6 +26,7 @@ jobs:
 
       - name: Generate Protobuf reference
         run: |
+          mkdir -p pages/docs/specification/proto
           cp proto/*.proto pages/docs/specification/proto
           # Remove double newlines in comments to avoid breaking markdown tables
           # See: https://github.com/pseudomuto/protoc-gen-doc/issues/274
