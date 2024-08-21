@@ -1212,8 +1212,8 @@
 <p>End of a graph in a GRAPHS stream</p>
 <p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart"></a></p>
 <h3 id="rdfgraphstart">RdfGraphStart</h3>
-<p>Start of a graph in a GRAPHS stream</p>
-<p>In contrast to RdfQuad, setting the graph oneof to some value
+<p>Start of a graph in a GRAPHS stream
+In contrast to RdfQuad, setting the graph oneof to some value
 is always required. No repeated terms are allowed.</p>
 <table>
 <thead>
@@ -1270,15 +1270,16 @@ lookup tables.</p>
 <td>prefix_id</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>1-based, refers to an entry in the prefix lookup.</td>
+<td>1-based, refers to an entry in the prefix lookup. 0 signifies &#34;use the same prefix_id as in the previous IRI&#34;. For this to work, IRIs must be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples. If 0 appears in the first IRI of the stream (and in any subsequent IRI), this should be interpreted as an empty (&#34;&#34;) prefix. This is for example used when the prefix lookup table is disabled.</td>
+</tr>
+<tr>
+<td>name_id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based, refers to an entry in the name lookup. 0 signifies &#34;use the previous name_id &#43; 1&#34;. This requires the same order guarantees as prefixes. If 0 appears in the first IRI of the stream, it should be interpreted as name_id = 1.</td>
 </tr>
 </tbody>
 </table>
-<p>0 signifies &#34;use the same prefix_id as in the previous IRI&#34;. For this to work, IRIs must be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples.</p>
-<p>If 0 appears in the first IRI of the stream (and in any subsequent IRI), this should be interpreted as an empty (&#34;&#34;) prefix. This is for example used when the prefix lookup table is disabled. |
-| name_id | <a href="#uint32">uint32</a> |  | 1-based, refers to an entry in the name lookup.</p>
-<p>0 signifies &#34;use the previous name_id &#43; 1&#34;. This requires the same order guarantees as prefixes.</p>
-<p>If 0 appears in the first IRI of the stream, it should be interpreted as name_id = 1. |</p>
 <p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral"></a></p>
 <h3 id="rdfliteral">RdfLiteral</h3>
 <p>RDF literals</p>
@@ -1368,12 +1369,12 @@ lookup tables.</p>
 </table>
 <p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfQuad"></a></p>
 <h3 id="rdfquad">RdfQuad</h3>
-<p>RDF quad</p>
-<p>Fields 1–12 are repeated from RdfTriple for performance reasons.</p>
-<p>Similarly to RdfTriple, this message allows for representing generalized
+<p>RDF quad
+Fields 1–12 are repeated from RdfTriple for performance reasons.
+Similarly to RdfTriple, this message allows for representing generalized
 RDF quads (for example, with literals as predicates). Whether this is used
-in the stream is determined by the stream options (see RdfStreamOptions).</p>
-<p>If no field in a given oneof is set, the term is interpreted as a repeated
+in the stream is determined by the stream options (see RdfStreamOptions).
+If no field in a given oneof is set, the term is interpreted as a repeated
 term – the same as the term in the same position in the previous quad.
 In the first quad of the stream, all terms must be set.</p>
 <table>
@@ -1639,14 +1640,14 @@ In the first quad of the stream, all terms must be set.</p>
 </table>
 <p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfTriple"></a></p>
 <h3 id="rdftriple">RdfTriple</h3>
-<p>RDF triple</p>
-<p>For each term (subject, predicate, object), the fields are repeated for
+<p>RDF triple
+For each term (subject, predicate, object), the fields are repeated for
 performance reasons. This is to avoid the need for boxing each term in a
-separate message.</p>
-<p>Note: this message allows for representing generalized RDF triples (for
+separate message.
+Note: this message allows for representing generalized RDF triples (for
 example, with literals as predicates). Whether this is used in the stream
-is determined by the stream options (see RdfStreamOptions).</p>
-<p>If no field in a given oneof is set, the term is interpreted as a repeated
+is determined by the stream options (see RdfStreamOptions).
+If no field in a given oneof is set, the term is interpreted as a repeated
 term – the same as the term in the same position in the previous triple.
 In the first triple of the stream, all terms must be set.
 All terms must also be set in quoted triples (RDF-star).</p>
@@ -1740,16 +1741,16 @@ All terms must also be set in quoted triples (RDF-star).</p>
 Type 0 is reserved for the unspecified stream type.
 The rest of the type numbers follow the taxonomical structure of RDF-STaX.
 For example: 1 is a subtype of 0, 13 and 23 are subtypes of 3, 
-114 is a subtype of 14, etc.</p>
-<p>Types 1–4 correspond to the four base concrete stream types. Their 
+114 is a subtype of 14, etc.
+Types 1–4 correspond to the four base concrete stream types. Their 
 subtypes can be in most cases simply processed in the same way as 
 the base types.
 Therefore, implementations can take the modulo 10 of the stream 
 type to determine the base type of the stream and use this information 
-to select the appropriate processing logic.</p>
-<p>RDF-STaX version: 1.1.2
-https://w3id.org/stax/1.1.2</p>
-<p>^ The above URL is used to automatically determine the version of RDF-STaX
+to select the appropriate processing logic.
+RDF-STaX version: 1.1.2
+https://w3id.org/stax/1.1.2
+^ The above URL is used to automatically determine the version of RDF-STaX
 in the Jelly protocol specification. Please keep it up-to-date and in the
 same format.</p>
 <table>
