@@ -20,6 +20,20 @@ It will take you to GitHub, where you can edit the Markdown file and submit a pu
 
 Note: the `reference.md` file is automatically generated from the Jelly Protocol Buffers definitions. Do not edit it directly.
 
+### Macros
+
+The documentation makes use of several macros for generating links, displaying the software version, etc. The macros are used in the Markdown files like this:
+
+```markdown
+**Version**: {{ '{{ proto_version() }}' }}
+```
+
+Which yields: 
+
+> **Version**: {{ proto_version() }}
+
+The list of available macros can be found in the [`main.py` file]({{ git_docs_link('main.py') }}) in the root of the repository.
+
 ### Local testing of the website
 
 Install the project's dependencies from `requirements.txt` (preferably in a virtual environment). Then, run `mkdocs serve` to compile the docs and serve them locally for testing.

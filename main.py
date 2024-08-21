@@ -39,6 +39,12 @@ def define_env(env):
     
 
     @env.macro
+    def git_docs_link(file: str):
+        tag = git_tag()
+        return f'https://github.com/Jelly-RDF/jelly-rdf.github.io/blob/{tag}/{file}'
+    
+
+    @env.macro
     def specification_status():
         return 'Draft' if git_tag() == 'main' else 'Stable'
     
