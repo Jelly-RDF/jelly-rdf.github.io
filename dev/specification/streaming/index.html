@@ -64,7 +64,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Jelly – gRPC streaming protocol" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
-    <meta property="og:image" content="https://jelly-rdf.github.io/dev/assets/social.jpg" />
+    <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -696,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://jelly-rdf.github.io/jelly-jvm/dev/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/dev/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1109,12 +1109,12 @@
 <h3 id="long-running-streams-and-keep-alive-pings">Long-running streams and keep-alive pings</h3>
 <p><em>This section is not part of the specification.</em></p>
 <p>The gRPC protocol does support long-running streams, but due to how it's implemented (over HTTP/2 and TCP), some networking equipment or network stack implementations may terminate a connection if there is no activity for a long time. If you are working with a stream that can be "quiet" for more than a minute, this may be a problem.</p>
-<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://jelly-rdf.github.io/jelly-jvm/dev/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
+<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://w3id.org/jelly/jelly-jvm/dev/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
 <p>The following implementations of the Jelly gRPC streaming protocol specification are available:</p>
 <ul>
-<li><a href="https://jelly-rdf.github.io/jelly-jvm/dev/">Jelly-JVM (Scala) implementation</a><ul>
+<li><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM (Scala) implementation</a><ul>
 <li>Specification version: dev</li>
 <li>Partial (boilerplate) implementation based on <a href="https://pekko.apache.org/docs/pekko-grpc/current/">Apache Pekko gRPC</a>. Requires the end user to implement their own code for handling the streams.</li>
 </ul>

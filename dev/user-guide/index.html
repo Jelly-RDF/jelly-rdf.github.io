@@ -64,7 +64,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Jelly – User guide" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
-    <meta property="og:image" content="https://jelly-rdf.github.io/dev/assets/social.jpg" />
+    <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -673,7 +673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://jelly-rdf.github.io/jelly-jvm/dev/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/dev/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -906,7 +906,7 @@
 
 <h1 id="jelly-user-guide">Jelly user guide</h1>
 <p><strong>Jelly is a high-performance protocol for streaming and non-streaming RDF data. It is designed to be simple, fast, and easy to implement. This guide will help you get started with Jelly.</strong></p>
-<p>Jelly uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers 3</a> as the basis of its serialization. This means that you can quickly <a href="#implementing-jelly">create a new Jelly implementation using code generation</a>. You can also use an existing implementation, such as the <a href="https://jelly-rdf.github.io/jelly-jvm/dev/">JVM (Scala) implementation</a>.</p>
+<p>Jelly uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers 3</a> as the basis of its serialization. This means that you can quickly <a href="#implementing-jelly">create a new Jelly implementation using code generation</a>. You can also use an existing implementation, such as the <a href="https://w3id.org/jelly/jelly-jvm/dev/">JVM (Scala) implementation</a>.</p>
 <h2 id="what-can-it-do">What can it do?</h2>
 <p>Jelly is designed to be a protocol for <em>streaming</em> RDF data, but it can also be used with "classic", static RDF data. The main design goals of Jelly are speed, simplicity, and wide coverage of use cases. </p>
 <ul>
@@ -918,7 +918,7 @@
 <li>Jelly is super-fast and lightweight, scaling both down to <strong>embedded devices</strong> and up to <strong>high-performance servers</strong>.</li>
 </ul>
 <h2 id="how-to-use-it">How to use it?</h2>
-<p>To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: <strong><a href="https://jelly-rdf.github.io/jelly-jvm/dev/">Jelly-JVM (Scala)</a></strong>, which supports both <a href="https://jena.apache.org/">Apache Jena</a> and <a href="https://rdf4j.org/">Eclipse RDF4J</a>. It also has support for reactive streams and gRPC.</p>
+<p>To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: <strong><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM (Scala)</a></strong>, which supports both <a href="https://jena.apache.org/">Apache Jena</a> and <a href="https://rdf4j.org/">Eclipse RDF4J</a>. It also has support for reactive streams and gRPC.</p>
 <p>The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see <a href="#stream-types">stream types</a> below).</p>
 <p>All stream types use the same concept of <strong>stream frames</strong> – discrete elements into which the stream is divided. Each frame contains a number of <strong>rows</strong>, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not enforce the semantics of stream frames, although it does have a mechanism to suggest to consumers and producers how should they understand the stream. Still, you can interpret the stream however you like.</p>
 <div class="admonition question">
@@ -997,7 +997,7 @@
 </ul>
 <p>The flat logical stream types (<a href="https://w3id.org/stax/1.1.2/taxonomy#flat-rdf-triple-stream">flat RDF triple stream</a> and <a href="https://w3id.org/stax/1.1.2/taxonomy#flat-rdf-quad-stream">flat RDF quad stream</a> in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.</p>
 <h3 id="common-patterns-cookbook">Common patterns cookbook</h3>
-<p>Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the <a href="https://jelly-rdf.github.io/jelly-jvm/dev/user/reactive">Jelly-JVM (Scala) implementation</a> with the Reactive Streaming module.</p>
+<p>Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the <a href="https://w3id.org/jelly/jelly-jvm/dev/user/reactive">Jelly-JVM (Scala) implementation</a> with the Reactive Streaming module.</p>
 <h4 id="flat-rdf-triple-stream-just-a-bunch-of-triples">Flat RDF triple stream – "just a bunch of triples"</h4>
 <p>Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.</p>
 <p>This means you are using logically a <a href="https://w3id.org/stax/1.1.2/taxonomy#flat-rdf-triple-stream">flat RDF triple stream</a>. It can be physically encoded as as <code>TRIPLES</code> stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):</p>
@@ -1197,7 +1197,7 @@
 <h2 id="implementing-jelly">Implementing Jelly</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This section is intended only for those who want to write a new Jelly implementation from scratch. It's much easier to use an existing implementation, such as the <a href="https://jelly-rdf.github.io/jelly-jvm/dev/">JVM (Scala) implementation</a>.</p>
+<p>This section is intended only for those who want to write a new Jelly implementation from scratch. It's much easier to use an existing implementation, such as the <a href="https://w3id.org/jelly/jelly-jvm/dev/">JVM (Scala) implementation</a>.</p>
 </div>
 <p>Implementing Jelly from scratch is greatly simplified by the existing Protobuf and RDF libraries. Essentially, the only thing you'll need to do is to glue them together:</p>
 <ul>
@@ -1210,7 +1210,7 @@
 <p>That's it! You may also want to implement streaming facilities, such as <a href="https://www.reactive-streams.org/">Reactive Streams</a> in Java/Scala. Implementing the <a href="../specification/streaming/">gRPC publish/subscribe mechanism</a> follows a very similar procedure – many Protobuf libraries have built-in support for gRPC with code generation.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="https://jelly-rdf.github.io/jelly-jvm/dev/getting-started-devs">Jelly-JVM getting started guide</a></li>
+<li><a href="https://w3id.org/jelly/jelly-jvm/dev/getting-started-devs">Jelly-JVM getting started guide</a></li>
 </ul>
 
 
