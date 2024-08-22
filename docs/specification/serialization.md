@@ -11,11 +11,13 @@ The following assumptions are used in this document:
 - In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version {{ stax_version() }} ontology]({{ stax_link('ontology') }}) and [taxonomy]({{ stax_link('taxonomy') }}) are used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
-**Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
-
-**Version:** {{ proto_version() }}
-
-**Document status**: {{ specification_status() }} specification
+| Document information | |
+| --- | --- |
+| **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)) |
+| **Version:** | {{ proto_version() }} |
+| **Date:** | {{ git_revision_date_localized }} |
+| **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/serialization`](https://w3id.org/jelly/{{ proto_version() }}/specification/serialization) |
+| **Document status**: | {{ specification_status() }} specification |
 
 !!! info
 

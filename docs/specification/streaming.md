@@ -10,11 +10,13 @@ The following assumptions are used in this document:
 - All strings in the mentioned Protobuf messages are assumed to be UTF-8 encoded.
 - Standard gRPC status codes are used, as defined in [gRPC documentation](https://grpc.github.io/grpc/core/md_doc_statuscodes.html).
 
-**Author:** [Piotr Sowiński](https://orcid.org/0000-0002-2543-9461) ([Ostrzyciel](https://github.com/Ostrzyciel))
-
-**Version:** {{ proto_version() }}
-
-**Document status**: {{ specification_status() }} specification
+| Document information | |
+| --- | --- |
+| **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)) |
+| **Version:** | {{ proto_version() }} |
+| **Date:** | {{ git_revision_date_localized }} |
+| **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/streaming`](https://w3id.org/jelly/{{ proto_version() }}/specification/streaming) |
+| **Document status**: | {{ specification_status() }} specification |
 
 !!! info
 
