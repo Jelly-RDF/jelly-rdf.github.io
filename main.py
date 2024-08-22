@@ -74,11 +74,11 @@ def define_env(env):
     @env.macro
     def jvm_link(page: str = ''):
         version = jvm_version()
-        return f'https://jelly-rdf.github.io/jelly-jvm/{version}/{page}'
+        return f'https://w3id.org/jelly/jelly-jvm/{version}/{page}'
 
 
     def transform_nav_item(item):
-        if list(item.values())[0] == 'https://jelly-rdf.github.io/jelly-jvm/':
+        if list(item.values())[0] == 'https://w3id.org/jelly/jelly-jvm/':
             return {list(item.keys())[0]: jvm_link('')}
         return item
     

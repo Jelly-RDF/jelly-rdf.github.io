@@ -1,4 +1,4 @@
-![Jelly (superfast jellyfish)](https://jelly-rdf.github.io/dev/assets/jelly_color.png){ align=right width="150" }
+![Jelly (superfast jellyfish)](assets/jelly_color.png){ align=right width="150" }
 
 # Jelly
 

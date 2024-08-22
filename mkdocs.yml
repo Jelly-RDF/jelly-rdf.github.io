@@ -94,7 +94,7 @@ nav:
     - Protobuf source: 'specification/protobuf-source.md'
     - File extension and media type: 'specification/media-type.md'
 
-  - JVM (Scala) implementation ⮺: 'https://jelly-rdf.github.io/jelly-jvm/'
+  - JVM (Scala) implementation ⮺: 'https://w3id.org/jelly/jelly-jvm/'
 
   - Contributing: 'contributing.md'
   - Licensing and citation: 'licensing.md'

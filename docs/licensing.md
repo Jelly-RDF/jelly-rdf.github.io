@@ -32,7 +32,7 @@ Jelly was created and is maintained by [Piotr Sowiński (Ostrzyciel)](https://os
 
 
 <figure markdown>
-  ![Jelly (superfast jellyfish)](https://jelly-rdf.github.io/dev/assets/jelly.webp){ align=right width="320" }
+  ![Jelly (superfast jellyfish)](assets/jelly.webp){ align=right width="320" }
 </figure>
 
 ## See also
