@@ -77,9 +77,10 @@ Use the exact same process as for the website documentation. The Jelly-JVM docum
 
 ### Jelly-JVM
 
-- **[Jelly-JVM documentation]({{ jvm_link()}})** includes the developer guide, explaining the technical aspects of contributing to it.
-- **[GitHub repository](https://github.com/Jelly-RDF/jelly-jvm)**
-- **[Issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues)**
+- **[Jelly-JVM contributing page]({{ jvm_link('contributing') }})**
+- [Jelly-JVM documentation]({{ jvm_link()}}) includes the developer guide, explaining the technical aspects of contributing to it.
+- [GitHub repository](https://github.com/Jelly-RDF/jelly-jvm)
+- [Issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues)
 
 ## See also
 
