@@ -60,4 +60,4 @@ jobs:
           git config user.email ci-bot@example.com
           V_MAJOR=`echo ${TAG#v} | awk -F '.' '{print $1}'`
           V_MINOR=`echo ${TAG#v} | awk -F '.' '{print $2}'`
-          mike deploy --push --update-aliases "${V_MAJOR}.${V_MINOR}.x" "${TAG#v}" stable
+          mike deploy --push --alias-type=redirect --update-aliases "${V_MAJOR}.${V_MINOR}.x" stable "${TAG#v}"

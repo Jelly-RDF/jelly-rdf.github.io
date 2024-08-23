@@ -53,4 +53,4 @@ jobs:
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
           git config user.email ci-bot@example.com
-          mike deploy --push --update-aliases dev latest
+          mike deploy --push --alias-type=redirect --title "Development version" --update-aliases dev latest
