@@ -29,7 +29,7 @@ The following assumptions are used in this document:
 
 !!! note
 
-    The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format. The examples use the [Protocol Buffers Text Format Language](https://protobuf.dev/reference/protobuf/textformat-spec/).
+    The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format.
 
 ## Conformance
 

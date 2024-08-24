@@ -26,11 +26,6 @@ The following assumptions are used in this document:
 
     The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.
 
-!!! note
-
-    The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format. The examples use the [Protocol Buffers Text Format Language](https://protobuf.dev/reference/protobuf/textformat-spec/).
-
-
 ## Conformance
 
 Implementations MAY choose to implement only a subset of the following specification. In this case, they SHOULD clearly specify which parts of the specification they implement. In the rest of this specification, the keywords "MUST", "MUST NOT", etc. refer to full (not partial) implementations.
