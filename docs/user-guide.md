@@ -248,6 +248,28 @@ There are use cases where it's hard to guarantee strict ordering of messages, su
 
 Note that Jelly by default also assumes that frames are delivered at least once. At-least-once delivery is good enough (as long as the order is kept), as lookup updates are idempotent – you may only need to de-duplicate the frames afterwards. At-most-once delivery requires you to make the frames independent of each other, such as with the IoT strategy above.
 
+## Delimited vs. non-delimited Jelly
+
+Protobuf messages by default [are not delimited](https://protobuf.dev/programming-guides/techniques/#streaming). This means that when you serialize a Protobuf message (e.g., a Jelly stream frame), the serialization does not include any information about where the message ends. This is fine when there is something else telling the parser where the message ends – for example, when you're sending the message over a gRPC, Kafka, or MQTT stream, the streaming protocol tells the parser how long the message is. However, if you wanted to write multiple stream frames to a file, you would need to add some kind of delimiter between the frames – otherwise the parser would not know where one frame ends and the next one begins.
+
+So, to summarize:
+
+| Use case | Jelly variant | Description |
+|:--|:--|:--|
+| Jelly gRPC streaming protocol | Non-delimited | The gRPC protocol tells the parser how long the message is. |
+| Streaming with Kafka, MQTT, or similar | Non-delimited | The streaming protocol tells the parser how long the message is. |
+| Writing to a file | Delimited | You need to add a delimiter between the frames. |
+| Writing to a raw network socket | Delimited | You need to add a delimiter between the frames. |
+
+The delimited variant works by adding an integer before the stream frame that specifies the length of the frame, in bytes. That's it.
+
+You can read more about how this works in the [serialization format specification](specification/serialization.md#delimited-variant-of-jelly).
+
+### Examples
+
+- [Jelly-JVM]({{ jvm_link() }}) supports both variants, but uses them in different contexts. When writing to a Java byte stream (typically a file) with Apache Jena RIOT or RDF4J Rio, the delimited variant is used. In the gRPC protocol, the non-delimited variant is used.
+- [RiverBench](http://w3id.org/riverbench) publishes its RDF metadata and datasets as Jelly files. These files are always written using the delimited variant.
+
 ## Implementing Jelly
 
 !!! note
