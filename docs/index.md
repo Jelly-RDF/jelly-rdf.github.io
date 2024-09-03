@@ -42,9 +42,11 @@
 
 </div>
 
+<!--
 ## How fast is it?
 
 TODO
+-->
 
 ## See also
 
