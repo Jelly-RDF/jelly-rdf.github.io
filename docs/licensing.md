@@ -38,3 +38,4 @@ Jelly was created and is maintained by [Piotr Sowiński (Ostrzyciel)](https://os
 ## See also
 
 - [Contributing to Jelly](contributing.md)
+- [Applications using Jelly](use-cases.md)

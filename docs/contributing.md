@@ -86,3 +86,4 @@ Use the exact same process as for the website documentation. The Jelly-JVM docum
 
 - [License and citation](licensing.md)
 - [User guide](user-guide.md)
+- [Applications using Jelly](use-cases.md)

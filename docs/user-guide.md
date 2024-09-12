@@ -289,3 +289,4 @@ That's it! You may also want to implement streaming facilities, such as [Reactiv
 ## See also
 
 - [Jelly-JVM getting started guide]({{ jvm_link('getting-started-devs') }})
+- [Applications using Jelly](use-cases.md)
