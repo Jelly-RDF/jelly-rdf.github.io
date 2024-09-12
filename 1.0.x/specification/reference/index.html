@@ -1,0 +1,2171 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Jelly is a high-performance RDF streaming protocol">
+      
+      
+      
+        <link rel="canonical" href="https://jelly-rdf.github.io/1.0.x/specification/reference/">
+      
+      
+        <link rel="prev" href="../streaming/">
+      
+      
+        <link rel="next" href="../protobuf-source/">
+      
+      
+      <link rel="icon" href="../../assets/jelly_color.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>Protobuf reference - Jelly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+    
+    
+        
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jelly – Protobuf reference" />
+    <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
+    <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#protocol-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Jelly" class="md-header__button md-logo" aria-label="Jelly" data-md-component="logo">
+      
+  <img src="../../assets/jelly_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jelly
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Protobuf reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2c-1.05 0-2.05.16-3 .46 4.06 1.27 7 5.04 7 9.54s-2.94 8.27-7 9.54c.95.3 1.95.46 3 .46a10 10 0 0 0 10-10A10 10 0 0 0 9 2"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jelly-RDF/jelly-rdf.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jelly" class="md-nav__button md-logo" aria-label="Jelly" data-md-component="logo">
+      
+  <img src="../../assets/jelly_white.png" alt="logo">
+
+    </a>
+    Jelly
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jelly-RDF/jelly-rdf.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Protocol specification
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Protocol specification
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serialization format
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gRPC streaming protocol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Protobuf reference
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Protobuf reference
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grpcproto" class="md-nav__link">
+    <span class="md-ellipsis">
+      grpc.proto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="grpc.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamreceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamReceived
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamsubscribe" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamSubscribe
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamService
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdfproto" class="md-nav__link">
+    <span class="md-ellipsis">
+      rdf.proto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rdf.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfdatatypeentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfDatatypeEntry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfdefaultgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfDefaultGraph
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphend" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfGraphEnd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfGraphStart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfIri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfliteral" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfLiteral
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfnameentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfNameEntry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfprefixentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfPrefixEntry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfquad" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfQuad
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamFrame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamoptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamOptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamRow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdftriple" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfTriple
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logicalstreamtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      LogicalStreamType
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physicalstreamtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      PhysicalStreamType
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalar-value-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalar Value Types
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protobuf-source/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Protobuf source
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media-type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File extension and media type
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://w3id.org/jelly/jelly-jvm/0.14.2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JVM (Scala) implementation ⮺
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../use-cases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use cases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licensing and citation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grpcproto" class="md-nav__link">
+    <span class="md-ellipsis">
+      grpc.proto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="grpc.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamreceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamReceived
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamsubscribe" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamSubscribe
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamService
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdfproto" class="md-nav__link">
+    <span class="md-ellipsis">
+      rdf.proto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rdf.proto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdfdatatypeentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfDatatypeEntry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfdefaultgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfDefaultGraph
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphend" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfGraphEnd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfgraphstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfGraphStart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfIri
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfliteral" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfLiteral
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfnameentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfNameEntry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfprefixentry" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfPrefixEntry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfquad" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfQuad
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamFrame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamoptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamOptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdfstreamrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfStreamRow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdftriple" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfTriple
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logicalstreamtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      LogicalStreamType
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physicalstreamtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      PhysicalStreamType
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalar-value-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalar Value Types
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/specification/reference.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="protocol-documentation">Protocol Documentation</h1>
+<p><a name="top"></a></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li>
+<p><a href="#grpc-proto">grpc.proto</a></p>
+<ul>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamReceived">RdfStreamReceived</a></li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamSubscribe">RdfStreamSubscribe</a></p>
+</li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamService">RdfStreamService</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#rdf-proto">rdf.proto</a></p>
+<ul>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntry">RdfDatatypeEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph">RdfDefaultGraph</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd">RdfGraphEnd</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart">RdfGraphStart</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry">RdfNameEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry">RdfPrefixEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfQuad">RdfQuad</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions">RdfStreamOptions</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamRow">RdfStreamRow</a></li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></p>
+</li>
+<li>
+<p><a href="#eu-ostrzyciel-jelly-core-proto-v1-LogicalStreamType">LogicalStreamType</a></p>
+</li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-PhysicalStreamType">PhysicalStreamType</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#scalar-value-types">Scalar Value Types</a></p>
+</li>
+</ul>
+<p><a name="grpc-proto"></a></p>
+<p align="right"><a href="#top">Top</a></p>
+
+<h2 id="grpcproto">grpc.proto</h2>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamReceived"></a></p>
+<h3 id="rdfstreamreceived">RdfStreamReceived</h3>
+<p>Acknowledgement of receiving a stream sent by the server to the client.</p>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamSubscribe"></a></p>
+<h3 id="rdfstreamsubscribe">RdfStreamSubscribe</h3>
+<p>Subscribe command sent by the client to the server.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>The topic to which the client wants to subscribe (UTF-8 encoded).</td>
+</tr>
+<tr>
+<td>requested_options</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions">RdfStreamOptions</a></td>
+<td></td>
+<td>Optional: the stream options requested by the client. The server should respond with a stream that matches these options. In case that is not possible, the server must respond with the INVALID_ARGUMENT error.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamService"></a></p>
+<h3 id="rdfstreamservice">RdfStreamService</h3>
+<p>Pub/Sub service for RDF streams, to be implemented by the server.</p>
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Request Type</th>
+<th>Response Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SubscribeRdf</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamSubscribe">RdfStreamSubscribe</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a> stream</td>
+<td>Subscribe to an RDF stream.</td>
+</tr>
+<tr>
+<td>PublishRdf</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a> stream</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamReceived">RdfStreamReceived</a></td>
+<td>Publish an RDF stream. In case the server cannot process the stream, it must respond with the INVALID_ARGUMENT error.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="rdf-proto"></a></p>
+<p align="right"><a href="#top">Top</a></p>
+
+<h2 id="rdfproto">rdf.proto</h2>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntry"></a></p>
+<h3 id="rdfdatatypeentry">RdfDatatypeEntry</h3>
+<p>Entry in the datatype lookup table</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based identifier If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first RdfDatatypeEntry of the stream, it should be interpreted as 1.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Value of the datatype (UTF-8 encoded)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph"></a></p>
+<h3 id="rdfdefaultgraph">RdfDefaultGraph</h3>
+<p>Empty message indicating the default RDF graph.</p>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd"></a></p>
+<h3 id="rdfgraphend">RdfGraphEnd</h3>
+<p>End of a graph in a GRAPHS stream</p>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart"></a></p>
+<h3 id="rdfgraphstart">RdfGraphStart</h3>
+<p>Start of a graph in a GRAPHS stream</p>
+<p>In contrast to RdfQuad, setting the graph oneof to some value
+is always required. No repeated terms are allowed.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>g_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>g_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>g_default_graph</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph">RdfDefaultGraph</a></td>
+<td></td>
+<td>Default graph</td>
+</tr>
+<tr>
+<td>g_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal – only valid for generalized RDF streams</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfIri"></a></p>
+<h3 id="rdfiri">RdfIri</h3>
+<p>RDF IRIs
+The IRIs are reconstructed by the consumer using the prefix and name
+lookup tables.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefix_id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based, refers to an entry in the prefix lookup. 0 signifies &#34;use the same prefix_id as in the previous IRI&#34;. For this to work, IRIs must be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples. If 0 appears in the first IRI of the stream (and in any subsequent IRI), this should be interpreted as an empty (&#34;&#34;) prefix. This is for example used when the prefix lookup table is disabled.</td>
+</tr>
+<tr>
+<td>name_id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based, refers to an entry in the name lookup. 0 signifies &#34;use the previous name_id &#43; 1&#34;. This requires the same order guarantees as prefixes. If 0 appears in the first IRI of the stream, it should be interpreted as name_id = 1.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral"></a></p>
+<h3 id="rdfliteral">RdfLiteral</h3>
+<p>RDF literals</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lex</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>The lexical form of the literal (required).</td>
+</tr>
+<tr>
+<td>langtag</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Language-tagged string.</td>
+</tr>
+<tr>
+<td>datatype</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Typed literal. The datatype is a reference to an entry in the datatype lookup. This value is 1-based and the value of 0 is invalid (in contrast to prefix_id and name_id in RdfIri).</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry"></a></p>
+<h3 id="rdfnameentry">RdfNameEntry</h3>
+<p>Entry in the name lookup table</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based identifier If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first RdfNameEntry of the stream, it should be interpreted as 1.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Value of the name (UTF-8 encoded)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry"></a></p>
+<h3 id="rdfprefixentry">RdfPrefixEntry</h3>
+<p>Entry in the prefix lookup table</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>1-based identifier If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first RdfPrefixEntry of the stream, it should be interpreted as 1.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Value of the prefix (UTF-8 encoded)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfQuad"></a></p>
+<h3 id="rdfquad">RdfQuad</h3>
+<p>RDF quad</p>
+<p>Fields 1–12 are repeated from RdfTriple for performance reasons.</p>
+<p>Similarly to RdfTriple, this message allows for representing generalized
+RDF quads (for example, with literals as predicates). Whether this is used
+in the stream is determined by the stream options (see RdfStreamOptions).</p>
+<p>If no field in a given oneof is set, the term is interpreted as a repeated
+term – the same as the term in the same position in the previous quad.
+In the first quad of the stream, all terms must be set.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>s_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>s_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal Only valid in a generalized RDF stream.</td>
+</tr>
+<tr>
+<td>s_triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF-star quoted triple</td>
+</tr>
+<tr>
+<td>p_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>p_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node Only valid in a generalized RDF stream.</td>
+</tr>
+<tr>
+<td>p_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal Only valid in a generalized RDF stream.</td>
+</tr>
+<tr>
+<td>p_triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF-star quoted triple</td>
+</tr>
+<tr>
+<td>o_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>o_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>o_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal</td>
+</tr>
+<tr>
+<td>o_triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF-star quoted triple</td>
+</tr>
+<tr>
+<td>g_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>g_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>g_default_graph</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph">RdfDefaultGraph</a></td>
+<td></td>
+<td>Default graph</td>
+</tr>
+<tr>
+<td>g_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal – only valid for generalized RDF streams</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame"></a></p>
+<h3 id="rdfstreamframe">RdfStreamFrame</h3>
+<p>RDF stream frame – base message for RDF streams.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rows</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamRow">RdfStreamRow</a></td>
+<td>repeated</td>
+<td>Stream rows</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions"></a></p>
+<h3 id="rdfstreamoptions">RdfStreamOptions</h3>
+<p>RDF stream options</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream_name</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Name of the stream (completely optional). This may be used for, e.g., topic names in a pub/sub system.</td>
+</tr>
+<tr>
+<td>physical_type</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-PhysicalStreamType">PhysicalStreamType</a></td>
+<td></td>
+<td>Type of the stream (required)</td>
+</tr>
+<tr>
+<td>generalized_statements</td>
+<td><a href="#bool">bool</a></td>
+<td></td>
+<td>Whether the stream may contain generalized triples, quads, or datasets</td>
+</tr>
+<tr>
+<td>rdf_star</td>
+<td><a href="#bool">bool</a></td>
+<td></td>
+<td>Whether the stream may contain RDF-star statements</td>
+</tr>
+<tr>
+<td>max_name_table_size</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Maximum size of the name lookup table</td>
+</tr>
+<tr>
+<td>max_prefix_table_size</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Maximum size of the prefix lookup table</td>
+</tr>
+<tr>
+<td>max_datatype_table_size</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Maximum size of the datatype lookup table</td>
+</tr>
+<tr>
+<td>logical_type</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-LogicalStreamType">LogicalStreamType</a></td>
+<td></td>
+<td>Logical (RDF-STaX-based) stream type In contrast to the physical type, this field is entirely optional.</td>
+</tr>
+<tr>
+<td>version</td>
+<td><a href="#uint32">uint32</a></td>
+<td></td>
+<td>Protocol version (required) For Jelly 1.0.x value must be 1. For custom extensions, the value must be 10000 or higher.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfStreamRow"></a></p>
+<h3 id="rdfstreamrow">RdfStreamRow</h3>
+<p>RDF stream row</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamOptions">RdfStreamOptions</a></td>
+<td></td>
+<td>Stream options. Must occur at the start of the stream.</td>
+</tr>
+<tr>
+<td>triple</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF triple statement. Valid in streams of physical type TRIPLES or GRAPHS.</td>
+</tr>
+<tr>
+<td>quad</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfQuad">RdfQuad</a></td>
+<td></td>
+<td>RDF quad statement. Only valid in streams of physical type QUADS.</td>
+</tr>
+<tr>
+<td>graph_start</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphStart">RdfGraphStart</a></td>
+<td></td>
+<td>Graph boundary: ends the currently transmitted graph and starts a new one Only valid in streams of physical type GRAPHS.</td>
+</tr>
+<tr>
+<td>graph_end</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd">RdfGraphEnd</a></td>
+<td></td>
+<td>Explicit end of a graph. Signals the consumer that the transmitted graph is complete. Only valid in streams of physical type GRAPHS.</td>
+</tr>
+<tr>
+<td>name</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry">RdfNameEntry</a></td>
+<td></td>
+<td>Entry in the name lookup table.</td>
+</tr>
+<tr>
+<td>prefix</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry">RdfPrefixEntry</a></td>
+<td></td>
+<td>Entry in the prefix lookup table.</td>
+</tr>
+<tr>
+<td>datatype</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntry">RdfDatatypeEntry</a></td>
+<td></td>
+<td>Entry in the datatype lookup table.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfTriple"></a></p>
+<h3 id="rdftriple">RdfTriple</h3>
+<p>RDF triple</p>
+<p>For each term (subject, predicate, object), the fields are repeated for
+performance reasons. This is to avoid the need for boxing each term in a
+separate message.</p>
+<p>Note: this message allows for representing generalized RDF triples (for
+example, with literals as predicates). Whether this is used in the stream
+is determined by the stream options (see RdfStreamOptions).</p>
+<p>If no field in a given oneof is set, the term is interpreted as a repeated
+term – the same as the term in the same position in the previous triple.
+In the first triple of the stream, all terms must be set.
+All terms must also be set in quoted triples (RDF-star).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>s_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>s_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal Only valid in a generalized RDF stream.</td>
+</tr>
+<tr>
+<td>s_triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF-star quoted triple</td>
+</tr>
+<tr>
+<td>p_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>p_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node Only valid in a generalized RDF stream.</td>
+</tr>
+<tr>
+<td>p_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal Only valid in a generalized RDF stream.</td>
+</tr>
+<tr>
+<td>p_triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF-star quoted triple</td>
+</tr>
+<tr>
+<td>o_iri</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>o_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>o_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></td>
+<td></td>
+<td>Literal</td>
+</tr>
+<tr>
+<td>o_triple_term</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfTriple">RdfTriple</a></td>
+<td></td>
+<td>RDF-star quoted triple</td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-LogicalStreamType"></a></p>
+<h3 id="logicalstreamtype">LogicalStreamType</h3>
+<p>Logical stream type, according to the RDF Stream Taxonomy (RDF-STaX).
+Type 0 is reserved for the unspecified stream type.
+The rest of the type numbers follow the taxonomical structure of RDF-STaX.
+For example: 1 is a subtype of 0, 13 and 23 are subtypes of 3, 
+114 is a subtype of 14, etc.</p>
+<p>Types 1–4 correspond to the four base concrete stream types. Their 
+subtypes can be in most cases simply processed in the same way as 
+the base types.
+Therefore, implementations can take the modulo 10 of the stream 
+type to determine the base type of the stream and use this information 
+to select the appropriate processing logic.</p>
+<p>RDF-STaX version: 1.1.2
+<a href="https://w3id.org/stax/1.1.2">https://w3id.org/stax/1.1.2</a></p>
+<p>^ The above URL is used to automatically determine the version of RDF-STaX
+in the Jelly protocol specification. Please keep it up-to-date and in the
+same format.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Number</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LOGICAL_STREAM_TYPE_UNSPECIFIED</td>
+<td>0</td>
+<td>Unspecified stream type – invalid</td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_FLAT_TRIPLES</td>
+<td>1</td>
+<td>Flat RDF triple stream <a href="https://w3id.org/stax/ontology#flatTripleStream">https://w3id.org/stax/ontology#flatTripleStream</a></td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_FLAT_QUADS</td>
+<td>2</td>
+<td>Flat RDF quad stream <a href="https://w3id.org/stax/ontology#flatQuadStream">https://w3id.org/stax/ontology#flatQuadStream</a></td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_GRAPHS</td>
+<td>3</td>
+<td>RDF graph stream <a href="https://w3id.org/stax/ontology#graphStream">https://w3id.org/stax/ontology#graphStream</a></td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_DATASETS</td>
+<td>4</td>
+<td>RDF dataset stream <a href="https://w3id.org/stax/ontology#datasetStream">https://w3id.org/stax/ontology#datasetStream</a></td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_SUBJECT_GRAPHS</td>
+<td>13</td>
+<td>RDF subject graph stream (subtype of RDF graph stream) <a href="https://w3id.org/stax/ontology#subjectGraphStream">https://w3id.org/stax/ontology#subjectGraphStream</a></td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_NAMED_GRAPHS</td>
+<td>14</td>
+<td>RDF named graph stream (subtype of RDF dataset stream) <a href="https://w3id.org/stax/ontology#namedGraphStream">https://w3id.org/stax/ontology#namedGraphStream</a></td>
+</tr>
+<tr>
+<td>LOGICAL_STREAM_TYPE_TIMESTAMPED_NAMED_GRAPHS</td>
+<td>114</td>
+<td>RDF timestamped named graph stream (subtype of RDF dataset stream) <a href="https://w3id.org/stax/ontology#timestampedNamedGraphStream">https://w3id.org/stax/ontology#timestampedNamedGraphStream</a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-PhysicalStreamType"></a></p>
+<h3 id="physicalstreamtype">PhysicalStreamType</h3>
+<p>Physical stream type
+This determines how the data is encoded in the stream, not the logical
+structure of the data. See LogicalStreamType for the latter.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Number</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHYSICAL_STREAM_TYPE_UNSPECIFIED</td>
+<td>0</td>
+<td>Unspecified stream type – invalid</td>
+</tr>
+<tr>
+<td>PHYSICAL_STREAM_TYPE_TRIPLES</td>
+<td>1</td>
+<td>RDF triples</td>
+</tr>
+<tr>
+<td>PHYSICAL_STREAM_TYPE_QUADS</td>
+<td>2</td>
+<td>RDF quads</td>
+</tr>
+<tr>
+<td>PHYSICAL_STREAM_TYPE_GRAPHS</td>
+<td>3</td>
+<td>RDF triples grouped in graphs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="scalar-value-types">Scalar Value Types</h2>
+<table>
+<thead>
+<tr>
+<th>.proto Type</th>
+<th>Notes</th>
+<th>C++</th>
+<th>Java</th>
+<th>Python</th>
+<th>Go</th>
+<th>C#</th>
+<th>PHP</th>
+<th>Ruby</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a name="double" /> double</td>
+<td></td>
+<td>double</td>
+<td>double</td>
+<td>float</td>
+<td>float64</td>
+<td>double</td>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td><a name="float" /> float</td>
+<td></td>
+<td>float</td>
+<td>float</td>
+<td>float</td>
+<td>float32</td>
+<td>float</td>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td><a name="int32" /> int32</td>
+<td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+<td>int32</td>
+<td>int</td>
+<td>int</td>
+<td>int32</td>
+<td>int</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="int64" /> int64</td>
+<td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+<td>int64</td>
+<td>long</td>
+<td>int/long</td>
+<td>int64</td>
+<td>long</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="uint32" /> uint32</td>
+<td>Uses variable-length encoding.</td>
+<td>uint32</td>
+<td>int</td>
+<td>int/long</td>
+<td>uint32</td>
+<td>uint</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="uint64" /> uint64</td>
+<td>Uses variable-length encoding.</td>
+<td>uint64</td>
+<td>long</td>
+<td>int/long</td>
+<td>uint64</td>
+<td>ulong</td>
+<td>integer/string</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="sint32" /> sint32</td>
+<td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+<td>int32</td>
+<td>int</td>
+<td>int</td>
+<td>int32</td>
+<td>int</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="sint64" /> sint64</td>
+<td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+<td>int64</td>
+<td>long</td>
+<td>int/long</td>
+<td>int64</td>
+<td>long</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="fixed32" /> fixed32</td>
+<td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+<td>uint32</td>
+<td>int</td>
+<td>int</td>
+<td>uint32</td>
+<td>uint</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="fixed64" /> fixed64</td>
+<td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+<td>uint64</td>
+<td>long</td>
+<td>int/long</td>
+<td>uint64</td>
+<td>ulong</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="sfixed32" /> sfixed32</td>
+<td>Always four bytes.</td>
+<td>int32</td>
+<td>int</td>
+<td>int</td>
+<td>int32</td>
+<td>int</td>
+<td>integer</td>
+<td>Bignum or Fixnum (as required)</td>
+</tr>
+<tr>
+<td><a name="sfixed64" /> sfixed64</td>
+<td>Always eight bytes.</td>
+<td>int64</td>
+<td>long</td>
+<td>int/long</td>
+<td>int64</td>
+<td>long</td>
+<td>integer/string</td>
+<td>Bignum</td>
+</tr>
+<tr>
+<td><a name="bool" /> bool</td>
+<td></td>
+<td>bool</td>
+<td>boolean</td>
+<td>boolean</td>
+<td>bool</td>
+<td>bool</td>
+<td>boolean</td>
+<td>TrueClass/FalseClass</td>
+</tr>
+<tr>
+<td><a name="string" /> string</td>
+<td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+<td>string</td>
+<td>String</td>
+<td>str/unicode</td>
+<td>string</td>
+<td>string</td>
+<td>string</td>
+<td>String (UTF-8)</td>
+</tr>
+<tr>
+<td><a name="bytes" /> bytes</td>
+<td>May contain any arbitrary sequence of bytes.</td>
+<td>string</td>
+<td>ByteString</td>
+<td>str</td>
+<td>[]byte</td>
+<td>ByteString</td>
+<td>string</td>
+<td>String (ASCII-8BIT)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 12, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 12, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+        <span style="font-size: 1.1em;">
+        <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m245.83 214.87-33.22 17.28c-9.43-19.58-25.24-19.93-27.46-19.93-22.13 0-33.22 14.61-33.22 43.84 0 23.57 9.21 43.84 33.22 43.84 14.47 0 24.65-7.09 30.57-21.26l30.55 15.5c-6.17 11.51-25.69 38.98-65.1 38.98-22.6 0-73.96-10.32-73.96-77.05 0-58.69 43-77.06 72.63-77.06 30.72-.01 52.7 11.95 65.99 35.86zm143.05 0-32.78 17.28c-9.5-19.77-25.72-19.93-27.9-19.93-22.14 0-33.22 14.61-33.22 43.84 0 23.55 9.23 43.84 33.22 43.84 14.45 0 24.65-7.09 30.54-21.26l31 15.5c-2.1 3.75-21.39 38.98-65.09 38.98-22.69 0-73.96-9.87-73.96-77.05 0-58.67 42.97-77.06 72.63-77.06 30.71-.01 52.58 11.95 65.56 35.86zM247.56 8.05C104.74 8.05 0 123.11 0 256.05c0 138.49 113.6 248 247.56 248 129.93 0 248.44-100.87 248.44-248 0-137.87-106.62-248-248.44-248zm.87 450.81c-112.54 0-203.7-93.04-203.7-202.81 0-105.42 85.43-203.27 203.72-203.27 112.53 0 202.82 89.46 202.82 203.26-.01 121.69-99.68 202.82-202.84 202.82z"></path></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M314.9 194.4v101.4h-28.3v120.5h-77.1V295.9h-28.3V194.4c0-4.4 1.6-8.2 4.6-11.3 3.1-3.1 6.9-4.7 11.3-4.7H299c4.1 0 7.8 1.6 11.1 4.7 3.1 3.2 4.8 6.9 4.8 11.3zm-101.5-63.7c0-23.3 11.5-35 34.5-35s34.5 11.7 34.5 35c0 23-11.5 34.5-34.5 34.5s-34.5-11.5-34.5-34.5zM247.6 8C389.4 8 496 118.1 496 256c0 147.1-118.5 248-248.4 248C113.6 504 0 394.5 0 256 0 123.1 104.7 8 247.6 8zm.8 44.7C130.2 52.7 44.7 150.6 44.7 256c0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8.1-113.8-90.2-203.3-202.8-203.3z"></path></svg></span>
+        </span>Creative Commons Attribution 4.0</a><br />Jelly's documentation is licensed under CC BY 4.0. The code is licensed under Apache 2.0. See also: <strong><a href="/latest/licensing">licensing</a></strong>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Jelly-RDF" target="_blank" rel="noopener" title="Jelly on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
