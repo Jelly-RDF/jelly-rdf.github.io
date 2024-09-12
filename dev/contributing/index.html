@@ -71,7 +71,16 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-  </head>
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -860,7 +869,7 @@
 <h2 id="editing-documentation">Editing documentation</h2>
 <p>The documentation is written in Markdown and built using <a href="https://www.mkdocs.org/">MkDocs</a>, using <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>.</p>
 <p>To edit a documentation page, simply click the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg></span> button in the top-right of the page:</p>
-<p><img alt="Edit this page" src="../assets/edit_button.png" /></p>
+<p><a class="glightbox" href="../assets/edit_button.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Edit this page" src="../assets/edit_button.png" /></a></p>
 <p>It will take you to GitHub, where you can edit the Markdown file and submit a pull request. You can also clone <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io">the repository</a> and edit the files locally. The source files are in the <code>docs</code> directory.</p>
 <p>Note: the <code>reference.md</code> file is automatically generated from the Jelly Protocol Buffers definitions. Do not edit it directly.</p>
 <h3 id="macros">Macros</h3>
@@ -1026,5 +1035,7 @@
       <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
       
     
-  </body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>
