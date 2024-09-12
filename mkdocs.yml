@@ -7,6 +7,7 @@ plugins:
   - include-markdown
   - mike
   - macros
+  - glightbox
   - git-revision-date-localized:
       enable_creation_date: true
 

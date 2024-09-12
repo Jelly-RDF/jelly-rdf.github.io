@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework). It is based on [Protocol Buffers](https://protobuf.dev/) and [gRPC]((https://grpc.io/)), and has a JVM implementation that works with [Apache Jena](https://jena.apache.org/) and [RDF4J](https://rdf4j.org/).
+**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework). It is based on [Protocol Buffers](https://protobuf.dev/) and [gRPC](https://grpc.io/), and has a JVM implementation that works with [Apache Jena](https://jena.apache.org/) and [RDF4J](https://rdf4j.org/).
 
 <div class="grid cards" style="clear: right;" markdown>
 
@@ -36,17 +36,27 @@
 
     ---
 
-    Everything is open-source and well-documented, so you can build your own Jelly implementation
+    Everything is open-source and well-documented to help you get started
 
     [:octicons-arrow-right-24: Protocol specification](specification/index.md)
 
 </div>
 
-<!--
 ## How fast is it?
 
-TODO
--->
+*Fast.* Jelly was specifically designed to serialize and deserialize streams of RDF data faster than N-Triples or other binary formats, while being [more compact than Turtle](performance.md#serialized-size).
+
+The benchmarks below were performed on streams of RDF graphs or datasets, but Jelly is also good at handling streams of triples or quads ("classic" serialization). See: **[more benchmark results and details about the benchmark setup](performance.md)**.
+
+<figure markdown="span">
+  ![Serialization speed bar plot](assets/benchmarks/grouped_ser.png){ width="100%" }
+  <figcaption markdown style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over 13 datasets (RiverBench 2.1.0 profile [`stream-mixed-rdfstar`](https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar), task [`stream-serialization-throughput`](https://w3id.org/riverbench/v/2.1.0/tasks/stream-serialization-throughput)).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).<br>[More details about the benchmark](performance.md).</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Deserialization speed bar plot](assets/benchmarks/grouped_des.png){ width="100%" }
+  <figcaption markdown style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over 13 datasets (RiverBench 2.1.0 profile [`stream-mixed-rdfstar`](https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar), task [`stream-deserialization-throughput`](https://w3id.org/riverbench/v/2.1.0/tasks/stream-deserialization-throughput)).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).<br>[More details about the benchmark](performance.md).</figcaption>
+</figure>
 
 ## See also
 
