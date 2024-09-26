@@ -9,7 +9,9 @@
     - Jelly is also used for [distributing the RDF metadata](https://w3id.org/riverbench/v/dev/documentation/metadata) of benchmark datasets, tasks, and other resources.
     - This is implemented in the [ci-worker](https://github.com/RiverBench/ci-worker) application – a Scala 3 program making heavy use of [Jelly-JVM's]({{ jvm_link() }}) streaming capabilities.
 - [Jelly-JVM benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks). This code was used to produce the results seen on the [performance page](performance.md).
-- *Not released publicly yet – stay tuned!* A Scala 2 application using Jelly over Kafka, MQTT, and gRPC (full streaming protocol). 
+- [RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax) uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
+    - This is implemented using Apache Jena's RIOT command-line utility and [Jelly-JVM's Jena plugin]({{ jvm_link('getting-started-plugins') }}). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
+- *Not released publicly yet – stay tuned!* A Scala 2 application using Jelly over Kafka, MQTT, and gRPC (full streaming protocol).
 
 ## See also
 
