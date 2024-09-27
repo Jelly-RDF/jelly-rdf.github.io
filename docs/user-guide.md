@@ -29,6 +29,12 @@ All stream types use the same concept of **stream frames** – discrete elements
 
     Jelly does have a system of **logical stream types** based on the RDF Stream Taxonomy ([RDF-STaX](https://w3id.org/stax)), which can be used to suggest how the stream should be interpreted. However, these are just suggestions – you can interpret the stream however you like.
 
+!!! example "Do you have any example Jelly files to experiment with?"
+
+    Yes! Go check out the **[Use cases page](use-cases.md#example-datasets-in-the-jelly-format)** where we list links to example datasets in the Jelly format.
+
+    The easiest way to read them is to use the [Jelly-JVM plugin for Apache Jena or RDF4J]({{ jvm_link('getting-started-plugins') }}). You can use to quickly add Jelly support to, for example, Apache Jena Fuseki and load the file just like any other RDF file.
+
 ### Stream types
 
 Jelly has the notions of **physical stream types** and **logical stream types**. The physical type tells you how Jelly sends the data on the wire, which is a technical detail. The logical type tells you how you should interpret the stream. Specifying the logical type is optional and is only a suggestion to the consumer. You can **always** interpret the stream however you like.
