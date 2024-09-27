@@ -13,6 +13,21 @@
     - This is implemented using Apache Jena's RIOT command-line utility and [Jelly-JVM's Jena plugin]({{ jvm_link('getting-started-plugins') }}). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
 - *Not released publicly yet – stay tuned!* A Scala 2 application using Jelly over Kafka, MQTT, and gRPC (full streaming protocol).
 
+## Example datasets in the Jelly format
+
+Below listed are some example datasets available in the Jelly format. The licenses for these datasets are specified on the linked documentation pages.
+
+- Large datasets (millions of triples/quads):
+    - [:octicons-download-24: ASSIST-IoT weather measurements](https://w3id.org/riverbench/datasets/assist-iot-weather/1.0.3/files/jelly_full.jelly.gz) ([documentation](https://w3id.org/riverbench/datasets/assist-iot-weather/1.0.3)) – 80 million triples.
+    - [:octicons-download-24: 5 million nanopublications](https://w3id.org/riverbench/datasets/nanopubs/1.0.3/files/jelly_full.jelly.gz) ([documentation](https://w3id.org/riverbench/datasets/nanopubs/1.0.3)) – 171 million quads.
+    - [:octicons-download-24: RDF-star annotated facts from YAGO](https://w3id.org/riverbench/datasets/yago-annotated-facts/1.0.3/files/jelly_full.jelly.gz) ([documentation](https://w3id.org/riverbench/datasets/yago-annotated-facts/1.0.3)) – 2 million triples.
+
+- Small datasets:
+    - [:octicons-download-24: RDF-STaX ontology](https://w3id.org/stax/1.1.3/ontology.jelly) ([documentation](https://w3id.org/stax/1.1.3/ontology)).
+    - [:octicons-download-24: RiverBench suite metadata](https://w3id.org/riverbench/v/dev.jelly) ([documentation](https://w3id.org/riverbench/v/dev/documentation/metadata)) – *RiverBench also includes metadata in Jelly for benchmark tasks, datasets, and more.*
+
+You can find more interesting datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
+
 ## See also
 
 - [User guide](user-guide.md)
