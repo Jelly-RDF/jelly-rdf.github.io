@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jelly-rdf.github.io/dev/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/contributing/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/licensing/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/performance/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/use-cases/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/user-guide/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/media-type/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/protobuf-source/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/reference/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/serialization/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/streaming/</loc>
-         <lastmod>2024-09-27</lastmod>
+         <lastmod>2024-10-01</lastmod>
     </url>
 </urlset>
