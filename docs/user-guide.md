@@ -42,8 +42,8 @@ Jelly has the notions of **physical stream types** and **logical stream types**.
 There are three physical stream types in Jelly:
 
 - **`TRIPLES`**: Data is encoded using triple statements. There is no information about the graph name in this type of stream.
-- **`QUADS`**: Data is encoded using quad statements. Each quad has a graph name, which can also be empty for the default graph.
-- **`GRAPHS`**: Data is encoded using named graphs, where the graph name can also be empty for the default graph. Each named graph can contain multiple triples.
+- **`QUADS`**: Data is encoded using quad statements. Each quad has a graph name, which can also be the default graph.
+- **`GRAPHS`**: Data is encoded using named graphs, where the graph name can also be the default graph. Each named graph can contain multiple triples.
 
 As for logical stream types, they are taken directly from [RDF-STaX]({{ stax_link('taxonomy') }}) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
 
