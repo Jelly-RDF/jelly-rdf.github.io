@@ -15,7 +15,7 @@
 
 ## Example datasets in the Jelly format
 
-Below listed are some example datasets available in the Jelly format. The licenses for these datasets are specified on the linked documentation pages.
+Below listed are some example datasets available in the Jelly format. All of these are in the [delimited format](user-guide.md#delimited-vs-non-delimited-jelly). The licenses for these datasets are specified on the linked documentation pages.
 
 - Large datasets (millions of triples/quads):
     - [:octicons-download-24: ASSIST-IoT weather measurements](https://w3id.org/riverbench/datasets/assist-iot-weather/1.0.3/files/jelly_full.jelly.gz) ([documentation](https://w3id.org/riverbench/datasets/assist-iot-weather/1.0.3)) – 80 million triples.

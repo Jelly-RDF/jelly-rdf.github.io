@@ -273,7 +273,7 @@ You can read more about how this works in the [serialization format specificatio
 
 ### Examples
 
-- [Jelly-JVM]({{ jvm_link() }}) supports both variants, but uses them in different contexts. When writing to a Java byte stream (typically a file) with Apache Jena RIOT or RDF4J Rio, the delimited variant is used. In the gRPC protocol, the non-delimited variant is used.
+- [Jelly-JVM]({{ jvm_link() }}) supports both variants, but uses them in different contexts. When writing to a Java byte stream (typically a file) with Apache Jena RIOT or RDF4J Rio, the delimited variant is used. However, the RIOT/Rio integrations can parse either delimited or non-delimited Jelly data. In the gRPC protocol, the non-delimited variant is used.
 - [RiverBench](http://w3id.org/riverbench) publishes its RDF metadata and datasets as Jelly files. These files are always written using the delimited variant.
 
 ## Implementing Jelly
