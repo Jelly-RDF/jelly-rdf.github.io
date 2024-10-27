@@ -15,29 +15,29 @@ If you are only interested in parsing/writing a single graph or dataset, look at
 
 All benchmarks presented here were performed using the [RiverBench benchmark suite, version 2.1.0](https://w3id.org/riverbench/v/2.1.0). Out of the 13 used datasets (all datasets available in RiverBench 2.1.0), 1 used RDF-star, and 3 included RDF quads/datasets. You can find the links to the specific used RiverBench profiles and tasks in the results below.
 
-The benchmarks were executed using [this code (Apache 2.0)](https://github.com/Jelly-RDF/jvm-benchmarks/tree/88d936a87d0dcd9f7fb5f3dc98af7d4c270711e9) in a JVM with options: `-Xms1G -Xmx32G`. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.
+The benchmarks were executed using [this code (Apache 2.0 license)](https://github.com/Jelly-RDF/jvm-benchmarks/tree/b3cd58b437292080d84fa91a92da2cf4b701f0aa) in a JVM with options: `-Xms1G -Xmx32G`. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.
 
 Hardware: AMD Ryzen 9 7900 (12-core, 24-thread, 5.0 GHz); 64 GB RAM (DDR5 5600 MT/s). The disk was not used during the benchmarks (all data was in memory). The throughput benchmarks are single-threaded, but the JVM was allowed to use all available cores for garbage collection, JIT compilation, and other tasks.
 
-Software: Linux kernel 6.8.12, Oracle GraalVM 22.0.2+9, Apache Jena 5.0.0, [Jelly-JVM]({{ jvm_link() }}) 0.14.2 (equivalent to Jelly-JVM 1.0.0).
+Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, [Jelly-JVM]({{ jvm_link() }}) 2.2.1.
 
 ### Tested methods
 
-- W3C RDF/XML (Apache Jena 5.0.0, `RDFXML_PLAIN`)
-- W3C N-Triples / N-Quads (Apache Jena 5.0.0, `NTRIPLES` and `NQUADS`)
-- W3C JSON-LD (Apache Jena 5.0.0, `JSONLD_PLAIN`)
-- W3C Turtle / TriG (Apache Jena 5.0.0)
+- W3C RDF/XML (Apache Jena 5.2.0, `RDFXML_PLAIN`)
+- W3C N-Triples / N-Quads (Apache Jena 5.2.0, `NTRIPLES` and `NQUADS`)
+- W3C JSON-LD (Apache Jena 5.2.0, `JSONLD_PLAIN`)
+- W3C Turtle / TriG (Apache Jena 5.2.0)
     - In grouped streaming, the default (`TURTLE_PRETTY` and `TRIG_PRETTY`) Turtle/TriG variant was used. 
     - In flat streaming, the `TURTLE_BLOCKS` and `TRIG_BLOCKS` variant was used. See [Jena's documentation on streaming writers for more details](https://jena.apache.org/documentation/io/streaming-io.html).
-- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Protobuf format (Apache Jena 5.0.0, `RDF_PROTO`)
-- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Thrift format (Apache Jena 5.0.0, `RDF_THRIFT`)
-- Jelly (Jelly-JVM 0.14.2, "big" preset)
+- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Protobuf format (Apache Jena 5.2.0, `RDF_PROTO`)
+- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Thrift format (Apache Jena 5.2.0, `RDF_THRIFT`)
+- Jelly (Jelly-JVM 2.2.1, "big" preset)
     ```protobuf
     max_name_table_size = 4000;
     max_prefix_table_size = 150;
     max_datatype_table_size = 32;
     ```
-- Jelly without prefix compression (Jelly-JVM 0.14.2, "big" preset with prefix table disabled)
+- Jelly without prefix compression (Jelly-JVM 2.2.1, "big" preset with prefix table disabled)
     ```protobuf
     max_name_table_size = 4000;
     max_prefix_table_size = 0;  // Prefix table disabled
@@ -82,7 +82,7 @@ Note that the results for the equivalent flat streaming task ([`flat-compression
   <figcaption markdown style="max-width: 100%;">Serialization speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
 </figure>
 
-Jelly achieves very similar results to Jena's binary formats here. However, it should be noted that the Jena formats feature no compression at all, and Jelly is much more compact (see [serialized size](#serialized-size)).
+Jelly comparable results to Jena's binary formats and N-Triples/N-Quads here. However, it should be noted that the Jena formats feature no compression at all, and Jelly is much more compact (see [serialized size](#serialized-size)).
 
 ### Flat streaming deserialization throughput
 
@@ -110,6 +110,18 @@ Jelly achieves very similar results to Jena's binary formats here. However, it s
   <figcaption markdown style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
 </figure>
 
+### Grouped streaming deserialization throughput
+
+- RiverBench task: [`stream-deserialization-throughput` (2.1.0)](https://w3id.org/riverbench/v/2.1.0/tasks/stream-deserialization-throughput)
+- RiverBench profile: [`stream-mixed-rdfstar` (2.1.0)](https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar)
+- The first 100,000 stream elements of each dataset were used for this benchmark.
+- Each method/dataset combination was run 15 times, the first 5 runs were discarded to account for JVM warmup, and the remaining 10 runs were averaged.
+- Before running the benchmark, the data was serialized to a list of byte arrays (one array per stream element) and then deserialized from it. The deserializer was emitting only a stream of triples/quads, without any further processing.
+
+<figure markdown="span">
+  ![Deserialization speed bar plot](assets/benchmarks/grouped_des.png){ width="100%" }
+  <figcaption markdown style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
+</figure>
 
 ## See also
 
