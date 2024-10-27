@@ -125,7 +125,7 @@ Jelly comparable results to Jena's binary formats and N-Triples/N-Quads here. Ho
 
 ## See also
 
-- [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/88d936a87d0dcd9f7fb5f3dc98af7d4c270711e9)
+- [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/b3cd58b437292080d84fa91a92da2cf4b701f0aa)
 - [RiverBench benchmark suite](https://w3id.org/riverbench/)
 - [Jelly-JVM]({{ jvm_link() }}) – the Jelly implementation used in the benchmarks
 - [User guide](user-guide.md)
