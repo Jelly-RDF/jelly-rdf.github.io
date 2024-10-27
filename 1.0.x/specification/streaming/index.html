@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -70,6 +70,7 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta name="google-site-verification" content="JMy5zT6f11aw--RbVdmvGDEfHi_khf67nj7XDkz0KvA" />
 
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
@@ -707,7 +708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://w3id.org/jelly/jelly-jvm/1.0.0/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -981,7 +982,7 @@
 
 <h1 id="jelly-grpc-streaming-protocol-specification">Jelly gRPC streaming protocol specification</h1>
 <p><strong>This document is the specification of the Jelly gRPC streaming protocol (publish/subscribe mechanism). It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
-<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/v1.0.0/grpc.proto"><code>grpc.proto</code></a>).</p>
+<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/v1.0.1/grpc.proto"><code>grpc.proto</code></a>).</p>
 <p>The following assumptions are used in this document:</p>
 <ul>
 <li>This document uses the <a href="../serialization/">specification for the Jelly serialization format</a>.</li>
@@ -1002,7 +1003,7 @@
 </tr>
 <tr>
 <td><strong>Version:</strong></td>
-<td>1.0.0</td>
+<td>1.0.1</td>
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
@@ -1010,7 +1011,7 @@
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
-<td><a href="https://w3id.org/jelly/1.0.0/specification/streaming"><code>https://w3id.org/jelly/1.0.0/specification/streaming</code></a></td>
+<td><a href="https://w3id.org/jelly/1.0.1/specification/streaming"><code>https://w3id.org/jelly/1.0.1/specification/streaming</code></a></td>
 </tr>
 <tr>
 <td><strong>Document status</strong>:</td>
@@ -1163,13 +1164,13 @@
 <h3 id="long-running-streams-and-keep-alive-pings">Long-running streams and keep-alive pings</h3>
 <p><em>This section is not part of the specification.</em></p>
 <p>The gRPC protocol does support long-running streams, but due to how it's implemented (over HTTP/2 and TCP), some networking equipment or network stack implementations may terminate a connection if there is no activity for a long time. If you are working with a stream that can be "quiet" for more than a minute, this may be a problem.</p>
-<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://w3id.org/jelly/jelly-jvm/1.0.0/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
+<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
 <p>The following implementations of the Jelly gRPC streaming protocol specification are available:</p>
 <ul>
-<li><a href="https://w3id.org/jelly/jelly-jvm/1.0.0/">Jelly-JVM (Scala) implementation</a><ul>
-<li>Specification version: 1.0.0</li>
+<li><a href="https://w3id.org/jelly/jelly-jvm/2.2.1/">Jelly-JVM (Scala) implementation</a><ul>
+<li>Specification version: 1.0.1</li>
 <li>Partial (boilerplate) implementation based on <a href="https://pekko.apache.org/docs/pekko-grpc/current/">Apache Pekko gRPC</a>. Requires the end user to implement their own code for handling the streams.</li>
 </ul>
 </li>
@@ -1279,10 +1280,10 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
