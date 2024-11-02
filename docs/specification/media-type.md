@@ -1,9 +1,10 @@
-# File extension and media type
+# File extensions and media types
 
-Jelly is not tied to any specific file extension and does not have a registered media type. However, you can use the following:
+We recommend using these file extensions and media types when working with Jelly:
 
-- File extension: `.jelly`
-- Media type: `application/x-jelly-rdf`
+| Format | File extension | Media type |
+| --- | --- | --- |
+| **[Jelly RDF serialization](serialization.md)** | `.jelly` | `application/x-jelly-rdf` |
 
 The files should be saved in the [delimited variant of Jelly](serialization.md#delimited-variant-of-jelly).
 
