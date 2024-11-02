@@ -97,7 +97,7 @@ nav:
     - gRPC streaming protocol: 'specification/streaming.md'
     - Protobuf reference: 'specification/reference.md'
     - Protobuf source: 'specification/protobuf-source.md'
-    - File extension and media type: 'specification/media-type.md'
+    - File extensions and media types: 'specification/media-type.md'
 
   - JVM (Scala) implementation ⮺: 'https://w3id.org/jelly/jelly-jvm/'
 

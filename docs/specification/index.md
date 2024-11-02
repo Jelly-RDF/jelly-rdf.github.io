@@ -6,8 +6,10 @@
 
 See the specification pages for more details:
 
-- [Serialization format specification](serialization.md)
-- [gRPC streaming protocol specification](streaming.md)
-- [Protobuf reference](reference.md)
-- [Protobuf sources](protobuf-source.md)
-- [File extension and media type](media-type.md)
+- Specification documents:
+    - [Serialization format specification](serialization.md)
+    - [gRPC streaming protocol specification](streaming.md)
+- Protobuf definitions:
+    - [Protobuf reference](reference.md)
+    - [Protobuf sources](protobuf-source.md)
+- [File extensions and media types](media-type.md)
