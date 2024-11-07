@@ -87,4 +87,4 @@ Flat streaming serialization is admittedly the one scenario where Jelly is prett
 - [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62)
 - [RiverBench benchmark suite](https://w3id.org/riverbench/)
 - [Jelly-JVM]({{ jvm_link() }}) – the Jelly implementation used in the benchmarks
-- [User guide](user-guide.md)
+- [User guide](../user-guide.md)

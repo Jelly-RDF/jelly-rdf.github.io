@@ -32,7 +32,7 @@ Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, E
 - [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Protobuf format (Apache Jena 5.2.0, `RDF_PROTO`)
 - [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Thrift format (Apache Jena 5.2.0, `RDF_THRIFT`)
 - [RDF4J Binary RDF Format](https://rdf4j.org/documentation/reference/rdf4j-binary/) (Eclipse RDF4J 5.0.2, `BINARY`)
-    - *Note: to avoid confusion, on this page we only show the performance results for Apache Jena. The results for RDF4J can be found here: [RDF4J performance](performance/rdf4j.md).*
+    - *Note: to avoid confusion, on this page we only show the performance results for Apache Jena. The results for RDF4J can be found here: [RDF4J performance](rdf4j.md).*
 - Jelly (Jelly-JVM 2.2.2, "big" preset)
     ```protobuf
     max_name_table_size = 4000;
@@ -149,4 +149,4 @@ When reviewing these results, it's important to remember that Jelly is faster th
 - [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62)
 - [RiverBench benchmark suite](https://w3id.org/riverbench/)
 - [Jelly-JVM]({{ jvm_link() }}) – the Jelly implementation used in the benchmarks
-- [User guide](user-guide.md)
+- [User guide](../user-guide.md)
