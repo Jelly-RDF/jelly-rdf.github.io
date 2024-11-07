@@ -16,15 +16,15 @@
         <link rel="prev" href="../user-guide/">
       
       
-        <link rel="next" href="../specification/">
+        <link rel="next" href="rdf4j/">
       
       
       <link rel="icon" href="../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
-        <title>Performance - Jelly</title>
+        <title>Performance benchmarks - Jelly</title>
       
     
     
@@ -64,7 +64,7 @@
         
     
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jelly – Performance" />
+    <meta property="og:title" content="Jelly – Performance benchmarks" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
     <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Performance
+              Performance benchmarks
             
           </span>
         </div>
@@ -324,146 +324,76 @@
   
   
   
-    <li class="md-nav__item md-nav__item--active">
+    
+    
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
+        
+          
+        
       
         
       
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
           
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
   
   <span class="md-ellipsis">
     Performance
   </span>
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Performance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rdf4j/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Performance
+    RDF4J benchmarks
   </span>
   
 
       </a>
-      
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#benchmark-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Benchmark setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Benchmark setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tested-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tested methods
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#results" class="md-nav__link">
-    <span class="md-ellipsis">
-      Results
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Results">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#serialized-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      Serialized size
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flat-streaming-serialization-throughput" class="md-nav__link">
-    <span class="md-ellipsis">
-      Flat streaming serialization throughput
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flat-streaming-deserialization-throughput" class="md-nav__link">
-    <span class="md-ellipsis">
-      Flat streaming deserialization throughput
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#grouped-streaming-serialization-throughput" class="md-nav__link">
-    <span class="md-ellipsis">
-      Grouped streaming serialization throughput
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#grouped-streaming-deserialization-throughput" class="md-nav__link">
-    <span class="md-ellipsis">
-      Grouped streaming deserialization throughput
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      See also
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -625,7 +555,7 @@
         
   
   <span class="md-ellipsis">
-    File extension and media type
+    File extensions and media types
   </span>
   
 
@@ -649,7 +579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/2.2.2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -783,9 +713,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#serialized-size" class="md-nav__link">
+  <a href="#grouped-streaming-serialized-size" class="md-nav__link">
     <span class="md-ellipsis">
-      Serialized size
+      Grouped streaming serialized size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flat-streaming-serialized-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flat streaming serialized size
     </span>
   </a>
   
@@ -856,7 +795,7 @@
                   
 
   
-    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/performance.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/performance/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -865,7 +804,7 @@
 
 
 <h1 id="performance-benchmarks">Performance benchmarks</h1>
-<p>The following results were obtained by benchmarking <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/">Jelly-JVM</a> against serializations built into Apache Jena (including binary formats).</p>
+<p>The following results were obtained by benchmarking <a href="https://w3id.org/jelly/jelly-jvm/2.2.2/">Jelly-JVM</a> against serializations built into Apache Jena (including binary formats).</p>
 <p>The benchmarks were performed on two kinds of RDF streams (according to the <a href="https://w3id.org/stax/dev/taxonomy">RDF-STaX taxonomy</a>):</p>
 <ul>
 <li><strong>Flat RDF streams</strong> – streams of RDF triples or quads. This is the "classic" serialization – equivalent to, for example N-Triples or N-Quads.</li>
@@ -875,9 +814,9 @@
 <p>If you are only interested in parsing/writing a single graph or dataset, look at the <strong>flat</strong> streaming results.</p>
 <h2 id="benchmark-setup">Benchmark setup</h2>
 <p>All benchmarks presented here were performed using the <a href="https://w3id.org/riverbench/v/2.1.0">RiverBench benchmark suite, version 2.1.0</a>. Out of the 13 used datasets (all datasets available in RiverBench 2.1.0), 1 used RDF-star, and 3 included RDF quads/datasets. You can find the links to the specific used RiverBench profiles and tasks in the results below.</p>
-<p>The benchmarks were executed using <a href="https://github.com/Jelly-RDF/jvm-benchmarks/tree/b3cd58b437292080d84fa91a92da2cf4b701f0aa">this code (Apache 2.0 license)</a> in a JVM with options: <code>-Xms1G -Xmx32G</code>. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.</p>
+<p>The benchmarks were executed using <a href="https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62">this code (Apache 2.0 license)</a> in a JVM with options: <code>-Xms1G -Xmx32G</code>. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.</p>
 <p>Hardware: AMD Ryzen 9 7900 (12-core, 24-thread, 5.0 GHz); 64 GB RAM (DDR5 5600 MT/s). The disk was not used during the benchmarks (all data was in memory). The throughput benchmarks are single-threaded, but the JVM was allowed to use all available cores for garbage collection, JIT compilation, and other tasks.</p>
-<p>Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/">Jelly-JVM</a> 2.2.1.</p>
+<p>Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, Eclipse RDF4J 5.0.2, <a href="https://w3id.org/jelly/jelly-jvm/2.2.2/">Jelly-JVM</a> 2.2.2.</p>
 <h3 id="tested-methods">Tested methods</h3>
 <ul>
 <li>W3C RDF/XML (Apache Jena 5.2.0, <code>RDFXML_PLAIN</code>)</li>
@@ -890,25 +829,33 @@
 </li>
 <li><a href="https://jena.apache.org/documentation/io/rdf-binary.html">Jena's RDF binary</a> Protobuf format (Apache Jena 5.2.0, <code>RDF_PROTO</code>)</li>
 <li><a href="https://jena.apache.org/documentation/io/rdf-binary.html">Jena's RDF binary</a> Thrift format (Apache Jena 5.2.0, <code>RDF_THRIFT</code>)</li>
-<li>Jelly (Jelly-JVM 2.2.1, "big" preset)
+<li><a href="https://rdf4j.org/documentation/reference/rdf4j-binary/">RDF4J Binary RDF Format</a> (Eclipse RDF4J 5.0.2, <code>BINARY</code>)<ul>
+<li><em>Note: to avoid confusion, on this page we only show the performance results for Apache Jena. The results for RDF4J can be found here: <a href="rdf4j/">RDF4J performance</a>.</em></li>
+</ul>
+</li>
+<li>Jelly (Jelly-JVM 2.2.2, "big" preset)
     <div class="language-protobuf highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="na">max_name_table_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">max_prefix_table_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="na">max_datatype_table_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
 </span></code></pre></div></li>
-<li>Jelly without prefix compression (Jelly-JVM 2.2.1, "big" preset with prefix table disabled)
+<li>Jelly without prefix compression (Jelly-JVM 2.2.2, "big" preset with prefix table disabled)
     <div class="language-protobuf highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="na">max_name_table_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">;</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="na">max_prefix_table_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Prefix table disabled</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="na">max_datatype_table_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
 </span></code></pre></div></li>
 </ul>
 <h2 id="results">Results</h2>
+<div class="admonition info">
+<p class="admonition-title">RDF4J performance results</p>
+<p>This page only shows the performance results for Apache Jena. The results for RDF4J can be found here: <strong><a href="rdf4j/">RDF4J performance</a></strong>.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The results below were averaged over all datasets used in the benchmarks. For RDF/XML and JSON-LD the results are <strong>incomplete</strong> due to missing support for some datasets. For them, only the datasets that were successfully processed are included in the averages.</p>
 <p>RDF/XML failed on 5 out of 13 datasets due to lack of support for RDF datasets (<code>assist-iot-weather-graphs</code>, <code>citypulse-graphs</code>, <code>nanopubs</code>), RDF-star (<code>yago-annotated-facts</code>), and no support for encoding ASCII control characters (<code>politiquices</code> – see <a href="https://w3id.org/riverbench/v/2.1.0/documentation/dataset-compat-notes">RiverBench documentation</a> for more details).</p>
 <p>JSON-LD failed on 1 out of 13 datasets due to lack of support for RDF-star (<code>yago-annotated-facts</code>).</p>
 </div>
-<h3 id="serialized-size">Serialized size</h3>
+<h3 id="grouped-streaming-serialized-size">Grouped streaming serialized size</h3>
 <ul>
 <li>RiverBench task: <a href="https://w3id.org/riverbench/v/2.1.0/tasks/stream-compression"><code>stream-compression</code> (2.1.0)</a></li>
 <li>RiverBench profile: <a href="https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar"><code>stream-mixed-rdfstar</code> (2.1.0)</a></li>
@@ -916,10 +863,22 @@
 <li>The data was serialized to a byte-counting output stream and then discarded.</li>
 </ul>
 <figure>
-  <a class="glightbox" href="../assets/benchmarks/size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialized size bar plot" src="../assets/benchmarks/size.png" width="100%" /></a>
+  <a class="glightbox" href="../assets/benchmarks/grouped_size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialized size bar plot" src="../assets/benchmarks/grouped_size.png" width="100%" /></a>
   <figcaption style="max-width: 100%;">Relative serialized representation size of a stream of RDF graphs or RDF datasets, geometric mean over all datasets. N-Triples/N-Quads was used as the baseline (100%).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
 </figure>
-<p>Note that the results for the equivalent flat streaming task (<a href="https://w3id.org/riverbench/v/2.1.0/tasks/flat-compression"><code>flat-compression</code></a>) would be almost identical for natively streaming formats: N-Triples/N-Quads, Jena's RDF binary Protobuf, Jena's RDF binary Thrift, and Jelly. The difference would be on the order of single bytes per RDF graph/dataset.</p>
+<p>Jelly has a major advantage here (~2x smaller than the next best format, RDF4J Binary), but that is because it is the <em>only</em> format that natively supports grouped RDF streams. The other formats cannot exploit the repeating patterns between elements in the stream, leading to much larger sizes.</p>
+<h3 id="flat-streaming-serialized-size">Flat streaming serialized size</h3>
+<ul>
+<li>RiverBench task: <a href="https://w3id.org/riverbench/v/2.1.0/tasks/flat-compression"><code>flat-compression</code> (2.1.0)</a></li>
+<li>RiverBench profile: <a href="https://w3id.org/riverbench/v/2.1.0/profiles/flat-mixed-rdfstar"><code>flat-mixed-rdfstar</code> (2.1.0)</a></li>
+<li>The entire (full-length) datasets were used for this benchmark.</li>
+<li>The data was serialized to a byte-counting output stream and then discarded.</li>
+</ul>
+<figure>
+  <a class="glightbox" href="../assets/benchmarks/flat_size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialized size bar plot" src="../assets/benchmarks/flat_size.png" width="100%" /></a>
+  <figcaption style="max-width: 100%;">Relative serialized representation size of a flat stream of RDF triples or RDF quads, geometric mean over all datasets. N-Triples/N-Quads was used as the baseline (100%).</figcaption>
+</figure>
+<p>In flat streaming, the compression ratios for Jelly are almost identical to grouped streaming. This is also a case where RDF4J Binary has a comparable result to Jelly – it does well when serializing large batches of RDF triples/quads, because it maintains a large buffer of statements in the serializer. This means RDF4J is optimized for throughput – not latency. Jelly can do both, at the same time. Jena's binary formats have no in-built compression, and thus are much larger.</p>
 <h3 id="flat-streaming-serialization-throughput">Flat streaming serialization throughput</h3>
 <ul>
 <li>RiverBench task: <a href="https://w3id.org/riverbench/v/2.1.0/tasks/flat-serialization-throughput"><code>flat-serialization-throughput</code> (2.1.0)</a></li>
@@ -932,7 +891,7 @@
   <a class="glightbox" href="../assets/benchmarks/flat_ser.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialization speed bar plot" src="../assets/benchmarks/flat_ser.png" width="100%" /></a>
   <figcaption style="max-width: 100%;">Serialization speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
 </figure>
-<p>Jelly comparable results to Jena's binary formats and N-Triples/N-Quads here. However, it should be noted that the Jena formats feature no compression at all, and Jelly is much more compact (see <a href="#serialized-size">serialized size</a>).</p>
+<p>When reviewing these results, it's important to remember that Jelly is faster than Jena's binary formats, while also being much more compact – see serialized size results above.</p>
 <h3 id="flat-streaming-deserialization-throughput">Flat streaming deserialization throughput</h3>
 <ul>
 <li>RiverBench task: <a href="https://w3id.org/riverbench/v/2.1.0/tasks/flat-deserialization-throughput"><code>flat-deserialization-throughput</code> (2.1.0)</a></li>
@@ -971,9 +930,10 @@
 </figure>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="https://github.com/Jelly-RDF/jvm-benchmarks/tree/88d936a87d0dcd9f7fb5f3dc98af7d4c270711e9">Benchmark code</a></li>
+<li><strong><a href="rdf4j/">Benchmarks with RDF4J</a></strong></li>
+<li><a href="https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62">Benchmark code</a></li>
 <li><a href="https://w3id.org/riverbench/">RiverBench benchmark suite</a></li>
-<li><a href="https://w3id.org/jelly/jelly-jvm/2.2.1/">Jelly-JVM</a> – the Jelly implementation used in the benchmarks</li>
+<li><a href="https://w3id.org/jelly/jelly-jvm/2.2.2/">Jelly-JVM</a> – the Jelly implementation used in the benchmarks</li>
 <li><a href="../user-guide/">User guide</a></li>
 </ul>
 
@@ -998,7 +958,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2024</span>
   </span>
 
     

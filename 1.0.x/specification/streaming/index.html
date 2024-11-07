@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -322,16 +322,77 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../performance/" class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../performance/" class="md-nav__link ">
+              
   
   <span class="md-ellipsis">
     Performance
   </span>
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Performance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/rdf4j/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RDF4J benchmarks
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -684,7 +745,7 @@
         
   
   <span class="md-ellipsis">
-    File extension and media type
+    File extensions and media types
   </span>
   
 
@@ -708,7 +769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/2.2.2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1164,12 +1225,12 @@
 <h3 id="long-running-streams-and-keep-alive-pings">Long-running streams and keep-alive pings</h3>
 <p><em>This section is not part of the specification.</em></p>
 <p>The gRPC protocol does support long-running streams, but due to how it's implemented (over HTTP/2 and TCP), some networking equipment or network stack implementations may terminate a connection if there is no activity for a long time. If you are working with a stream that can be "quiet" for more than a minute, this may be a problem.</p>
-<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://w3id.org/jelly/jelly-jvm/2.2.1/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
+<p>To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the <a href="https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304"><code>pekko.http.server.http2.ping-interval</code></a> configuration option to a non-zero value. This is done in <a href="https://w3id.org/jelly/jelly-jvm/2.2.2/user/grpc">Jelly-JVM's gRPC module</a> by default.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
 <p>The following implementations of the Jelly gRPC streaming protocol specification are available:</p>
 <ul>
-<li><a href="https://w3id.org/jelly/jelly-jvm/2.2.1/">Jelly-JVM (Scala) implementation</a><ul>
+<li><a href="https://w3id.org/jelly/jelly-jvm/2.2.2/">Jelly-JVM (Scala) implementation</a><ul>
 <li>Specification version: 1.0.1</li>
 <li>Partial (boilerplate) implementation based on <a href="https://pekko.apache.org/docs/pekko-grpc/current/">Apache Pekko gRPC</a>. Requires the end user to implement their own code for handling the streams.</li>
 </ul>
