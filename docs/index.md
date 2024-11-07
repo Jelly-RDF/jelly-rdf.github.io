@@ -46,7 +46,7 @@
 
 *Fast.* Jelly was specifically designed to serialize and deserialize streams of RDF data faster than N-Triples or other binary formats, while being [more compact than Turtle](performance.md#serialized-size).
 
-The benchmarks below were performed on streams of RDF graphs or datasets, but Jelly is also good at handling streams of triples or quads ("classic" serialization). The benchmark was performed with Jelly-JVM 2.2.1 with Apache Jena 5.2.0. See: **[more benchmark results and details about the benchmark setup](performance.md)**.
+The benchmarks below were performed on streams of RDF graphs or datasets, but Jelly is also good at handling streams of triples or quads ("classic" serialization). The benchmark was performed with Jelly-JVM 2.2.2 with Apache Jena 5.2.0. See: **[more benchmark results and details about the benchmark setup](performance.md)**.
 
 <figure markdown="span">
   ![Serialization speed bar plot](assets/benchmarks/grouped_ser.png){ width="100%" }

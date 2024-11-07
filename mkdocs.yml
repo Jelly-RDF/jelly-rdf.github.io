@@ -89,7 +89,9 @@ extra:
 nav:
   - Home: 'index.md'
   - User guide: 'user-guide.md'
-  - Performance: 'performance.md'
+  - Performance: 
+    - 'performance/index.md'
+    - RDF4J benchmarks: 'performance/rdf4j.md'
 
   - Protocol specification:
     - 'specification/index.md'
