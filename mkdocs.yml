@@ -101,7 +101,7 @@ nav:
     - Protobuf source: 'specification/protobuf-source.md'
     - File extensions and media types: 'specification/media-type.md'
 
-  - JVM (Scala) implementation ⮺: 'https://w3id.org/jelly/jelly-jvm/'
+  - JVM (Scala) implementation: 'https://w3id.org/jelly/jelly-jvm/'
 
   - Contributing: 'contributing.md'
   - Use cases: 'use-cases.md'
