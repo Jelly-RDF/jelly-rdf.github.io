@@ -9,13 +9,13 @@ The following code is licensed under the [Apache License, Version 2.0](https://w
 ## `rdf.proto`
 
 ```protobuf
---8<-- "docs/specification/proto/rdf.proto"
+{% include "./proto/rdf.proto" %}
 ```
 
 ## `grpc.proto`
 
 ```protobuf
---8<-- "docs/specification/proto/grpc.proto"
+{% include "./proto/grpc.proto" %}
 ```
 
 ## See also
