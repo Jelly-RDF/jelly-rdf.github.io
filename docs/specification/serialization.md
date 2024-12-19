@@ -6,7 +6,8 @@ This document is accompanied by the [Jelly Protobuf reference](reference.md) and
 
 The following assumptions are used in this document:
 
-- The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/rdf11-concepts/)).
+- The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/)).
+- Additionally, the RDF 1.1 Turtle specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-turtle-20140225/)) is used in parts as a basis for selected definitions.
 - In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
 - In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version {{ stax_version() }} ontology]({{ stax_link('ontology') }}) and [taxonomy]({{ stax_link('taxonomy') }}) are used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
@@ -47,9 +48,10 @@ The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. 
 
 The following versions of the protocol are defined:
 
-| Version tag | Semantic version |               |
-| ----------- | ---------------- | ------------- |
-| 1           | 1.0.x            | **(current)** |
+| Version tag | Semantic version    | Changes                         |
+| ----------- | ------------------- | ------------------------------- |
+| 1           | 1.0.x               | (initial version)               |
+| 2           | 1.1.x **(current)** | Added `RdfNamespaceDeclaration` |
 
 !!! note
     
@@ -66,6 +68,12 @@ Implementations SHOULD ensure backward compatibility. To achieve backward compat
 ### Forward compatibility
 
 Forward compatibility is not guaranteed. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.
+
+!!! note
+
+    In practical terms, new MINOR versions of the protocol usually introduce new types of messages that previous implementations do not know how to handle. As long as the producer does not use the new messages in the stream, consumers implementing the previous protocol version will be able to read the stream.
+
+    However, implementations will generally refuse to read a stream that is marked as using a higher protocol version than they support (see: [stream options: `version` field](#stream-options)). If you, as a producer, do not intend to use the new features of the protocol, we recommend you mark the stream with the lowest applicable version (see the version table above for a correspondence between features and versions). This way, older implementations will be able to read the stream.
 
 ## Actors and implementations
 
@@ -116,6 +124,7 @@ A stream row is a message of type `RdfStreamRow`. It has one of the following fi
 - `quad` (3) – [RDF quad statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_QUADS`.
 - `graph_start` (4) – indicates the [start of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_GRAPHS`.
 - `graph_end` (5) – indicates the [end of a graph](#rdf-statements-and-graphs) (named or default). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_GRAPHS`.
+- `namespace` (6) – [namespace declaration](#namespace-declarations). It may appear in any stream type.
 - `name` (9) – entry in the [name lookup](#prefix-name-and-datatype-lookup-entries).
 - `prefix` (10) – entry in the [prefix lookup](#prefix-name-and-datatype-lookup-entries).
 - `datatype` (11) – entry in the [datatype lookup](#prefix-name-and-datatype-lookup-entries).
@@ -237,7 +246,8 @@ The stream options header contains the following fields:
 - `logical_type` (14) – [logical type of the stream](#logical-stream-types), based on RDF-STaX. This field is OPTIONAL and defaults to `LOGICAL_STREAM_TYPE_UNSPECIFIED`.
 - `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED.
     - The version tag is encoded as a varint. The version tag MUST be greater than 0.
-    - The producer of the stream MUST set the version tag to the version tag of the implementation.
+    - The producer of the stream MUST set the version tag to the version tag of the protocol that was used to serialize the stream.
+    - It is RECOMMENDED that the producer uses the lowest possible version tag that is compatible with the features used in the stream.
     - The consumer SHOULD throw an error if the version tag is greater than the version tag of the implementation.
     - The consumer SHOULD throw an error if the version tag is zero.
     - The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.
@@ -262,7 +272,7 @@ Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (post
 
 !!! note
 
-    The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).
+    The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java/Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).
 
     The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.
 
@@ -366,7 +376,7 @@ The IRIs are encoded using the [`RdfIri`](reference.md#rdfiri) message. The mess
     - If `0` appears in the first IRI of the stream it MUST be interpreted as `1`.
     - Multiple `0` values in a row may occur, in which case the `name_id` MUST be interpreted as incrementing by one for each `0` value.
 
-For the default value behavior to work correctly, IRIs in the stream MUST be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples.
+For the default value behavior to work correctly, IRIs in the stream MUST be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples and to [namespace declarations](#namespace-declarations).
 
 The IRI is then constructed by first decoding the prefix and the name using the [prefix and name lookup tables](#prefix-name-and-datatype-lookup-entries), and then concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in [RFC 3987](https://tools.ietf.org/html/rfc3987).
 
@@ -452,7 +462,9 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
 !!! note
 
-    The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Scala implementation uses. The prefixes are not meant to be user-facing, but you can also use user-defined prefixes (e.g., `@prefix` in Turtle) to split the IRIs.
+    The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Scala implementation uses. 
+    
+    **These prefixes are not meant to be user-facing**, they can be entirely arbitrary and do NOT correspond to, for example `@prefix` declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the [`RdfNamespaceDeclaration`](#namespace-declarations) feature instead.
 
 !!! note
 
@@ -498,6 +510,61 @@ Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an
 Literal, IRI, and blank node values for graph nodes are encoded in the same manner as for the subject, predicate, and object terms.
 
 The default graph node is represented using the `RdfDefaultGraph` message ([reference](reference.md#rdfdefaultgraph)). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.
+
+## Namespace declarations
+
+Namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the `RdfNamespaceDeclaration` message ([reference](reference.md#rdfnamespacedeclaration)). The message has the following fields:
+
+- `name` (1) – the short name of the namespace in UTF-8. It SHOULD conform to the [`PN_PREFIX` production in RDF 1.1 Turtle](https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX). Note that the `:` character (colon) is not part of the name. An empty string (the default value) is allowed.
+- `value` (2) – the IRI of the namespace as an `RdfIri` message. This field is REQUIRED.
+
+Namespace declarations have no effect on the interpretation of the stream in terms of the RDF Abstract Syntax. Therefore, they MUST NOT be used to, for example, shorten IRIs in the stream. The namespace declarations are purely cosmetic and are meant to be used only for human readability.
+
+!!! note
+
+    To clarify: `RdfIri` messages in namespace declarations are treated EXACTLY in the same way as terms in triples or quads. That means that the default value of `0` has the exact same meaning. You can freely intersperse namespace declarations with triples or quads. For example, if you first have a namespace declaration with `prefix_id` set to `5`, then the next `RdfIri` message in a triple with `prefix_id` set to `0` will be interpreted as the same prefix (`5`) as in the namespace declaration.
+
+??? example "Example (click to expand)"
+
+    To encode the namespace declaration `@prefix ex: <http://example.com/> .` you would use the following messages (the wrapping `RdfStreamRow`s were omitted for brevity):
+
+    ```protobuf
+    RdfPrefixEntry {
+        id: 0 # default value, interpreted as 1
+        value: "http://example.com/"
+    }
+
+    # We must define an empty name entry, because the name part is always required
+    RdfNameEntry {
+        id: 0 # default value, interpreted as 1
+        value: ""
+    }
+
+    RdfNamespaceDeclaration {
+        name: "ex"
+        value: RdfIri {
+            prefix_id: 1
+            name_id: 0 # default value, interpreted as 1
+        }
+    }
+    ```
+
+    Alternatively, if not using the prefix lookup table:
+
+    ```protobuf
+    RdfNameEntry {
+        id: 0 # default value, interpreted as 1
+        value: "http://example.com/"
+    }
+
+    RdfNamespaceDeclaration {
+        name: "ex"
+        value: RdfIri {
+            prefix_id: 0 # default value, interpreted as empty prefix
+            name_id: 0 # default value, interpreted as 1
+        }
+    }
+    ```
 
 ## Delimited variant of Jelly
 
