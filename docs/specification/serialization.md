@@ -526,7 +526,7 @@ Namespace declarations have no effect on the interpretation of the stream in ter
 
 ??? example "Example (click to expand)"
 
-    To encode the namespace declaration `@prefix ex: <http://example.com/> .` you would use the following messages (the wrapping `RdfStreamRow`s were omitted for brevity):
+    To encode the Turtle namespace declaration `@prefix ex: <http://example.com/> .` you would use the following messages (the wrapping `RdfStreamRow`s were omitted for brevity):
 
     ```protobuf
     RdfPrefixEntry {
