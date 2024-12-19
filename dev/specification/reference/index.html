@@ -679,6 +679,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rdfnamespacedeclaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfNamespaceDeclaration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rdfprefixentry" class="md-nav__link">
     <span class="md-ellipsis">
       RdfPrefixEntry
@@ -1053,6 +1062,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rdfnamespacedeclaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfNamespaceDeclaration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rdfprefixentry" class="md-nav__link">
     <span class="md-ellipsis">
       RdfPrefixEntry
@@ -1187,6 +1205,7 @@
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">RdfLiteral</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntry">RdfNameEntry</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNamespaceDeclaration">RdfNamespaceDeclaration</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry">RdfPrefixEntry</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfQuad">RdfQuad</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfStreamFrame">RdfStreamFrame</a></li>
@@ -1433,9 +1452,48 @@ lookup tables.</p>
 </tr>
 </tbody>
 </table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfNamespaceDeclaration"></a></p>
+<h3 id="rdfnamespacedeclaration">RdfNamespaceDeclaration</h3>
+<p>Explicit namespace declaration</p>
+<p>This does not correspond to any construct in the RDF Abstract Syntax.
+Rather, it is a hint to the consumer that the given IRI prefix (namespace)
+may be associated with a shorter name, like in Turtle syntax:
+PREFIX ex: &lt;<a href="http://example.org/&gt;">http://example.org/&gt;</a></p>
+<p>These short names (here &#34;ex:&#34;) are NOT used in the RDF statement encoding.
+This is a purely cosmetic feature useful in cases where you want to
+preserve the namespace declarations from the original RDF document.
+These declarations have nothing in common with the prefix lookup table.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Short name of the namespace (e.g., &#34;ex&#34;) Do NOT include the colon.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">RdfIri</a></td>
+<td></td>
+<td>IRI of the namespace (e.g., &#34;<a href="http://example.org/&#34;">http://example.org/&#34;)</a>)</td>
+</tr>
+</tbody>
+</table>
 <p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntry"></a></p>
 <h3 id="rdfprefixentry">RdfPrefixEntry</h3>
 <p>Entry in the prefix lookup table</p>
+<p>Note: the prefixes in the lookup table can be arbitrary strings, and are
+NOT meant to be user-facing. They are only used for IRI compression.
+To transmit user-facing namespace declarations for cosmetic purposes, use
+RdfNamespaceDeclaration.</p>
 <table>
 <thead>
 <tr>
@@ -1664,7 +1722,7 @@ In the first quad of the stream, all terms must be set.</p>
 <td>version</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>Protocol version (required) For Jelly 1.0.x value must be 1. For custom extensions, the value must be 10000 or higher.</td>
+<td>Protocol version (required) For Jelly 1.0.x value must be 1. For Jelly 1.1.x value must be 2. For custom extensions, the value must be 10000 or higher.</td>
 </tr>
 </tbody>
 </table>
@@ -1710,6 +1768,12 @@ In the first quad of the stream, all terms must be set.</p>
 <td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfGraphEnd">RdfGraphEnd</a></td>
 <td></td>
 <td>Explicit end of a graph. Signals the consumer that the transmitted graph is complete. Only valid in streams of physical type GRAPHS.</td>
+</tr>
+<tr>
+<td>namespace</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNamespaceDeclaration">RdfNamespaceDeclaration</a></td>
+<td></td>
+<td>Explicit namespace declaration.</td>
 </tr>
 <tr>
 <td>name</td>
@@ -2138,7 +2202,7 @@ structure of the data. See LogicalStreamType for the latter.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 18, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2024</span>
   </span>
 
     
@@ -2148,7 +2212,7 @@ structure of the data. See LogicalStreamType for the latter.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 18, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2024</span>
   </span>
 
     
