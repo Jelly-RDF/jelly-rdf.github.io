@@ -756,6 +756,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#namespace-declarations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace declarations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#delimited-variant-of-jelly" class="md-nav__link">
     <span class="md-ellipsis">
       Delimited variant of Jelly
@@ -1247,6 +1256,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#namespace-declarations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace declarations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#delimited-variant-of-jelly" class="md-nav__link">
     <span class="md-ellipsis">
       Delimited variant of Jelly
@@ -1316,7 +1334,8 @@
 <p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto"><code>rdf.proto</code></a>).</p>
 <p>The following assumptions are used in this document:</p>
 <ul>
-<li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/rdf11-concepts/">W3C Recommendation 25 February 2014</a>).</li>
+<li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/">W3C Recommendation 25 February 2014</a>).</li>
+<li>Additionally, the RDF 1.1 Turtle specification (<a href="https://www.w3.org/TR/2014/REC-turtle-20140225/">W3C Recommendation 25 February 2014</a>) is used in parts as a basis for selected definitions.</li>
 <li>In parts referring to RDF-star, the RDF-star draft specification (<a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">W3C Community Group Draft Report 29 June 2023</a>) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.</li>
 <li>In parts referring to the RDF Stream Taxonomy (RDF-STaX), the <a href="https://w3id.org/stax/1.1.2/ontology">RDF-STaX version 1.1.2 ontology</a> and <a href="https://w3id.org/stax/1.1.2/taxonomy">taxonomy</a> are used.</li>
 <li>All strings in the serialization are assumed to be UTF-8 encoded.</li>
@@ -1339,7 +1358,7 @@
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 24, 2024</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
@@ -1378,14 +1397,22 @@
 <tr>
 <th>Version tag</th>
 <th>Semantic version</th>
-<th></th>
+<th>Last release date</th>
+<th>Changes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
 <td>1.0.x</td>
-<td><strong>(current)</strong></td>
+<td>August 24, 2024</td>
+<td>(initial version)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1.1.x <strong>(current)</strong></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span></td>
+<td>Added <a href="#namespace-declarations"><code>RdfNamespaceDeclaration</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1401,6 +1428,11 @@
 </div>
 <h3 id="forward-compatibility">Forward compatibility</h3>
 <p>Forward compatibility is not guaranteed. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In practical terms, new MINOR versions of the protocol usually introduce new types of messages that previous implementations do not know how to handle. As long as the producer does not use the new messages in the stream, consumers implementing the previous protocol version will be able to read the stream.</p>
+<p>However, implementations will generally refuse to read a stream that is marked as using a higher protocol version than they support (see: <a href="#stream-options">stream options: <code>version</code> field</a>). If you, as a producer, do not intend to use the new features of the protocol, we recommend you mark the stream with the lowest applicable version (see the version table above for a correspondence between features and versions). This way, older implementations will be able to read the stream.</p>
+</div>
 <h2 id="actors-and-implementations">Actors and implementations</h2>
 <p>Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
 <p>Implementations may include only the producer, only the consumer, or both.</p>
@@ -1437,6 +1469,7 @@
 <li><code>quad</code> (3) – <a href="#rdf-statements-and-graphs">RDF quad statement</a>. It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_QUADS</code>.</li>
 <li><code>graph_start</code> (4) – indicates the <a href="#rdf-statements-and-graphs">start of a graph</a> (named or default). It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_GRAPHS</code>.</li>
 <li><code>graph_end</code> (5) – indicates the <a href="#rdf-statements-and-graphs">end of a graph</a> (named or default). It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_GRAPHS</code>.</li>
+<li><code>namespace</code> (6) – <a href="#namespace-declarations">namespace declaration</a>. It may appear in any stream type.</li>
 <li><code>name</code> (9) – entry in the <a href="#prefix-name-and-datatype-lookup-entries">name lookup</a>.</li>
 <li><code>prefix</code> (10) – entry in the <a href="#prefix-name-and-datatype-lookup-entries">prefix lookup</a>.</li>
 <li><code>datatype</code> (11) – entry in the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a>.</li>
@@ -1599,7 +1632,8 @@
 <li><code>logical_type</code> (14) – <a href="#logical-stream-types">logical type of the stream</a>, based on RDF-STaX. This field is OPTIONAL and defaults to <code>LOGICAL_STREAM_TYPE_UNSPECIFIED</code>.</li>
 <li><code>version</code> (15) – <a href="#versioning">version tag</a> of the stream. This field is REQUIRED.<ul>
 <li>The version tag is encoded as a varint. The version tag MUST be greater than 0.</li>
-<li>The producer of the stream MUST set the version tag to the version tag of the implementation.</li>
+<li>The producer of the stream MUST set the version tag to the version tag of the protocol that was used to serialize the stream.</li>
+<li>It is RECOMMENDED that the producer uses the lowest possible version tag that is compatible with the features used in the stream.</li>
 <li>The consumer SHOULD throw an error if the version tag is greater than the version tag of the implementation.</li>
 <li>The consumer SHOULD throw an error if the version tag is zero.</li>
 <li>The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.</li>
@@ -1629,7 +1663,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
+<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java/Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
 <p>The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.</p>
 </div>
 <div class="admonition note">
@@ -1733,7 +1767,7 @@
 </ul>
 </li>
 </ul>
-<p>For the default value behavior to work correctly, IRIs in the stream MUST be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples.</p>
+<p>For the default value behavior to work correctly, IRIs in the stream MUST be processed strictly in order: firstly by stream row, then by term (subject, predicate, object, graph). This also applies recursively to RDF-star quoted triples and to <a href="#namespace-declarations">namespace declarations</a>.</p>
 <p>The IRI is then constructed by first decoding the prefix and the name using the <a href="#prefix-name-and-datatype-lookup-entries">prefix and name lookup tables</a>, and then concatenating the prefix and the name. The IRI SHOULD be a valid IRI, as defined in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987</a>.</p>
 <details class="example">
 <summary>Example with the prefix table (click to expand)</summary>
@@ -1805,7 +1839,8 @@
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. The prefixes are not meant to be user-facing, but you can also use user-defined prefixes (e.g., <code>@prefix</code> in Turtle) to split the IRIs.</p>
+<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. </p>
+<p><strong>These prefixes are not meant to be user-facing</strong>, they can be entirely arbitrary and DO NOT correspond to, for example <code>@prefix</code> declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the <a href="#namespace-declarations"><code>RdfNamespaceDeclaration</code></a> feature instead.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1843,6 +1878,54 @@
 <h4 id="graph-nodes">Graph nodes</h4>
 <p>Literal, IRI, and blank node values for graph nodes are encoded in the same manner as for the subject, predicate, and object terms.</p>
 <p>The default graph node is represented using the <code>RdfDefaultGraph</code> message (<a href="../reference/#rdfdefaultgraph">reference</a>). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.</p>
+<h2 id="namespace-declarations">Namespace declarations</h2>
+<p>IRI namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the <code>RdfNamespaceDeclaration</code> message (<a href="../reference/#rdfnamespacedeclaration">reference</a>). The message has the following fields:</p>
+<ul>
+<li><code>name</code> (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the <a href="https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX"><code>PN_PREFIX</code> production in RDF 1.1 Turtle</a>. Note that the <code>:</code> character (colon) is not part of the name. An empty string (the default value) is allowed.</li>
+<li><code>value</code> (2) – the IRI of the namespace as an <code>RdfIri</code> message. This field is REQUIRED.</li>
+</ul>
+<p>Namespace declarations have no effect on the interpretation of the stream in terms of the RDF Abstract Syntax. Therefore, they MUST NOT be used to, for example, shorten IRIs in the stream. The namespace declarations are purely cosmetic and are meant to be used only to preserve human-readable prefixes between the producer and the consumer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To clarify: <code>RdfIri</code> messages in namespace declarations are treated EXACTLY in the same way as terms in triples or quads. That means that the default value of <code>0</code> has the exact same meaning. You can freely intersperse namespace declarations with triples or quads. For example, if you first have a namespace declaration with <code>prefix_id</code> set to <code>5</code>, then the next <code>RdfIri</code> message in a triple with <code>prefix_id</code> set to <code>0</code> will be interpreted as the same prefix (<code>5</code>) as in the namespace declaration.</p>
+</div>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>To encode the Turtle namespace declaration <code>@prefix ex: &lt;http://example.com/&gt; .</code> you would use the following messages (the wrapping <code>RdfStreamRow</code>s were omitted for brevity):</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">RdfPrefixEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">#</span><span class="w"> </span><span class="n">We</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">define</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">entry</span><span class="p">,</span><span class="w"> </span><span class="n">because</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">required</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="n">RdfNamespaceDeclaration</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ex&quot;</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">        </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Alternatively, if not using the prefix lookup table:</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">RdfNameEntry</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;http://example.com/&quot;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">RdfNamespaceDeclaration</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ex&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="n">RdfIri</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="n">prefix_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">prefix</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="n">name_id</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">interpreted</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
 <h2 id="delimited-variant-of-jelly">Delimited variant of Jelly</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1894,7 +1977,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 24, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span>
   </span>
 
     
