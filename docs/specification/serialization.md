@@ -51,7 +51,7 @@ The following versions of the protocol are defined:
 | Version tag | Semantic version    | Changes                         |
 | ----------- | ------------------- | ------------------------------- |
 | 1           | 1.0.x               | (initial version)               |
-| 2           | 1.1.x **(current)** | Added `RdfNamespaceDeclaration` |
+| 2           | 1.1.x **(current)** | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
 
 !!! note
     
@@ -464,7 +464,7 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
     The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Scala implementation uses. 
     
-    **These prefixes are not meant to be user-facing**, they can be entirely arbitrary and do NOT correspond to, for example `@prefix` declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the [`RdfNamespaceDeclaration`](#namespace-declarations) feature instead.
+    **These prefixes are not meant to be user-facing**, they can be entirely arbitrary and DO NOT correspond to, for example `@prefix` declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the [`RdfNamespaceDeclaration`](#namespace-declarations) feature instead.
 
 !!! note
 
@@ -513,12 +513,12 @@ The default graph node is represented using the `RdfDefaultGraph` message ([refe
 
 ## Namespace declarations
 
-Namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the `RdfNamespaceDeclaration` message ([reference](reference.md#rdfnamespacedeclaration)). The message has the following fields:
+IRI namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the `RdfNamespaceDeclaration` message ([reference](reference.md#rdfnamespacedeclaration)). The message has the following fields:
 
-- `name` (1) – the short name of the namespace in UTF-8. It SHOULD conform to the [`PN_PREFIX` production in RDF 1.1 Turtle](https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX). Note that the `:` character (colon) is not part of the name. An empty string (the default value) is allowed.
+- `name` (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the [`PN_PREFIX` production in RDF 1.1 Turtle](https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX). Note that the `:` character (colon) is not part of the name. An empty string (the default value) is allowed.
 - `value` (2) – the IRI of the namespace as an `RdfIri` message. This field is REQUIRED.
 
-Namespace declarations have no effect on the interpretation of the stream in terms of the RDF Abstract Syntax. Therefore, they MUST NOT be used to, for example, shorten IRIs in the stream. The namespace declarations are purely cosmetic and are meant to be used only for human readability.
+Namespace declarations have no effect on the interpretation of the stream in terms of the RDF Abstract Syntax. Therefore, they MUST NOT be used to, for example, shorten IRIs in the stream. The namespace declarations are purely cosmetic and are meant to be used only to preserve human-readable prefixes between the producer and the consumer.
 
 !!! note
 
