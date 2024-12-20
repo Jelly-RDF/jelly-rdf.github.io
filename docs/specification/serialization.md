@@ -48,10 +48,10 @@ The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. 
 
 The following versions of the protocol are defined:
 
-| Version tag | Semantic version    | Changes                         |
-| ----------- | ------------------- | ------------------------------- |
-| 1           | 1.0.x               | (initial version)               |
-| 2           | 1.1.x **(current)** | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
+| Version tag | Semantic version    | Last release date                 | Changes                         |
+| ----------- | ------------------- | --------------------------------- | ------------------------------- |
+| 1           | 1.0.x               | August 24, 2024                   | (initial version)               |
+| 2           | 1.1.x **(current)** | {{ git_revision_date_localized }} | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
 
 !!! note
     
