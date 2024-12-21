@@ -579,7 +579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="https://w3id.org/jelly/jelly-jvm/2.3.1/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/2.4.0/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -804,7 +804,7 @@
 
 
 <h1 id="performance-benchmarks">Performance benchmarks</h1>
-<p>The following results were obtained by benchmarking <a href="https://w3id.org/jelly/jelly-jvm/2.3.1/">Jelly-JVM</a> against serializations built into Apache Jena (including binary formats).</p>
+<p>The following results were obtained by benchmarking <a href="https://w3id.org/jelly/jelly-jvm/2.4.0/">Jelly-JVM</a> against serializations built into Apache Jena (including binary formats).</p>
 <p>The benchmarks were performed on two kinds of RDF streams (according to the <a href="https://w3id.org/stax/dev/taxonomy">RDF-STaX taxonomy</a>):</p>
 <ul>
 <li><strong>Flat RDF streams</strong> – streams of RDF triples or quads. This is the "classic" serialization – equivalent to, for example N-Triples or N-Quads.</li>
@@ -816,7 +816,7 @@
 <p>All benchmarks presented here were performed using the <a href="https://w3id.org/riverbench/v/2.1.0">RiverBench benchmark suite, version 2.1.0</a>. Out of the 13 used datasets (all datasets available in RiverBench 2.1.0), 1 used RDF-star, and 3 included RDF quads/datasets. You can find the links to the specific used RiverBench profiles and tasks in the results below.</p>
 <p>The benchmarks were executed using <a href="https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62">this code (Apache 2.0 license)</a> in a JVM with options: <code>-Xms1G -Xmx32G</code>. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.</p>
 <p>Hardware: AMD Ryzen 9 7900 (12-core, 24-thread, 5.0 GHz); 64 GB RAM (DDR5 5600 MT/s). The disk was not used during the benchmarks (all data was in memory). The throughput benchmarks are single-threaded, but the JVM was allowed to use all available cores for garbage collection, JIT compilation, and other tasks.</p>
-<p>Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, Eclipse RDF4J 5.0.2, <a href="https://w3id.org/jelly/jelly-jvm/2.3.1/">Jelly-JVM</a> 2.2.2.</p>
+<p>Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, Eclipse RDF4J 5.0.2, <a href="https://w3id.org/jelly/jelly-jvm/2.4.0/">Jelly-JVM</a> 2.2.2.</p>
 <h3 id="tested-methods">Tested methods</h3>
 <ul>
 <li>W3C RDF/XML (Apache Jena 5.2.0, <code>RDFXML_PLAIN</code>)</li>
@@ -933,7 +933,7 @@
 <li><strong><a href="rdf4j/">Benchmarks with RDF4J</a></strong></li>
 <li><a href="https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62">Benchmark code</a></li>
 <li><a href="https://w3id.org/riverbench/">RiverBench benchmark suite</a></li>
-<li><a href="https://w3id.org/jelly/jelly-jvm/2.3.1/">Jelly-JVM</a> – the Jelly implementation used in the benchmarks</li>
+<li><a href="https://w3id.org/jelly/jelly-jvm/2.4.0/">Jelly-JVM</a> – the Jelly implementation used in the benchmarks</li>
 <li><a href="../user-guide/">User guide</a></li>
 </ul>
 
