@@ -28,6 +28,10 @@ Below listed are some example datasets available in the Jelly format. All of the
 
 You can find more interesting datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
 
+## Commercial support
+
+**[NeverBlink](https://neverblink.eu)** provides commercial support services for Jelly, including implementing custom features, system integrations, implementations for new languages, benchmarking, and more.
+
 ## See also
 
 - [User guide](user-guide.md)
