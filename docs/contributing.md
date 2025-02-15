@@ -81,6 +81,7 @@ Use the exact same process as for the website documentation. The Jelly-JVM docum
 - [Jelly-JVM documentation]({{ jvm_link()}}) includes the developer guide, explaining the technical aspects of contributing to it.
 - [GitHub repository](https://github.com/Jelly-RDF/jelly-jvm)
 - [Issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues)
+- [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
 
 ## See also
 
