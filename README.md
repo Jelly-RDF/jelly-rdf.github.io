@@ -1,4 +1,4 @@
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjelly-rdf.github.io%2Fdev%2F)](https://w3id.org/jelly/dev/) [![.github/workflows/pre-release.yaml](https://github.com/Jelly-RDF/jelly-rdf.github.io/actions/workflows/publish-dev.yaml/badge.svg)](https://github.com/Jelly-RDF/jelly-rdf.github.io/actions/workflows/publish-dev.yaml) ![GitHub License](https://img.shields.io/github/license/Jelly-RDF/jelly-rdf.github.io)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fjelly-rdf.github.io%2Fdev%2F)](https://w3id.org/jelly/dev/) [![.github/workflows/pre-release.yaml](https://github.com/Jelly-RDF/jelly-rdf.github.io/actions/workflows/publish-dev.yaml/badge.svg)](https://github.com/Jelly-RDF/jelly-rdf.github.io/actions/workflows/publish-dev.yaml) ![GitHub License](https://img.shields.io/github/license/Jelly-RDF/jelly-rdf.github.io) [![Discord](https://img.shields.io/discord/1333391881404420179?label=Discord%20chat)](https://discord.gg/A8sN5XwVa5)
 
 # Jelly website and documentation repository
 
@@ -27,6 +27,7 @@ Install the project's dependencies from `requirements.txt` (preferably in a virt
 
 - **[Full contribution guide](https://w3id.org/jelly/dev/contributing/)**
 - [Material for MkDocs reference](https://squidfunk.github.io/mkdocs-material/reference/) for help with Markdown syntax and other features
+- [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
 
 ## License
 
