@@ -591,6 +591,52 @@ The RECOMMENDED media type for Jelly is `application/x-jelly-rdf`. The RECOMMEND
 
 The files SHOULD be saved in the [delimited variant of Jelly](#delimited-variant-of-jelly).
 
+## Security considerations
+
+*This section is not part of the specification.*
+
+### Protocol Buffers
+
+The Jelly serialization format is based on Protocol Buffers, which handles all binary manipulation, and therefore is most likely to be the main security concern. Please refer to the [Protobuf Version Support page](https://protobuf.dev/support/version-support/) for information on security patches and support. See also the published [CVE Records for Protocol Buffers](https://www.cve.org/CVERecord/SearchResults?query=Protocol+Buffers).
+
+### Overly large lookup tables
+
+For untrusted input, consumers MUST always validate that the requested size of a prefix, name, or datatype lookup table is not overly large and supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.
+
+The recommended mitigation is for each implementation to define a maximum allowed lookup size and check if the requested size is within the limit. If the requested size exceeds the limit, the consumer should throw an error and reject the stream.
+
+!!! info
+
+    The Jelly-JVM implementation uses a configurable limit (up to 4096 entries by default). The mechanism is described [here]({{ jvm_link('user/utilities/#jelly-options-presets') }}).
+
+    The Jelly gRPC streaming protocol has a built-in mechanism for stream options handling that does include such checks. See the [gRPC streaming protocol specification](streaming.md#stream-options-handling).
+
+### Invalid lookup entry IDs and references
+
+For untrusted input, consumers must always validate that the lookup entry IDs in the stream are valid and within the bounds of the lookup table. A malicious producer could attempt to reference a non-existent entry in the lookup table, which could lead to it reading or writing arbitrary memory.
+
+This is automatically handled by languages that include array bounds checking, such as Java or Python. In languages without array bounds checking, the consumer must manually check that the lookup entry ID is within the bounds of the lookup table.
+
+### Infinite recursion of RDF-star quoted triples
+
+A malicious producer may attempt to create a stream with RDF-star quoted triples that are nested to an arbitrary depth. This could lead to a stack overflow in the consumer, which could be used as a denial-of-service vector.
+
+The official Protobuf implementations are not vulnerable to this type of attack, as they include a message recursion limit (100 by default). Implementations should verify that their Protobuf library supports this limit and that it is set to a reasonable value.
+
+!!! info
+
+    In practice, there are very few (if any) use cases where very deep recursive nesting would be needed for Jelly. Unless you are working with some very exotic data, you should be fine with setting the recursion limit to as low as 10 messages. But still, even the default limit of 100 should not cause you any problems, unless operating under extremely constrained environments.
+
+    Streams without RDF-star require only 4 nesting levels. Each nested RDF-star quoted triple adds one level of nesting.
+
+### RDF content
+
+Jelly is a general serialization format for RDF data, and as such, may be used to transmit malicious or misleading content, such as links to phishing websites or false information. Please refer to the [RDF 1.1 Turtle W3C Recommendation](https://www.w3.org/TR/turtle/#sec-mediaReg) for information on security considerations related to RDF content.
+
+### Encryption, authentication, and authorization
+
+Jelly does not provide any built-in mechanisms for encryption, authentication, or authorization, as it only handles data serialization. If you need to secure your data, you should use a secure transport layer (e.g., HTTPS) and implement encryption, authentication, and authorization on the application level.
+
 ## Implementations
 
 *This section is not part of the specification.*

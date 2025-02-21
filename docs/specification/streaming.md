@@ -151,6 +151,18 @@ The gRPC protocol does support long-running streams, but due to how it's impleme
 
 To prevent this, HTTP/2 ping frames can be used by the server to periodically ping the client, keeping the connection alive. This is implemented in many HTTP/2 libraries. For example in Apache Pekko HTTP, one needs to set the [`pekko.http.server.http2.ping-interval`](https://github.com/apache/pekko-http/blob/acc0232ee4742555c54075c998b73307a3de5c34/http-core/src/main/resources/reference.conf#L304) configuration option to a non-zero value. This is done in [Jelly-JVM's gRPC module]({{ jvm_link( 'user/grpc' ) }}) by default.
 
+## Security considerations
+
+*This section is not part of the specification.*
+
+### gRPC
+
+The Jelly gRPC streaming protocol is built on top of gRPC. Please refer to the documentation of your gRPC implementation for security considerations. See also the notes on [gRPC authentication](https://grpc.io/docs/guides/auth/).
+
+### Jelly serialization format
+
+All security considerations from the [Jelly serialization format specification](serialization.md#security-considerations) apply. Most relevant here is validating the stream options to prevent denial-of-service attacks. This is covered in this specification in section "[Stream options handling](#stream-options-handling)".
+
 ## Implementations
 
 *This section is not part of the specification.*
