@@ -601,7 +601,7 @@ The Jelly serialization format is based on Protocol Buffers, which handles all b
 
 ### Overly large lookup tables
 
-For untrusted input, consumers MUST always validate that the requested size of a prefix, name, or datatype lookup table is not overly large and supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.
+For untrusted input, consumers must always validate that the requested size of a prefix, name, or datatype lookup table is not overly large and supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.
 
 The recommended mitigation is for each implementation to define a maximum allowed lookup size and check if the requested size is within the limit. If the requested size exceeds the limit, the consumer should throw an error and reject the stream.
 
