@@ -2102,7 +2102,7 @@
 <h3 id="protocol-buffers">Protocol Buffers</h3>
 <p>The Jelly serialization format is based on Protocol Buffers, which handles all binary manipulation, and therefore is most likely to be the main security concern. Please refer to the <a href="https://protobuf.dev/support/version-support/">Protobuf Version Support page</a> for information on security patches and support. See also the published <a href="https://www.cve.org/CVERecord/SearchResults?query=Protocol+Buffers">CVE Records for Protocol Buffers</a>.</p>
 <h3 id="overly-large-lookup-tables">Overly large lookup tables</h3>
-<p>For untrusted input, consumers MUST always validate that the requested size of a prefix, name, or datatype lookup table is not overly large and supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.</p>
+<p>For untrusted input, consumers must always validate that the requested size of a prefix, name, or datatype lookup table is not overly large and supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.</p>
 <p>The recommended mitigation is for each implementation to define a maximum allowed lookup size and check if the requested size is within the limit. If the requested size exceeds the limit, the consumer should throw an error and reject the stream.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
