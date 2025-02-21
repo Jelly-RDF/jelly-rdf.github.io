@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
     
     
       
@@ -805,6 +805,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protocol-buffers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protocol Buffers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overly-large-lookup-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overly large lookup tables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-lookup-entry-ids-and-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invalid lookup entry IDs and references
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infinite-recursion-of-rdf-star-quoted-triples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infinite recursion of RDF-star quoted triples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      RDF content
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption-authentication-and-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption, authentication, and authorization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#implementations" class="md-nav__link">
     <span class="md-ellipsis">
       Implementations
@@ -1313,6 +1382,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protocol-buffers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protocol Buffers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overly-large-lookup-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overly large lookup tables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-lookup-entry-ids-and-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invalid lookup entry IDs and references
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infinite-recursion-of-rdf-star-quoted-triples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infinite recursion of RDF-star quoted triples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      RDF content
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encryption-authentication-and-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption, authentication, and authorization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#implementations" class="md-nav__link">
     <span class="md-ellipsis">
       Implementations
@@ -1374,7 +1512,7 @@
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
@@ -1427,7 +1565,7 @@
 <tr>
 <td>2</td>
 <td>1.1.x <strong>(current)</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span></td>
 <td>Added <a href="#namespace-declarations"><code>RdfNamespaceDeclaration</code></a></td>
 </tr>
 </tbody>
@@ -1959,6 +2097,33 @@
 <h2 id="internet-media-type-and-file-extension">Internet media type and file extension</h2>
 <p>The RECOMMENDED media type for Jelly is <code>application/x-jelly-rdf</code>. The RECOMMENDED file extension is <code>.jelly</code>.</p>
 <p>The files SHOULD be saved in the <a href="#delimited-variant-of-jelly">delimited variant of Jelly</a>.</p>
+<h2 id="security-considerations">Security considerations</h2>
+<p><em>This section is not part of the specification.</em></p>
+<h3 id="protocol-buffers">Protocol Buffers</h3>
+<p>The Jelly serialization format is based on Protocol Buffers, which handles all binary manipulation, and therefore is most likely to be the main security concern. Please refer to the <a href="https://protobuf.dev/support/version-support/">Protobuf Version Support page</a> for information on security patches and support. See also the published <a href="https://www.cve.org/CVERecord/SearchResults?query=Protocol+Buffers">CVE Records for Protocol Buffers</a>.</p>
+<h3 id="overly-large-lookup-tables">Overly large lookup tables</h3>
+<p>For untrusted input, consumers MUST always validate that the requested size of a prefix, name, or datatype lookup table is not overly large and supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.</p>
+<p>The recommended mitigation is for each implementation to define a maximum allowed lookup size and check if the requested size is within the limit. If the requested size exceeds the limit, the consumer should throw an error and reject the stream.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The Jelly-JVM implementation uses a configurable limit (up to 4096 entries by default). The mechanism is described <a href="https://w3id.org/jelly/jelly-jvm/dev/user/utilities/#jelly-options-presets">here</a>.</p>
+<p>The Jelly gRPC streaming protocol has a built-in mechanism for stream options handling that does include such checks. See the <a href="../streaming/#stream-options-handling">gRPC streaming protocol specification</a>.</p>
+</div>
+<h3 id="invalid-lookup-entry-ids-and-references">Invalid lookup entry IDs and references</h3>
+<p>For untrusted input, consumers must always validate that the lookup entry IDs in the stream are valid and within the bounds of the lookup table. A malicious producer could attempt to reference a non-existent entry in the lookup table, which could lead to it reading or writing arbitrary memory.</p>
+<p>This is automatically handled by languages that include array bounds checking, such as Java or Python. In languages without array bounds checking, the consumer must manually check that the lookup entry ID is within the bounds of the lookup table.</p>
+<h3 id="infinite-recursion-of-rdf-star-quoted-triples">Infinite recursion of RDF-star quoted triples</h3>
+<p>A malicious producer may attempt to create a stream with RDF-star quoted triples that are nested to an arbitrary depth. This could lead to a stack overflow in the consumer, which could be used as a denial-of-service vector.</p>
+<p>The official Protobuf implementations are not vulnerable to this type of attack, as they include a message recursion limit (100 by default). Implementations should verify that their Protobuf library supports this limit and that it is set to a reasonable value.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In practice, there are very few (if any) use cases where very deep recursive nesting would be needed for Jelly. Unless you are working with some very exotic data, you should be fine with setting the recursion limit to as low as 10 messages. But still, even the default limit of 100 should not cause you any problems, unless operating under extremely constrained environments.</p>
+<p>Streams without RDF-star require only 4 nesting levels. Each nested RDF-star quoted triple adds one level of nesting.</p>
+</div>
+<h3 id="rdf-content">RDF content</h3>
+<p>Jelly is a general serialization format for RDF data, and as such, may be used to transmit malicious or misleading content, such as links to phishing websites or false information. Please refer to the <a href="https://www.w3.org/TR/turtle/#sec-mediaReg">RDF 1.1 Turtle W3C Recommendation</a> for information on security considerations related to RDF content.</p>
+<h3 id="encryption-authentication-and-authorization">Encryption, authentication, and authorization</h3>
+<p>Jelly does not provide any built-in mechanisms for encryption, authentication, or authorization, as it only handles data serialization. If you need to secure your data, you should use a secure transport layer (e.g., HTTPS) and implement encryption, authentication, and authorization on the application level.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
 <p>The following implementations of the Jelly serialization format specification are available:</p>
@@ -1993,7 +2158,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span>
   </span>
 
     
