@@ -85,6 +85,9 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/Jelly-RDF
       name: Jelly on GitHub
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/A8sN5XwVa5
+      name: Community Discord server
 
 nav:
   - Home: 'index.md'
