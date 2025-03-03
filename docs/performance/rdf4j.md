@@ -13,7 +13,7 @@ If you are only interested in parsing/writing a single graph or dataset, look at
 
 ## Benchmark setup
 
-The same methodology was used as in the [Apache Jena benchmarks](index.md), with the same datasets and the same setup. The benchmark was performed with Jelly-JVM 2.2.2 and RDF4J 5.0.2.
+The same methodology was used as in the [Apache Jena benchmarks](index.md), with the same datasets and the same setup. The benchmark was performed with Jelly-JVM 2.7.0 and RDF4J 5.1.2.
 
 ## Results
 
@@ -84,7 +84,7 @@ Flat streaming serialization is admittedly the one scenario where Jelly is prett
 ## See also
 
 - **[Benchmarks with Jena](index.md)**
-- [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62)
+- [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/281538515d3c93d7126da657df82284590dfb2df)
 - [RiverBench benchmark suite](https://w3id.org/riverbench/)
 - [Jelly-JVM]({{ jvm_link() }}) – the Jelly implementation used in the benchmarks
 - [User guide](../user-guide.md)
