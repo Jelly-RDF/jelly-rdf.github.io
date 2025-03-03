@@ -891,18 +891,22 @@
 <p><strong>If you are using Jelly in your project, we would be glad to list it here! Please <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/issues/new/choose">open an issue</a> or <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/use-cases.md">open a pull request</a> with the information on your use case.</strong></p>
 <h2 id="jelly-jvm">Jelly-JVM</h2>
 <ul>
-<li><a href="https://w3id.org/riverbench">RiverBench</a> benchmark suite.<ul>
+<li><strong><a href="https://github.com/knowledgepixels/nanopub-registry">Nanopub Registry</a></strong> – next-gen service for distributed storage and management of <a href="https://nanopub.net">nanopublications</a>.<ul>
+<li>Jelly is used for communication between instances of the Nanopub Registry. Jelly endpoints (ending with <code>.jelly</code>) are also exposed for downstream applications to consume nanopubs.</li>
+<li>The registry stores nanopublications in the Jelly format and uses a Jelly transcoder to merge nanopubs on the fly into a single stream.</li>
+</ul>
+</li>
+<li><strong><a href="https://w3id.org/riverbench">RiverBench</a></strong> benchmark suite.<ul>
 <li>Jelly is used as <a href="https://w3id.org/riverbench/v/dev/documentation/dataset-release-format">one of the serialization formats</a> for distributing datasets in RiverBench.</li>
 <li>Jelly is also used for <a href="https://w3id.org/riverbench/v/dev/documentation/metadata">distributing the RDF metadata</a> of benchmark datasets, tasks, and other resources.</li>
 <li>This is implemented in the <a href="https://github.com/RiverBench/ci-worker">ci-worker</a> application – a Scala 3 program making heavy use of <a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM's</a> streaming capabilities.</li>
 </ul>
 </li>
-<li><a href="https://github.com/Jelly-RDF/jvm-benchmarks">Jelly-JVM benchmark code</a>. This code was used to produce the results seen on the <a href="../performance/">performance page</a>.</li>
-<li><a href="https://w3id.org/stax">RDF Stream Taxonomy (RDF-STaX)</a> uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.<ul>
+<li><strong><a href="https://github.com/Jelly-RDF/jvm-benchmarks">Jelly-JVM benchmark code</a></strong>. This code was used to produce the results seen on the <a href="../performance/">performance page</a>.</li>
+<li><strong><a href="https://w3id.org/stax">RDF Stream Taxonomy (RDF-STaX)</a></strong> uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.<ul>
 <li>This is implemented using <a href="https://w3id.org/jelly/jelly-jvm/dev/user/jena-cli">Apache Jena's RIOT command-line utility</a> and <a href="https://w3id.org/jelly/jelly-jvm/dev/getting-started-plugins">Jelly-JVM's Jena plugin</a>. Source code: <a href="https://github.com/RDF-STaX/ci-worker">GitHub</a>.</li>
 </ul>
 </li>
-<li><em>Not released publicly yet – stay tuned!</em> A Scala 2 application using Jelly over Kafka, MQTT, and gRPC (full streaming protocol).</li>
 </ul>
 <h2 id="example-datasets-in-the-jelly-format">Example datasets in the Jelly format</h2>
 <p>Below listed are some example datasets available in the Jelly format. All of these are in the <a href="../user-guide/#delimited-vs-non-delimited-jelly">delimited format</a>. The licenses for these datasets are specified on the linked documentation pages.</p>
@@ -923,7 +927,7 @@
 </ul>
 </li>
 </ul>
-<p>You can find more interesting datasets in the Jelly format on the <a href="https://w3id.org/riverbench/dev/datasets">RiverBench website</a>.</p>
+<p>You can find some more interesting datasets in the Jelly format on the <a href="https://w3id.org/riverbench/dev/datasets">RiverBench website</a>.</p>
 <h2 id="commercial-support">Commercial support</h2>
 <p><strong><a href="https://neverblink.eu">NeverBlink</a></strong> provides commercial support services for Jelly, including implementing custom features, system integrations, implementations for new languages, benchmarking, and more.</p>
 <h2 id="see-also">See also</h2>
@@ -953,7 +957,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 3, 2025</span>
   </span>
 
     
