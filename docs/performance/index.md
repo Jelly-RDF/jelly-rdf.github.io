@@ -15,31 +15,31 @@ If you are only interested in parsing/writing a single graph or dataset, look at
 
 All benchmarks presented here were performed using the [RiverBench benchmark suite, version 2.1.0](https://w3id.org/riverbench/v/2.1.0). Out of the 13 used datasets (all datasets available in RiverBench 2.1.0), 1 used RDF-star, and 3 included RDF quads/datasets. You can find the links to the specific used RiverBench profiles and tasks in the results below.
 
-The benchmarks were executed using [this code (Apache 2.0 license)](https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62) in a JVM with options: `-Xms1G -Xmx32G`. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.
+The benchmarks were executed using [this code (Apache 2.0 license)](https://github.com/Jelly-RDF/jvm-benchmarks/tree/281538515d3c93d7126da657df82284590dfb2df) in a JVM with options: `-Xms1G -Xmx32G`. The large heap size was necessary to fit the benchmark data in memory, making the benchmark independent of disk I/O.
 
 Hardware: AMD Ryzen 9 7900 (12-core, 24-thread, 5.0 GHz); 64 GB RAM (DDR5 5600 MT/s). The disk was not used during the benchmarks (all data was in memory). The throughput benchmarks are single-threaded, but the JVM was allowed to use all available cores for garbage collection, JIT compilation, and other tasks.
 
-Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.1+11.1, Apache Jena 5.2.0, Eclipse RDF4J 5.0.2, [Jelly-JVM]({{ jvm_link() }}) 2.2.2.
+Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.2+7.1, Apache Jena 5.3.0, Eclipse RDF4J 5.1.2, [Jelly-JVM]({{ jvm_link() }}) 2.7.0.
 
 ### Tested methods
 
-- W3C RDF/XML (Apache Jena 5.2.0, `RDFXML_PLAIN`)
-- W3C N-Triples / N-Quads (Apache Jena 5.2.0, `NTRIPLES` and `NQUADS`)
-- W3C JSON-LD (Apache Jena 5.2.0, `JSONLD_PLAIN`)
-- W3C Turtle / TriG (Apache Jena 5.2.0)
+- W3C RDF/XML (Apache Jena 5.3.0, `RDFXML_PLAIN`)
+- W3C N-Triples / N-Quads (Apache Jena 5.3.0, `NTRIPLES` and `NQUADS`)
+- W3C JSON-LD (Apache Jena 5.3.0, `JSONLD_PLAIN`)
+- W3C Turtle / TriG (Apache Jena 5.3.0)
     - In grouped streaming, the default (`TURTLE_PRETTY` and `TRIG_PRETTY`) Turtle/TriG variant was used. 
     - In flat streaming, the `TURTLE_BLOCKS` and `TRIG_BLOCKS` variant was used. See [Jena's documentation on streaming writers for more details](https://jena.apache.org/documentation/io/streaming-io.html).
-- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Protobuf format (Apache Jena 5.2.0, `RDF_PROTO`)
-- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Thrift format (Apache Jena 5.2.0, `RDF_THRIFT`)
+- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Protobuf format (Apache Jena 5.3.0, `RDF_PROTO`)
+- [Jena's RDF binary](https://jena.apache.org/documentation/io/rdf-binary.html) Thrift format (Apache Jena 5.3.0, `RDF_THRIFT`)
 - [RDF4J Binary RDF Format](https://rdf4j.org/documentation/reference/rdf4j-binary/) (Eclipse RDF4J 5.0.2, `BINARY`)
     - *Note: to avoid confusion, on this page we only show the performance results for Apache Jena. The results for RDF4J can be found here: [RDF4J performance](rdf4j.md).*
-- Jelly (Jelly-JVM 2.2.2, "big" preset)
+- Jelly (Jelly-JVM 2.7.0, "big" preset)
     ```protobuf
     max_name_table_size = 4000;
     max_prefix_table_size = 150;
     max_datatype_table_size = 32;
     ```
-- Jelly without prefix compression (Jelly-JVM 2.2.2, "big" preset with prefix table disabled)
+- Jelly without prefix compression (Jelly-JVM 2.7.0, "big" preset with prefix table disabled)
     ```protobuf
     max_name_table_size = 4000;
     max_prefix_table_size = 0;  // Prefix table disabled
@@ -146,7 +146,7 @@ When reviewing these results, it's important to remember that Jelly is faster th
 ## See also
 
 - **[Benchmarks with RDF4J](rdf4j.md)**
-- [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/dd58f5de0916c1223ca115052567c1fb39f4cd62)
+- [Benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks/tree/281538515d3c93d7126da657df82284590dfb2df)
 - [RiverBench benchmark suite](https://w3id.org/riverbench/)
 - [Jelly-JVM]({{ jvm_link() }}) – the Jelly implementation used in the benchmarks
 - [User guide](../user-guide.md)
