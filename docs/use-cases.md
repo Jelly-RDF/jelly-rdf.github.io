@@ -4,14 +4,16 @@
 
 ## Jelly-JVM
 
-- [RiverBench](https://w3id.org/riverbench) benchmark suite.
+- **[Nanopub Registry](https://github.com/knowledgepixels/nanopub-registry)** – next-gen service for distributed storage and management of [nanopublications](https://nanopub.net).
+    - Jelly is used for communication between instances of the Nanopub Registry. Jelly endpoints (ending with `.jelly`) are also exposed for downstream applications to consume nanopubs.
+    - The registry stores nanopublications in the Jelly format and uses a Jelly transcoder to merge nanopubs on the fly into a single stream.
+- **[RiverBench](https://w3id.org/riverbench)** benchmark suite.
     - Jelly is used as [one of the serialization formats](https://w3id.org/riverbench/v/dev/documentation/dataset-release-format) for distributing datasets in RiverBench.
     - Jelly is also used for [distributing the RDF metadata](https://w3id.org/riverbench/v/dev/documentation/metadata) of benchmark datasets, tasks, and other resources.
     - This is implemented in the [ci-worker](https://github.com/RiverBench/ci-worker) application – a Scala 3 program making heavy use of [Jelly-JVM's]({{ jvm_link() }}) streaming capabilities.
-- [Jelly-JVM benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks). This code was used to produce the results seen on the [performance page](performance/index.md).
-- [RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax) uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
+- **[Jelly-JVM benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks)**. This code was used to produce the results seen on the [performance page](performance/index.md).
+- **[RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax)** uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
     - This is implemented using [Apache Jena's RIOT command-line utility]({{ jvm_link('user/jena-cli') }}) and [Jelly-JVM's Jena plugin]({{ jvm_link('getting-started-plugins') }}). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
-- *Not released publicly yet – stay tuned!* A Scala 2 application using Jelly over Kafka, MQTT, and gRPC (full streaming protocol).
 
 ## Example datasets in the Jelly format
 
@@ -26,7 +28,7 @@ Below listed are some example datasets available in the Jelly format. All of the
     - [:octicons-download-24: RDF-STaX ontology](https://w3id.org/stax/1.1.4/ontology.jelly) ([documentation](https://w3id.org/stax/1.1.4/ontology)).
     - [:octicons-download-24: RiverBench suite metadata](https://w3id.org/riverbench/v/dev.jelly) ([documentation](https://w3id.org/riverbench/v/dev/documentation/metadata)) – *RiverBench also includes metadata in Jelly for benchmark tasks, datasets, and more.*
 
-You can find more interesting datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
+You can find some more interesting datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
 
 ## Commercial support
 
