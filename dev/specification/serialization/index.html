@@ -659,6 +659,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#stream-frame-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stream frame metadata
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1236,6 +1245,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#stream-frame-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stream frame metadata
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1572,7 +1590,7 @@
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2025</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
@@ -1624,9 +1642,15 @@
 </tr>
 <tr>
 <td>2</td>
-<td>1.1.x <strong>(current)</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span></td>
+<td>1.1.0</td>
+<td>December 21, 2024</td>
 <td>Added <a href="#namespace-declarations"><code>RdfNamespaceDeclaration</code></a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>1.1.1 <strong>(current)</strong></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2025</span></td>
+<td>Added <a href="#stream-frame-metadata"><code>RdfStreamFrame.metadata</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1641,11 +1665,16 @@
 <p>The protocol is designed in such a way that you don't need to worry about backward compatibility. The only thing you need to do is to implement the latest version of the protocol, and you will automatically get backward compatibility with all previous versions (of the same MAJOR).</p>
 </div>
 <h3 id="forward-compatibility">Forward compatibility</h3>
-<p>Forward compatibility is not guaranteed. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.</p>
+<p>Forward compatibility is not guaranteed across different MINOR versions of the protocol. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.</p>
+<p>New features introduced in PATCH versions of the protocol MUST NOT break forward compatibility.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In practical terms, new MINOR versions of the protocol usually introduce new types of messages that previous implementations do not know how to handle. As long as the producer does not use the new messages in the stream, consumers implementing the previous protocol version will be able to read the stream.</p>
 <p>However, implementations will generally refuse to read a stream that is marked as using a higher protocol version than they support (see: <a href="#stream-options">stream options: <code>version</code> field</a>). If you, as a producer, do not intend to use the new features of the protocol, we recommend you mark the stream with the lowest applicable version (see the version table above for a correspondence between features and versions). This way, older implementations will be able to read the stream.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Forward-compatible features</p>
+<p>Protobuf allows for adding new fields to messages without breaking compatibility with older implementations – they will simply ignore the new field. An example of this is the <code>metadata</code> field in the <code>RdfStreamFrame</code> message, which was added in version 1.1.1. Implementations of version 1.1.0 will ignore it.</p>
 </div>
 <h2 id="actors-and-implementations">Actors and implementations</h2>
 <p>Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
@@ -1655,7 +1684,7 @@
 <p>The Jelly format is a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
 <p>Jelly supports several distinct <a href="#physical-stream-types">physical types of streams</a>, and uses a simple and configurable compression mechanism using <a href="#prefix-name-and-datatype-lookup-entries">lookup tables</a>.</p>
 <h3 id="stream-frames">Stream frames</h3>
-<p>A stream frame is a message of type <code>RdfStreamFrame</code> (<a href="../reference/#rdfstreamframe">reference</a>). The message has only one field (<code>rows</code>), which is a repeated field of type <code>RdfStreamRow</code> (<a href="../reference/#rdfstreamrow">reference</a>). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.</p>
+<p>A stream frame is a message of type <code>RdfStreamFrame</code> (<a href="../reference/#rdfstreamframe">reference</a>). The message has a field <code>rows</code>, which is a repeated field of type <code>RdfStreamRow</code> (<a href="../reference/#rdfstreamrow">reference</a>). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A stream frame in "simple flat file" is just a batch of RDF statements – the stream frames may carry no semantics in this case. You can make the stream frame as long as the file itself, but this is not recommended, as it would make the file harder to process.</p>
@@ -1674,6 +1703,14 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The main thing you will need to worry about is the order of the lookup tables. If you can, emit all lookup tables at the beginning of the stream. When using stream partitions (e.g., in Kafka), you should ensure that the lookups are emitted to each partition. Alternatively, you can transmit the lookup tables separately from the stream.</p>
+</div>
+<h4 id="stream-frame-metadata">Stream frame metadata</h4>
+<p>Since protocol version 1.1.1, <code>RdfStreamFrame</code> messages have a <code>metadata</code> field of type <code>map&lt;string, bytes&gt;</code>. This field is OPTIONAL and does not influence the processing of RDF data in any manner. The keys and values in the map are arbitrary and implementation-defined.</p>
+<p>Consumers SHOULD ignore unknown keys in the metadata map. Consumers also SHOULD validate the values in the metadata map to ensure that they follow the expected format. Consumers MUST NOT assume that values are character strings or that they are valid UTF-8.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The metadata field is intended for use cases where additional information about the stream frame must be attached directly to the stream, but not as part of the RDF stream itself. For example, you could use it to store the timestamp of the frame, its unique identifier, hash code, or anything else relevant to your use case.</p>
+<p>You can use the metadata to store UTF-8 strings, numbers, or even nested protobuf messages. Because of this, you should never assume that the value is a valid string. Always validate the value before using it.</p>
 </div>
 <h3 id="stream-rows">Stream rows</h3>
 <p>A stream row is a message of type <code>RdfStreamRow</code>. It has one of the following fields set:</p>
@@ -2218,7 +2255,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 21, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2025</span>
   </span>
 
     
