@@ -51,7 +51,8 @@ The following versions of the protocol are defined:
 | Version tag | Semantic version    | Last release date                 | Changes                         |
 | ----------- | ------------------- | --------------------------------- | ------------------------------- |
 | 1           | 1.0.x               | August 24, 2024                   | (initial version)               |
-| 2           | 1.1.x **(current)** | {{ git_revision_date_localized }} | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
+| 2           | 1.1.0 | December 21, 2024 | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
+| 2           | 1.1.1 **(current)** | {{ git_revision_date_localized }} | Added [`RdfStreamFrame.metadata`](#stream-frame-metadata) |
 
 !!! note
     
@@ -67,13 +68,19 @@ Implementations SHOULD ensure backward compatibility. To achieve backward compat
 
 ### Forward compatibility
 
-Forward compatibility is not guaranteed. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.
+Forward compatibility is not guaranteed across different MINOR versions of the protocol. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.
+
+New features introduced in PATCH versions of the protocol MUST NOT break forward compatibility.
 
 !!! note
 
     In practical terms, new MINOR versions of the protocol usually introduce new types of messages that previous implementations do not know how to handle. As long as the producer does not use the new messages in the stream, consumers implementing the previous protocol version will be able to read the stream.
 
     However, implementations will generally refuse to read a stream that is marked as using a higher protocol version than they support (see: [stream options: `version` field](#stream-options)). If you, as a producer, do not intend to use the new features of the protocol, we recommend you mark the stream with the lowest applicable version (see the version table above for a correspondence between features and versions). This way, older implementations will be able to read the stream.
+
+!!! note "Forward-compatible features"
+    
+    Protobuf allows for adding new fields to messages without breaking compatibility with older implementations – they will simply ignore the new field. An example of this is the `metadata` field in the `RdfStreamFrame` message, which was added in version 1.1.1. Implementations of version 1.1.0 will ignore it.
 
 ## Actors and implementations
 
@@ -91,7 +98,7 @@ Jelly supports several distinct [physical types of streams](#physical-stream-typ
 
 ### Stream frames
 
-A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#rdfstreamframe)). The message has only one field (`rows`), which is a repeated field of type `RdfStreamRow` ([reference](reference.md#rdfstreamrow)). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.
+A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#rdfstreamframe)). The message has a field `rows`, which is a repeated field of type `RdfStreamRow` ([reference](reference.md#rdfstreamrow)). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.
 
 !!! note
 
@@ -114,6 +121,18 @@ Implementations MAY choose to adopt a **non-standard** solution where the order 
 !!! note
 
     The main thing you will need to worry about is the order of the lookup tables. If you can, emit all lookup tables at the beginning of the stream. When using stream partitions (e.g., in Kafka), you should ensure that the lookups are emitted to each partition. Alternatively, you can transmit the lookup tables separately from the stream.
+
+#### Stream frame metadata
+
+Since protocol version 1.1.1, `RdfStreamFrame` messages have a `metadata` field of type `map<string, bytes>`. This field is OPTIONAL and does not influence the processing of RDF data in any manner. The keys and values in the map are arbitrary and implementation-defined.
+
+Consumers SHOULD ignore unknown keys in the metadata map. Consumers also SHOULD validate the values in the metadata map to ensure that they follow the expected format. Consumers MUST NOT assume that values are character strings or that they are valid UTF-8.
+
+!!! note
+
+    The metadata field is intended for use cases where additional information about the stream frame must be attached directly to the stream, but not as part of the RDF stream itself. For example, you could use it to store the timestamp of the frame, its unique identifier, hash code, or anything else relevant to your use case.
+
+    You can use the metadata to store UTF-8 strings, numbers, or even nested protobuf messages. Because of this, you should never assume that the value is a valid string. Always validate the value before using it.
 
 ### Stream rows
 
