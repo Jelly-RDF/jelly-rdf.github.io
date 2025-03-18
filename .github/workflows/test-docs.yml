@@ -19,17 +19,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Jelly-RDF/jelly-protobuf
-          path: proto
+          sparse-checkout: proto
+          path: p
 
       - name: Generate Protobuf reference
         run: |
           mkdir -p pages/docs/specification/proto
-          cp proto/*.proto pages/docs/specification/proto
+          cp p/proto/*.proto pages/docs/specification/proto
           # Remove double newlines in comments to avoid breaking markdown tables
           # See: https://github.com/pseudomuto/protoc-gen-doc/issues/274
-          find proto/*.proto -type f -exec perl -0777 -i -pe "s|\n[ \t]+//[ \t]*\n|\n|igs" {} \;
-          find proto/*.proto -type f -exec perl -0777 -i -pe "s|(https?[^\s]+)|[\1](\1)|igs" {} \;
-          docker run --rm -v $(pwd)/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
+          find p/proto/*.proto -type f -exec perl -0777 -i -pe "s|\n[ \t]+//[ \t]*\n|\n|igs" {} \;
+          find p/proto/*.proto -type f -exec perl -0777 -i -pe "s|(https?[^\s]+)|[\1](\1)|igs" {} \;
+          docker run --rm -v $(pwd)/p/proto:/protos -v $(pwd)/pages/docs/specification:/out pseudomuto/protoc-gen-doc --doc_opt=markdown,reference.md
 
       - uses: actions/setup-python@v5
         with:
@@ -46,5 +47,5 @@ jobs:
         run: |
           export TAG='main'
           export JVM_TAG='main'
-          export PROTO_PATH='../proto'
+          export PROTO_PATH='../p/proto'
           mkdocs build -s
