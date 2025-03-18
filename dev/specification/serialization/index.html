@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -1563,7 +1563,7 @@
 
 <h1 id="jelly-serialization-format-specification">Jelly serialization format specification</h1>
 <p><strong>This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
-<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto"><code>rdf.proto</code></a>).</p>
+<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/rdf.proto"><code>rdf.proto</code></a>).</p>
 <p>The following assumptions are used in this document:</p>
 <ul>
 <li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/">W3C Recommendation 25 February 2014</a>).</li>
@@ -1680,7 +1680,7 @@
 <p>Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
 <p>Implementations may include only the producer, only the consumer, or both.</p>
 <h2 id="format-specification">Format specification</h2>
-<p>The Jelly serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
+<p>The Jelly serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
 <p>The Jelly format is a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
 <p>Jelly supports several distinct <a href="#physical-stream-types">physical types of streams</a>, and uses a simple and configurable compression mechanism using <a href="#prefix-name-and-datatype-lookup-entries">lookup tables</a>.</p>
 <h3 id="stream-frames">Stream frames</h3>
