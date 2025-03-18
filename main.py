@@ -35,7 +35,7 @@ def define_env(env):
     @env.macro
     def git_proto_link(file: str):
         tag = git_tag()
-        return f'https://github.com/Jelly-RDF/jelly-protobuf/blob/{tag}/{file}'
+        return f'https://github.com/Jelly-RDF/jelly-protobuf/blob/{tag}/proto/{file}'
     
 
     @env.macro

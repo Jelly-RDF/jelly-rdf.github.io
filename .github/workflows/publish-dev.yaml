@@ -22,10 +22,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Jelly-RDF/jelly-protobuf
+          sparse-checkout: proto
           path: proto
 
       - name: Generate Protobuf reference
         run: |
+          mv proto/proto .
           mkdir -p pages/docs/specification/proto
           cp proto/*.proto pages/docs/specification/proto
           # Remove double newlines in comments to avoid breaking markdown tables
