@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework). It is based on [Protocol Buffers](https://protobuf.dev/) and [gRPC](https://grpc.io/), and has a JVM implementation that works with [Apache Jena](https://jena.apache.org/) and [RDF4J](https://rdf4j.org/).
+**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) based on [Protobuf](https://protobuf.dev/). Jelly has a JVM implementation that works with [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api).
 
 <div class="grid cards" style="clear: right;" markdown>
 
@@ -18,7 +18,7 @@
 
     ---
 
-    Fully-integrated support for Jelly in [Apache Jena](https://jena.apache.org/) and [RDF4J](https://rdf4j.org/) with maximum performance
+    Fully-integrated support for [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api) with maximum performance
 
     [:octicons-arrow-right-24: Jelly-JVM]({{ jvm_link() }})
 
