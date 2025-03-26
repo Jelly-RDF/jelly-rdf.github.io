@@ -92,7 +92,7 @@ Implementations may include only the producer, only the consumer, or both.
 
 The Jelly serialization format uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in `rdf.proto` ([source code]({{ git_proto_link('rdf.proto') }}), [reference](reference.md#rdfproto)).
 
-The Jelly format is a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the [delimited variant](#delimited-variant-of-jelly).
+The Jelly format is a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant-of-jelly).
 
 Jelly supports several distinct [physical types of streams](#physical-stream-types), and uses a simple and configurable compression mechanism using [lookup tables](#prefix-name-and-datatype-lookup-entries).
 
