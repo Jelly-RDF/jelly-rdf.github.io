@@ -69,7 +69,7 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
 - **[User guide](user-guide.md)**
 - **[Performance benchmarks](performance/index.md)**
 - **[Protocol specification](specification/index.md)**
-- **[Contributing to Jelly](contributing.md)**
+- **[Contributing to Jelly](contributing/index.md)**
 - **[Discord chat](https://discord.gg/A8sN5XwVa5)**
 - **Code on GitHub:** [protocol definition](https://github.com/Jelly-RDF/jelly-protobuf), [JVM implementation](https://github.com/Jelly-RDF/jelly-jvm), [website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
 - **[Licensing and citation](licensing.md)**
