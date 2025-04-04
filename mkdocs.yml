@@ -106,6 +106,8 @@ nav:
 
   - JVM (Scala) implementation: 'https://w3id.org/jelly/jelly-jvm/'
 
-  - Contributing: 'contributing.md'
+  - Contributing:
+    - 'contributing/index.md'
+    - Code of conduct: 'contributing/code_of_conduct.md'
   - Use cases: 'use-cases.md'
   - Licensing and citation: 'licensing.md'
