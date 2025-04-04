@@ -1,6 +1,7 @@
 # Contributing
 
 Jelly is an open project – **you are welcome to submit issues, pull requests, or just ask questions**.
+By participating in this project, you are expected to follow our [Code of conduct](./code_of_conduct.md). Be kind, inclusive, and constructive.
 
 ## Contributing to the Jelly specification
 
