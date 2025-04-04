@@ -7,7 +7,7 @@ By participating in this project, you are expected to follow our [Code of conduc
 
 The Jelly Protocol Buffers and gRPC definitions are in the [jelly-protobuf repository](https://github.com/Jelly-RDF/jelly-protobuf). If you want to contribute to the specification, it is strongly recommended that you first **[open an issue there](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose)** to discuss your idea.
 
-The [specification documents](specification/index.md) are edited in the same way as other documentation pages. See the next section for details.
+The [specification documents](../specification/index.md) are edited in the same way as other documentation pages. See the next section for details.
 
 ## Editing documentation
 
@@ -15,7 +15,7 @@ The documentation is written in Markdown and built using [MkDocs](https://www.mk
 
 To edit a documentation page, simply click the :material-file-edit-outline: button in the top-right of the page:
 
-![Edit this page](assets/edit_button.png)
+![Edit this page](../assets/edit_button.png)
 
 It will take you to GitHub, where you can edit the Markdown file and submit a pull request. You can also clone [the repository](https://github.com/Jelly-RDF/jelly-rdf.github.io) and edit the files locally. The source files are in the `docs` directory.
 
@@ -60,7 +60,7 @@ Jelly protocol releases are handled from the `jelly-protobuf` repository. To mak
 3. Create a new tag for the release. For example, for version 1.2.3: `git tag v1.2.3`
 4. Push the tag to GitHub: `git push origin v1.2.3`
 
-The CI/CD pipeline will automatically pick up the new tag and make a tagged release of the documentation, including the protocol specification. The [spec pages](specification/index.md) use [macros](#macros) to display the current version, so they will be updated automatically.
+The CI/CD pipeline will automatically pick up the new tag and make a tagged release of the documentation, including the protocol specification. The [spec pages](../specification/index.md) use [macros](#macros) to display the current version, so they will be updated automatically.
 
 After a new protocol release, you should also update the implementations to use it.
 
@@ -86,6 +86,6 @@ Use the exact same process as for the website documentation. The Jelly-JVM docum
 
 ## See also
 
-- [License and citation](licensing.md)
-- [User guide](user-guide.md)
-- [Applications using Jelly](use-cases.md)
+- [License and citation](../licensing.md)
+- [User guide](../user-guide.md)
+- [Applications using Jelly](../use-cases.md)
