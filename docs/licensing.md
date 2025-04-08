@@ -4,9 +4,13 @@
 - The documentation of Jelly (this website) is licensed under the [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 - The [Jelly-JVM implementation]({{ jvm_link()}}) is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
+## Jelly maintainer
+
+Jelly-JVM was originally created by [Piotr Sowiński](https://ostrzyciel.eu) ([GitHub](https://github.com/Ostrzyciel)) and is currently maintained by [NeverBlink](https://neverblink.eu).
+
 ## Attribution / citation
 
-If you use Jelly or Jelly-JVM in your research, please [the most recent paper about Jelly](https://ieeexplore.ieee.org/abstract/document/10152225):
+If you use Jelly-JVM in your research, please cite [the most recent paper about Jelly](https://ieeexplore.ieee.org/abstract/document/10152225):
 
 Sowiński, P., Wasielewska-Michniewska, K., Ganzha, M., & Paprzycki, M. (2022, October). Efficient RDF streaming for the edge-cloud continuum. In _2022 IEEE 8th World Forum on Internet of Things (WF-IoT)_ (pp. 1-8). IEEE.
 
@@ -24,11 +28,7 @@ Or use this BibTeX entry:
 }
 ```
 
-This paper describes an earlier version of Jelly from 2022. A new paper is in preparation.
-
-## Jelly maintainer
-
-Jelly was created and is maintained by [Piotr Sowiński (Ostrzyciel)](https://ostrzyciel.eu) – [GitHub](https://github.com/Ostrzyciel).
+This paper describes an earlier version of Jelly from 2022 that is very out-of-date with the current version of Jelly, but it is still a good starting point for understanding the design of the protocol and the motivation behind it.
 
 
 <figure markdown>

@@ -4,9 +4,11 @@
 
 ## Jelly-JVM
 
-- **[Nanopub Registry](https://github.com/knowledgepixels/nanopub-registry)** – next-gen service for distributed storage and management of [nanopublications](https://nanopub.net).
-    - Jelly is used for communication between instances of the Nanopub Registry. Jelly endpoints (ending with `.jelly`) are also exposed for downstream applications to consume nanopubs.
-    - The registry stores nanopublications in the Jelly format and uses a Jelly transcoder to merge nanopubs on the fly into a single stream.
+- **[Nanopub Registry](https://github.com/knowledgepixels/nanopub-registry)** and **[Nanopub Query](https://github.com/knowledgepixels/nanopub-query)** – next-gen services for distributed storage, management, and querying of [nanopublications](https://nanopub.net).
+    - Jelly is used for communication between the services in the nanopub network. Jelly endpoints (ending with `.jelly`) are also exposed for downstream applications to consume nanopubs.
+    - The Registry stores nanopublications in the Jelly format and uses a Jelly transcoder to merge nanopubs on the fly into a single stream.
+- **[`jelly-cli`](https://github.com/Jelly-RDF/cli)** – command-line utility for working with Jelly files.
+    - The app can be used to convert to/from Jelly, validate and debug Jelly files.
 - **[RiverBench](https://w3id.org/riverbench)** benchmark suite.
     - Jelly is used as [one of the serialization formats](https://w3id.org/riverbench/v/dev/documentation/dataset-release-format) for distributing datasets in RiverBench.
     - Jelly is also used for [distributing the RDF metadata](https://w3id.org/riverbench/v/dev/documentation/metadata) of benchmark datasets, tasks, and other resources.
