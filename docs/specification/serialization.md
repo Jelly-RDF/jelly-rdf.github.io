@@ -52,7 +52,8 @@ The following versions of the protocol are defined:
 | ----------- | ------------------- | --------------------------------- | ------------------------------- |
 | 1           | 1.0.x               | August 24, 2024                   | (initial version)               |
 | 2           | 1.1.0 | December 21, 2024 | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
-| 2           | 1.1.1 **(current)** | {{ git_revision_date_localized }} | Added [`RdfStreamFrame.metadata`](#stream-frame-metadata) |
+| 2           | 1.1.1 | March 10, 2025 | Added [`RdfStreamFrame.metadata`](#stream-frame-metadata) |
+| 2           | 1.1.2 **(current)** | {{ git_revision_date_localized }} | Bugfixes: ... |
 
 !!! note
     
@@ -259,7 +260,7 @@ The stream options header contains the following fields:
 - `physical_type` (2) – [physical type of the stream](#physical-stream-types). This field is REQUIRED.
 - `generalized_statements` (3) – whether the stream contains [generalized RDF triples or graphs](https://www.w3.org/TR/rdf11-concepts/#section-generalized-rdf). This field MUST be set to true if the stream contains generalized RDF triples or graphs. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
 - `rdf_star` (4) – whether the stream uses [RDF-star](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html) (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
-- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 8. The size of the lookup MUST NOT exceed the value of this field.
 - `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of [datatype literals](#literals)). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `logical_type` (14) – [logical type of the stream](#logical-stream-types), based on RDF-STaX. This field is OPTIONAL and defaults to `LOGICAL_STREAM_TYPE_UNSPECIFIED`.
@@ -390,7 +391,7 @@ The IRIs are encoded using the [`RdfIri`](reference.md#rdfiri) message. The mess
 - `prefix_id` (1) – 1-based index of the prefix of the IRI, corresponding to an entry in the prefix lookup.
     - The default value of `0` MUST be interpreted as the same value as in the last explictly specified (non-zero) prefix identifier.
     - If `0` appears in the first IRI of the stream (and in any subsequent IRI), this MUST be interpreted as an empty prefix (zero-length string). This is for example used when the prefix lookup table is set to size zero.
-- `name_id` (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup. This field is OPTIONAL and the default value (0) indicates an empty name.
+- `name_id` (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup.
     - The default value of `0` MUST be interpreted as `previous_name_id + 1`, that is, the `name_id` of the previous IRI incremented by one.
     - If `0` appears in the first IRI of the stream it MUST be interpreted as `1`.
     - Multiple `0` values in a row may occur, in which case the `name_id` MUST be interpreted as incrementing by one for each `0` value.
