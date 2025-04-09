@@ -1,23 +1,47 @@
 # Jelly user guide
 
-**Jelly is a high-performance protocol for streaming and non-streaming RDF data. It is designed to be simple, fast, and easy to implement. This guide will help you get started with Jelly.**
-
-Jelly uses [Protocol Buffers 3](https://protobuf.dev/programming-guides/proto3/) as the basis of its serialization. This means that you can quickly [create a new Jelly implementation using code generation](#implementing-jelly). You can also use an existing implementation, such as the [JVM (Scala) implementation]({{ jvm_link() }}).
+Jelly uses [Protocol Buffers 3](https://protobuf.dev/programming-guides/proto3/) as the basis of its serialization. You can also use an existing implementation, such as the [JVM (Scala) implementation]({{ jvm_link() }}), or you can quickly [create a new Jelly implementation using code generation](#implementing-jelly). 
 
 ## What can it do?
 
-Jelly is designed to be a protocol for *streaming* RDF data, but it can also be used with "classic", static RDF data. The main design goals of Jelly are speed, simplicity, and wide coverage of use cases. 
+Jelly is designed to be a protocol for *streaming* RDF knowledge graphs, but it can also be used with "classic", static RDF. The main design goals of Jelly are speed, simplicity, and wide coverage of use cases. 
 
-- Jelly can work with **any RDF data**, including RDF-star, RDF 1.1, and generalized RDF.
+- Jelly can work with **any RDF knowledge graph data**, including RDF 1.1, RDF-star, and generalized RDF.
 - Jelly can be used to represent **streams of triples, quads, graphs, or datasets**.
 - Jelly can also be used to represent a **single graph or dataset**.
 - Jelly can be used for **streaming data over the network** (e.g., with MQTT, Kafka, gRPC), but also for **working with flat files**.
 - Jelly can **compress RDF data on the fly**, without having to know the data in advance.
 - Jelly is super-fast and lightweight, scaling both down to **embedded devices** and up to **high-performance servers**.
 
-## How to use it?
+## Quick start
 
-To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: **[Jelly-JVM (Scala)]({{ jvm_link() }})**, which supports both [Apache Jena](https://jena.apache.org/) and [Eclipse RDF4J](https://rdf4j.org/). It also has support for reactive streams and gRPC.
+### [CLI tool](https://github.com/Jelly-RDF/cli)
+
+The easiest way to do something with Jelly is with the `jelly-cli` command line tool.
+
+1. Go to the [`jelly-cli` download page](https://github.com/Jelly-RDF/cli/releases/tag/dev) and download a binary for you platform.
+    - Alternatively, you can download the `jelly-cli.jar` file and run it with `java -jar jelly-cli.jar`.
+2. Run `./jelly-cli rdf to-jelly some-rdf-file.ttl > output.jelly` to convert an RDF file to Jelly.
+3. Run `./jelly-cli rdf from-jelly output.jelly` to convert the Jelly file back to RDF.
+4. Run `./jelly-cli --help` to see all available commands.
+
+You can find more information about the tool in **[its README on GitHub](https://github.com/Jelly-RDF/cli)**.
+
+!!! example "Do you have any example Jelly files to experiment with?"
+
+    Yes! Go check out the **[Use cases page](use-cases.md#example-datasets-in-the-jelly-format)** where we list links to example datasets in the Jelly format.
+
+### Apache Jena / RDF4J plugins
+
+Check out the **[dedicated guide for installing plugins in Jena and RDF4J]({{ jvm_link('getting-started-plugins') }})**. You can use them to quickly add Jelly support to, for example, Apache Jena Fuseki and load Jelly files just like any other RDF file.
+
+### Java & Scala programming
+
+Go see the **[Jelly-JVM getting started guide for devs]({{ jvm_link('getting-started-devs') }})**. It contains a lot of examples and code snippets for using Jelly in Java and Scala, with Jena, RDF4J, and Titanium.
+
+## How to use it – in detail
+
+To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: **[Jelly-JVM (Scala)]({{ jvm_link() }})**, which supports [Apache Jena](https://jena.apache.org/), [Eclipse RDF4J](https://rdf4j.org/), and the [Titanium RDF API](https://github.com/filip26/titanium-rdf-api). It also has support for reactive streams (via Pekko Streams) and gRPC.
 
 The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see [stream types](#stream-types) below).
 
@@ -28,16 +52,6 @@ All stream types use the same concept of **stream frames** – discrete elements
     There are many, many ways in which streams of RDF data can be used – there are different use cases, network protocols, QoS settings, ordering guarantees, stream semantics, etc. One stream is also often viewed from different perspectives by the different actors producing and consuming it. Picking and enforcing specific semantics for stream frames would hopelessly overcomplicate the protocol and make it less useful in some use cases.
 
     Jelly does have a system of **logical stream types** based on the RDF Stream Taxonomy ([RDF-STaX](https://w3id.org/stax)), which can be used to suggest how the stream should be interpreted. However, these are just suggestions – you can interpret the stream however you like.
-
-!!! example "I don't really want to code in Java, is there something easier I could use to try out Jelly?"
-
-    As a matter of fact, there is! `jelly-cli` is a simple CLI tool that allows you to access all the most important functionalities of Jelly. That includes translating RDF to and from Jelly, as well as validating and inspecting existing Jelly files. You can find the binaries and examples needed on [GitHub](https://github.com/Jelly-RDF/cli).  
-
-!!! example "Do you have any example Jelly files to experiment with?"
-
-    Yes! Go check out the **[Use cases page](use-cases.md#example-datasets-in-the-jelly-format)** where we list links to example datasets in the Jelly format.
-
-    The easiest way to read them is to use the [Jelly-JVM plugin for Apache Jena or RDF4J]({{ jvm_link('getting-started-plugins') }}). You can use to quickly add Jelly support to, for example, Apache Jena Fuseki and load the file just like any other RDF file.
 
 ### Stream types
 
