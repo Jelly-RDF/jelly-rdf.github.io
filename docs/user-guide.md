@@ -29,6 +29,10 @@ All stream types use the same concept of **stream frames** – discrete elements
 
     Jelly does have a system of **logical stream types** based on the RDF Stream Taxonomy ([RDF-STaX](https://w3id.org/stax)), which can be used to suggest how the stream should be interpreted. However, these are just suggestions – you can interpret the stream however you like.
 
+!!! example "I don't really want to code in Java, is there something easier I could use to try out Jelly?"
+
+    As a matter of fact, there is! `jelly-cli` is a simple CLI tool that allows you to access all the most important functionalities of Jelly. That includes translating RDF to and from Jelly, as well as validating and inspecting existing Jelly files. You can find the binaries and examples needed on [GitHub](https://github.com/Jelly-RDF/cli).  
+
 !!! example "Do you have any example Jelly files to experiment with?"
 
     Yes! Go check out the **[Use cases page](use-cases.md#example-datasets-in-the-jelly-format)** where we list links to example datasets in the Jelly format.
