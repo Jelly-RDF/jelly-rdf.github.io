@@ -9,8 +9,7 @@
     - The Registry stores nanopublications in the Jelly format and uses a Jelly transcoder to merge nanopubs on the fly into a single stream.
 - **[`jelly-cli`](https://github.com/Jelly-RDF/cli)** – simple but performant command-line utility for working with Jelly files.
     - The app can be used to convert to/from Jelly, validate and debug Jelly files.
-    - You can find the code and released binaries on [GitHub](https://github.com/Jelly-RDF/cli). 
-    - Up-to-date installation instructions and command usage examples can be found [here](https://github.com/Jelly-RDF/cli).
+    - You can find the code and released binaries on [GitHub](https://github.com/Jelly-RDF/cli). The repository also has up-to-date installation instructions and command usage examples.
 - **[RiverBench](https://w3id.org/riverbench)** benchmark suite.
     - Jelly is used as [one of the serialization formats](https://w3id.org/riverbench/v/dev/documentation/dataset-release-format) for distributing datasets in RiverBench.
     - Jelly is also used for [distributing the RDF metadata](https://w3id.org/riverbench/v/dev/documentation/metadata) of benchmark datasets, tasks, and other resources.
