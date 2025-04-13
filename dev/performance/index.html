@@ -1019,7 +1019,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../assets/benchmarks/grouped_size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialized size bar plot" src="../assets/benchmarks/grouped_size.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Relative serialized representation size of a stream of RDF graphs or RDF datasets, geometric mean over all datasets. N-Triples/N-Quads was used as the baseline (100%).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Relative serialized representation size of a stream of RDF graphs or RDF datasets, geometric mean over all datasets. N-Triples/N-Quads was used as the baseline (100%).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
 </figure>
 <p>Jelly has a major advantage here (~2x smaller than the next best format, RDF4J Binary), but that is because it is the <em>only</em> format that natively supports grouped RDF streams. The other formats cannot exploit the repeating patterns between elements in the stream, leading to much larger sizes.</p>
 <h3 id="flat-streaming-serialized-size">Flat streaming serialized size</h3>
@@ -1031,7 +1032,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../assets/benchmarks/flat_size.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialized size bar plot" src="../assets/benchmarks/flat_size.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Relative serialized representation size of a flat stream of RDF triples or RDF quads, geometric mean over all datasets. N-Triples/N-Quads was used as the baseline (100%).</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Relative serialized representation size of a flat stream of RDF triples or RDF quads, geometric mean over all datasets. N-Triples/N-Quads was used as the baseline (100%).</figcaption>
 </figure>
 <p>In flat streaming, the compression ratios for Jelly are almost identical to grouped streaming. This is also a case where RDF4J Binary has a comparable result to Jelly – it does well when serializing large batches of RDF triples/quads, because it maintains a large buffer of statements in the serializer. This means RDF4J is optimized for throughput – not latency. Jelly can do both, at the same time. Jena's binary formats have no in-built compression, and thus are much larger.</p>
 <h3 id="flat-streaming-serialization-throughput">Flat streaming serialization throughput</h3>
@@ -1044,7 +1046,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../assets/benchmarks/flat_ser.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialization speed bar plot" src="../assets/benchmarks/flat_ser.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Serialization speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Serialization speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
 </figure>
 <p>When reviewing these results, it's important to remember that Jelly is faster than Jena's binary formats, while also being much more compact – see serialized size results above.</p>
 <h3 id="flat-streaming-deserialization-throughput">Flat streaming deserialization throughput</h3>
@@ -1057,7 +1060,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../assets/benchmarks/flat_des.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Deserialization speed bar plot" src="../assets/benchmarks/flat_des.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
 </figure>
 <h3 id="grouped-streaming-serialization-throughput">Grouped streaming serialization throughput</h3>
 <ul>
@@ -1069,7 +1073,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../assets/benchmarks/grouped_ser.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialization speed bar plot" src="../assets/benchmarks/grouped_ser.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
 </figure>
 <h3 id="grouped-streaming-deserialization-throughput">Grouped streaming deserialization throughput</h3>
 <ul>
@@ -1081,7 +1086,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../assets/benchmarks/grouped_des.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Deserialization speed bar plot" src="../assets/benchmarks/grouped_des.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).</figcaption>
 </figure>
 <h2 id="see-also">See also</h2>
 <ul>

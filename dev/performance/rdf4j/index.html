@@ -1067,7 +1067,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../../assets/benchmarks/flat_ser_rdf4j.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialization speed bar plot" src="../../assets/benchmarks/flat_ser_rdf4j.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Serialization speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Serialization speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
 </figure>
 <p>Flat streaming serialization is admittedly the one scenario where Jelly is pretty close to RDF4J Binary in terms of performance. RDF4J Binary is very effective at serializing big batches of RDF triples/quads, because it maintains a large buffer of statements that wait in a queue before being serialized. This does result in very good throughput, but it also hurts the latency (which is in some cases relevant) and makes it less effective for smaller batches of statements. Jelly can universally fit both use cases – see the results for grouped streams below.</p>
 <h3 id="flat-streaming-deserialization-throughput">Flat streaming deserialization throughput</h3>
@@ -1080,7 +1081,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../../assets/benchmarks/flat_des_rdf4j.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Deserialization speed bar plot" src="../../assets/benchmarks/flat_des_rdf4j.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF triples or quads, averaged over all datasets.</figcaption>
 </figure>
 <h3 id="grouped-streaming-serialization-throughput">Grouped streaming serialization throughput</h3>
 <ul>
@@ -1092,7 +1094,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../../assets/benchmarks/grouped_ser_rdf4j.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Serialization speed bar plot" src="../../assets/benchmarks/grouped_ser_rdf4j.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.</figcaption>
 </figure>
 <h3 id="grouped-streaming-deserialization-throughput">Grouped streaming deserialization throughput</h3>
 <ul>
@@ -1104,7 +1107,8 @@
 </ul>
 <figure>
   <a class="glightbox" href="../../assets/benchmarks/grouped_des_rdf4j.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Deserialization speed bar plot" src="../../assets/benchmarks/grouped_des_rdf4j.png" width="100%" /></a>
-  <figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.</figcaption>
+<br />
+<figcaption style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over all datasets.</figcaption>
 </figure>
 <h2 id="see-also">See also</h2>
 <ul>

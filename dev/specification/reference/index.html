@@ -715,6 +715,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rdfpatchnamespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfPatchNamespace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rdfpatchoptions" class="md-nav__link">
     <span class="md-ellipsis">
       RdfPatchOptions
@@ -1287,6 +1296,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rdfpatchnamespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      RdfPatchNamespace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rdfpatchoptions" class="md-nav__link">
     <span class="md-ellipsis">
       RdfPatchOptions
@@ -1585,6 +1603,7 @@
 <ul>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchFrame">RdfPatchFrame</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchHeader">RdfPatchHeader</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchNamespace">RdfPatchNamespace</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchOptions">RdfPatchOptions</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchPunctuation">RdfPatchPunctuation</a></li>
 <li><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchRow">RdfPatchRow</a></li>
@@ -1761,6 +1780,38 @@ Header rows must occur at the start of the patch frame.</p>
 </tr>
 </tbody>
 </table>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchNamespace"></a></p>
+<h3 id="rdfpatchnamespace">RdfPatchNamespace</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Short name of the namespace (e.g., &#34;ex&#34;) Do NOT include the colon.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">eu.ostrzyciel.jelly.core.proto.v1.RdfIri</a></td>
+<td></td>
+<td>IRI of the namespace (e.g., &#34;<a href="http://example.org/&#34;">http://example.org/&#34;).</a>.) Optional in the &#34;prefix delete&#34; (PD) operation, but required in the &#34;prefix add&#34; (PA) operation.</td>
+</tr>
+<tr>
+<td>graph</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">eu.ostrzyciel.jelly.core.proto.v1.RdfIri</a></td>
+<td></td>
+<td>Optional: graph name for the namespace declaration. This is used to achieve full 1:1 replication in systems that associate namespaces with specific graphs (e.g., Apache Jena). If not specified, the default graph is assumed.</td>
+</tr>
+</tbody>
+</table>
 <p><a name="eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchOptions"></a></p>
 <h3 id="rdfpatchoptions">RdfPatchOptions</h3>
 <p>RDF Patch stream options</p>
@@ -1859,13 +1910,13 @@ Header rows must occur at the start of the patch frame.</p>
 </tr>
 <tr>
 <td>namespace_add</td>
-<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNamespaceDeclaration">eu.ostrzyciel.jelly.core.proto.v1.RdfNamespaceDeclaration</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchNamespace">RdfPatchNamespace</a></td>
 <td></td>
 <td>Add a namespace/prefix declaration (PA)</td>
 </tr>
 <tr>
 <td>namespace_delete</td>
-<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNamespaceDeclaration">eu.ostrzyciel.jelly.core.proto.v1.RdfNamespaceDeclaration</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-patch-RdfPatchNamespace">RdfPatchNamespace</a></td>
 <td></td>
 <td>Delete a namespace/prefix declaration (PD)</td>
 </tr>
@@ -2940,7 +2991,7 @@ structure of the data. See LogicalStreamType for the latter.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2025</span>
   </span>
 
     
@@ -2950,7 +3001,7 @@ structure of the data. See LogicalStreamType for the latter.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 13, 2025</span>
   </span>
 
     
