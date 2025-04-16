@@ -2001,7 +2001,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java/Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
+<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
 <p>The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.</p>
 </div>
 <div class="admonition note">
@@ -2082,7 +2082,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.</p>
+<p>Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Java implementation uses.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2177,7 +2177,7 @@
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. </p>
+<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Java implementation uses. </p>
 <p><strong>These prefixes are not meant to be user-facing</strong>, they can be entirely arbitrary and DO NOT correspond to, for example <code>@prefix</code> declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the <a href="#namespace-declarations"><code>RdfNamespaceDeclaration</code></a> feature instead.</p>
 </div>
 <div class="admonition note">
@@ -2275,10 +2275,10 @@
 <p>The delimiting convention is implemented in Protobuf libraries for:</p>
 <ul>
 <li>C++: <a href="https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc">delimited_message_util.cc</a></li>
-<li>Java / Scala: <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-">writeDelimitedTo</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-">parseDelimitedFrom</a></li>
+<li>Java: <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-">writeDelimitedTo</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-">parseDelimitedFrom</a></li>
 <li>Python: <a href="https://github.com/protocolbuffers/protobuf/blob/v30.2/python/google/protobuf/proto.py">serialize_length_prefixed and parse_length_prefixed</a></li>
 </ul>
-<p>The JVM (Scala) implementation of Jelly also supports the delimited variant – <a href="https://w3id.org/jelly/jelly-jvm/dev/user/reactive#byte-streams-delimited-variant">see the documentation</a>.</p>
+<p>The JVM implementation of Jelly also supports the delimited variant – <a href="https://w3id.org/jelly/jelly-jvm/dev/user/reactive#byte-streams-delimited-variant">see the documentation</a>.</p>
 <h2 id="internet-media-type-and-file-extension">Internet media type and file extension</h2>
 <p>The RECOMMENDED media type for Jelly is <code>application/x-jelly-rdf</code>. The RECOMMENDED file extension is <code>.jelly</code>.</p>
 <p>The files SHOULD be saved in the <a href="#delimited-variant-of-jelly">delimited variant of Jelly</a>.</p>
@@ -2313,11 +2313,11 @@
 <p><em>This section is not part of the specification.</em></p>
 <p>The following implementations of the Jelly serialization format specification are available:</p>
 <ul>
-<li><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM (Scala) implementation</a><ul>
+<li><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM implementation</a><ul>
 <li>Specification version: dev</li>
 <li>Implemented actors: producer, consumer</li>
 <li>Conformance: full</li>
-<li>Supported RDF libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a></li>
+<li>Supported RDF libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a>, <a href="https://github.com/filip26/titanium-rdf-api">Titanium RDF API</a></li>
 </ul>
 </li>
 </ul>
