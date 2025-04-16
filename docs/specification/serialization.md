@@ -26,7 +26,7 @@ The following assumptions are used in this document:
 
 !!! note
 
-    The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.
+    "Note" and "Tip" blocks in this document are not part of the specification, but rather provide additional information or advice for implementers.
 
 !!! note
 
@@ -100,7 +100,7 @@ Jelly supports several distinct [physical types of streams](#physical-stream-typ
 
 A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#rdfstreamframe)). The message has a field `rows`, which is a repeated field of type `RdfStreamRow` ([reference](reference.md#rdfstreamrow)). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.
 
-!!! note
+!!! tip
 
     A stream frame in "simple flat file" is just a batch of RDF statements – the stream frames may carry no semantics in this case. You can make the stream frame as long as the file itself, but this is not recommended, as it would make the file harder to process.
 
@@ -118,7 +118,7 @@ Implementations MAY choose to adopt a **non-standard** solution where the order 
 
     An example where not adhering to the strict ordering may be useful is when you are dealing with a network streaming protocol that does not guarantee the order of the messages (e.g., MQTT).
 
-!!! note
+!!! tip
 
     The main thing you will need to worry about is the order of the lookup tables. If you can, emit all lookup tables at the beginning of the stream. When using stream partitions (e.g., in Kafka), you should ensure that the lookups are emitted to each partition. Alternatively, you can transmit the lookup tables separately from the stream.
 
@@ -128,7 +128,7 @@ Since protocol version 1.1.1, `RdfStreamFrame` messages have a `metadata` field 
 
 Consumers SHOULD ignore unknown keys in the metadata map. Consumers also SHOULD validate the values in the metadata map to ensure that they follow the expected format. Consumers MUST NOT assume that values are character strings or that they are valid UTF-8.
 
-!!! note
+!!! tip
 
     The metadata field is intended for use cases where additional information about the stream frame must be attached directly to the stream, but not as part of the RDF stream itself. For example, you could use it to store the timestamp of the frame, its unique identifier, hash code, or anything else relevant to your use case.
 
@@ -213,7 +213,7 @@ Each remaining logical stream type is a subtype of a base type (including recurs
 
     The base type of `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1) is `LOGICAL_STREAM_TYPE_FLAT_TRIPLES` (1).
 
-!!! note
+!!! tip
 
     In practice, the base logical stream types (1–4) are the most important part, determining how the data should be shaped and processed. The other logical stream types are used to provide additional information about the stream. If you are implementing a streaming serializer/deserializer, you should focus on the base types and treat their subtypes in the same way. So, do a modulo 10 on the stream type and you are good to go.
 
@@ -296,7 +296,7 @@ Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (post
     The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.
 
 
-!!! note
+!!! tip
 
     The default value of `0` has a special meaning in lookup entries. You should take advantage of that and use it whenever possible. As the value of `0` is encoded with exactly zero bytes, you can save some space by using it.
 
@@ -371,7 +371,7 @@ Both `RdfTriple` and `RdfQuad` offer a simple compression mechanism – repeated
 
     Repeated terms are a simple, yet incredibly effective compression mechanism and you should use them whenever possible. They are doubly effective: not only you save space by not repeating the terms, but also repeated terms are not encoded at all (zero bytes on the wire), which saves even more space.
 
-!!! note
+!!! tip
 
     Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.
 
@@ -479,7 +479,7 @@ The IRI is then constructed by first decoding the prefix and the name using the 
     ```
     
 
-!!! note
+!!! tip
 
     The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Scala implementation uses. 
     
@@ -499,7 +499,7 @@ Because the spec does not define the semantics of the stream frames, blank node 
 
     If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets (grouped RDF stream in RDF-STaX), then the blank node identifiers should be unique only within a single frame.
 
-!!! note
+!!! tip
 
     Many RDF libraries (e.g., RDF4J, Apache Jena) use internal identifiers for blank nodes, which can be used as the identifiers in Jelly streams. You can also use a different format, for example with shorter identifiers to preserve space.
 
@@ -587,7 +587,7 @@ Namespace declarations have no effect on the interpretation of the stream in ter
 
 ## Delimited variant of Jelly
 
-!!! note
+!!! tip
 
     By default, Protobuf messages [are not delimited](https://protobuf.dev/programming-guides/techniques/#streaming), so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. 
 
