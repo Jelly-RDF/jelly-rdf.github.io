@@ -292,7 +292,7 @@ Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (post
 
 !!! note
 
-    The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java/Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).
+    The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).
 
     The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.
 
@@ -374,7 +374,7 @@ Both `RdfTriple` and `RdfQuad` offer a simple compression mechanism – repeated
 
 !!! note
 
-    Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.
+    Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Java implementation uses.
 
 !!! note
 
@@ -482,7 +482,7 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
 !!! note
 
-    The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Scala implementation uses. 
+    The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the `#` or `/` character – this is what the Java implementation uses. 
     
     **These prefixes are not meant to be user-facing**, they can be entirely arbitrary and DO NOT correspond to, for example `@prefix` declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the [`RdfNamespaceDeclaration`](#namespace-declarations) feature instead.
 
@@ -601,10 +601,10 @@ Implementing the delimited variant is OPTIONAL.
 The delimiting convention is implemented in Protobuf libraries for:
 
 - C++: [delimited_message_util.cc](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc)
-- Java / Scala: [writeDelimitedTo](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-) and [parseDelimitedFrom](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-)
+- Java: [writeDelimitedTo](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-) and [parseDelimitedFrom](https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-)
 - Python: [serialize_length_prefixed and parse_length_prefixed](https://github.com/protocolbuffers/protobuf/blob/v30.2/python/google/protobuf/proto.py)
 
-The JVM (Scala) implementation of Jelly also supports the delimited variant – [see the documentation]({{ jvm_link('user/reactive#byte-streams-delimited-variant') }}).
+The JVM implementation of Jelly also supports the delimited variant – [see the documentation]({{ jvm_link('user/reactive#byte-streams-delimited-variant') }}).
 
 ## Internet media type and file extension
 
@@ -664,8 +664,8 @@ Jelly does not provide any built-in mechanisms for encryption, authentication, o
 
 The following implementations of the Jelly serialization format specification are available:
 
-- [Jelly-JVM (Scala) implementation]({{ jvm_link() }})
+- [Jelly-JVM implementation]({{ jvm_link() }})
     - Specification version: {{ proto_version() }}
     - Implemented actors: producer, consumer
     - Conformance: full
-    - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/)
+    - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), [Titanium RDF API](https://github.com/filip26/titanium-rdf-api)
