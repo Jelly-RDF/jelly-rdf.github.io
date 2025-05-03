@@ -40,4 +40,4 @@ You can find some more interesting datasets in the Jelly format on the [RiverBen
 ## See also
 
 - [User guide](user-guide.md)
-- [Licensing and citation](licensing.md)
+- [Licensing and citation](licensing/index.md)

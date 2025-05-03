@@ -32,6 +32,6 @@ This paper describes an earlier version of Jelly from 2022 that is very out-of-d
 
 ## See also
 
-- [Contributing to Jelly](contributing/index.md)
-- [Applications using Jelly](use-cases.md)
+- [Contributing to Jelly](../contributing/index.md)
+- [Applications using Jelly](../use-cases.md)
 - [Projects and funding](projects.md)
