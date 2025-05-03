@@ -30,12 +30,8 @@ Or use this BibTeX entry:
 
 This paper describes an earlier version of Jelly from 2022 that is very out-of-date with the current version of Jelly, but it is still a good starting point for understanding the design of the protocol and the motivation behind it.
 
-
-<figure markdown>
-  ![Jelly (superfast jellyfish)](assets/jelly.webp){ align=right width="320" }
-</figure>
-
 ## See also
 
-- [Contributing to Jelly](contributing/index.md)
-- [Applications using Jelly](use-cases.md)
+- [Contributing to Jelly](../contributing/index.md)
+- [Applications using Jelly](../use-cases.md)
+- [Projects and funding](projects.md)
