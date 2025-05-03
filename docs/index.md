@@ -73,3 +73,10 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
 - **[Discord chat](https://discord.gg/A8sN5XwVa5)**
 - **Code on GitHub:** [protocol definition](https://github.com/Jelly-RDF/jelly-protobuf), [JVM implementation](https://github.com/Jelly-RDF/jelly-jvm), [website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
 - **[Licensing and citation](licensing.md)**
+
+
+----
+
+The development of the Jelly protocol, its implementations, and supporting tooling was co-funded by the European Union. **[More details](licensing/projects.md)**.
+
+![European Funds for Smart Economy, Republic of Poland, Co-funded by the European Union](../assets/featured/feng_rp_eu.png)

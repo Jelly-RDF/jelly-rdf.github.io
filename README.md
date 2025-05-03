@@ -32,3 +32,7 @@ Install the project's dependencies from `requirements.txt` (preferably in a virt
 ## License
 
 The documentation of Jelly is licensed under the [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+----
+
+The development of the Jelly protocol, its implementations, and supporting tooling was co-funded by the European Union. **[More details](https://w3id.org/jelly/dev/licensing/projects)**.
