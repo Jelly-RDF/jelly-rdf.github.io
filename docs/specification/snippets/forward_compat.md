@@ -1,0 +1,3 @@
+Forward compatibility is not guaranteed across different MINOR versions of the protocol. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.
+
+New features introduced in PATCH versions of the protocol MUST NOT break forward compatibility.
