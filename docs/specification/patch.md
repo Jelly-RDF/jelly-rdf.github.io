@@ -121,7 +121,8 @@ The patch stream type MUST be explicitly specified in the [patch stream options]
 - `PATCH_STREAM_TYPE_UNSPECIFIED` (0) – default value. This patch stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
 - `PATCH_STREAM_TYPE_FRAME` (1) – every `RdfPatchFrame` message is a single, complete RDF Patch. In this stream type, transactions MUST NOT span multiple frames (see [Transactions](#transactions) for details). The stream MUST NOT contain any `RdfPatchRow` messages with the `punctuation` field set.
 - `PATCH_STREAM_TYPE_FLAT` (2) – the entire stream is a single, complete RDF Patch. In this stream type, a transaction spanning multiple frames MUST be interpreted as a single transaction. The stream MUST NOT contain any `RdfPatchRow` messages with the `punctuation` field set.
-- `PATCH_STREAM_TYPE_PUNCTUATED` (3) – the stream is a sequence of RDF Patches, marked by punctuation marks (`RdfPatchPunctuation` message). The punctuation mark MUST occur at the end of a patch frame. The punctuation mark MUST NOT be used in any other context.
+- `PATCH_STREAM_TYPE_PUNCTUATED` (3) – the stream is a sequence of RDF Patches, marked by punctuation marks (`RdfPatchPunctuation` message). The punctuation mark MUST occur at the end of an RDF Patch. The punctuation mark MUST NOT be used in any other context. 
+    - There are no additional restrictions on where the punctuation mark is placed within the frame. Therefore, it can be placed at the beginning, middle, or end of the frame.
 
 !!! note "Stream types"
 
@@ -223,8 +224,11 @@ Jelly-Patch restricts the syntax of transactions to the following:
 - We define "the previous transaction operation" as the last encountered row in the stream until a given point with row type `transaction_start`, `transaction_commit` or `transaction_abort`. If there were no transaction operations in the stream until this point, the previous transaction operation is undefined.
 - A row with a `transaction_commit` or `transaction_abort` operation MUST have a previous transaction operation equal to `transaction_start`. If there is no previous transaction operation, the consumer MAY throw an error. If there is a previous transaction operation that is a `transaction_commit` or `transaction_abort`, the consumer MAY throw an error.
 - A row with a `transaction_start` operation MUST have a previous transaction operation that is either undefined or equal to `transaction_commit` or `transaction_abort`. If there is a previous transaction operation that is a `transaction_start`, the consumer MAY throw an error.
-- In stream type `PATCH_STREAM_TYPE_FRAME`, transactions MUST NOT span multiple patch frames. The transaction start and commit/abort messages MUST be in the same frame.
 - A patch frame may contain multiple transactions, regardless of the used stream type.
+- A transaction MUST start and commit/abort within one RDF Patch, regardless of the used patch stream type.
+    - In `PATCH_STREAM_TYPE_FLAT` this puts no additional restrictions on transactions. Transactions may span multiple frames.
+    - In stream type `PATCH_STREAM_TYPE_FRAME`, transactions MUST NOT span multiple patch frames. The transaction start and commit/abort messages MUST be in the same frame.
+    - In `PATCH_STREAM_TYPE_PUNCTUATED` transactions may span multiple patch frames, but MUST NOT contain punctuation marks within their scope.
 
 !!! note "Transaction syntax and semantics"
 
