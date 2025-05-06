@@ -280,7 +280,7 @@ The same rules about the order of processing RDF IRIs, RDF terms, RDF graph node
         }
     }
 
-    # PA "ex" <http://example.org/> <http://example/graph> .
+    # PA "ex" <http://example.org/> <http://example.org/graph> .
     rows {
         name {
             id: 0 # default value, interpreted as 1
