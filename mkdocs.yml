@@ -98,8 +98,9 @@ nav:
 
   - Protocol specification:
     - 'specification/index.md'
-    - Serialization format: 'specification/serialization.md'
-    - gRPC streaming protocol: 'specification/streaming.md'
+    - RDF serialization format: 'specification/serialization.md'
+    - RDF Patch serialization format: 'specification/patch.md'
+    - gRPC RDF streaming protocol: 'specification/streaming.md'
     - Protobuf reference: 'specification/reference.md'
     - Protobuf source: 'specification/protobuf-source.md'
     - File extensions and media types: 'specification/media-type.md'

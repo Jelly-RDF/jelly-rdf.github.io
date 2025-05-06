@@ -1,6 +1,6 @@
-# Jelly serialization format specification
+# Jelly RDF serialization format specification
 
-**This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
+**This document is the specification of the Jelly RDF serialization format, also known as Jelly-RDF. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
 This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`rdf.proto`]({{ git_proto_link('rdf.proto') }})).
 
@@ -19,28 +19,13 @@ The following assumptions are used in this document:
 | **Date:** | {{ git_revision_date_localized }} |
 | **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/serialization`](https://w3id.org/jelly/{{ proto_version() }}/specification/serialization) |
 | **Document status**: | {{ specification_status() }} specification |
+| **License:** | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
-!!! info
-
-    The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
-
-!!! note
-
-    The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.
-
-!!! note
-
-    The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format.
+{% include "./includes/start_info.md" %}
 
 ## Conformance
 
-Implementations MAY choose to implement only a subset of the following specification. In this case, they SHOULD clearly specify which parts of the specification they implement. In the rest of this specification, the keywords "MUST", "MUST NOT", etc. refer to full (not partial) implementations.
-
-!!! note
-
-    Implementations may in particular choose to not implement features that are not supported on the target platform (e.g., RDF datasets, RDF-star, generalized RDF terms, etc.).
-
-Implementations MAY also choose to extend Jelly with additional features that SHOULD NOT interfere with the serialization being readable by implementations which follow the specification.
+{% include "./includes/conformance.md" %}
 
 ## Versioning
 
@@ -61,17 +46,11 @@ The following versions of the protocol are defined:
 
 ### Backward compatibility
 
-Implementations SHOULD ensure backward compatibility. To achieve backward compatibility, the implementation MUST be able to read all messages from the previous releases of the protocol with the same MAJOR version. The implementation MAY also be able to read messages from previous releases of the protocol with a different MAJOR version.
-
-!!! note
-
-    The protocol is designed in such a way that you don't need to worry about backward compatibility. The only thing you need to do is to implement the latest version of the protocol, and you will automatically get backward compatibility with all previous versions (of the same MAJOR).
+{% include "./includes/back_compat.md" %}
 
 ### Forward compatibility
 
-Forward compatibility is not guaranteed across different MINOR versions of the protocol. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.
-
-New features introduced in PATCH versions of the protocol MUST NOT break forward compatibility.
+{% include "./includes/forward_compat.md" %}
 
 !!! note
 
@@ -85,15 +64,15 @@ New features introduced in PATCH versions of the protocol MUST NOT break forward
 
 ## Actors and implementations
 
-Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.
+Jelly-RDF assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.
 
 Implementations may include only the producer, only the consumer, or both.
 
 ## Format specification
 
-The Jelly serialization format uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in `rdf.proto` ([source code]({{ git_proto_link('rdf.proto') }}), [reference](reference.md#rdfproto)).
+The Jelly RDF serialization format uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in `rdf.proto` ([source code]({{ git_proto_link('rdf.proto') }}), [reference](reference.md#rdfproto)).
 
-The Jelly format is a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant-of-jelly).
+The Jelly-RDF format describes a *stream* (i.e., an ordered sequence) of *stream frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple frames to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant-of-jelly).
 
 Jelly supports several distinct [physical types of streams](#physical-stream-types), and uses a simple and configurable compression mechanism using [lookup tables](#prefix-name-and-datatype-lookup-entries).
 
@@ -137,7 +116,7 @@ Consumers SHOULD ignore unknown keys in the metadata map. Consumers also SHOULD 
 
 ### Stream rows
 
-A stream row is a message of type `RdfStreamRow`. It has one of the following fields set:
+A stream row is a message of type `RdfStreamRow`. It MUST have exactly one of the following fields set:
 
 - `options` (1) – [stream options header](#stream-options), indicating the compression options and the used RDF features in the stream.
 - `triple` (2) – [RDF triple statement](#rdf-statements-and-graphs). It MUST NOT appear in streams of type other than `PHYSICAL_STREAM_TYPE_TRIPLES` or `PHYSICAL_STREAM_TYPE_GRAPHS`.
@@ -155,7 +134,7 @@ Stream rows MUST be processed strictly in order to preserve the semantics of the
 
 The physical type of the stream MUST be explicitly specified in the [stream options header](#stream-options). The physical type of the stream is defined by the `PhysicalStreamType` enum ([reference](reference.md#physicalstreamtype)). The following types are defined:
 
-- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. The implementations SHOULD treat this value as an error.
+- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
 - `PHYSICAL_STREAM_TYPE_TRIPLES` (1) – stream of [RDF triple statements](https://www.w3.org/TR/rdf11-concepts/#section-triples). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad`, `graph_start`, or `graph_end` fields set.
 - `PHYSICAL_STREAM_TYPE_QUADS` (2) – stream of RDF quad statements (same as [*simple statements* in N-Quads](https://www.w3.org/TR/n-quads/#simple-triples)). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `triple`, `graph_start`, or `graph_end` fields set.
 - `PHYSICAL_STREAM_TYPE_GRAPHS` (3) – stream of RDF graphs (named or default). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad` fields set.
@@ -250,7 +229,7 @@ The implementations MAY choose to interpret the stream in a different manner tha
 
 ### Stream options
 
-The stream options is a message of type `RdfStreamOptions` ([reference](reference.md#rdfstreamoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream, alternatively, they MAY use the default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.
+The stream options is a message of type `RdfStreamOptions` ([reference](reference.md#rdfstreamoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.
 
 The stream options header instructs the consumer of the stream (parser) on the size of the needed lookups to decode the stream and the features used by the stream.
 
@@ -531,7 +510,7 @@ Literal, IRI, and blank node values for graph nodes are encoded in the same mann
 
 The default graph node is represented using the `RdfDefaultGraph` message ([reference](reference.md#rdfdefaultgraph)). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.
 
-## Namespace declarations
+### Namespace declarations
 
 IRI namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the `RdfNamespaceDeclaration` message ([reference](reference.md#rdfnamespacedeclaration)). The message has the following fields:
 
@@ -592,9 +571,7 @@ Namespace declarations have no effect on the interpretation of the stream in ter
 
     By default, Protobuf messages [are not delimited](https://protobuf.dev/programming-guides/techniques/#streaming), so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. 
 
-A byte stream (or file) in the delimited variant MUST consist of a series of delimited `RdfStreamFrame` messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message in bytes.
-
-Implementing the delimited variant is OPTIONAL.
+A byte stream (or file) in the delimited variant MUST consist of a series of delimited `RdfStreamFrame` messages. A delimited message is a message that has a Protobuf varint prepended before it, specifying the length of the message in bytes.
 
 ### Delimited variant implementations
 
@@ -662,7 +639,7 @@ Jelly does not provide any built-in mechanisms for encryption, authentication, o
 
 *This section is not part of the specification.*
 
-The following implementations of the Jelly serialization format specification are available:
+The following implementations of the Jelly RDF serialization format specification are available:
 
 - [Jelly-JVM implementation]({{ jvm_link() }})
     - Specification version: {{ proto_version() }}
