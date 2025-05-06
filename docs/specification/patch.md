@@ -253,21 +253,21 @@ The same rules about the order of processing RDF IRIs, RDF terms, RDF graph node
 
     ```protobuf
     # H id <http://example.org/iri>
-    row {
-        prefix: {
+    rows {
+        prefix {
             id: 0 # default value, interpreted as 1
             prefix: "http://example.org/"
         }
     }
-    row {
-        name: {
+    rows {
+        name {
             id: 0 # default value, interpreted as 1
             name: "iri"
         }
     }
-    row {
-        header: {
-            h_iri: {
+    rows {
+        header {
+            h_iri {
                 prefix_id: 1
                 name_id: 0 # default value, interpreted as 1
             }
@@ -275,27 +275,27 @@ The same rules about the order of processing RDF IRIs, RDF terms, RDF graph node
     }
 
     # PA "ex" <http://example.org/> <http://example/graph> .
-    row {
-        name: {
+    rows {
+        name {
             id: 0 # default value, interpreted as 1
             name: "" # empty string
         }
     }
-    row {
-        name: {
+    rows {
+        name {
             id: 0 # default value, interpreted as 1
             name: "graph"
         }
     }
-    row {
-        namespace_add: {
+    rows {
+        namespace_add {
             name: "ex"
-            value: {
+            value {
                 prefix_id: 0 # default value, interpreted as 1
                 name_id: 0 # default value, interpreted as 1+1=2
                 # because last name_id in h_iri was 0 interpreted as 1
             }
-            g_iri: {
+            g_iri {
                 prefix_id: 0 # default value, interpreted as 1
                 name_id: 0 # default value, interpreted as 2+1=3
             }
@@ -303,10 +303,10 @@ The same rules about the order of processing RDF IRIs, RDF terms, RDF graph node
     }
 
     # A _:b1 <http://example.org/iri> _:b2 <http://example/graph> .
-    row {
-        statement_add: {
+    rows {
+        statement_add {
             s_bnode: "b1"
-            p_iri: {
+            p_iri {
                 prefix_id: 0 # default value, interpreted as 1
                 name_id: 1 # interpreted as 1
             }
