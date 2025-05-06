@@ -30,11 +30,11 @@ The following assumptions are used in this document:
 | **Document status**: | Experimental draft specification |
 | **License:** | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
-{% include "./snippets/start_info.md" %}
+{% include "./includes/start_info.md" %}
 
 ## Conformance
 
-{% include "./snippets/conformance.md" %}
+{% include "./includes/conformance.md" %}
 
 ## Versioning
 
@@ -52,11 +52,11 @@ The following versions of the protocol are defined:
 
 ### Backward compatibility
 
-{% include "./snippets/back_compat.md" %}
+{% include "./includes/back_compat.md" %}
 
 ### Forward compatibility
 
-{% include "./snippets/forward_compat.md" %}
+{% include "./includes/forward_compat.md" %}
 
 !!! note
 
