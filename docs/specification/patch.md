@@ -137,7 +137,7 @@ The patch stream type MUST be explicitly specified in the [patch stream options]
 
 ### Statement types
 
-The statement type MUST be explicitly specified in the [patch stream options](#patch-stream-options). The statement type is defined by the `PatchStatementType` enum ([reference](reference.md#statementtype)). The following types are defined:
+The statement type MUST be explicitly specified in the [patch stream options](#patch-stream-options). The statement type is defined by the `PatchStatementType` enum ([reference](reference.md#patchstatementtype)). The following types are defined:
 
 - `STATEMENT_TYPE_UNSPECIFIED` (0) – default value. This statement type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
 - `STATEMENT_TYPE_TRIPLES` (1) – in this case, the statements in the stream MUST be interpreted as RDF triples (graph is unspecified). The stream MUST NOT contain any `RdfQuad` or `RdfPatchNamespace` messages with the `graph` oneof set to any value.
@@ -332,7 +332,7 @@ A byte stream (or file) in the delimited variant MUST consist of a series of del
 
 !!! note
 
-    See also notes about the delimited variant in the [Jelly-RDF specification](serialization.md#delimited-variant).
+    See also notes about the delimited variant in the [Jelly-RDF specification](serialization.md#delimited-variant-of-jelly).
 
 ## Internet media type and file extension
 
