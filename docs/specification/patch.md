@@ -72,7 +72,7 @@ Implementations may include only the producer, only the consumer, or both.
 
 Jelly-Patch uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly-Patch is defined in `patch.proto` ([source code]({{ git_proto_link('patch.proto') }}), [reference](reference.md#patchproto)).
 
-The Jelly-Patch format describes a *stream* (i.e., and ordered sequence) of *patch frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant).
+The Jelly-Patch format describes a *stream* (i.e., and ordered sequence) of *patch frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple frames to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant).
 
 The semantics of the patch frames (i.e., how should the frames be interpreted) are decided by the *[patch stream type](#patch-stream-types)*. The statements in the stream may be either RDF triples or quads, depending on the *[statement stream type](#statement-types)*. Jelly-Patch uses the same compression mechanisms as [Jelly-RDF](serialization.md) to compress the statements.
 
