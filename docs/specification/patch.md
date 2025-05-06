@@ -6,16 +6,19 @@
 
 **This document is the specification of the Jelly RDF Patch format, also known as Jelly-Patch. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
+!!! info
+
+    It is highly recommended to first read the [RDF Patch specification](https://afs.github.io/rdf-delta/rdf-patch.html). Jelly-Patch is an implementation of RDF Patch built on top of [Jelly-RDF](serialization.md).
+
 This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`patch.proto`]({{ git_proto_link('patch.proto') }})).
 
 The following assumptions are used in this document:
 
-- The Jelly-Patch format is based on [Jelly-RDF](serialization.md), version `{{ proto_version() }}`. All concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.
+- The Jelly-Patch format is based on [Jelly RDF serialization format](serialization.md), version `{{ proto_version() }}`. All concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.
 - The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/)).
 - Additionally, the RDF 1.1 Turtle specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-turtle-20140225/)) is used in parts as a basis for selected definitions.
 - The RDF Patch specification document ([RDF Delta, Andy Seaborne](https://afs.github.io/rdf-delta/rdf-patch.html)) is used as the basis for RDF Patch concepts and definitions.
 - In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
-- In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version {{ stax_version() }} ontology]({{ stax_link('ontology') }}) and [taxonomy]({{ stax_link('taxonomy') }}) are used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
 | Document information | |
@@ -23,7 +26,7 @@ The following assumptions are used in this document:
 | **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)) |
 | **Version:** | experimental (dev) |
 | **Date:** | {{ git_revision_date_localized }} |
-| **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/serialization`](https://w3id.org/jelly/{{ proto_version() }}/specification/serialization) |
+| **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/patch`](https://w3id.org/jelly/{{ proto_version() }}/specification/patch) |
 | **Document status**: | Experimental draft specification |
 | **License:** | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
@@ -35,13 +38,13 @@ The following assumptions are used in this document:
 
 ## Versioning
 
-The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the protocol. The version tag is encoded in the `version` field of the [`RdfPatchOptions`](reference.md#rdfpatchoptions) message. See also the [section on stream options](#stream-options) for more information on how to handle the version tags in serialized streams.
+The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the protocol. The version tag is encoded in the `version` field of the [`RdfPatchOptions`](reference.md#rdfpatchoptions) message. See also the [section on patch stream options](#patch-stream-options) for more information on how to handle the version tags in serialized streams.
 
 The following versions of the protocol are defined:
 
 | Version tag | Semantic version    | Last release date                 | Changes                         |
 | ----------- | ------------------- | --------------------------------- | ------------------------------- |
-| 1           | 1.0.0               | Not released yet (experimental)   | (initial version)               |
+| 1           | 1.0.0               | Not finalized yet (experimental)  | (initial version)               |
 
 !!! note
     
@@ -71,7 +74,7 @@ Jelly-Patch uses [Protocol Buffers version 3](https://protobuf.dev/programming-g
 
 The Jelly-Patch format describes a *stream* (i.e., and ordered sequence) of *patch frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant).
 
-The semantics of the patch frames (i.e., how should the frames be interpreted) are decided by the *[patch stream type](#patch-stream-types)*. The statements in the stream may be either RDF triples or quads, depending on the *[statement stream type](#statement-stream-types)*. Jelly-Patch uses the same compression mechanisms as [Jelly-RDF](serialization.md) to compress the statements.
+The semantics of the patch frames (i.e., how should the frames be interpreted) are decided by the *[patch stream type](#patch-stream-types)*. The statements in the stream may be either RDF triples or quads, depending on the *[statement stream type](#statement-types)*. Jelly-Patch uses the same compression mechanisms as [Jelly-RDF](serialization.md) to compress the statements.
 
 ### Patch frames
 
@@ -115,16 +118,16 @@ The remaining fields (2, 3, 4, 5, 6, 7, 8, 14) correspond directly to the listed
 
 The patch stream type MUST be explicitly specified in the [patch stream options](#patch-stream-options). The patch stream type is defined by the `PatchStreamType` enum ([reference](reference.md#patchstreamtype)). The following types are defined:
 
-- `PATCH_STREAM_TYPE_UNSPECIFIED` (0) – default value. This patch stream type MUST NOT be used. The implementations SHOULD treat this value as an error.
-- `PATCH_STREAM_TYPE_FRAME` (1) – every `RdfPatchFrame` message is a single, complete RDF Patch. In this stream type, transactions MUST NOT span multiple frames. The stream MUST NOT contain any `RdfPatchRow` messages with the `punctuation` field set.
+- `PATCH_STREAM_TYPE_UNSPECIFIED` (0) – default value. This patch stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
+- `PATCH_STREAM_TYPE_FRAME` (1) – every `RdfPatchFrame` message is a single, complete RDF Patch. In this stream type, transactions MUST NOT span multiple frames (see [Transactions](#transactions) for details). The stream MUST NOT contain any `RdfPatchRow` messages with the `punctuation` field set.
 - `PATCH_STREAM_TYPE_FLAT` (2) – the entire stream is a single, complete RDF Patch. In this stream type, a transaction spanning multiple frames MUST be interpreted as a single transaction. The stream MUST NOT contain any `RdfPatchRow` messages with the `punctuation` field set.
 - `PATCH_STREAM_TYPE_PUNCTUATED` (3) – the stream is a sequence of RDF Patches, marked by punctuation marks (`RdfPatchPunctuation` message). The punctuation mark MUST occur at the end of a patch frame. The punctuation mark MUST NOT be used in any other context.
 
 !!! note "Stream types"
 
-    The `FRAME` type is simple to use, but it requires you to fit the entire Patch inside a single frame. Because the contents of the frame are stored in memory as a whole, and because Protobuf implementations typically have strict limits on message sizes (~4 MB), this may not be possible for large patches. Therefore, we recommend using this stream type if you are sure that the patches will always be small.
+    The `FRAME` type is simple to use, but it requires you to fit the entire Patch inside a single frame. Because the contents of the frame are stored in memory as a whole, and because Protobuf implementations typically have strict limits on message sizes (~4 MB), this may not be possible for large patches. Therefore, we recommend using this stream type only if you are sure that the patches will always be small.
 
-    The `FLAT` type is only appropriate if you want to store a single patch in a byte stream.
+    The `FLAT` type is only appropriate if you want to store a single RDF patch in a byte stream.
 
     `PUNCTUATED` is the most flexible type, decoupling frames from logical patches. It allows you to send multiple patches in a single stream, and it allows you to send patches that are larger than the maximum frame size.
 
@@ -136,19 +139,19 @@ The patch stream type MUST be explicitly specified in the [patch stream options]
 
 The statement type MUST be explicitly specified in the [patch stream options](#patch-stream-options). The statement type is defined by the `PatchStatementType` enum ([reference](reference.md#statementtype)). The following types are defined:
 
-- `STATEMENT_TYPE_UNSPECIFIED` (0) – default value. This statement type MUST NOT be used. The implementations SHOULD treat this value as an error.
-- `STATEMENT_TYPE_TRIPLES` (1) – in this case, the statements in the stream MUST be interpreted as RDF triples (graph is unspecified). The stream MUST NOT contain any `RdfQuad` messages with the `graph` oneof set to any value.
-- `STATEMENT_TYPE_QUADS` (2) – in this case, the statements in the stream MUST be interpreted as RDF quads. If the `graph` oneof in the `RdfQuad` message is not set, it MUST be interpreted as a repeated graph term, in line with the [Jelly-RDF format specification](serialization.md#repeated-terms).
+- `STATEMENT_TYPE_UNSPECIFIED` (0) – default value. This statement type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
+- `STATEMENT_TYPE_TRIPLES` (1) – in this case, the statements in the stream MUST be interpreted as RDF triples (graph is unspecified). The stream MUST NOT contain any `RdfQuad` or `RdfPatchNamespace` messages with the `graph` oneof set to any value.
+- `STATEMENT_TYPE_QUADS` (2) – in this case, the statements in the stream MUST be interpreted as RDF quads. If the `graph` oneof in the `RdfQuad` or `RdfPatchNamespace` message is not set, it MUST be interpreted as a repeated graph term, in line with the [Jelly-RDF format specification](serialization.md#repeated-terms).
 
 !!! note
 
-    Statement types in Jelly-Patch work differently to [Jelly-RDF's physical stream types](serialization.md#physical-stream-types). Instead of us restricting which types of messages are valid in the stream, we always use `RdfQuad`, and the statement type simply tells us how to interpret the messages.
+    Statement types in Jelly-Patch work differently to [Jelly-RDF's physical stream types](serialization.md#physical-stream-types). Instead of restricting which types of messages are valid in the stream, we always use `RdfQuad`, and the statement type option simply tells us how to interpret the messages.
 
-    Note that in the RDF 1.1 spec there is a clear difference between a "triple" and a "triple in the default graph" which would be a quad. A "triple" does not specify which graph it belongs to – it may be the default graph, or it may be a named graph. In practice, only some RDF implementations make this distinction (e.g., Apache Jena). Others, like Eclipse RDF4J always assume that the triple is in the default graph.
+    Note that in the RDF 1.1 spec there is a clear difference between a "triple" and a "triple in the default graph" which would be a quad. A "triple" does not specify which graph it belongs to – it may be the default graph, or it may be a named graph. In practice, only some RDF implementations make the distinction between a triple and a triple in the default graph (e.g., Apache Jena). Others, like Eclipse RDF4J always assume that the triple is in the default graph.
 
 ### Patch stream options
 
-The patch stream options is a message of type `RdfPatchOptions` ([reference](reference.md#rdfpatchoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Consumers MAY throw an error if the patch stream options are not present at the start of the stream, alternatively, they MAY use the default options. Consumers SHOULD NOT throw an error if the patch options are present more than once in the stream.
+The patch stream options is a message of type `RdfPatchOptions` ([reference](reference.md#rdfpatchoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Consumers MAY throw an error if the patch stream options are not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Consumers SHOULD NOT throw an error if the patch options are present more than once in the stream.
 
 The patch stream options instruct the consumer of the stream (parser) on the used patch stream type, statement type, compression options, and RDF features.
 
@@ -160,7 +163,7 @@ The patch stream options message contains the following fields:
 - `rdf_star` (4) – whether the stream uses [RDF-star](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html) (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.
 - `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 8. The size of the lookup MUST NOT exceed the value of this field.
 - `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
-- `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of [datatype literals](#literals)). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of datatype literals). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED.
     - The version tag is encoded as a varint. The version tag MUST be greater than 0.
     - The producer of the stream MUST set the version tag to the version tag of the protocol that was used to serialize the stream.
@@ -176,10 +179,10 @@ Jelly-Patch uses the same IRI and datatype compression mechanism as [Jelly-RDF](
 
 ### RDF statements
 
-Add and delete operations on RDF statements (`A` and `D` in RDF Patch) are always encoded as `RdfQuad` messages ([reference](reference.md#rdfquad)). The interpretation of the `RdfQuad` messages depends on the [statement type](#statement-types) specified in the [patch stream options](#patch-stream-options):
+Add and delete operations on RDF statements (`A` and `D` in RDF Patch) are always encoded as `RdfQuad` messages ([reference](reference.md#rdfquad)). The interpretation of `RdfQuad` messages depends on the [statement type](#statement-types) specified in the [patch stream options](#patch-stream-options):
 
 - `STATEMENT_TYPE_TRIPLES` – the `graph` oneof MUST NOT be set. If it is set, the consumer SHOULD ignore the graph term and MAY throw an error. The `RdfQuad` message MUST be interpreted as an RDF triple. The `subject`, `predicate`, and `object` oneofs MUST be set, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
-- `STATEMENT_TYPE_QUADS` – the `subject`, `predicate`, `object`, and `graph` oneofs MUST be set, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
+- `STATEMENT_TYPE_QUADS` – the `RdfQuad` message MUST be interpreted as an RDF quad. The `subject`, `predicate`, `object`, and `graph` oneofs MUST be set, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
 
 #### Repeated terms
 
@@ -195,31 +198,31 @@ Add and delete operations of namespace declarations (`PA` and `PD` in RDF Patch)
 - `value` (2) – the IRI of the namespace as an `RdfIri` message. This field is REQUIRED for the namespace add operation (`PA`) and OPTIONAL for the namespace delete operation (`PD`).
 - `graph` oneof (3–6, fields `g_iri`, `g_bnode`, `g_default_graph`, `g_literal`) – the graph term of the namespace declaration.
 
-The `graph` oneof follows the [RDF graph node encoding](serialization.md#rdf-terms-and-graph-nodes). The `graph` oneof MUST NOT be used in streams with type `STATEMENT_TYPE_TRIPLES`. In streams with type `STATEMENT_TYPE_QUADS`, the `graph` oneof MUST be set to one of the possible values, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
+The `graph` oneof follows the [Jelly-RDF graph node encoding](serialization.md#rdf-terms-and-graph-nodes). The `graph` oneof MUST NOT be set to any value in streams with type `STATEMENT_TYPE_TRIPLES`. In streams with type `STATEMENT_TYPE_QUADS`, the `graph` oneof MUST be set to one of the possible values, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
 
-In repeated term encoding, the `graph` oneof of `RdfPatchNamespace` MUST be interpreted in the same manner as if it appeared in a `RdfQuad` message. When `STREAM_TYPE_QUADS` is used, if the `graph` oneof is not set to any value, it MUST be interpreted as a repeated graph term from the last `RdfQuad` or `RdfNamespaceDeclaration` message in the stream, regardless of whether both operations are of the same type (add and add, or delete and delete) or not (add and delete, or delete and add).
+In repeated term encoding, the `graph` oneof of `RdfPatchNamespace` MUST be interpreted in the same manner as if it appeared in a `RdfQuad` message. When `STREAM_TYPE_QUADS` is used and the `graph` oneof is not set to any value, it MUST be interpreted as a repeated graph term from the last `RdfQuad` or `RdfNamespaceDeclaration` message in the stream, regardless of whether both operations are of the same type (add and add, or delete and delete) or not (add and delete, or delete and add).
 
 !!! note "Graph names in namespace declarations"
 
-    The original RDF Patch spec does not mention graph names, but they are implemented in Apache Jena. This is useful for exact 1:1 RDF dataset replication in systems that store namespace mappings per graph, not per dataset.
+    The original [RDF Patch spec](https://afs.github.io/rdf-delta/rdf-patch.html) does not mention graph names in namespace declarations, but this feature is implemented in Apache Jena. This is useful for exact 1:1 RDF dataset replication in systems that store namespace mappings per graph, not per dataset.
 
     If your system does not support this, in `TRIPLES` streams you should simply ignore the graph name, and in `QUADS` streams, set it to `g_default_graph`.
 
 !!! note "Repeated terms and namespace declarations"
 
-    In Jelly-Patch the type of the operation (add or delete) does not influence the repeated term encoding – in implementations you should use the same "last term" data structure for both. The same applies to the `graph` oneof in `RdfPatchNamespace` messages – it's last value should be shared with quads.
+    In Jelly-Patch the type of the operation (add or delete) does not influence the repeated term encoding – in implementations you should use the same "last term" data structure for both. The same applies to the `graph` oneof in `RdfPatchNamespace` messages – its last value should be shared with quads.
 
 ### Transactions
 
-Transaction operations (`TX`, `TC`, `TA` in RDF Patch) are encoded as `RdfPatchTransactionStart` ([reference](reference.md#rdfpatchtransactionstart)), `RdfPatchTransactionCommit` ([reference](reference.md#rdfpatchtransactioncommit)), and `RdfPatchTransactionAbort` ([reference](reference.md#rdfpatchtransactionabort)) messages, respectively. Each of these messages defines no fields.
+Transaction operations (`TX`, `TC`, `TA` rows in RDF Patch) are encoded as `RdfPatchTransactionStart` ([reference](reference.md#rdfpatchtransactionstart)), `RdfPatchTransactionCommit` ([reference](reference.md#rdfpatchtransactioncommit)), and `RdfPatchTransactionAbort` ([reference](reference.md#rdfpatchtransactionabort)) messages, respectively. Each of these messages defines no fields.
 
 Using transactions in the stream is OPTIONAL and the semantics of transactions are not defined by Jelly-Patch. Users are therefore free to use headers and operations on namespaces and statements within or outside of transactions, depending on their use case.
 
 Jelly-Patch restricts the syntax of transactions to the following:
 
-- We define "the previous transaction operation" as the last row in the stream with row type `transaction_start`, `transaction_commit` or `transaction_abort`. If there were no transaction operations in the stream, the previous transaction operation is undefined.
-- A `transaction_commit` or `transaction_abort` operation MUST have a previous transaction operation equal to `transaction_start`. If there is no previous transaction operation, the consumer MAY throw an error. If there is a previous transaction operation that is a `transaction_commit` or `transaction_abort`, the consumer MAY throw an error.
-- A `transaction_start` operation MUST have a previous transaction operation that is either undefined or equal to `transaction_commit` or `transaction_abort`. If there is a previous transaction operation that is a `transaction_start`, the consumer MAY throw an error.
+- We define "the previous transaction operation" as the last encountered row in the stream until a given point with row type `transaction_start`, `transaction_commit` or `transaction_abort`. If there were no transaction operations in the stream until this point, the previous transaction operation is undefined.
+- A row with a `transaction_commit` or `transaction_abort` operation MUST have a previous transaction operation equal to `transaction_start`. If there is no previous transaction operation, the consumer MAY throw an error. If there is a previous transaction operation that is a `transaction_commit` or `transaction_abort`, the consumer MAY throw an error.
+- A row with a `transaction_start` operation MUST have a previous transaction operation that is either undefined or equal to `transaction_commit` or `transaction_abort`. If there is a previous transaction operation that is a `transaction_start`, the consumer MAY throw an error.
 - In stream type `PATCH_STREAM_TYPE_FRAME`, transactions MUST NOT span multiple patch frames. The transaction start and commit/abort messages MUST be in the same frame.
 - A patch frame may contain multiple transactions, regardless of the used stream type.
 
@@ -227,11 +230,14 @@ Jelly-Patch restricts the syntax of transactions to the following:
 
     Jelly-Patch only restricts the semantics of transactions, so that the only valid sequences of transaction operations are `TX ... TC` and `TX ... TA` – no nesting, no double-aborting, and no double-committing.
 
-    The semantics are not defined by Jelly-Patch. [RDF Patch](https://afs.github.io/rdf-delta/rdf-patch.html) contains more restrictions on transactions (e.g., headers must be at the beginning of the patch and outside the transaction), but these are not enforced by Jelly-Patch. The semantics are still not defined there, so you are free to use transactions in any way you like.
+    The semantics of these operations are not defined by Jelly-Patch. [RDF Patch](https://afs.github.io/rdf-delta/rdf-patch.html) contains more restrictions on transactions (e.g., headers must be at the beginning of the patch and outside the transaction), but these are not enforced by Jelly-Patch. The semantics are still not defined there, so you are free to use transactions in any way you like.
 
 ### Headers
 
-TODO
+Headers (`H` row in RDF Patch) are encoded as `RdfPatchHeader` messages ([reference](reference.md#rdfpatchheader)). The `RdfPatchHeader` message contains the following fields:
+
+- `key` (1) – the key of the header, encoded in UTF-8. An empty string (the default value) is allowed.
+- `value` oneof (2–5, fields `h_iri`, `h_bnode`, `h_literal`, `h_triple_term`) – the value of the header. The value is encoded as [an RDF term](#rdf-terms-and-graph-nodes). The `value` oneof MUST be set to one of the possible values.
 
 Repeated term encoding MUST NOT be used for the `value` oneof in the `RdfPatchHeader` message ([reference](reference.md#rdfpatchheader)). The `value` oneof MUST always be set to a single value.
 
@@ -322,20 +328,32 @@ The same rules about the order of processing RDF IRIs, RDF terms, RDF graph node
 
 ## Delimited variant
 
-TODO
+A byte stream (or file) in the delimited variant MUST consist of a series of delimited `RdfPatchFrame` messages. A delimited message is a message that has a Protobuf varint prepended before it, specifying the length of the message in bytes.
+
+!!! note
+
+    See also notes about the delimited variant in the [Jelly-RDF specification](serialization.md#delimited-variant).
 
 ## Internet media type and file extension
 
-TODO
+The RECOMMENDED media type for Jelly is `application/x-jelly-rdf-patch`. The RECOMMENDED file extension is `.jellyp`.
+
+The files SHOULD be saved in the [delimited variant of Jelly-Patch](#delimited-variant).
 
 ## Security considerations
 
 *This section is not part of the specification.*
 
-TODO
+The same security considerations apply to Jelly-Patch as to Jelly-RDF. Please refer to the [Jelly-RDF specification](serialization.md#security-considerations) for more information.
 
 ## Implementations
 
 *This section is not part of the specification.*
 
-TODO
+The following implementations of the Jelly-Patch specification are available:
+
+- [Jelly-JVM implementation]({{ jvm_link() }})
+    - Specification version: {{ proto_version() }}
+    - Implemented actors: producer, consumer
+    - Conformance: full
+    - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/)

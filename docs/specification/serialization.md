@@ -134,7 +134,7 @@ Stream rows MUST be processed strictly in order to preserve the semantics of the
 
 The physical type of the stream MUST be explicitly specified in the [stream options header](#stream-options). The physical type of the stream is defined by the `PhysicalStreamType` enum ([reference](reference.md#physicalstreamtype)). The following types are defined:
 
-- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. The implementations SHOULD treat this value as an error.
+- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
 - `PHYSICAL_STREAM_TYPE_TRIPLES` (1) – stream of [RDF triple statements](https://www.w3.org/TR/rdf11-concepts/#section-triples). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad`, `graph_start`, or `graph_end` fields set.
 - `PHYSICAL_STREAM_TYPE_QUADS` (2) – stream of RDF quad statements (same as [*simple statements* in N-Quads](https://www.w3.org/TR/n-quads/#simple-triples)). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `triple`, `graph_start`, or `graph_end` fields set.
 - `PHYSICAL_STREAM_TYPE_GRAPHS` (3) – stream of RDF graphs (named or default). In this case, the stream MUST NOT contain `RdfStreamRow` messages with the `quad` fields set.
@@ -229,7 +229,7 @@ The implementations MAY choose to interpret the stream in a different manner tha
 
 ### Stream options
 
-The stream options is a message of type `RdfStreamOptions` ([reference](reference.md#rdfstreamoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream, alternatively, they MAY use the default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.
+The stream options is a message of type `RdfStreamOptions` ([reference](reference.md#rdfstreamoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.
 
 The stream options header instructs the consumer of the stream (parser) on the size of the needed lookups to decode the stream and the features used by the stream.
 
@@ -571,9 +571,7 @@ Namespace declarations have no effect on the interpretation of the stream in ter
 
     By default, Protobuf messages [are not delimited](https://protobuf.dev/programming-guides/techniques/#streaming), so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. 
 
-A byte stream (or file) in the delimited variant MUST consist of a series of delimited `RdfStreamFrame` messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message in bytes.
-
-Implementing the delimited variant is OPTIONAL.
+A byte stream (or file) in the delimited variant MUST consist of a series of delimited `RdfStreamFrame` messages. A delimited message is a message that has a Protobuf varint prepended before it, specifying the length of the message in bytes.
 
 ### Delimited variant implementations
 
@@ -641,7 +639,7 @@ Jelly does not provide any built-in mechanisms for encryption, authentication, o
 
 *This section is not part of the specification.*
 
-The following implementations of the Jelly serialization format specification are available:
+The following implementations of the Jelly RDF serialization format specification are available:
 
 - [Jelly-JVM implementation]({{ jvm_link() }})
     - Specification version: {{ proto_version() }}
