@@ -83,7 +83,7 @@ Patch frames MUST be processed strictly in order to preserve the semantics of th
 
 Implementations MAY choose to adopt a **non-standard** solution where the order or delivery of the frames is not guaranteed and the stream can be read in more than one order or without some frames. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.
 
-!!! info
+!!! note
 
     See also the notes about the practical implications of this in the [Jelly-RDF specification](serialization.md#ordering).
 
@@ -120,7 +120,7 @@ The patch stream type MUST be explicitly specified in the [patch stream options]
 - `PATCH_STREAM_TYPE_FLAT` (2) – the entire stream is a single, complete RDF Patch. In this stream type, a transaction spanning multiple frames MUST be interpreted as a single transaction. The stream MUST NOT contain any `RdfPatchRow` messages with the `punctuation` field set.
 - `PATCH_STREAM_TYPE_PUNCTUATED` (3) – the stream is a sequence of RDF Patches, marked by punctuation marks (`RdfPatchPunctuation` message). The punctuation mark MUST occur at the end of a patch frame. The punctuation mark MUST NOT be used in any other context.
 
-!!! info "Stream types"
+!!! note "Stream types"
 
     The `FRAME` type is simple to use, but it requires you to fit the entire Patch inside a single frame. Because the contents of the frame are stored in memory as a whole, and because Protobuf implementations typically have strict limits on message sizes (~4 MB), this may not be possible for large patches. Therefore, we recommend using this stream type if you are sure that the patches will always be small.
 
@@ -128,7 +128,7 @@ The patch stream type MUST be explicitly specified in the [patch stream options]
 
     `PUNCTUATED` is the most flexible type, decoupling frames from logical patches. It allows you to send multiple patches in a single stream, and it allows you to send patches that are larger than the maximum frame size.
 
-!!! info "Punctuated streams"
+!!! note "Punctuated streams"
 
     Effectively, the punctuation mark must only be used to mark the end of an RDF Patch. So, if you start the stream with a punctuation mark, this would be interpreted as an empty RDF Patch.
 
@@ -140,7 +140,7 @@ The statement type MUST be explicitly specified in the [patch stream options](#p
 - `STATEMENT_TYPE_TRIPLES` (1) – in this case, the statements in the stream MUST be interpreted as RDF triples (graph is unspecified). The stream MUST NOT contain any `RdfQuad` messages with the `graph` oneof set to any value.
 - `STATEMENT_TYPE_QUADS` (2) – in this case, the statements in the stream MUST be interpreted as RDF quads. If the `graph` oneof in the `RdfQuad` message is not set, it MUST be interpreted as a repeated graph term, in line with the [Jelly-RDF format specification](serialization.md#repeated-terms).
 
-!!! info
+!!! note
 
     Statement types in Jelly-Patch work differently to [Jelly-RDF's physical stream types](serialization.md#physical-stream-types). Instead of us restricting which types of messages are valid in the stream, we always use `RdfQuad`, and the statement type simply tells us how to interpret the messages.
 
@@ -176,32 +176,147 @@ Jelly-Patch uses the same IRI and datatype compression mechanism as [Jelly-RDF](
 
 ### RDF statements
 
-RDF statements add and delete operations are always encoded as `RdfQuad` messages ([reference](reference.md#rdfquad)). The interpretation of the `RdfQuad` messages depends on the [statement type](#statement-types) specified in the [patch stream options](#patch-stream-options):
+Add and delete operations on RDF statements (`A` and `D` in RDF Patch) are always encoded as `RdfQuad` messages ([reference](reference.md#rdfquad)). The interpretation of the `RdfQuad` messages depends on the [statement type](#statement-types) specified in the [patch stream options](#patch-stream-options):
 
-- `STATEMENT_TYPE_TRIPLES` – the `graph` oneof MUST NOT be set. The `RdfQuad` message MUST be interpreted as an RDF triple. The `subject`, `predicate`, and `object` oneofs MUST be set, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
+- `STATEMENT_TYPE_TRIPLES` – the `graph` oneof MUST NOT be set. If it is set, the consumer SHOULD ignore the graph term and MAY throw an error. The `RdfQuad` message MUST be interpreted as an RDF triple. The `subject`, `predicate`, and `object` oneofs MUST be set, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
 - `STATEMENT_TYPE_QUADS` – the `subject`, `predicate`, `object`, and `graph` oneofs MUST be set, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
 
 #### Repeated terms
 
-TODO
+Jelly-Patch uses the same repeated term encoding as [Jelly-RDF](serialization.md#repeated-terms) for `RdfQuad` messages. The only difference is in handling the `graph` oneof in streams with type `STATEMENT_TYPE_TRIPLES`, where the `graph` oneof MUST NOT be set and is not used for repeated term encoding.
 
-### RDF terms and graph nodes
-
-TODO
-
-TODO: refer to Jelly-RDF term encoding here
+In Jelly-Patch, the type of the operation (add or delete) does not affect the repeated term encoding. An empty term in a `RdfQuad` message MUST be interpreted as a repeated term from the last `RdfQuad` or `RdfNamespaceDeclaration` (in case of `graph`) message in the stream, regardless of whether both operations are of the same type (add and add, or delete and delete) or not (add and delete, or delete and add).
 
 ### Namespaces
 
-TODO
+Add and delete operations of namespace declarations (`PA` and `PD` in RDF Patch) are encoded as `RdfPatchNamespace` messages ([reference](reference.md#rdfpatchnamespace)). The `RdfPatchNamespace` message contains the following fields:
+
+- `name` (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the [`PN_PREFIX` production in RDF 1.1 Turtle](https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX). Note that the `:` character (colon) is not part of the name. An empty string (the default value) is allowed.
+- `value` (2) – the IRI of the namespace as an `RdfIri` message. This field is REQUIRED for the namespace add operation (`PA`) and OPTIONAL for the namespace delete operation (`PD`).
+- `graph` oneof (3–6, fields `g_iri`, `g_bnode`, `g_default_graph`, `g_literal`) – the graph term of the namespace declaration.
+
+The `graph` oneof follows the [RDF graph node encoding](serialization.md#rdf-terms-and-graph-nodes). The `graph` oneof MUST NOT be used in streams with type `STATEMENT_TYPE_TRIPLES`. In streams with type `STATEMENT_TYPE_QUADS`, the `graph` oneof MUST be set to one of the possible values, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
+
+In repeated term encoding, the `graph` oneof of `RdfPatchNamespace` MUST be interpreted in the same manner as if it appeared in a `RdfQuad` message. When `STREAM_TYPE_QUADS` is used, if the `graph` oneof is not set to any value, it MUST be interpreted as a repeated graph term from the last `RdfQuad` or `RdfNamespaceDeclaration` message in the stream, regardless of whether both operations are of the same type (add and add, or delete and delete) or not (add and delete, or delete and add).
+
+!!! note "Graph names in namespace declarations"
+
+    The original RDF Patch spec does not mention graph names, but they are implemented in Apache Jena. This is useful for exact 1:1 RDF dataset replication in systems that store namespace mappings per graph, not per dataset.
+
+    If your system does not support this, in `TRIPLES` streams you should simply ignore the graph name, and in `QUADS` streams, set it to `g_default_graph`.
+
+!!! note "Repeated terms and namespace declarations"
+
+    In Jelly-Patch the type of the operation (add or delete) does not influence the repeated term encoding – in implementations you should use the same "last term" data structure for both. The same applies to the `graph` oneof in `RdfPatchNamespace` messages – it's last value should be shared with quads.
 
 ### Transactions
 
-TODO
+Transaction operations (`TX`, `TC`, `TA` in RDF Patch) are encoded as `RdfPatchTransactionStart` ([reference](reference.md#rdfpatchtransactionstart)), `RdfPatchTransactionCommit` ([reference](reference.md#rdfpatchtransactioncommit)), and `RdfPatchTransactionAbort` ([reference](reference.md#rdfpatchtransactionabort)) messages, respectively. Each of these messages defines no fields.
+
+Using transactions in the stream is OPTIONAL and the semantics of transactions are not defined by Jelly-Patch. Users are therefore free to use headers and operations on namespaces and statements within or outside of transactions, depending on their use case.
+
+Jelly-Patch restricts the syntax of transactions to the following:
+
+- We define "the previous transaction operation" as the last row in the stream with row type `transaction_start`, `transaction_commit` or `transaction_abort`. If there were no transaction operations in the stream, the previous transaction operation is undefined.
+- A `transaction_commit` or `transaction_abort` operation MUST have a previous transaction operation equal to `transaction_start`. If there is no previous transaction operation, the consumer MAY throw an error. If there is a previous transaction operation that is a `transaction_commit` or `transaction_abort`, the consumer MAY throw an error.
+- A `transaction_start` operation MUST have a previous transaction operation that is either undefined or equal to `transaction_commit` or `transaction_abort`. If there is a previous transaction operation that is a `transaction_start`, the consumer MAY throw an error.
+- In stream type `PATCH_STREAM_TYPE_FRAME`, transactions MUST NOT span multiple patch frames. The transaction start and commit/abort messages MUST be in the same frame.
+- A patch frame may contain multiple transactions, regardless of the used stream type.
+
+!!! note "Transaction syntax and semantics"
+
+    Jelly-Patch only restricts the semantics of transactions, so that the only valid sequences of transaction operations are `TX ... TC` and `TX ... TA` – no nesting, no double-aborting, and no double-committing.
+
+    The semantics are not defined by Jelly-Patch. [RDF Patch](https://afs.github.io/rdf-delta/rdf-patch.html) contains more restrictions on transactions (e.g., headers must be at the beginning of the patch and outside the transaction), but these are not enforced by Jelly-Patch. The semantics are still not defined there, so you are free to use transactions in any way you like.
 
 ### Headers
 
 TODO
+
+Repeated term encoding MUST NOT be used for the `value` oneof in the `RdfPatchHeader` message ([reference](reference.md#rdfpatchheader)). The `value` oneof MUST always be set to a single value.
+
+### RDF terms and graph nodes
+
+Jelly-Patch uses the same RDF term and graph node encoding as [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes).
+
+RDF term encoding is also used for the `h_iri`, `h_bnode`, `h_literal`, and `h_triple_term` fields in the `value` oneof of the `RdfPatchHeader` message ([reference](reference.md#rdfpatchheader)).
+
+RDF graph node encoding is also used for the `g_iri`, `g_bnode`, `g_default_graph`, and `g_literal` fields in the `graph` oneof of the `RdfPatchNamespace` message ([reference](reference.md#rdfpatchnamespace)). Additionally, RDF IRI encoding [defined in Jelly-RDF](serialization.md#iris) is used for the `value` field in the `RdfPatchNamespace` message.
+
+The same rules about the order of processing RDF IRIs, RDF terms, RDF graph nodes, and their lookup references also apply here. The terms and graph nodes present in `RdfPatchHeader` and `RdfPatchNamespace` messages MUST be processed as if they were present in the `RdfQuad` messages, in the order in which their rows appear in the stream. In `RdfPatchNamespace`, the IRI in the `value` field MUST be processed before the RDF term in the `graph` oneof.
+
+??? example "Example of RDF term encoding in Jelly-Patch (click to expand)"
+
+    This basically means that you should treat terms in headers and namespaces in the same way as those in quad statements. The only difference is that for the `value` oneof in `RdfPatchHeader` there is no repeated term encoding, so it always must be set to some value.
+
+    In this example the comments indicate equivalent RDF Patch rows in the stream, assuming the statement type is set to `STATEMENT_TYPE_QUADS`.
+
+    ```protobuf
+    # H id <http://example.org/iri>
+    row {
+        prefix: {
+            id: 0 # default value, interpreted as 1
+            prefix: "http://example.org/"
+        }
+    }
+    row {
+        name: {
+            id: 0 # default value, interpreted as 1
+            name: "iri"
+        }
+    }
+    row {
+        header: {
+            h_iri: {
+                prefix_id: 1
+                name_id: 0 # default value, interpreted as 1
+            }
+        }
+    }
+
+    # PA "ex" <http://example.org/> <http://example/graph> .
+    row {
+        name: {
+            id: 0 # default value, interpreted as 1
+            name: "" # empty string
+        }
+    }
+    row {
+        name: {
+            id: 0 # default value, interpreted as 1
+            name: "graph"
+        }
+    }
+    row {
+        namespace_add: {
+            name: "ex"
+            value: {
+                prefix_id: 0 # default value, interpreted as 1
+                name_id: 0 # default value, interpreted as 1+1=2
+                # because last name_id in h_iri was 0 interpreted as 1
+            }
+            g_iri: {
+                prefix_id: 0 # default value, interpreted as 1
+                name_id: 0 # default value, interpreted as 2+1=3
+            }
+        }
+    }
+
+    # A _:b1 <http://example.org/iri> _:b2 <http://example/graph> .
+    row {
+        statement_add: {
+            s_bnode: "b1"
+            p_iri: {
+                prefix_id: 0 # default value, interpreted as 1
+                name_id: 1 # interpreted as 1
+            }
+            o_bnode: "b2"
+            # ((graph oneof not set))
+            # This is interpreted as repeating the graph term
+            # from the PA row above.
+        }
+    }
+    ```
 
 <!-- end of serialization format spec section -->
 
