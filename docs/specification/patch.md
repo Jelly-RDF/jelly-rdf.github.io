@@ -308,7 +308,7 @@ The same rules about the order of processing RDF IRIs, RDF terms, RDF graph node
         }
     }
 
-    # A _:b1 <http://example.org/iri> _:b2 <http://example/graph> .
+    # A _:b1 <http://example.org/iri> _:b2 <http://example.org/graph> .
     rows {
         statement_add {
             s_bnode: "b1"
