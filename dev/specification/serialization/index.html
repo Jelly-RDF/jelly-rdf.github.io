@@ -16,7 +16,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../streaming/">
+        <link rel="next" href="../patch/">
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Serialization format - Jelly</title>
+        <title>RDF serialization format - Jelly</title>
       
     
     
@@ -64,7 +64,7 @@
         
     
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jelly – Serialization format" />
+    <meta property="og:title" content="Jelly – RDF serialization format" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
     <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.png" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -100,7 +100,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#jelly-serialization-format-specification" class="md-skip">
+        <a href="#jelly-rdf-serialization-format-specification" class="md-skip">
           Skip to content
         </a>
       
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Serialization format
+              RDF serialization format
             
           </span>
         </div>
@@ -493,6 +493,8 @@
       
         
       
+        
+      
     
     
     
@@ -554,7 +556,7 @@
   
   
   <span class="md-ellipsis">
-    Serialization format
+    RDF serialization format
     
   </span>
   
@@ -567,7 +569,7 @@
   
   
   <span class="md-ellipsis">
-    Serialization format
+    RDF serialization format
     
   </span>
   
@@ -836,17 +838,17 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#namespace-declarations" class="md-nav__link">
     <span class="md-ellipsis">
       Namespace declarations
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -977,12 +979,35 @@
   
   
     <li class="md-nav__item">
+      <a href="../patch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RDF Patch serialization format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../streaming/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    gRPC streaming protocol
+    gRPC RDF streaming protocol
     
   </span>
   
@@ -1556,17 +1581,17 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#namespace-declarations" class="md-nav__link">
     <span class="md-ellipsis">
       Namespace declarations
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1705,8 +1730,8 @@
   
 
 
-<h1 id="jelly-serialization-format-specification">Jelly serialization format specification</h1>
-<p><strong>This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
+<h1 id="jelly-rdf-serialization-format-specification">Jelly RDF serialization format specification</h1>
+<p><strong>This document is the specification of the Jelly RDF serialization format, also known as Jelly-RDF. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
 <p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/rdf.proto"><code>rdf.proto</code></a>).</p>
 <p>The following assumptions are used in this document:</p>
 <ul>
@@ -1734,7 +1759,7 @@
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2025</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2025</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
@@ -1743,6 +1768,10 @@
 <tr>
 <td><strong>Document status</strong>:</td>
 <td>Draft specification</td>
+</tr>
+<tr>
+<td><strong>License:</strong></td>
+<td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></td>
 </tr>
 </tbody>
 </table>
@@ -1799,7 +1828,7 @@
 <tr>
 <td>2</td>
 <td>1.1.2 <strong>(current)</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2025</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2025</span></td>
 <td>Bugfixes: ...</td>
 </tr>
 </tbody>
@@ -1827,11 +1856,11 @@
 <p>Protobuf allows for adding new fields to messages without breaking compatibility with older implementations – they will simply ignore the new field. An example of this is the <code>metadata</code> field in the <code>RdfStreamFrame</code> message, which was added in version 1.1.1. Implementations of version 1.1.0 will ignore it.</p>
 </div>
 <h2 id="actors-and-implementations">Actors and implementations</h2>
-<p>Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
+<p>Jelly-RDF assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
 <p>Implementations may include only the producer, only the consumer, or both.</p>
 <h2 id="format-specification">Format specification</h2>
-<p>The Jelly serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
-<p>The Jelly format is a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimited – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
+<p>The Jelly RDF serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
+<p>The Jelly-RDF format describes a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple frames to a byte stream, the frames MUST be delimited – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
 <p>Jelly supports several distinct <a href="#physical-stream-types">physical types of streams</a>, and uses a simple and configurable compression mechanism using <a href="#prefix-name-and-datatype-lookup-entries">lookup tables</a>.</p>
 <h3 id="stream-frames">Stream frames</h3>
 <p>A stream frame is a message of type <code>RdfStreamFrame</code> (<a href="../reference/#rdfstreamframe">reference</a>). The message has a field <code>rows</code>, which is a repeated field of type <code>RdfStreamRow</code> (<a href="../reference/#rdfstreamrow">reference</a>). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.</p>
@@ -1863,7 +1892,7 @@
 <p>You can use the metadata to store UTF-8 strings, numbers, or even nested protobuf messages. Because of this, you should never assume that the value is a valid string. Always validate the value before using it.</p>
 </div>
 <h3 id="stream-rows">Stream rows</h3>
-<p>A stream row is a message of type <code>RdfStreamRow</code>. It has one of the following fields set:</p>
+<p>A stream row is a message of type <code>RdfStreamRow</code>. It MUST have exactly one of the following fields set:</p>
 <ul>
 <li><code>options</code> (1) – <a href="#stream-options">stream options header</a>, indicating the compression options and the used RDF features in the stream.</li>
 <li><code>triple</code> (2) – <a href="#rdf-statements-and-graphs">RDF triple statement</a>. It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_TRIPLES</code> or <code>PHYSICAL_STREAM_TYPE_GRAPHS</code>.</li>
@@ -1879,7 +1908,7 @@
 <h3 id="physical-stream-types">Physical stream types</h3>
 <p>The physical type of the stream MUST be explicitly specified in the <a href="#stream-options">stream options header</a>. The physical type of the stream is defined by the <code>PhysicalStreamType</code> enum (<a href="../reference/#physicalstreamtype">reference</a>). The following types are defined:</p>
 <ul>
-<li><code>PHYSICAL_STREAM_TYPE_UNSPECIFIED</code> (0) – default value. This physical stream type MUST NOT be used. The implementations SHOULD treat this value as an error.</li>
+<li><code>PHYSICAL_STREAM_TYPE_UNSPECIFIED</code> (0) – default value. This physical stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.</li>
 <li><code>PHYSICAL_STREAM_TYPE_TRIPLES</code> (1) – stream of <a href="https://www.w3.org/TR/rdf11-concepts/#section-triples">RDF triple statements</a>. In this case, the stream MUST NOT contain <code>RdfStreamRow</code> messages with the <code>quad</code>, <code>graph_start</code>, or <code>graph_end</code> fields set.</li>
 <li><code>PHYSICAL_STREAM_TYPE_QUADS</code> (2) – stream of RDF quad statements (same as <a href="https://www.w3.org/TR/n-quads/#simple-triples"><em>simple statements</em> in N-Quads</a>). In this case, the stream MUST NOT contain <code>RdfStreamRow</code> messages with the <code>triple</code>, <code>graph_start</code>, or <code>graph_end</code> fields set.</li>
 <li><code>PHYSICAL_STREAM_TYPE_GRAPHS</code> (3) – stream of RDF graphs (named or default). In this case, the stream MUST NOT contain <code>RdfStreamRow</code> messages with the <code>quad</code> fields set.</li>
@@ -2019,7 +2048,7 @@
 <p>In any case, you can choose to entirely ignore this table which should only be treated as a recommended starting point. For example, you could have an RDF graph stream with physical type <code>GRAPHS</code>, where each graph spans multiple stream frames. This and other non-standard combinations are completely fine, just make sure that all actors involved support it.</p>
 </div>
 <h3 id="stream-options">Stream options</h3>
-<p>The stream options is a message of type <code>RdfStreamOptions</code> (<a href="../reference/#rdfstreamoptions">reference</a>). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream, alternatively, they MAY use the default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.</p>
+<p>The stream options is a message of type <code>RdfStreamOptions</code> (<a href="../reference/#rdfstreamoptions">reference</a>). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.</p>
 <p>The stream options header instructs the consumer of the stream (parser) on the size of the needed lookups to decode the stream and the features used by the stream.</p>
 <p>The stream options header contains the following fields:</p>
 <ul>
@@ -2279,7 +2308,7 @@
 <h4 id="graph-nodes">Graph nodes</h4>
 <p>Literal, IRI, and blank node values for graph nodes are encoded in the same manner as for the subject, predicate, and object terms.</p>
 <p>The default graph node is represented using the <code>RdfDefaultGraph</code> message (<a href="../reference/#rdfdefaultgraph">reference</a>). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.</p>
-<h2 id="namespace-declarations">Namespace declarations</h2>
+<h3 id="namespace-declarations">Namespace declarations</h3>
 <p>IRI namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the <code>RdfNamespaceDeclaration</code> message (<a href="../reference/#rdfnamespacedeclaration">reference</a>). The message has the following fields:</p>
 <ul>
 <li><code>name</code> (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the <a href="https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX"><code>PN_PREFIX</code> production in RDF 1.1 Turtle</a>. Note that the <code>:</code> character (colon) is not part of the name. An empty string (the default value) is allowed.</li>
@@ -2332,8 +2361,7 @@
 <p class="admonition-title">Note</p>
 <p>By default, Protobuf messages <a href="https://protobuf.dev/programming-guides/techniques/#streaming">are not delimited</a>, so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. </p>
 </div>
-<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message in bytes.</p>
-<p>Implementing the delimited variant is OPTIONAL.</p>
+<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a Protobuf varint prepended before it, specifying the length of the message in bytes.</p>
 <h3 id="delimited-variant-implementations">Delimited variant implementations</h3>
 <p>The delimiting convention is implemented in Protobuf libraries for:</p>
 <ul>
@@ -2374,7 +2402,7 @@
 <p>Jelly does not provide any built-in mechanisms for encryption, authentication, or authorization, as it only handles data serialization. If you need to secure your data, you should use a secure transport layer (e.g., HTTPS) and implement encryption, authentication, and authorization on the application level.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
-<p>The following implementations of the Jelly serialization format specification are available:</p>
+<p>The following implementations of the Jelly RDF serialization format specification are available:</p>
 <ul>
 <li><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM implementation</a><ul>
 <li>Specification version: dev</li>
@@ -2406,7 +2434,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2025</span>
   </span>
 
     

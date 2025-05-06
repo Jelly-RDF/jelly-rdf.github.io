@@ -45,6 +45,10 @@
          <lastmod>2025-05-06</lastmod>
     </url>
     <url>
+         <loc>https://jelly-rdf.github.io/dev/specification/patch/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
          <loc>https://jelly-rdf.github.io/dev/specification/protobuf-source/</loc>
          <lastmod>2025-05-06</lastmod>
     </url>
@@ -58,6 +62,22 @@
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/streaming/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/dev/specification/includes/back_compat/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/dev/specification/includes/conformance/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/dev/specification/includes/forward_compat/</loc>
+         <lastmod>2025-05-06</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/dev/specification/includes/start_info/</loc>
          <lastmod>2025-05-06</lastmod>
     </url>
 </urlset>
