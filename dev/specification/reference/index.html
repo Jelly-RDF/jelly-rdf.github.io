@@ -1815,7 +1815,7 @@ Header rows must occur at the start of the patch frame.</p>
 <td>key</td>
 <td><a href="#string">string</a></td>
 <td></td>
-<td>Header key</td>
+<td>Header key (required)</td>
 </tr>
 <tr>
 <td>h_iri</td>
@@ -1868,10 +1868,28 @@ Header rows must occur at the start of the patch frame.</p>
 <td>IRI of the namespace (e.g., &#34;<a href="http://example.org/&#34;">http://example.org/&#34;).</a>.) Optional in the &#34;prefix delete&#34; (PD) operation, but required in the &#34;prefix add&#34; (PA) operation.</td>
 </tr>
 <tr>
-<td>graph</td>
+<td>g_iri</td>
 <td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfIri">eu.ostrzyciel.jelly.core.proto.v1.RdfIri</a></td>
 <td></td>
-<td>Optional: graph name for the namespace declaration. This is used to achieve full 1:1 replication in systems that associate namespaces with specific graphs (e.g., Apache Jena). If not specified, the default graph is assumed.</td>
+<td>IRI</td>
+</tr>
+<tr>
+<td>g_bnode</td>
+<td><a href="#string">string</a></td>
+<td></td>
+<td>Blank node</td>
+</tr>
+<tr>
+<td>g_default_graph</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDefaultGraph">eu.ostrzyciel.jelly.core.proto.v1.RdfDefaultGraph</a></td>
+<td></td>
+<td>Default graph</td>
+</tr>
+<tr>
+<td>g_literal</td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLiteral">eu.ostrzyciel.jelly.core.proto.v1.RdfLiteral</a></td>
+<td></td>
+<td>Literal – only valid for generalized RDF streams</td>
 </tr>
 </tbody>
 </table>
@@ -1916,25 +1934,25 @@ Header rows must occur at the start of the patch frame.</p>
 <td>max_name_table_size</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>Maximum size of the name lookup table</td>
+<td>Maximum size of the name lookup table (required, must be &gt;= 8)</td>
 </tr>
 <tr>
 <td>max_prefix_table_size</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>Maximum size of the prefix lookup table</td>
+<td>Maximum size of the prefix lookup table (required if the prefix lookup is used)</td>
 </tr>
 <tr>
 <td>max_datatype_table_size</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>Maximum size of the datatype lookup table</td>
+<td>Maximum size of the datatype lookup table (required if datatype literals are used)</td>
 </tr>
 <tr>
 <td>version</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>Protocol version (required) For Jelly 1.1.x value must be 2. For custom extensions, the value must be 10000 or higher.</td>
+<td>Protocol version (required) For Jelly-Patch 1.0.x (based on Jelly-RDF 1.1.x), the value must be 1. For custom extensions, the value must be 10000 or higher.</td>
 </tr>
 </tbody>
 </table>
@@ -3054,7 +3072,7 @@ structure of the data. See LogicalStreamType for the latter.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2025</span>
   </span>
 
     
@@ -3064,7 +3082,7 @@ structure of the data. See LogicalStreamType for the latter.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 6, 2025</span>
   </span>
 
     
