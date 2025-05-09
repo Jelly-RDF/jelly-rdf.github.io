@@ -298,7 +298,7 @@ RDF statements (triples or quads) are communicated in three different ways, depe
     - A graph MAY be empty (i.e., it may contain no triples).
     - A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.
     - A graph MAY span more than one stream frame. The consumer MUST treat the graph spanning several stream frames as a single RDF graph.
-    - Exactly one field in the `RdfGraphStart` message MUST be set – no repeated terms are allowed here. The consumer SHOULD throw an error if no field in the `graph` oneof is set.
+    - Exactly one field in the `RdfGraphStart` message MUST be set – no repeated terms are allowed here. The consumer MUST throw an error if no field in the `graph` oneof is set.
 
 !!! note
 
@@ -500,7 +500,7 @@ If no field in the `literalKind` oneof is set, then the literal MUST be interpre
 
 #### Quoted triples (RDF-star)
 
-RDF-star quoted triples are represented using the `RdfTriple` message ([reference](reference.md#rdftriple)). Quoted triples are encoded in the same manner as triple statements, with the only difference being that [repeated terms](#repeated-terms) MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.
+RDF-star quoted triples are represented using the `RdfTriple` message ([reference](reference.md#rdftriple)). Quoted triples are encoded in the same manner as triple statements, with the only difference being that [repeated terms](#repeated-terms) MUST NOT be used in quoted triples. The consumer MUST throw an error if a repeated term is encountered in a quoted triple.
 
 Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
 
