@@ -229,7 +229,7 @@ The implementations MAY choose to interpret the stream in a different manner tha
 
 ### Stream options
 
-The stream options is a message of type `RdfStreamOptions` ([reference](reference.md#rdfstreamoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.
+The stream options is a message of type `RdfStreamOptions` ([reference](reference.md#rdfstreamoptions)). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Consumer SHOULD throw an error if any subsequent stream options header differs from those seen previously in the stream. Implementations MAY throw an error if the stream options header is not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.
 
 The stream options header instructs the consumer of the stream (parser) on the size of the needed lookups to decode the stream and the features used by the stream.
 
