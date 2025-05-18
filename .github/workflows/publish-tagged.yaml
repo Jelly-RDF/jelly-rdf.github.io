@@ -30,7 +30,14 @@ jobs:
           owner: Jelly-RDF
           repo: jelly-jvm
           excludes: prerelease, draft
-
+      
+      - id: python_release
+        uses: pozetroninc/github-action-get-latest-release@v0.8.0
+        with:
+          owner: Jelly-RDF
+          repo: pyjelly
+          excludes: prerelease, draft
+  
       - name: Generate Protobuf reference
         run: |
           mkdir -p pages/docs/specification/proto
@@ -54,6 +61,7 @@ jobs:
       - name: Deploy site
         working-directory: ./pages
         run: |
+          export PYTHON_TAG='${{ steps.python_release.outputs.release }}'
           export JVM_TAG='${{ steps.jvm_release.outputs.release }}'
           export PROTO_PATH='../p/proto'
           git fetch origin gh-pages --depth=1

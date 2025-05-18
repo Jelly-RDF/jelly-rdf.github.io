@@ -106,6 +106,7 @@ nav:
     - File extensions and media types: 'specification/media-type.md'
 
   - JVM (Scala) implementation: 'https://w3id.org/jelly/jelly-jvm/'
+  - Python implementation: 'https://w3id.org/jelly/pyjelly/'
 
   - Contributing:
     - 'contributing/index.md'
