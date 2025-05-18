@@ -46,6 +46,7 @@ jobs:
         working-directory: ./pages
         run: |
           export TAG='main'
+          export PYTHON_TAG='main'
           export JVM_TAG='main'
           export PROTO_PATH='../p/proto'
           mkdocs build -s

@@ -3,6 +3,7 @@
 - The Jelly [Protocol Buffers and gRPC definitions](https://github.com/Jelly-RDF/jelly-protobuf) are licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 - The documentation of Jelly (this website) is licensed under the [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 - The [Jelly-JVM implementation]({{ jvm_link()}}) is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+- The [pyjelly implementation]({{ python_link()}}) is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 ## Jelly maintainer
 

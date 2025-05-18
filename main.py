@@ -58,6 +58,23 @@ def define_env(env):
     def stax_link(page: str = ''):
         return f'https://w3id.org/stax/{stax_version()}/{page}'
 
+
+    @env.macro
+    def python_version():
+        tag = os.environ.get('PYTHON_TAG', 'dev')
+        if tag == 'dev':
+            print('Warning: PYTHON_TAG env var is not set, using dev as default')
+            return tag
+        elif tag == 'main':
+            return 'dev'
+        else:
+            return tag.replace('v', '')
+
+    @env.macro
+    def python_link(page: str = ''):
+        version = python_version()
+        return f'https://w3id.org/jelly/pyjelly/{version}/{page}'
+
     
     @env.macro
     def jvm_version():
@@ -80,6 +97,8 @@ def define_env(env):
     def transform_nav_item(item):
         if list(item.values())[0] == 'https://w3id.org/jelly/jelly-jvm/':
             return {list(item.keys())[0]: jvm_link('')}
+        if list(item.values())[0] == 'https://w3id.org/jelly/pyjelly/':
+            return {list(item.keys())[0]: python_link('')}
         return item
     
 
