@@ -169,6 +169,6 @@ All security considerations from the [Jelly serialization format specification](
 
 The following implementations of the Jelly gRPC streaming protocol specification are available:
 
-- [Jelly-JVM (Scala) implementation]({{ jvm_link() }})
+- [Jelly-JVM implementation]({{ jvm_link() }})
     - Specification version: {{ proto_version() }}
     - Partial (boilerplate) implementation based on [Apache Pekko gRPC](https://pekko.apache.org/docs/pekko-grpc/current/). Requires the end user to implement their own code for handling the streams.
