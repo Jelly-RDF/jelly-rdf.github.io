@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has a JVM implementation that works with [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api).
+**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api)) and [Python]({{ python_link() }}) ([rdflib](https://rdflib.readthedocs.io/en/stable/)).
 
 <div class="grid cards" style="clear: right;" markdown>
 
@@ -10,23 +10,25 @@
 
     ---
 
-    Jelly is blazing-fast by design, and can work with streams of triples, graphs, datasets, and more
+    Jelly is blazing-fast by design, and can work with streams of triples, graphs, datasets, and more.
 
     [:octicons-arrow-right-24: Getting started](user-guide.md)
 
--   :fontawesome-solid-mug-hot:{ .lg .middle } __Robust JVM implementation__
+-   :fontawesome-solid-code:{ .lg .middle } __JVM and Python implementations__
 
     ---
 
-    Fully-integrated support for [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api) with maximum performance
+    Fully-integrated support for [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), [Titanium](https://github.com/filip26/titanium-rdf-api), and [rdflib](https://rdflib.readthedocs.io/en/stable/).
 
     [:octicons-arrow-right-24: Jelly-JVM]({{ jvm_link() }})
+
+    [:octicons-arrow-right-24: pyjelly]({{ python_link() }})
 
 -   :fontawesome-solid-angles-right:{ .lg .middle } __End-to-end streaming__
 
     ---
 
-    Jelly comes with a [gRPC](https://grpc.io/) protocol and can work with Kafka, MQTT, and others
+    Jelly comes with a [gRPC](https://grpc.io/) protocol and can work with Kafka, MQTT, and others.
 
     [:octicons-arrow-right-24: User guide](user-guide.md)
 
@@ -36,7 +38,7 @@
 
     ---
 
-    Everything is open-source and well-documented to help you get started
+    Everything is open-source and well-documented to help you get started.
 
     [:octicons-arrow-right-24: Protocol specification](specification/index.md)
 
@@ -71,7 +73,12 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
 - **[Protocol specification](specification/index.md)**
 - **[Contributing to Jelly](contributing/index.md)**
 - **[Discord chat](https://discord.gg/A8sN5XwVa5)**
-- **Code on GitHub:** [protocol definition](https://github.com/Jelly-RDF/jelly-protobuf), [JVM implementation](https://github.com/Jelly-RDF/jelly-jvm), [website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
+- **Code on GitHub:** 
+    - [Protocol definition](https://github.com/Jelly-RDF/jelly-protobuf)
+    - [JVM implementation](https://github.com/Jelly-RDF/jelly-jvm)
+    - [Python implementation](https://github.com/Jelly-RDF/pyjelly)
+    - [Command-line utility (`jelly-cli`)](https://github.com/Jelly-RDF/cli)
+    - [Website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
 - **[Licensing and citation](licensing/index.md)**
 
 
