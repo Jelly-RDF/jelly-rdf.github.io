@@ -39,6 +39,10 @@ Check out the **[dedicated guide for installing plugins in Jena and RDF4J]({{ jv
 
 Go see the **[Jelly-JVM getting started guide for devs]({{ jvm_link('getting-started-devs') }})**. It contains a lot of examples and code snippets for using Jelly in Java and Scala, with Jena, RDF4J, and Titanium.
 
+### Python programming
+
+See the **[pyjelly getting started guide]({{ python_link('getting-started') }})**. It contains examples and code snippets for using Jelly with rdflib.
+
 ## How to use it – in detail
 
 To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: **[Jelly-JVM]({{ jvm_link() }})**, which supports [Apache Jena](https://jena.apache.org/), [Eclipse RDF4J](https://rdf4j.org/), and the [Titanium RDF API](https://github.com/filip26/titanium-rdf-api). It also has support for reactive streams (via Pekko Streams) and gRPC.
@@ -313,4 +317,5 @@ That's it! You may also want to implement streaming facilities, such as [Reactiv
 ## See also
 
 - [Jelly-JVM getting started guide]({{ jvm_link('getting-started-devs') }})
+- [pyjelly getting started guide]({{ python_link('getting-started') }})
 - [Applications using Jelly](use-cases.md)

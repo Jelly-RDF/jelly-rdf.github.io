@@ -644,5 +644,8 @@ The following implementations of the Jelly RDF serialization format specificatio
 - [Jelly-JVM implementation]({{ jvm_link() }})
     - Specification version: {{ proto_version() }}
     - Implemented actors: producer, consumer
-    - Conformance: full
     - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), [Titanium RDF API](https://github.com/filip26/titanium-rdf-api)
+- [pyjelly implementation]( {{ python_link() }} )
+    - Specification version: {{ proto_version() }}
+    - Implemented actors: producer, consumer
+    - Supported RDF libraries: [rdflib](https://rdflib.readthedocs.io/)
