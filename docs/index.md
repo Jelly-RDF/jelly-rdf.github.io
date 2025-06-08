@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api)) and [Python]({{ python_link() }}) ([rdflib](https://rdflib.readthedocs.io/en/stable/)).
+**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api)) and [Python]({{ python_link() }}) (works with [rdflib](https://rdflib.readthedocs.io/en/stable/)).
 
 <div class="grid cards" style="clear: right;" markdown>
 
