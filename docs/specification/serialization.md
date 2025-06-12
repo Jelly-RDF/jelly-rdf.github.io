@@ -33,12 +33,13 @@ The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. 
 
 The following versions of the protocol are defined:
 
-| Version tag | Semantic version    | Last release date                 | Changes                         |
+| Version tag | Semantic version    | Release date                      | Changes                         |
 | ----------- | ------------------- | --------------------------------- | ------------------------------- |
 | 1           | 1.0.x               | August 24, 2024                   | (initial version)               |
 | 2           | 1.1.0 | December 21, 2024 | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
 | 2           | 1.1.1 | March 10, 2025 | Added [`RdfStreamFrame.metadata`](#stream-frame-metadata) |
-| 2           | 1.1.2 **(current)** | {{ git_revision_date_localized }} | Bugfixes: ... |
+| 2           | 1.1.2 **(current)** | June 12, 2025 | Bugfixes: [#35](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/35), [#43](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/43), [#44](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/44) |
+<!-- {{ git_revision_date_localized }} for 1.1.3 (dev) -->
 
 !!! note
     
