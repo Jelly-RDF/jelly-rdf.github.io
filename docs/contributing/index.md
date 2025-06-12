@@ -87,6 +87,7 @@ Use the exact same process as for the website documentation. The Jelly-JVM docum
 ### pyjelly (Python)
 
 - **[pyjelly contributing page]({{ python_link('contributing') }})**
+- [pyjelly documentation]({{ python_link() }}) 
 - [GitHub repository](https://github.com/Jelly-RDF/pyjelly)
 - [Issue tracker](https://github.com/Jelly-RDF/pyjelly/issues)
 - [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
