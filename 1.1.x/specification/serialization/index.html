@@ -16,19 +16,19 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../streaming/">
+        <link rel="next" href="../patch/">
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
-        <title>Serialization format - Jelly</title>
+        <title>RDF serialization format - Jelly</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -64,7 +64,7 @@
         
     
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jelly – Serialization format" />
+    <meta property="og:title" content="Jelly – RDF serialization format" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
     <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.png" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -100,7 +100,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#jelly-serialization-format-specification" class="md-skip">
+        <a href="#jelly-rdf-serialization-format-specification" class="md-skip">
           Skip to content
         </a>
       
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Serialization format
+              RDF serialization format
             
           </span>
         </div>
@@ -177,11 +177,13 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -215,6 +217,7 @@
     </div>
   </div>
 </div>
+      
     
     
       <div class="md-header__source">
@@ -346,6 +349,7 @@
       <a href="../.." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Home
     
@@ -366,6 +370,7 @@
     <li class="md-nav__item">
       <a href="../../user-guide/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     User guide
@@ -396,6 +401,7 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--nested">
       
         
@@ -403,10 +409,10 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          
           <div class="md-nav__link md-nav__container">
             <a href="../../performance/" class="md-nav__link ">
               
+  
   
   <span class="md-ellipsis">
     Performance
@@ -441,6 +447,7 @@
     <li class="md-nav__item">
       <a href="../../performance/rdf4j/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     RDF4J benchmarks
@@ -486,6 +493,9 @@
       
         
       
+        
+      
+    
     
     
     
@@ -496,10 +506,10 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
+  
   
   <span class="md-ellipsis">
     Protocol specification
@@ -544,8 +554,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
-    Serialization format
+    RDF serialization format
     
   </span>
   
@@ -556,8 +567,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
-    Serialization format
+    RDF serialization format
     
   </span>
   
@@ -826,17 +838,17 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#namespace-declarations" class="md-nav__link">
     <span class="md-ellipsis">
       Namespace declarations
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -967,11 +979,35 @@
   
   
     <li class="md-nav__item">
+      <a href="../patch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RDF Patch serialization format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../streaming/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
-    gRPC streaming protocol
+    gRPC RDF streaming protocol
     
   </span>
   
@@ -991,6 +1027,7 @@
     <li class="md-nav__item">
       <a href="../reference/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     Protobuf reference
@@ -1014,6 +1051,7 @@
       <a href="../protobuf-source/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Protobuf source
     
@@ -1035,6 +1073,7 @@
     <li class="md-nav__item">
       <a href="../media-type/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     File extensions and media types
@@ -1062,11 +1101,12 @@
   
   
     <li class="md-nav__item">
-      <a href="https://w3id.org/jelly/jelly-jvm/2.7.1/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/jelly-jvm/3.1.2/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
-    JVM (Scala) implementation
+    JVM implementation
     
   </span>
   
@@ -1083,8 +1123,51 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contributing/" class="md-nav__link">
+      <a href="https://w3id.org/jelly/pyjelly/0.2.1/" class="md-nav__link">
         
+  
+  
+  <span class="md-ellipsis">
+    Python implementation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../contributing/" class="md-nav__link ">
+              
+  
   
   <span class="md-ellipsis">
     Contributing
@@ -1092,7 +1175,50 @@
   </span>
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/code_of_conduct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code of conduct
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1106,6 +1232,7 @@
     <li class="md-nav__item">
       <a href="../../use-cases/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     Use cases
@@ -1124,9 +1251,30 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../licensing/" class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../licensing/" class="md-nav__link ">
+              
+  
   
   <span class="md-ellipsis">
     Licensing and citation
@@ -1134,7 +1282,50 @@
   </span>
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Licensing and citation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../licensing/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Projects and funding
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1412,17 +1603,17 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#namespace-declarations" class="md-nav__link">
     <span class="md-ellipsis">
       Namespace declarations
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1561,9 +1752,9 @@
   
 
 
-<h1 id="jelly-serialization-format-specification">Jelly serialization format specification</h1>
-<p><strong>This document is the specification of the Jelly serialization format. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
-<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/v1.1.1/rdf.proto"><code>rdf.proto</code></a>).</p>
+<h1 id="jelly-rdf-serialization-format-specification">Jelly RDF serialization format specification</h1>
+<p><strong>This document is the specification of the Jelly RDF serialization format, also known as Jelly-RDF. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
+<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definition itself (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/v1.1.2/proto/rdf.proto"><code>rdf.proto</code></a>).</p>
 <p>The following assumptions are used in this document:</p>
 <ul>
 <li>The basis for the terms used is the RDF 1.1 specification (<a href="https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/">W3C Recommendation 25 February 2014</a>).</li>
@@ -1586,19 +1777,23 @@
 </tr>
 <tr>
 <td><strong>Version:</strong></td>
-<td>1.1.1</td>
+<td>1.1.2</td>
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2025</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2025</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
-<td><a href="https://w3id.org/jelly/1.1.1/specification/serialization"><code>https://w3id.org/jelly/1.1.1/specification/serialization</code></a></td>
+<td><a href="https://w3id.org/jelly/1.1.2/specification/serialization"><code>https://w3id.org/jelly/1.1.2/specification/serialization</code></a></td>
 </tr>
 <tr>
 <td><strong>Document status</strong>:</td>
 <td>Stable specification</td>
+</tr>
+<tr>
+<td><strong>License:</strong></td>
+<td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></td>
 </tr>
 </tbody>
 </table>
@@ -1629,7 +1824,7 @@
 <tr>
 <th>Version tag</th>
 <th>Semantic version</th>
-<th>Last release date</th>
+<th>Release date</th>
 <th>Changes</th>
 </tr>
 </thead>
@@ -1648,12 +1843,20 @@
 </tr>
 <tr>
 <td>2</td>
-<td>1.1.1 <strong>(current)</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2025</span></td>
+<td>1.1.1</td>
+<td>March 10, 2025</td>
 <td>Added <a href="#stream-frame-metadata"><code>RdfStreamFrame.metadata</code></a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>1.1.2 <strong>(current)</strong></td>
+<td>June 12, 2025</td>
+<td>Bugfixes: <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/35">#35</a>, <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/43">#43</a>, <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/44">#44</a></td>
 </tr>
 </tbody>
 </table>
+<!-- <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2025</span> for 1.1.3 (dev) -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Releases of the protocol are published on <a href="https://github.com/Jelly-RDF/jelly-protobuf/releases">GitHub</a>.</p>
@@ -1677,11 +1880,11 @@
 <p>Protobuf allows for adding new fields to messages without breaking compatibility with older implementations – they will simply ignore the new field. An example of this is the <code>metadata</code> field in the <code>RdfStreamFrame</code> message, which was added in version 1.1.1. Implementations of version 1.1.0 will ignore it.</p>
 </div>
 <h2 id="actors-and-implementations">Actors and implementations</h2>
-<p>Jelly assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
+<p>Jelly-RDF assumes there to be two actors involved in processing the stream: the producer (serializer) and the consumer (parser). The producer is responsible for serializing the RDF data into the Jelly format, and the consumer is responsible for parsing the Jelly format into RDF data.</p>
 <p>Implementations may include only the producer, only the consumer, or both.</p>
 <h2 id="format-specification">Format specification</h2>
-<p>The Jelly serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/v1.1.1/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
-<p>The Jelly format is a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing to a byte stream, the frames MUST be delimeted – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
+<p>The Jelly RDF serialization format uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly serialization is defined in <code>rdf.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/v1.1.2/proto/rdf.proto">source code</a>, <a href="../reference/#rdfproto">reference</a>).</p>
+<p>The Jelly-RDF format describes a <em>stream</em> (i.e., an ordered sequence) of <em>stream frames</em>. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., <a href="../streaming/">gRPC</a>, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple frames to a byte stream, the frames MUST be delimited – see the <a href="#delimited-variant-of-jelly">delimited variant</a>.</p>
 <p>Jelly supports several distinct <a href="#physical-stream-types">physical types of streams</a>, and uses a simple and configurable compression mechanism using <a href="#prefix-name-and-datatype-lookup-entries">lookup tables</a>.</p>
 <h3 id="stream-frames">Stream frames</h3>
 <p>A stream frame is a message of type <code>RdfStreamFrame</code> (<a href="../reference/#rdfstreamframe">reference</a>). The message has a field <code>rows</code>, which is a repeated field of type <code>RdfStreamRow</code> (<a href="../reference/#rdfstreamrow">reference</a>). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.</p>
@@ -1713,7 +1916,7 @@
 <p>You can use the metadata to store UTF-8 strings, numbers, or even nested protobuf messages. Because of this, you should never assume that the value is a valid string. Always validate the value before using it.</p>
 </div>
 <h3 id="stream-rows">Stream rows</h3>
-<p>A stream row is a message of type <code>RdfStreamRow</code>. It has one of the following fields set:</p>
+<p>A stream row is a message of type <code>RdfStreamRow</code>. It MUST have exactly one of the following fields set:</p>
 <ul>
 <li><code>options</code> (1) – <a href="#stream-options">stream options header</a>, indicating the compression options and the used RDF features in the stream.</li>
 <li><code>triple</code> (2) – <a href="#rdf-statements-and-graphs">RDF triple statement</a>. It MUST NOT appear in streams of type other than <code>PHYSICAL_STREAM_TYPE_TRIPLES</code> or <code>PHYSICAL_STREAM_TYPE_GRAPHS</code>.</li>
@@ -1729,7 +1932,7 @@
 <h3 id="physical-stream-types">Physical stream types</h3>
 <p>The physical type of the stream MUST be explicitly specified in the <a href="#stream-options">stream options header</a>. The physical type of the stream is defined by the <code>PhysicalStreamType</code> enum (<a href="../reference/#physicalstreamtype">reference</a>). The following types are defined:</p>
 <ul>
-<li><code>PHYSICAL_STREAM_TYPE_UNSPECIFIED</code> (0) – default value. This physical stream type MUST NOT be used. The implementations SHOULD treat this value as an error.</li>
+<li><code>PHYSICAL_STREAM_TYPE_UNSPECIFIED</code> (0) – default value. This physical stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.</li>
 <li><code>PHYSICAL_STREAM_TYPE_TRIPLES</code> (1) – stream of <a href="https://www.w3.org/TR/rdf11-concepts/#section-triples">RDF triple statements</a>. In this case, the stream MUST NOT contain <code>RdfStreamRow</code> messages with the <code>quad</code>, <code>graph_start</code>, or <code>graph_end</code> fields set.</li>
 <li><code>PHYSICAL_STREAM_TYPE_QUADS</code> (2) – stream of RDF quad statements (same as <a href="https://www.w3.org/TR/n-quads/#simple-triples"><em>simple statements</em> in N-Quads</a>). In this case, the stream MUST NOT contain <code>RdfStreamRow</code> messages with the <code>triple</code>, <code>graph_start</code>, or <code>graph_end</code> fields set.</li>
 <li><code>PHYSICAL_STREAM_TYPE_GRAPHS</code> (3) – stream of RDF graphs (named or default). In this case, the stream MUST NOT contain <code>RdfStreamRow</code> messages with the <code>quad</code> fields set.</li>
@@ -1869,7 +2072,7 @@
 <p>In any case, you can choose to entirely ignore this table which should only be treated as a recommended starting point. For example, you could have an RDF graph stream with physical type <code>GRAPHS</code>, where each graph spans multiple stream frames. This and other non-standard combinations are completely fine, just make sure that all actors involved support it.</p>
 </div>
 <h3 id="stream-options">Stream options</h3>
-<p>The stream options is a message of type <code>RdfStreamOptions</code> (<a href="../reference/#rdfstreamoptions">reference</a>). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Implementations MAY throw an error if the stream options header is not present at the start of the stream, alternatively, they MAY use the default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.</p>
+<p>The stream options is a message of type <code>RdfStreamOptions</code> (<a href="../reference/#rdfstreamoptions">reference</a>). It MUST be the first row in the stream. It MAY appear more than once in the stream (also after other rows), but it MUST be identical to all previous occurrences. Consumer SHOULD throw an error if any subsequent stream options header differs from those seen previously in the stream. Implementations MAY throw an error if the stream options header is not present at the start of the stream. Alternatively, they MAY use their own, implementation-specified default options. Implementations SHOULD NOT throw an error if the stream options header is present more than once in the stream.</p>
 <p>The stream options header instructs the consumer of the stream (parser) on the size of the needed lookups to decode the stream and the features used by the stream.</p>
 <p>The stream options header contains the following fields:</p>
 <ul>
@@ -1877,7 +2080,7 @@
 <li><code>physical_type</code> (2) – <a href="#physical-stream-types">physical type of the stream</a>. This field is REQUIRED.</li>
 <li><code>generalized_statements</code> (3) – whether the stream contains <a href="https://www.w3.org/TR/rdf11-concepts/#section-generalized-rdf">generalized RDF triples or graphs</a>. This field MUST be set to true if the stream contains generalized RDF triples or graphs. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
 <li><code>rdf_star</code> (4) – whether the stream uses <a href="https://w3c.github.io/rdf-star/cg-spec/editors_draft.html">RDF-star</a> (quoted triples). This field MUST be set to true if the stream uses RDF-star. It SHOULD NOT be set to true if the stream does not use this feature. This field is OPTIONAL and defaults to false.</li>
-<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">name lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the name lookup MUST NOT be used in the stream. If the field is set to a positive value, the name lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">name lookup</a>. This field is REQUIRED and MUST be set to a value greater than or equal to 8. The size of the lookup MUST NOT exceed the value of this field.</li>
 <li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
 <li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream (which effectively prohibits the use of <a href="#literals">datatype literals</a>). If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
 <li><code>logical_type</code> (14) – <a href="#logical-stream-types">logical type of the stream</a>, based on RDF-STaX. This field is OPTIONAL and defaults to <code>LOGICAL_STREAM_TYPE_UNSPECIFIED</code>.</li>
@@ -1914,7 +2117,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java/Scala implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
+<p>The spec does not specify what strategy should the producer use to update the lookup. You can use a the LRU strategy (as used in the Java implementation), LFU, or something more complex. You can also have a fixed lookup in the producer and communicate it at the start of the stream. This is possible if you are using a fixed set of prefixes, names, or datatypes and want to conserve computing power (e.g., in IoT devices).</p>
 <p>The simplest way to implement the consumer's lookup is to just use an indexed array of fixed size. The workload on the consumer's side is much lower than on the producer's side, so your choice of the strategy depends largely on the producer.</p>
 </div>
 <div class="admonition note">
@@ -1941,7 +2144,7 @@
 <li>A graph MAY be empty (i.e., it may contain no triples).</li>
 <li>A graph corresponding to one graph node MAY occur multiple times in a stream or a stream frame. The consumer MUST treat all occurrences of the graph as a single RDF graph.</li>
 <li>A graph MAY span more than one stream frame. The consumer MUST treat the graph spanning several stream frames as a single RDF graph.</li>
-<li>Exactly one field in the <code>RdfGraphStart</code> message MUST be set – no repeated terms are allowed here. The consumer SHOULD throw an error if no field in the <code>graph</code> oneof is set.</li>
+<li>Exactly one field in the <code>RdfGraphStart</code> message MUST be set – no repeated terms are allowed here. The consumer MUST throw an error if no field in the <code>graph</code> oneof is set.</li>
 </ul>
 </li>
 </ul>
@@ -1995,7 +2198,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Scala implementation uses.</p>
+<p>Repeated terms can be simply implemented with four variables (s, p, o, g) holding the last non-repeated value of a term in that position. This O(1) solution is what the Java implementation uses.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2011,7 +2214,7 @@
 <li>If <code>0</code> appears in the first IRI of the stream (and in any subsequent IRI), this MUST be interpreted as an empty prefix (zero-length string). This is for example used when the prefix lookup table is set to size zero.</li>
 </ul>
 </li>
-<li><code>name_id</code> (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup. This field is OPTIONAL and the default value (0) indicates an empty name.<ul>
+<li><code>name_id</code> (2) – 1-based index of the name (suffix) of the IRI, corresponding to an entry in the name lookup.<ul>
 <li>The default value of <code>0</code> MUST be interpreted as <code>previous_name_id + 1</code>, that is, the <code>name_id</code> of the previous IRI incremented by one.</li>
 <li>If <code>0</code> appears in the first IRI of the stream it MUST be interpreted as <code>1</code>.</li>
 <li>Multiple <code>0</code> values in a row may occur, in which case the <code>name_id</code> MUST be interpreted as incrementing by one for each <code>0</code> value.</li>
@@ -2090,7 +2293,7 @@
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Scala implementation uses. </p>
+<p>The spec does not specify how to split the IRIs into names and prefixes. You can use any strategy you want, as long as you follow the rules above. The simplest way is to split the IRI at the last occurrence of the <code>#</code> or <code>/</code> character – this is what the Java implementation uses. </p>
 <p><strong>These prefixes are not meant to be user-facing</strong>, they can be entirely arbitrary and DO NOT correspond to, for example <code>@prefix</code> declarations in Turtle. If you want to preserve such user-facing namespace declarations, use the <a href="#namespace-declarations"><code>RdfNamespaceDeclaration</code></a> feature instead.</p>
 </div>
 <div class="admonition note">
@@ -2124,12 +2327,12 @@
 <p>Using the default value of <code>0</code> for the <code>datatype</code> field is not allowed, in contrast to names and prefixes in RdfIri. This is because the <code>datatype</code> field itself is optional and the default value would be ambiguous.</p>
 </div>
 <h4 id="quoted-triples-rdf-star">Quoted triples (RDF-star)</h4>
-<p>RDF-star quoted triples are represented using the <code>RdfTriple</code> message (<a href="../reference/#rdftriple">reference</a>). Quoted triples are encoded in the same manner as triple statements, with the only difference being that <a href="#repeated-terms">repeated terms</a> MUST NOT be used in quoted triples. The consumer SHOULD throw an error if a repeated term is encountered in a quoted triple.</p>
+<p>RDF-star quoted triples are represented using the <code>RdfTriple</code> message (<a href="../reference/#rdftriple">reference</a>). Quoted triples are encoded in the same manner as triple statements, with the only difference being that <a href="#repeated-terms">repeated terms</a> MUST NOT be used in quoted triples. The consumer MUST throw an error if a repeated term is encountered in a quoted triple.</p>
 <p>Quoted triples may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.</p>
 <h4 id="graph-nodes">Graph nodes</h4>
 <p>Literal, IRI, and blank node values for graph nodes are encoded in the same manner as for the subject, predicate, and object terms.</p>
 <p>The default graph node is represented using the <code>RdfDefaultGraph</code> message (<a href="../reference/#rdfdefaultgraph">reference</a>). The message is empty and has no fields. The default graph node indicates that the triple is part of the default graph.</p>
-<h2 id="namespace-declarations">Namespace declarations</h2>
+<h3 id="namespace-declarations">Namespace declarations</h3>
 <p>IRI namespace declarations are not a part of the RDF Abstract Syntax. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are encoded using the <code>RdfNamespaceDeclaration</code> message (<a href="../reference/#rdfnamespacedeclaration">reference</a>). The message has the following fields:</p>
 <ul>
 <li><code>name</code> (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the <a href="https://www.w3.org/TR/2014/REC-turtle-20140225/#grammar-production-PN_PREFIX"><code>PN_PREFIX</code> production in RDF 1.1 Turtle</a>. Note that the <code>:</code> character (colon) is not part of the name. An empty string (the default value) is allowed.</li>
@@ -2182,15 +2385,15 @@
 <p class="admonition-title">Note</p>
 <p>By default, Protobuf messages <a href="https://protobuf.dev/programming-guides/techniques/#streaming">are not delimited</a>, so if you write multiple messages to the same file / socket / byte stream, you need to add some kind of delimiter between them. Jelly uses the convention already implemented in some protobuf libraries of prepending a varint before the message, to specify the length of the message. </p>
 </div>
-<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a varint prepended before it, specifying the length of the message in bytes.</p>
-<p>Implementing the delimited variant is OPTIONAL.</p>
+<p>A byte stream (or file) in the delimited variant MUST consist of a series of delimited <code>RdfStreamFrame</code> messages. A delimited message is a message that has a Protobuf varint prepended before it, specifying the length of the message in bytes.</p>
 <h3 id="delimited-variant-implementations">Delimited variant implementations</h3>
 <p>The delimiting convention is implemented in Protobuf libraries for:</p>
 <ul>
 <li>C++: <a href="https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/util/delimited_message_util.cc">delimited_message_util.cc</a></li>
-<li>Java / Scala: <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-">writeDelimitedTo</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-">parseDelimitedFrom</a></li>
+<li>Java: <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/MessageLite#writeDelimitedTo-java.io.OutputStream-">writeDelimitedTo</a> and <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/Parser#parseDelimitedFrom-java.io.InputStream-">parseDelimitedFrom</a></li>
+<li>Python: <a href="https://github.com/protocolbuffers/protobuf/blob/v30.2/python/google/protobuf/proto.py">serialize_length_prefixed and parse_length_prefixed</a></li>
 </ul>
-<p>The JVM (Scala) implementation of Jelly also supports the delimited variant – <a href="https://w3id.org/jelly/jelly-jvm/2.7.1/user/reactive#byte-streams-delimited-variant">see the documentation</a>.</p>
+<p>The JVM implementation of Jelly also supports the delimited variant – <a href="https://w3id.org/jelly/jelly-jvm/3.1.2/user/reactive#byte-streams-delimited-variant">see the documentation</a>.</p>
 <h2 id="internet-media-type-and-file-extension">Internet media type and file extension</h2>
 <p>The RECOMMENDED media type for Jelly is <code>application/x-jelly-rdf</code>. The RECOMMENDED file extension is <code>.jelly</code>.</p>
 <p>The files SHOULD be saved in the <a href="#delimited-variant-of-jelly">delimited variant of Jelly</a>.</p>
@@ -2203,7 +2406,7 @@
 <p>The recommended mitigation is for each implementation to define a maximum allowed lookup size and check if the requested size is within the limit. If the requested size exceeds the limit, the consumer should throw an error and reject the stream.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>The Jelly-JVM implementation uses a configurable limit (up to 4096 entries by default). The mechanism is described <a href="https://w3id.org/jelly/jelly-jvm/2.7.1/user/utilities/#jelly-options-presets">here</a>.</p>
+<p>The Jelly-JVM implementation uses a configurable limit (up to 4096 entries by default). The mechanism is described <a href="https://w3id.org/jelly/jelly-jvm/3.1.2/user/utilities/#jelly-options-presets">here</a>.</p>
 <p>The Jelly gRPC streaming protocol has a built-in mechanism for stream options handling that does include such checks. See the <a href="../streaming/#stream-options-handling">gRPC streaming protocol specification</a>.</p>
 </div>
 <h3 id="invalid-lookup-entry-ids-and-references">Invalid lookup entry IDs and references</h3>
@@ -2223,13 +2426,18 @@
 <p>Jelly does not provide any built-in mechanisms for encryption, authentication, or authorization, as it only handles data serialization. If you need to secure your data, you should use a secure transport layer (e.g., HTTPS) and implement encryption, authentication, and authorization on the application level.</p>
 <h2 id="implementations">Implementations</h2>
 <p><em>This section is not part of the specification.</em></p>
-<p>The following implementations of the Jelly serialization format specification are available:</p>
+<p>The following implementations of the Jelly RDF serialization format specification are available:</p>
 <ul>
-<li><a href="https://w3id.org/jelly/jelly-jvm/2.7.1/">Jelly-JVM (Scala) implementation</a><ul>
-<li>Specification version: 1.1.1</li>
+<li><a href="https://w3id.org/jelly/jelly-jvm/3.1.2/">Jelly-JVM implementation</a><ul>
+<li>Specification version: 1.1.2</li>
 <li>Implemented actors: producer, consumer</li>
-<li>Conformance: full</li>
-<li>Supported RDF libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a></li>
+<li>Supported RDF libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a>, <a href="https://github.com/filip26/titanium-rdf-api">Titanium RDF API</a></li>
+</ul>
+</li>
+<li><a href="https://w3id.org/jelly/pyjelly/0.2.1/">pyjelly implementation</a><ul>
+<li>Specification version: 1.1.2</li>
+<li>Implemented actors: producer, consumer</li>
+<li>Supported RDF libraries: <a href="https://rdflib.readthedocs.io/">rdflib</a></li>
 </ul>
 </li>
 </ul>
@@ -2255,7 +2463,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2025</span>
   </span>
 
     
@@ -2346,10 +2554,12 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

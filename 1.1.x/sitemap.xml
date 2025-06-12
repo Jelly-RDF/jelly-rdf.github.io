@@ -2,54 +2,82 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/</loc>
-         <lastmod>2025-03-10</lastmod>
-    </url>
-    <url>
-         <loc>https://jelly-rdf.github.io/1.1.x/contributing/</loc>
-         <lastmod>2025-03-10</lastmod>
-    </url>
-    <url>
-         <loc>https://jelly-rdf.github.io/1.1.x/licensing/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/use-cases/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/user-guide/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/contributing/</loc>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/contributing/code_of_conduct/</loc>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/licensing/</loc>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/licensing/projects/</loc>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/performance/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/performance/rdf4j/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/specification/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/specification/media-type/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/specification/patch/</loc>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/specification/protobuf-source/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/specification/reference/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/specification/serialization/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/1.1.x/specification/streaming/</loc>
-         <lastmod>2025-03-10</lastmod>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/specification/includes/back_compat/</loc>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/specification/includes/conformance/</loc>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/specification/includes/forward_compat/</loc>
+         <lastmod>2025-06-12</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/1.1.x/specification/includes/start_info/</loc>
+         <lastmod>2025-06-12</lastmod>
     </url>
 </urlset>
