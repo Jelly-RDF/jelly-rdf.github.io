@@ -74,15 +74,27 @@ After a new protocol release, you should also update the implementations to use 
 
 Use the exact same process as for the website documentation. The Jelly-JVM documentation sources are in the [`jelly-jvm` repository](https://github.com/Jelly-RDF/jelly-jvm), `docs/docs` directory.
 
-## Contributing to Jelly implementations
+## Contributing to implementations
 
-### Jelly-JVM
+### Jelly-JVM (Java)
 
 - **[Jelly-JVM contributing page]({{ jvm_link('contributing') }})**
 - [Jelly-JVM documentation]({{ jvm_link()}}) includes the developer guide, explaining the technical aspects of contributing to it.
 - [GitHub repository](https://github.com/Jelly-RDF/jelly-jvm)
 - [Issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues)
 - [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
+
+### pyjelly (Python)
+
+- **[pyjelly contributing page]({{ python_link('contributing') }})**
+- [pyjelly documentation]({{ python_link() }}) 
+- [GitHub repository](https://github.com/Jelly-RDF/pyjelly)
+- [Issue tracker](https://github.com/Jelly-RDF/pyjelly/issues)
+- [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
+
+## New implementations and integrations
+
+Would you like to integrate Jelly into your project or implement it in a new language? You are welcome to do so! Check out [our tips for implementing Jelly in a new language](../user-guide.md#implementing-jelly). You can also join the [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) to discuss your plans and get help. Or, if you have a commercial project in mind, you can [contact NeverBlink](mailto:piotr@neverblink) for professional support.
 
 ## See also
 
