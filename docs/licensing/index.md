@@ -14,7 +14,7 @@ The Jelly protocol and Jelly-JVM were originally created by [Piotr Sowiński](ht
 
 ## Attribution / citation
 
-If you use Jelly-JVM in your research, please cite [the most recent paper about Jelly](https://doi.org/10.48550/arXiv.2506.11298):
+If you use Jelly in your research, please cite [the most recent paper about it](https://doi.org/10.48550/arXiv.2506.11298):
 
 Sowiński, P., Bogacka, K., Danilenka, A., Kozlov, N. (2025). Jelly: a fast and convenient RDF serialization format. In _arXiv preprint arXiv:2506.11298_. DOI: [10.48550/arXiv.2506.11298](https://doi.org/10.48550/arXiv.2506.11298)
 
