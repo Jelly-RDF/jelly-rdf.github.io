@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), and [Titanium](https://github.com/filip26/titanium-rdf-api)) and [Python]({{ python_link() }}) (works with [rdflib](https://rdflib.readthedocs.io/en/stable/)).
+**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), and [Titanium]({{ jvm_link( 'user/titanium' ) }})) and [Python]({{ python_link() }}) (works with [rdflib]({{ python_link( 'getting-started' ) }})).
 
 <div class="grid cards" style="clear: right;" markdown>
 
@@ -18,7 +18,7 @@
 
     ---
 
-    Fully-integrated support for [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), [Titanium](https://github.com/filip26/titanium-rdf-api), and [rdflib](https://rdflib.readthedocs.io/en/stable/).
+    Fully-integrated support for [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), [Titanium]({{ jvm_link( 'user/titanium' ) }}), and [rdflib]({{ python_link( 'getting-started' ) }}).
 
     [:octicons-arrow-right-24: Jelly-JVM]({{ jvm_link() }})
 
