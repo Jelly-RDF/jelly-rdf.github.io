@@ -2,7 +2,7 @@
 
 **If you are using Jelly in your project, we would be glad to list it here! Please [open an issue](https://github.com/Jelly-RDF/jelly-rdf.github.io/issues/new/choose) or [open a pull request](https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/use-cases.md) with the information on your use case.**
 
-## Jelly-JVM
+## [Jelly-JVM]({{ jvm_link() }})
 
 ### Tools and libraries
 
