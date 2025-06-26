@@ -12,7 +12,7 @@
 - **[RMLMapper](https://github.com/RMLio/rmlmapper-java)** – library and CLI tool for generating knowledge graphs from semi-structured data, using RML rules.
     - RMLMapper supports Jelly as one of the output formats. You can use it to convert CSV, JSON, Excel, SQL, and other data sources into Jelly.
 - **[nanopub-java](https://github.com/Nanopublication/nanopub-java)** – Java library for working with [nanopublications](https://nanopub.net).
-    - The library supports Jelly as one of the serialization formats for nanopubs, and also supports processing streams of nanopubs with Jelly.
+    - The library supports Jelly as one of the serialization formats, including processing streams of multiple nanopublications.
 
 ### Projects
 
