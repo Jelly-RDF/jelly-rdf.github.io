@@ -2,14 +2,23 @@
 
 **If you are using Jelly in your project, we would be glad to list it here! Please [open an issue](https://github.com/Jelly-RDF/jelly-rdf.github.io/issues/new/choose) or [open a pull request](https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/use-cases.md) with the information on your use case.**
 
-## Jelly-JVM
+## [Jelly-JVM]({{ jvm_link() }})
+
+### Tools and libraries
+
+- **[jelly-cli](https://github.com/Jelly-RDF/cli)** – simple but performant command-line utility for working with Jelly files.
+    - The app can be used to convert to/from Jelly, validate and debug Jelly files.
+    - You can find the code and released binaries on [GitHub](https://github.com/Jelly-RDF/cli). The repository also has up-to-date installation instructions and command usage examples.
+- **[RMLMapper](https://github.com/RMLio/rmlmapper-java)** – library and CLI tool for generating knowledge graphs from semi-structured data, using RML rules.
+    - RMLMapper supports Jelly as one of the output formats. You can use it to convert CSV, JSON, Excel, SQL, and other data sources into Jelly.
+- **[nanopub-java](https://github.com/Nanopublication/nanopub-java)** – Java library for working with [nanopublications](https://nanopub.net).
+    - The library supports Jelly as one of the serialization formats, including processing streams of multiple nanopublications.
+
+### Projects
 
 - **[Nanopub Registry](https://github.com/knowledgepixels/nanopub-registry)** and **[Nanopub Query](https://github.com/knowledgepixels/nanopub-query)** – next-gen services for distributed storage, management, and querying of [nanopublications](https://nanopub.net).
     - Jelly is used for communication between the services in the nanopub network. Jelly endpoints (ending with `.jelly`) are also exposed for downstream applications to consume nanopubs.
     - The Registry stores nanopublications in the Jelly format and uses a Jelly transcoder to merge nanopubs on the fly into a single stream.
-- **[`jelly-cli`](https://github.com/Jelly-RDF/cli)** – simple but performant command-line utility for working with Jelly files.
-    - The app can be used to convert to/from Jelly, validate and debug Jelly files.
-    - You can find the code and released binaries on [GitHub](https://github.com/Jelly-RDF/cli). The repository also has up-to-date installation instructions and command usage examples.
 - **[RiverBench](https://w3id.org/riverbench)** benchmark suite.
     - Jelly is used as [one of the serialization formats](https://w3id.org/riverbench/v/dev/documentation/dataset-release-format) for distributing datasets in RiverBench.
     - Jelly is also used for [distributing the RDF metadata](https://w3id.org/riverbench/v/dev/documentation/metadata) of benchmark datasets, tasks, and other resources.
