@@ -2,7 +2,7 @@
 
 !!! warning
 
-    Jelly-Patch is an experimental serialization format. It is expected to stabilize in June 2025. Until then, the format may change in incompatible ways.
+    Jelly-Patch is in beta-testing phase and is not yet finalized. You are encouraged to try it out and let us know about any suggestions or bugs you found by **[opening an issue on GitHub](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose)**.
 
 **This document is the specification of the Jelly RDF Patch format, also known as Jelly-Patch. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
@@ -44,7 +44,7 @@ The following versions of the protocol are defined:
 
 | Version tag | Semantic version    | Last release date                 | Changes                         |
 | ----------- | ------------------- | --------------------------------- | ------------------------------- |
-| 1           | 1.0.0               | Not finalized yet (experimental)  | (initial version)               |
+| 1           | 1.0.0               | Not finalized yet (beta)          | (initial version)               |
 
 !!! note
     
