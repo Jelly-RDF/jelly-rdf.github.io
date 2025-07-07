@@ -60,6 +60,18 @@ The benchmarks below were performed on streams of RDF graphs or datasets, but Je
   <figcaption markdown style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over 13 datasets (RiverBench 2.1.0 profile [`stream-mixed-rdfstar`](https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar), task [`stream-deserialization-throughput`](https://w3id.org/riverbench/v/2.1.0/tasks/stream-deserialization-throughput)).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).<br>[More details about the benchmark](performance/index.md).</figcaption>
 </figure>
 
+## What can I use it for?
+
+Common use cases for Jelly include:
+
+- **Client-server communication** – connect frontend and backend with less latency, improving user experience.
+- **Inter-service communication** – efficiently exchange RDF data between microservices in complex backend applications.
+- **Database dumps and bulk loads** – quickly write and read large RDF datasets, reducing storage space and time needed for database maintenance tasks.
+- **Streaming ingest** – eliminate ingestion bottlenecks in systems processing large amounts of incoming streaming data.
+- **Database replication and change capture** – record changes to append-only databases or add/delete operations with transaction support (with [Jelly-Patch](specification/patch.md)).
+
+See also [concrete examples of Jelly being used](use-cases.md), along with [example datasets](use-cases.md#example-datasets-in-the-jelly-format).
+
 ## Commercial and community support
 
 **[NeverBlink](https://neverblink.eu)** provides commercial support services for Jelly, including implementing custom features, system integrations, implementations for new frameworks, benchmarking, and more.
