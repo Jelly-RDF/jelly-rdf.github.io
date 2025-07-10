@@ -9,6 +9,7 @@
 - **[jelly-cli](https://github.com/Jelly-RDF/cli)** – simple but performant command-line utility for working with Jelly files.
     - The app can be used to convert to/from Jelly, validate and debug Jelly files.
     - You can find the code and released binaries on [GitHub](https://github.com/Jelly-RDF/cli). The repository also has up-to-date installation instructions and command usage examples.
+    - You can also use the [Jelly-RDF/setup-cli](https://github.com/marketplace/actions/setup-jelly-cli) GitHub Action to quickly set up jelly-cli in your CI/CD workflows.
 - **[RMLMapper](https://github.com/RMLio/rmlmapper-java)** – library and CLI tool for generating knowledge graphs from semi-structured data, using RML rules.
     - RMLMapper supports Jelly as one of the output formats. You can use it to convert CSV, JSON, Excel, SQL, and other data sources into Jelly.
 - **[nanopub-java](https://github.com/Nanopublication/nanopub-java)** – Java library for working with [nanopublications](https://nanopub.net).
