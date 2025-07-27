@@ -1,17 +1,25 @@
 # Jelly user guide
 
-Jelly uses [Protocol Buffers 3](https://protobuf.dev/programming-guides/proto3/) as the basis of its serialization. You can also use an existing implementation, such as the [JVM implementation]({{ jvm_link() }}), or you can quickly [create a new Jelly implementation using code generation](#implementing-jelly). 
+To use Jelly, pick an implementation that matches your tech stack:
+
+- **[Jelly-JVM]({{ jvm_link() }})** – written in Java, integrated with Apache Jena, RDF4J, and Titanium.
+- **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib.
+- ***[jelly.rs](https://github.com/Jelly-RDF/jelly.rs)** (experimental)* – written in Rust, integrated with Sophia.
+- **[jelly-cli](https://github.com/Jelly-RDF/cli)** – command-line tool, works on Windows, macOS, and Linux.
+
+You can also [create your own implementation](#implementing-jelly). Because Jelly is built on top of [Protocol Buffers](https://protobuf.dev/), you can generate most of the code automatically in any popular programming language.
 
 ## What can it do?
 
-Jelly is designed to be a protocol for *streaming* RDF knowledge graphs, but it can also be used with "classic", static RDF. The main design goals of Jelly are speed, simplicity, and wide coverage of use cases. 
+Jelly is designed to be a protocol for *streaming* RDF knowledge graphs, but it can also be used with static RDF datasets. Jelly was designed to be fast, well-compressed, and versatile.
 
 - Jelly can work with **any RDF knowledge graph data**, including RDF 1.1, RDF-star, and generalized RDF.
 - Jelly can be used to represent **streams of triples, quads, graphs, or datasets**.
 - Jelly can also be used to represent a **single graph or dataset**.
+- Jelly-Patch can be used to [**record changes** to RDF datasets](specification/patch.md), including add/delete operations and transactions.
 - Jelly can be used for **streaming data over the network** (e.g., with MQTT, Kafka, gRPC), but also for **working with flat files**.
 - Jelly can **compress RDF data on the fly**, without having to know the data in advance.
-- Jelly is super-fast and lightweight, scaling both down to **embedded devices** and up to **high-performance servers**.
+- Jelly is super-fast and lightweight, scaling down to **IoT** and up to **high-performance servers**.
 
 ## Quick start
 
@@ -27,9 +35,9 @@ The easiest way to do something with Jelly is with the `jelly-cli` command line 
 
 You can find more information about the tool in **[its README on GitHub](https://github.com/Jelly-RDF/cli)**.
 
-!!! example "Do you have any example Jelly files to experiment with?"
+!!! example "Example Jelly files"
 
-    Yes! Go check out the **[Use cases page](use-cases.md#example-datasets-in-the-jelly-format)** where we list links to example datasets in the Jelly format.
+    Go check out the **[Use cases page](use-cases.md#example-datasets-in-the-jelly-format)** where we list links to example datasets in the Jelly format.
 
 ### Apache Jena / RDF4J plugins
 
@@ -45,9 +53,9 @@ See the **[pyjelly getting started guide]({{ python_link('getting-started') }})*
 
 ## How to use it – in detail
 
-To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: **[Jelly-JVM]({{ jvm_link() }})**, which supports [Apache Jena](https://jena.apache.org/), [Eclipse RDF4J](https://rdf4j.org/), and the [Titanium RDF API](https://github.com/filip26/titanium-rdf-api). It also has support for reactive streams (via Pekko Streams) and gRPC.
+<!-- TODO: the following explanation is unclear. It starts from the perspective of streaming use cases, which is not the most common starting point. Try to reframe it to gently introduce the idea of flat vs grouped streams and go from there. -->
 
-The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see [stream types](#stream-types) below).
+Jelly supports several stream types – which stream type you choose depends on your use case (see [stream types](#stream-types) below).
 
 All stream types use the same concept of **stream frames** – discrete elements into which the stream is divided. Each frame contains a number of **rows**, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not enforce the semantics of stream frames, although it does have a mechanism to suggest to consumers and producers how should they understand the stream. Still, you can interpret the stream however you like.
 
