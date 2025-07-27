@@ -68,7 +68,7 @@ Common use cases for Jelly include:
 - **Inter-service communication** – efficiently exchange RDF data between microservices in complex backend applications.
 - **Database dumps and bulk loads** – quickly write and read large RDF datasets, reducing storage space and time needed for database maintenance tasks.
 - **Streaming ingest** – eliminate ingestion bottlenecks in systems processing large amounts of incoming streaming data.
-- **Database replication and change capture** – record changes to append-only databases or add/delete operations with transaction support (with [Jelly-Patch](specification/patch.md)).
+- **Database replication and change capture (new!)** – record add/delete operations in RDF datasets with transaction support using **[Jelly-Patch](specification/patch.md)**.
 
 See also [concrete examples of Jelly being used](use-cases.md), along with [example datasets](use-cases.md#example-datasets-in-the-jelly-format).
 
@@ -89,6 +89,7 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
     - [Protocol definition](https://github.com/Jelly-RDF/jelly-protobuf)
     - [JVM implementation](https://github.com/Jelly-RDF/jelly-jvm)
     - [Python implementation](https://github.com/Jelly-RDF/pyjelly)
+    - [Rust implementation](https://github.com/Jelly-RDF/jelly.rs) *(experimental)*
     - [Command-line utility (`jelly-cli`)](https://github.com/Jelly-RDF/cli)
     - [Website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
 - **[Licensing and citation](licensing/index.md)**
