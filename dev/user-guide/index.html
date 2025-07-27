@@ -1415,16 +1415,24 @@
 
 
 <h1 id="jelly-user-guide">Jelly user guide</h1>
-<p>Jelly uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers 3</a> as the basis of its serialization. You can also use an existing implementation, such as the <a href="https://w3id.org/jelly/jelly-jvm/dev/">JVM implementation</a>, or you can quickly <a href="#implementing-jelly">create a new Jelly implementation using code generation</a>. </p>
+<p>To use Jelly, pick an implementation that matches your tech stack:</p>
+<ul>
+<li><strong><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM</a></strong> – written in Java, integrated with Apache Jena, RDF4J, and Titanium.</li>
+<li><strong><a href="https://w3id.org/jelly/pyjelly/dev/">pyjelly</a></strong> – written in Python, integrated with RDFLib.</li>
+<li><strong><a href="https://github.com/Jelly-RDF/jelly.rs">jelly.rs</a></strong> <em>(experimental)</em> – written in Rust, integrated with Sophia.</li>
+<li><strong><a href="https://github.com/Jelly-RDF/cli">jelly-cli</a></strong> – command-line tool, works on Windows, macOS, and Linux.</li>
+</ul>
+<p>You can also <a href="#implementing-jelly">create your own implementation</a>. Because Jelly is built on top of <a href="https://protobuf.dev/">Protocol Buffers</a>, you can generate most of the code automatically in any popular programming language.</p>
 <h2 id="what-can-it-do">What can it do?</h2>
-<p>Jelly is designed to be a protocol for <em>streaming</em> RDF knowledge graphs, but it can also be used with "classic", static RDF. The main design goals of Jelly are speed, simplicity, and wide coverage of use cases. </p>
+<p>Jelly is designed to be a protocol for <em>streaming</em> RDF knowledge graphs, but it can also be used with static RDF datasets. Jelly was designed to be fast, well-compressed, and versatile.</p>
 <ul>
 <li>Jelly can work with <strong>any RDF knowledge graph data</strong>, including RDF 1.1, RDF-star, and generalized RDF.</li>
 <li>Jelly can be used to represent <strong>streams of triples, quads, graphs, or datasets</strong>.</li>
 <li>Jelly can also be used to represent a <strong>single graph or dataset</strong>.</li>
+<li>Jelly-Patch can be used to <a href="../specification/patch/"><strong>record changes</strong> to RDF datasets</a>, including add/delete operations and transactions.</li>
 <li>Jelly can be used for <strong>streaming data over the network</strong> (e.g., with MQTT, Kafka, gRPC), but also for <strong>working with flat files</strong>.</li>
 <li>Jelly can <strong>compress RDF data on the fly</strong>, without having to know the data in advance.</li>
-<li>Jelly is super-fast and lightweight, scaling both down to <strong>embedded devices</strong> and up to <strong>high-performance servers</strong>.</li>
+<li>Jelly is super-fast and lightweight, scaling down to <strong>IoT</strong> and up to <strong>high-performance servers</strong>.</li>
 </ul>
 <h2 id="quick-start">Quick start</h2>
 <h3 id="cli-tool"><a href="https://github.com/Jelly-RDF/cli">CLI tool</a></h3>
@@ -1440,8 +1448,8 @@
 </ol>
 <p>You can find more information about the tool in <strong><a href="https://github.com/Jelly-RDF/cli">its README on GitHub</a></strong>.</p>
 <div class="admonition example">
-<p class="admonition-title">Do you have any example Jelly files to experiment with?</p>
-<p>Yes! Go check out the <strong><a href="../use-cases/#example-datasets-in-the-jelly-format">Use cases page</a></strong> where we list links to example datasets in the Jelly format.</p>
+<p class="admonition-title">Example Jelly files</p>
+<p>Go check out the <strong><a href="../use-cases/#example-datasets-in-the-jelly-format">Use cases page</a></strong> where we list links to example datasets in the Jelly format.</p>
 </div>
 <h3 id="apache-jena-rdf4j-plugins">Apache Jena / RDF4J plugins</h3>
 <p>Check out the <strong><a href="https://w3id.org/jelly/jelly-jvm/dev/getting-started-plugins">dedicated guide for installing plugins in Jena and RDF4J</a></strong>. You can use them to quickly add Jelly support to, for example, Apache Jena Fuseki and load Jelly files just like any other RDF file.</p>
@@ -1450,8 +1458,9 @@
 <h3 id="python-programming">Python programming</h3>
 <p>See the <strong><a href="https://w3id.org/jelly/pyjelly/dev/getting-started">pyjelly getting started guide</a></strong>. It contains examples and code snippets for using Jelly with rdflib.</p>
 <h2 id="how-to-use-it-in-detail">How to use it – in detail</h2>
-<p>To use Jelly you firstly need an implementation of the protocol. There is currently one implementation available: <strong><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM</a></strong>, which supports <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">Eclipse RDF4J</a>, and the <a href="https://github.com/filip26/titanium-rdf-api">Titanium RDF API</a>. It also has support for reactive streams (via Pekko Streams) and gRPC.</p>
-<p>The implementation will support several stream types and patterns that you can use. Which stream type you choose depends on your use case (see <a href="#stream-types">stream types</a> below).</p>
+<!-- TODO: the following explanation is unclear. It starts from the perspective of streaming use cases, which is not the most common starting point. Try to reframe it to gently introduce the idea of flat vs grouped streams and go from there. -->
+
+<p>Jelly supports several stream types – which stream type you choose depends on your use case (see <a href="#stream-types">stream types</a> below).</p>
 <p>All stream types use the same concept of <strong>stream frames</strong> – discrete elements into which the stream is divided. Each frame contains a number of <strong>rows</strong>, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not enforce the semantics of stream frames, although it does have a mechanism to suggest to consumers and producers how should they understand the stream. Still, you can interpret the stream however you like.</p>
 <div class="admonition question">
 <p class="admonition-title">Why doesn't Jelly enforce the semantics of stream frames?</p>
@@ -1809,7 +1818,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2025</span>
   </span>
 
     
