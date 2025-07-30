@@ -3,11 +3,41 @@
 Jelly is an open project – **you are welcome to submit issues, pull requests, or just ask questions**.
 By participating in this project, you are expected to follow our [Code of conduct](./code_of_conduct.md). Be kind, inclusive, and constructive.
 
+
+<div style="text-align: center" markdown>[:simple-discord: Chat with us on Discord](https://discord.gg/A8sN5XwVa5){ .md-button .md-button--primary }</div>
+
 ## Contributing to the Jelly specification
 
 The Jelly Protocol Buffers and gRPC definitions are in the [jelly-protobuf repository](https://github.com/Jelly-RDF/jelly-protobuf). If you want to contribute to the specification, it is strongly recommended that you first **[open an issue there](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose)** to discuss your idea.
 
 The [specification documents](../specification/index.md) are edited in the same way as other documentation pages. See the next section for details.
+
+## Contributing to implementations
+
+Best way to start is to hop on the [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) and ask questions – the developers and community members will be happy to help you get started. You can also jump straight into the implementations:
+
+### Jelly-JVM (Java)
+
+- **[Jelly-JVM contributing page]({{ jvm_link('contributing') }})**
+- [Jelly-JVM documentation]({{ jvm_link()}}) includes the developer guide, explaining the technical aspects of contributing to it.
+- [GitHub repository](https://github.com/Jelly-RDF/jelly-jvm)
+- [Issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues)
+
+### pyjelly (Python)
+
+- **[pyjelly contributing page]({{ python_link('contributing') }})**
+- [pyjelly documentation]({{ python_link() }}) 
+- [GitHub repository](https://github.com/Jelly-RDF/pyjelly)
+- [Issue tracker](https://github.com/Jelly-RDF/pyjelly/issues)
+
+### jelly.rs (Rust, *experimental*)
+
+- [GitHub repository](https://github.com/Jelly-RDF/jelly.rs)
+- [Issue tracker](https://github.com/Jelly-RDF/jelly.rs/issues)
+
+## New implementations and integrations
+
+Would you like to integrate Jelly into your project or implement it in a new language? You are welcome to do so! Check out [our tips for implementing Jelly in a new language](../user-guide.md#implementing-jelly). You can also join the [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) to discuss your plans and get help. Or, if you have a commercial project in mind, you can [contact NeverBlink](mailto:piotr@neverblink) for professional support.
 
 ## Editing documentation
 
@@ -73,28 +103,6 @@ After a new protocol release, you should also update the implementations to use 
 ### Editing Jelly-JVM documentation
 
 Use the exact same process as for the website documentation. The Jelly-JVM documentation sources are in the [`jelly-jvm` repository](https://github.com/Jelly-RDF/jelly-jvm), `docs/docs` directory.
-
-## Contributing to implementations
-
-### Jelly-JVM (Java)
-
-- **[Jelly-JVM contributing page]({{ jvm_link('contributing') }})**
-- [Jelly-JVM documentation]({{ jvm_link()}}) includes the developer guide, explaining the technical aspects of contributing to it.
-- [GitHub repository](https://github.com/Jelly-RDF/jelly-jvm)
-- [Issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues)
-- [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
-
-### pyjelly (Python)
-
-- **[pyjelly contributing page]({{ python_link('contributing') }})**
-- [pyjelly documentation]({{ python_link() }}) 
-- [GitHub repository](https://github.com/Jelly-RDF/pyjelly)
-- [Issue tracker](https://github.com/Jelly-RDF/pyjelly/issues)
-- [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) for questions and discussions
-
-## New implementations and integrations
-
-Would you like to integrate Jelly into your project or implement it in a new language? You are welcome to do so! Check out [our tips for implementing Jelly in a new language](../user-guide.md#implementing-jelly). You can also join the [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) to discuss your plans and get help. Or, if you have a commercial project in mind, you can [contact NeverBlink](mailto:piotr@neverblink) for professional support.
 
 ## See also
 
