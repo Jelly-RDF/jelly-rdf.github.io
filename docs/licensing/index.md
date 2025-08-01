@@ -37,11 +37,11 @@ Sowiński, P., Grzymkowski, K., Danilenka, A. (2025). Jelly-Patch: a Fast Format
 
 ```bibtex
 @article{sowinski2025jellypatch,
-  title = {Jelly: a fast and convenient RDF serialization format},
-  author = {Sowi{\'n}ski, Piotr and Bogacka, Karolina and Danilenka, Anastasiya and Kozlov, Nikita},
-  journal = {arXiv preprint arXiv:2506.11298},
+  title = {Jelly-Patch: a Fast Format for Recording Changes in RDF Datasets},
+  author = {Sowi{\'n}ski, Piotr and Grzymkowski, Kacper and Danilenka, Anastasiya},
+  journal = {arXiv preprint arXiv:2507.23499},
   year = {2025},
-  doi = {10.48550/arXiv.2506.11298},
+  doi = {10.48550/arXiv.2507.23499},
 }
 ```
 
