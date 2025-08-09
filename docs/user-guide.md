@@ -25,15 +25,23 @@ Jelly is designed to be a protocol for *streaming* RDF knowledge graphs, but it 
 
 ### [CLI tool](https://github.com/Jelly-RDF/cli)
 
-The easiest way to do something with Jelly is with the `jelly-cli` command line tool.
+The easiest way to do something with Jelly is with the [`jelly-cli`](https://github.com/Jelly-RDF/cli) command line tool.
 
-1. Go to the [`jelly-cli` download page](https://github.com/Jelly-RDF/cli/releases/tag/dev) and download a binary for you platform.
-    - Alternatively, you can download the `jelly-cli.jar` file and run it with `java -jar jelly-cli.jar`.
-2. Run `./jelly-cli rdf to-jelly some-rdf-file.ttl > output.jelly` to convert an RDF file to Jelly.
-3. Run `./jelly-cli rdf from-jelly output.jelly` to convert the Jelly file back to RDF.
-4. Run `./jelly-cli --help` to see all available commands.
+For Linux, macOS, and WSL on Windows, install it with the following command:
 
-You can find more information about the tool in **[its README on GitHub](https://github.com/Jelly-RDF/cli)**.
+```shell
+. <(curl -sSfL https://w3id.org/jelly/setup-cli.sh)
+jelly-cli
+```
+
+You can also install `jelly-cli` manually by downloading the [latest release](https://github.com/Jelly-RDF/cli/releases/latest), including a version for Windows without WSL and a platform-independent JAR file.
+
+
+- Run `jelly-cli rdf to-jelly some-rdf-file.ttl > output.jelly` to convert an RDF file to Jelly.
+- Run `jelly-cli rdf from-jelly output.jelly` to convert the Jelly file back to RDF.
+- Run `jelly-cli --help` to see all available commands.
+
+You can find more information about `jelly-cli` in **[its README on GitHub](https://github.com/Jelly-RDF/cli)**.
 
 !!! example "Example Jelly files"
 

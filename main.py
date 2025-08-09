@@ -89,6 +89,17 @@ def define_env(env):
 
 
     @env.macro
+    def jvm_latest_release():
+        tag = jvm_version()
+        if tag == 'dev':
+            tag = os.environ.get('JVM_LATEST_RELEASE', 'dev')
+            if tag == 'dev' and len(os.environ.get('CI', '')) > 0:
+                raise ValueError('JVM_LATEST_RELEASE env var is not set, but it is required in CI')
+            tag = tag.replace('v', '')
+        return tag
+
+
+    @env.macro
     def jvm_link(page: str = ''):
         version = jvm_version()
         return f'https://w3id.org/jelly/jelly-jvm/{version}/{page}'

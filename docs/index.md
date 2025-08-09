@@ -44,6 +44,117 @@
 
 </div>
 
+## ⚡ Quick start
+
+!!! example ""
+
+    === "CLI tool"
+
+        [`jelly-cli`](https://github.com/Jelly-RDF/cli) is a simple tool that lets you convert RDF files to and from Jelly, validate Jelly files, and more.
+
+        For Linux, macOS, and WSL on Windows, run:
+
+        ```shell
+        . <(curl -sSfL https://w3id.org/jelly/setup-cli.sh)
+        jelly-cli
+        ```
+
+        **[See all available commands and documentation.](https://github.com/Jelly-RDF/cli)**
+
+        You can also install it manually by downloading the [latest release](https://github.com/Jelly-RDF/cli/releases/latest), including a version for Windows without WSL and a platform-independent JAR file.
+
+    === "Python"
+
+        Install the [`pyjelly`]({{ python_link() }}) package with support for [RDFLib]({{ python_link( 'getting-started' ) }}):
+
+        ```shell
+        pip install pyjelly[rdflib]
+        ```
+
+        Write an RDF graph to a Jelly file:
+
+        ```python
+        from rdflib import Graph
+
+        g = Graph()
+        g.parse("http://xmlns.com/foaf/spec/index.rdf")
+        g.serialize(destination="foaf.jelly", format="jelly")
+        ```
+
+        Read a Jelly file:
+
+        ```python
+        g = Graph()
+        g.parse("foaf.jelly", format="jelly")
+        ```
+
+        **[See the full user guide and API reference.]({{ python_link( 'getting-started' ) }})**
+
+        Other integrations (with or without RDFLib) are available, including Neo4j and NetworkX – see the [Python user guide]({{ python_link( 'overview' ) }}).
+
+    === "Java"
+
+        Jelly-JVM is a super-fast implemention of Jelly, fully integrated with [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), and [Titanium]({{ jvm_link( 'user/titanium' ) }}).
+
+        To get started, add the following dependency to your `pom.xml`:
+
+        === "Apache Jena"
+        
+            ```xml title="pom.xml"
+            <dependency>
+                <groupId>eu.neverblink.jelly</groupId>
+                <artifactId>jelly-jena</artifactId>
+                <version>{{ jvm_latest_release() }}</version>
+            </dependency>
+            ```
+
+            See the full **[Jena user guide.]({{ jvm_link( 'getting-started-devs' ) }})**
+
+        === "RDF4J"
+
+            ```xml title="pom.xml"
+            <dependency>
+                <groupId>eu.neverblink.jelly</groupId>
+                <artifactId>jelly-rdf4j</artifactId>
+                <version>{{ jvm_latest_release() }}</version>
+            </dependency>
+            ```
+
+            See the full **[RDF4J user guide.]({{ jvm_link( 'user/rdf4j' ) }})**
+
+        === "Titanium"
+
+            ```xml title="pom.xml"
+            <dependency>
+                <groupId>eu.neverblink.jelly</groupId>
+                <artifactId>jelly-titanium-rdf-api</artifactId>
+                <version>{{ jvm_latest_release() }}</version>
+            </dependency>
+            ```
+
+            See the full **[Titanium RDF API user guide.]({{ jvm_link( 'user/titanium' ) }})**
+
+    === "Apache Jena plugin"
+
+        Quickly add Jelly support to your [Apache Jena Fuseki server](https://jena.apache.org/documentation/fuseki2/index.html) (5.2.0+) or other Jena-based applications:
+
+        1. Download the [Jelly plugin JAR (version {{ jvm_latest_release() }})](https://github.com/Jelly-RDF/jelly-jvm/releases/download/v{{ jvm_latest_release() }}/jelly-jena-plugin.jar).
+        2. For Apache Jena Fuseki, place the JAR in the `$FUSEKI_BASE/extra/` directory. You may need to create this directory.
+        3. Start Fuseki and enjoy full support in RDF loading, APIs, SPARQL, and content negotiation.
+
+        See the full **[Jena plugin user guide]({{ jvm_link( 'getting-started-plugins' ) }})** for more details.
+
+    === "RDF4J plugin"
+
+        Quickly add Jelly support to your [RDF4J](https://rdf4j.org/) applications:
+
+        1. Download the [Jelly plugin JAR (version {{ jvm_latest_release() }})](https://github.com/Jelly-RDF/jelly-jvm/releases/download/v{{ jvm_latest_release() }}/jelly-rdf4j-plugin.jar).
+        2. For RDF4J SDK, place the JAR in the `lib/` directory. For other applications, add the JAR to your classpath.
+        3. Start the application and enjoy full Jelly support.
+
+        See the full **[RDF4J plugin user guide]({{ jvm_link( 'getting-started-plugins#eclipse-rdf4j' ) }})** for more details.
+
+
 ## How fast is it?
 
 *Fast.* Jelly was specifically designed to serialize and deserialize streams of RDF data faster than N-Triples or other binary formats, while being [more compact than Turtle](performance/index.md#grouped-streaming-serialized-size).

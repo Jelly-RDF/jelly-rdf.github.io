@@ -25,6 +25,14 @@ jobs:
           sparse-checkout: proto
           path: p
 
+
+      - id: jvm_release
+        uses: pozetroninc/github-action-get-latest-release@v0.8.0
+        with:
+          owner: Jelly-RDF
+          repo: jelly-jvm
+          excludes: prerelease, draft
+
       - name: Generate Protobuf reference
         run: |
           mkdir -p pages/docs/specification/proto
@@ -51,6 +59,7 @@ jobs:
           export TAG='main'
           export PYTHON_TAG='main'
           export JVM_TAG='main'
+          export JVM_LATEST_RELEASE='${{ steps.jvm_release.outputs.release }}'
           export PROTO_PATH='../p/proto'
           git fetch origin gh-pages --depth=1
           git config user.name ci-bot
