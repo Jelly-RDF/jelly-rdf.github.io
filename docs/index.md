@@ -52,16 +52,29 @@
 
         [`jelly-cli`](https://github.com/Jelly-RDF/cli) is a simple tool that lets you convert RDF files to and from Jelly, validate Jelly files, and more.
 
-        For Linux, macOS, and WSL on Windows, run:
+        === "Install script"
 
-        ```shell
-        . <(curl -sSfL https://w3id.org/jelly/setup-cli.sh)
-        jelly-cli
-        ```
+            For Linux, macOS, and WSL on Windows, run:
+
+            ```shell
+            . <(curl -sSfL https://w3id.org/jelly/setup-cli.sh)
+            jelly-cli
+            ```
+
+        === "mise"
+
+            You can install `jelly-cli` on any platform (including Windows) using [mise](https://mise.jdx.dev/getting-started.html). Simply run:
+
+            ```shell
+            mise use -g 'ubi:Jelly-RDF/cli[exe=jelly-cli]'
+            jelly-cli
+            ```
+
+        === "Manual download"
+
+            You can also install `jelly-cli` manually by downloading the **[latest release](https://github.com/Jelly-RDF/cli/releases/latest)**, including a version for Windows without WSL and a platform-independent JAR file.
 
         **[See all available commands and documentation.](https://github.com/Jelly-RDF/cli)**
-
-        You can also install it manually by downloading the [latest release](https://github.com/Jelly-RDF/cli/releases/latest), including a version for Windows without WSL and a platform-independent JAR file.
 
     === "Python"
 
