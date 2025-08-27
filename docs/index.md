@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), and [Titanium]({{ jvm_link( 'user/titanium' ) }})) and [Python]({{ python_link() }}) (works with [rdflib]({{ python_link( 'getting-started' ) }})).
+**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), [Titanium]({{ jvm_link( 'user/titanium' ) }}), and [Neo4j]({{ jvm_link('getting-started-neo4j') }})) and [Python]({{ python_link() }}) (works with [RDFLib]({{ python_link( 'getting-started' ) }})).
 
 <div class="grid cards" style="clear: right;" markdown>
 
@@ -18,7 +18,7 @@
 
     ---
 
-    Fully-integrated support for [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), [Titanium]({{ jvm_link( 'user/titanium' ) }}), and [rdflib]({{ python_link( 'getting-started' ) }}).
+    Fully-integrated support for [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), [Titanium]({{ jvm_link( 'user/titanium' ) }}), [Neo4j]({{ jvm_link('getting-started-neo4j') }}), and [RDFLib]({{ python_link( 'getting-started' ) }}).
 
     [:octicons-arrow-right-24: Jelly-JVM]({{ jvm_link() }})
 
@@ -166,6 +166,59 @@
         3. Start the application and enjoy full Jelly support.
 
         See the full **[RDF4J plugin user guide]({{ jvm_link( 'getting-started-plugins#eclipse-rdf4j' ) }})** for more details.
+
+    === "Neo4j"
+
+        You can add Jelly support directly to your [Neo4j](https://neo4j.com/) Desktop or self-hosted server (Community / Enterprise Edition) using [our plugin]({{ jvm_link( 'getting-started-neo4j' ) }}). Alternatively, you can use the [rdflib-neo4j integration]({{ python_link( 'rdflib-neo4j-integration' ) }}), which is more limited, but also works with AuraDB.
+
+        === "Plugin (Neo4j Desktop and self-hosted server)"
+
+            **Installation:**
+            
+            1. Open the Neo4j installation folder.
+            2. Download the neosemantics plugin `.jar` file from the [neosemantics releases page](https://github.com/neo4j-labs/neosemantics/releases) and place it in the `plugins` folder. The plugin's version must be the same as Neo4j's.
+            3. Download the [Jelly-Neo4j plugin `.jar` file](https://github.com/Jelly-RDF/jelly-jvm/releases/download/v{{ jvm_latest_release() }}/jelly-neo4j-plugin.jar) and place it in the `plugins` folder.
+            4. Restart the Neo4j server.
+
+            You may also need to configure your instance for RDF support. See the [documentation of neosemantics](https://neo4j.com/labs/neosemantics/tutorial/) for details.
+
+            **Usage:**
+
+            All features of the [neosemantics plugin](https://neo4j.com/labs/neosemantics/) are supported. For example, to import a Jelly file into your Neo4j instance:
+
+            ```cypher
+            CALL n10s.rdf.import.fetch(
+                'https://w3id.org/riverbench/dumps-with-results/dev.jelly.gz', 
+                'Jelly'
+            )
+            ```
+
+            **[See the full installation and usage guide.]({{ jvm_link( 'getting-started-neo4j' ) }})**
+
+        === "rdflib-neo4j (AuraDB)"
+
+            Install the [`pyjelly`]({{ python_link() }}) package with integration for Neo4j:
+
+            ```shell
+            pip install pyjelly[rdflib] rdflib-neo4j
+            ```
+
+            You can now import Jelly files into your Neo4j AuraDB or Neo4j server instance:
+
+            ```python
+            from rdflib import Graph
+            from rdflib_neo4j import Neo4jStoreConfig, Neo4jStore
+
+            neo4j_store = Graph(store=Neo4jStore(
+                config=Neo4jStoreConfig(
+                    # add your connection details here
+                )
+            ))
+
+            neo4j_store.parse("foaf.jelly", format="jelly")
+            ```
+
+            **[See the full installation and user guide.]({{ python_link( 'rdflib-neo4j-integration' ) }})**
 
 
 ## How fast is it?
