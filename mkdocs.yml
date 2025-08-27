@@ -113,7 +113,7 @@ nav:
   - Contributing:
     - 'contributing/index.md'
     - Code of conduct: 'contributing/code_of_conduct.md'
-  - Use cases: 'use-cases.md'
+  - Use cases and datasets: 'use-cases.md'
   - Licensing and citation: 
     - 'licensing/index.md'
     - 'Projects and funding': 'licensing/projects.md'
