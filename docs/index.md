@@ -66,7 +66,7 @@
             You can install `jelly-cli` on any platform (including Windows) using [mise](https://mise.jdx.dev/getting-started.html). Simply run:
 
             ```shell
-            mise use -g 'ubi:Jelly-RDF/cli[exe=jelly-cli]'
+            mise use -g 'ubi:Jelly-RDF/cli[exe=jelly-cli]@latest'
             jelly-cli
             ```
 
