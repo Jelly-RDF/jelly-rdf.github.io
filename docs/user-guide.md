@@ -205,7 +205,7 @@ That's the basics – [see the spec for details](specification/serialization.md)
     }
     ```
 
-### What Jelly does and doesn't compress
+### What Jelly does and does not compress
 
 Jelly is pretty good at compressing IRI-heavy RDF data, but it doesn't compress the text in the IRIs themselves. Same applies to blank node identifiers, language tags, and literal contents. If you care about small file size, **you should compress your Jelly file with your compressor of choice**, like gzip, bzip, or zstd. We found zstd to work particularly well in practice. While Jelly by itself can make datasets ~6x smaller (this largely depends on the dataset), with zstd compression, you can sometimes get it up to 100x.
 
