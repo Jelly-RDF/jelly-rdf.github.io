@@ -65,7 +65,7 @@ See the **[pyjelly getting started guide]({{ python_link('getting-started') }})*
 
 ## How does it work – encoding
 
-RDF data consists of triples (subject, predicate, object) or quads (triple + graph name). We will use these three triples in the N-Triples format as a running example:
+RDF data consists of triples (subject, predicate, object) or quads (subject, predicate, object, graph name). We will use these three triples in the N-Triples format as a running example:
 
 ```turtle
 <https://example.org/jelly> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> _:b1 .
