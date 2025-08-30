@@ -255,7 +255,7 @@ ex:sensor ex:measuredProperty ex:temperature ;
     ex:value "280.6"^^xsd:decimal .
 ```
 
-We call this a *grouped RDF stream*. A Jelly parser can unpack this and process the frames one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in frame 1, and then again in frame 2, we will only have to write it only once. This is very effective for regular data, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).
+We call this a *grouped RDF stream*. A Jelly parser can unpack this and process the frames one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in frame 1, and then again in frame 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).
 
 **As a summary:**
 
