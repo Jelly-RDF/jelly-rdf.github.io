@@ -290,7 +290,7 @@ There are three physical stream types in Jelly:
 
 !!! warning
 
-    The `GRAPHS` type is a left-over from a previous version of the format and right now it's usefulness is limited – you can do the exact same thing with `QUADS`, which is simpler. In new projects, we recommend using `QUADS` instead.
+    The `GRAPHS` type is a left-over from a previous version of the format and right now its usefulness is limited – you can do the exact same thing with `QUADS`, which is simpler. In new projects, we recommend using `QUADS` instead.
 
 As for logical stream types, they are taken directly from [RDF-STaX]({{ stax_link('taxonomy') }}) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
 
