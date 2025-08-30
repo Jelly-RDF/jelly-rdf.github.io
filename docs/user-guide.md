@@ -3,7 +3,7 @@
 To use Jelly, pick an implementation that matches your tech stack:
 
 - **[Jelly-JVM]({{ jvm_link() }})** – written in Java, integrated with Apache Jena, RDF4J, Titanium, and Neo4j.
-- **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib.
+- **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib. Can also be used without RDFLib.
 - **[jelly.rs](https://github.com/Jelly-RDF/jelly.rs)** *(experimental)* – written in Rust, integrated with Sophia.
 - **[jelly-cli](https://github.com/Jelly-RDF/cli)** – command-line tool, works on Windows, macOS, and Linux.
 
@@ -51,19 +51,224 @@ You can find more information about `jelly-cli` in **[its README on GitHub](http
 
 Check out the **[dedicated guide for installing plugins in Jena and RDF4J]({{ jvm_link('getting-started-plugins') }})**. You can use them to quickly add Jelly support to, for example, Apache Jena Fuseki and load Jelly files just like any other RDF file.
 
+### Neo4j plugin
+
+We also have a plugin for Neo4j, extending the official neosemantics plugin. **[Check out installation instructions and usage guide.]({{ jvm_link('getting-started-neo4j') }})**
+
 ### Java & Scala programming
 
 Go see the **[Jelly-JVM getting started guide for devs]({{ jvm_link('getting-started-devs') }})**. It contains a lot of examples and code snippets for using Jelly in Java and Scala, with Jena, RDF4J, and Titanium.
 
 ### Python programming
 
-See the **[pyjelly getting started guide]({{ python_link('getting-started') }})**. It contains examples and code snippets for using Jelly with rdflib.
+See the **[pyjelly getting started guide]({{ python_link('getting-started') }})**. It contains examples and code snippets for using Jelly with or without RDFLib, as well as other libraries like NetworkX.
 
-## How to use it – in detail
+## How does it work – encoding
 
-<!-- TODO: the following explanation is unclear. It starts from the perspective of streaming use cases, which is not the most common starting point. Try to reframe it to gently introduce the idea of flat vs grouped streams and go from there. -->
+RDF data consists of triples (subject, predicate, object) or quads (subject, predicate, object, graph name). We will use these three triples in the N-Triples format as a running example:
 
-Jelly supports several stream types – which stream type you choose depends on your use case (see [stream types](#stream-types) below).
+```turtle
+<https://example.org/jelly> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> _:b1 .
+<https://example.org/jelly> <https://example.org/label> "Jelly" .
+_:b1 <https://example.org/label> "Serialization format"@en .
+```
+
+You can read that as "Jelly is an instance of a serialization format".
+
+Jelly encodes a sequence of triples or quads as a binary stream, using efficient encoding. The first thing it does is splitting IRIs into prefixes and postfixes (we call postfixes "names"):
+
+- Prefixes:
+    - `[1]: https://example.org/`
+    - `[2]: http://www.w3.org/1999/02/22-rdf-syntax-ns#`
+- Names:
+    - `[1]: jelly`
+    - `[2]: type`
+    - `[3]: label`
+
+They are communicated in the stream as part of a dynamically changing lookup table. If we run out of IDs, we remove old entries in the lookup to free up space. Each prefix and name is assigned a numerical ID starting with 1. We can now efficiently construct IRIs as a pair of IDs (1st ID is the prefix, the 2nd ID is the name):
+
+- `https://example.org/jelly` -> `RdfIri(1, 1)`
+- `http://www.w3.org/1999/02/22-rdf-syntax-ns#type` -> `RdfIri(2, 2)`
+- `https://example.org/label` -> `RdfIri(1, 3)`
+
+This allows us to reuse repeating prefixes and names while saving on the serialized size. We also apply the same principle to datatype IRIs (they are not split in half, though). When we apply this across our 3 triples, we will get (in simplified form):
+
+| Subject | Predicate | Object |
+| ------- | --------- | ------ |
+| `RdfIri(1, 1)` | `RdfIri(2, 2)` | `"b1"` |
+| `RdfIri(1, 1)` | `RdfIri(1, 3)` | `RdfLiteral("Jelly")` |
+| `"b1"` | `RdfIri(1, 3)` | `RdfLiteral("Serialization format", "en")` |
+
+Notice that we have repeated IRIs in the first and second column. Jelly can compress that, by applying a method similar to Turtle's colons and semicolons, but a bit more general. If we have two consecutive triples/quads with the exact same subject, predicate, object, or graph name, we simply... don't write the repeated term:
+
+| Subject | Predicate | Object |
+| ------- | --------- | ------ |
+| `RdfIri(1, 1)` | `RdfIri(2, 2)` | `"b1"` |
+| *(empty)* | `RdfIri(1, 3)` | `RdfLiteral("Jelly")` |
+| `"b1"` | *(empty)* | `RdfLiteral("Serialization format", "en")` |
+
+Jelly parsers detect these missing values and automatically fill them in with values from previous rows. These empty terms take up exactly 0 bytes on the wire, which makes this method very efficient.
+
+Jelly also applies a delta compression scheme to prefix and name IDs. [You can find the details in the spec](specification/serialization.md), but the short version is that we use `0` to indicate `previous + 1` ID in the case of names, and `previous` ID in the case of prefixes. For our triples, this allows us to replace all name IDs with zeroes:
+
+| Subject | Predicate | Object |
+| ------- | --------- | ------ |
+| `RdfIri(1, 0)` | `RdfIri(2, 0)` | `"b1"` |
+| *(empty)* | `RdfIri(1, 0)` | `RdfLiteral("Jelly")` |
+| `"b1"` | *(empty)* | `RdfLiteral("Serialization format", "en")` |
+
+The value of `0` takes up exactly zero bytes – that's the same trick as with repeated terms, allowing us to save even more space.
+
+Jelly's encoding scheme was designed to work in a fully streaming manner. We can compress RDF data by only looking at one triple at a time, and we use a strictly limited amount of memory for that. **This allows Jelly to work with datasets of any size** – billions, trillions, and beyond.
+
+That's the basics – [see the spec for details](specification/serialization.md).
+
+??? example "Full translation of the example to Jelly"
+
+    The running example was translated to a text-based readable version of Jelly with [jelly-cli](https://github.com/Jelly-RDF/cli):
+
+    ```shell
+    jelly-cli rdf to-jelly --opt.physical-type=triples | \
+        jelly-cli rdf from-jelly --out-format jelly-text
+    ```
+
+    Output:
+
+    ```json
+    # Frame 0
+    rows {
+      options {
+        physical_type: PHYSICAL_STREAM_TYPE_TRIPLES
+        rdf_star: true
+        max_name_table_size: 4000
+        max_prefix_table_size: 150
+        max_datatype_table_size: 32
+        version: 1
+      }
+    }
+    rows {
+      prefix {
+        value: "https://example.org/"
+      }
+    }
+    rows {
+      name {
+        value: "jelly"
+      }
+    }
+    rows {
+      prefix {
+        value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      }
+    }
+    rows {
+      name {
+        value: "type"
+      }
+    }
+    rows {
+      quad {
+        s_iri {
+          prefix_id: 1
+        }
+        p_iri {
+          prefix_id: 2
+        }
+        o_bnode: "b1"
+        g_default_graph {
+        }
+      }
+    }
+    rows {
+      name {
+        value: "label"
+      }
+    }
+    rows {
+      quad {
+        p_iri {
+          prefix_id: 1
+        }
+        o_literal {
+          lex: "Jelly"
+        }
+      }
+    }
+    rows {
+      quad {
+        s_bnode: "b1"
+        o_literal {
+          lex: "Serialization format"
+          langtag: "en"
+        }
+      }
+    }
+    ```
+
+### What Jelly does and does not compress
+
+Jelly is pretty good at compressing IRI-heavy RDF data, but it doesn't compress the text in the IRIs themselves. Same applies to blank node identifiers, language tags, and literal contents. If you care about small file size, **you should compress your Jelly file with your compressor of choice**, like gzip, bzip, or zstd. We found zstd to work particularly well in practice. While Jelly by itself can make datasets ~6x smaller (this largely depends on the dataset), with zstd compression, you can sometimes get it up to 100x.
+
+## How does it work – streams
+
+A stream is just a sequence of items. We want to only look at one element of the stream at a time – this limits memory usage and allows us to process infinitely long streams.
+
+The most basic kind of RDF stream is what you would see in an N-Triples or N-Quads file – after all, it's just a sequence of triples:
+
+```turtle
+<https://example.org/jelly> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> _:b1 .
+<https://example.org/jelly> <https://example.org/label> "Jelly" .
+_:b1 <https://example.org/label> "Serialization format"@en .
+```
+
+We call this a *flat RDF stream*. Jelly supports this kind of streams – you will find them useful in transferring large RDF files, query responses, database dumps, and so on.
+
+But, what if our stream contains a sequence of RDF graphs or datasets? For example, if we want to transfer the measurements of a temperature sensor, we would have:
+
+Graph 1:
+
+```turtle
+ex:sensor ex:measuredProperty ex:temperature ;
+    ex:unit ex:Kelvin ;
+    ex:value "280.4"^^xsd:decimal .
+```
+
+Graph 2:
+
+```turtle
+ex:sensor ex:measuredProperty ex:temperature ;
+    ex:unit ex:Kelvin ;
+    ex:value "280.6"^^xsd:decimal .
+```
+
+...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. Jelly offers a simpler way, where multiple graphs or datasets can live within one file. We use *frames* as boundary markers:
+
+```turtle
+# Frame 1
+ex:sensor ex:measuredProperty ex:temperature ;
+    ex:unit ex:Kelvin ;
+    ex:value "280.4"^^xsd:decimal .
+
+# Frame 2
+ex:sensor ex:measuredProperty ex:temperature ;
+    ex:unit ex:Kelvin ;
+    ex:value "280.6"^^xsd:decimal .
+```
+
+We call this a *grouped RDF stream*. A Jelly parser can unpack this and process the frames one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in frame 1, and then again in frame 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).
+
+**As a summary:**
+
+- **Flat RDF stream** – just a sequence of triples or quads. Great for processing a single file.
+- **Grouped RDF stream** – a sequence of graphs or datasets. Great if you have many small files.
+
+Jelly can record in its files whether the stream is flat or grouped, but this annotation is entirely optional, and parsers can ignore it. In fact, in both cases the physical layout of the stream is the same, only the interpretation of it changes.
+
+The following sections contain more details about stream types in Jelly.
+
+## Streams and stream types in detail
+
+### Stream frames
 
 All stream types use the same concept of **stream frames** – discrete elements into which the stream is divided. Each frame contains a number of **rows**, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not enforce the semantics of stream frames, although it does have a mechanism to suggest to consumers and producers how should they understand the stream. Still, you can interpret the stream however you like.
 
@@ -82,6 +287,10 @@ There are three physical stream types in Jelly:
 - **`TRIPLES`**: Data is encoded using triple statements. There is no information about the graph name in this type of stream.
 - **`QUADS`**: Data is encoded using quad statements. Each quad has a graph name, which can also be the default graph.
 - **`GRAPHS`**: Data is encoded using named graphs, where the graph name can also be the default graph. Each named graph can contain multiple triples.
+
+!!! warning
+
+    The `GRAPHS` type is a left-over from a previous version of the format and right now its usefulness is limited – you can do the exact same thing with `QUADS`, which is simpler. In new projects, we recommend using `QUADS` instead.
 
 As for logical stream types, they are taken directly from [RDF-STaX]({{ stax_link('taxonomy') }}) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
 
@@ -177,48 +386,6 @@ You want to stream a lot of quads – similar to the "just a bunch of triples" c
 
 The mechanism is exactly the same as with a flat RDF triple stream.
 
-#### Flat RDF quad stream (as `GRAPHS`)
-
-This a slightly different take on the problem of "just a bunch of quads" – you also want to transmit what is essentially a single RDF dataset, but instead of sending individual quads, you want to send it graph-by-graph. This makes most sense if your data changes on a per-graph basis, or you are streaming a static RDF dataset.
-
-This is logically again a flat RDF quad stream, but it can be physically encoded as a `GRAPHS` stream, batching the triples in the graphs into frames of an arbitrary size (let's say, 1000 triples each):
-
-??? example "Example (click to expand)"
-
-    - Stream frame 1
-        - Stream options
-        - Start graph (named 1)
-        - Triple 1 (of graph 1)
-        - Triple 2 (of graph 1)
-        - ...
-        - Triple 134 (of graph 1)
-        - End graph
-        - Start graph (named 2)
-        - Triple 1 (of graph 2)
-        - Triple 2 (of graph 2)
-        - ...
-        - Triple 97 (of graph 2)
-    - Stream frame 2
-        - Triple 98 (of graph 2)
-        - ...
-        - Triple 130 (of graph 2)
-        - End graph
-        - Start graph (named 3)
-        - Triple 1 (of graph 3)
-        - Triple 2 (of graph 3)
-        - ...
-        - Triple 77 (of graph 3)
-        - End graph
-        - Start graph (named 4)
-        - Triple 1 (of graph 4)
-        - Triple 2 (of graph 4)
-        - ...
-        - Triple 21 (of graph 4)
-        - End graph
-    - ...
-
-Notice that one named graph can span multiple stream frames, and one stream frame can contain multiple graphs. The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.
-
 #### RDF dataset stream (as `QUADS`)
 
 You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an [RDF dataset stream]({{ stax_link('taxonomy#rdf-dataset-stream') }}), which can be physically encoded as a `QUADS` stream, where the stream frames correspond to different datasets:
@@ -241,43 +408,6 @@ You want to stream RDF datasets – similar to the "a stream of graphs" case abo
 The mechanism is exactly the same as with a triple stream of graphs.
 
 [RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its RDF dataset streams (see [example](https://w3id.org/riverbench/datasets/nanopubs/dev)). Note that in RiverBench the stream may be equivalently considered a flat RDF quad stream – the serialization is the same, it only depends on the interpretation on the side of the consumer.
-
-#### RDF dataset stream (as `GRAPHS`)
-
-You want to stream RDF datasets or a subclass of them – for example [timestamped named graphs]({{ stax_link('taxonomy#timestamped-rdf-named-graph-stream') }}), using the [RSP Data Model](https://streamreasoning.org/RSP-QL/Abstract%20Syntax%20and%20Semantics%20Document/), where each stream element is a named graph and a bunch of statements about this graph in the default graph. This can be physically encoded as a `GRAPHS` stream, where the stream frames correspond to different datasets:
-
-??? example "Example (click to expand)"
-
-    - Stream frame 1
-        - Stream options
-        - Start graph (default)
-        - Triple 1 (of default graph, dataset 1)
-        - Triple 2 (of default graph, dataset 1)
-        - ...
-        - Triple 134 (of default graph, dataset 1)
-        - End graph
-        - Start graph (named)
-        - Triple 1 (of named graph, dataset 1)
-        - Triple 2 (of named graph, dataset 1)
-        - ...
-        - Triple 97 (of named graph, dataset 1)
-        - End graph
-    - Stream frame 2
-        - Start graph (default)
-        - Triple 1 (of default graph, dataset 2)
-        - Triple 2 (of default graph, dataset 2)
-        - ...
-        - Triple 77 (of default graph, dataset 2)
-        - End graph
-        - Start graph (named)
-        - Triple 1 (of named graph, dataset 2)
-        - Triple 2 (of named graph, dataset 2)
-        - ...
-        - Triple 21 (of named graph, dataset 2)
-        - End graph
-    - ...
-
-Of course each stream frame could contain more than one named graph, and the graphs can be of different sizes.
 
 ## Ordering and delivery guarantees
 

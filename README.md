@@ -12,6 +12,8 @@ If you want to instead contribute to the Jelly serialization format or the Jelly
 
 - [Jelly serialization format and streaming protocol](https://github.com/Jelly-RDF/jelly-protobuf) ([issue tracker](https://github.com/Jelly-RDF/jelly-protobuf/issues))
 - [Jelly-JVM](https://github.com/Jelly-RDF/jelly-jvm) ([issue tracker](https://github.com/Jelly-RDF/jelly-jvm/issues))
+- [pyjelly](https://github.com/Jelly-RDF/pyjelly) ([issue tracker](https://github.com/Jelly-RDF/pyjelly/issues))
+- [jelly-cli](https://github.com/Jelly-RDF/cli) ([issue tracker](https://github.com/Jelly-RDF/cli/issues))
 
 ## Editing the documentation
 
