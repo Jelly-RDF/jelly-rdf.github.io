@@ -3,7 +3,7 @@
 To use Jelly, pick an implementation that matches your tech stack:
 
 - **[Jelly-JVM]({{ jvm_link() }})** – written in Java, integrated with Apache Jena, RDF4J, Titanium, and Neo4j.
-- **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib, can also be used without RDFLib.
+- **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib. Can also be used without RDFLib.
 - **[jelly.rs](https://github.com/Jelly-RDF/jelly.rs)** *(experimental)* – written in Rust, integrated with Sophia.
 - **[jelly-cli](https://github.com/Jelly-RDF/cli)** – command-line tool, works on Windows, macOS, and Linux.
 
