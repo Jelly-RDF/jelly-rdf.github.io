@@ -30,10 +30,10 @@ Best way to start is to hop on the [Jelly Discord chat](https://discord.gg/A8sN5
 - [GitHub repository](https://github.com/Jelly-RDF/pyjelly)
 - [Issue tracker](https://github.com/Jelly-RDF/pyjelly/issues)
 
-### jelly.rs (Rust, *experimental*)
+### jelly_rs (Rust, *experimental*)
 
-- [GitHub repository](https://github.com/Jelly-RDF/jelly.rs)
-- [Issue tracker](https://github.com/Jelly-RDF/jelly.rs/issues)
+- [GitHub repository](https://github.com/Jelly-RDF/jelly_rs)
+- [Issue tracker](https://github.com/Jelly-RDF/jelly_rs/issues)
 
 ## New implementations and integrations
 
