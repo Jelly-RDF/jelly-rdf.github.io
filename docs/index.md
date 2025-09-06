@@ -266,7 +266,7 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
     - [Protocol definition](https://github.com/Jelly-RDF/jelly-protobuf)
     - [JVM implementation](https://github.com/Jelly-RDF/jelly-jvm)
     - [Python implementation](https://github.com/Jelly-RDF/pyjelly)
-    - [Rust implementation](https://github.com/Jelly-RDF/jelly.rs) *(experimental)*
+    - [Rust implementation](https://github.com/Jelly-RDF/jelly_rs) *(experimental)*
     - [Command-line utility (`jelly-cli`)](https://github.com/Jelly-RDF/cli)
     - [Website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
 - **[Licensing and citation](licensing/index.md)**
