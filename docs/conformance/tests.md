@@ -1,12 +1,5 @@
 # Protocol conformance — Tests
 
-<style>
-table{table-layout:fixed;width:100%;}
-thead th:nth-child(1){width:110px;}  /* Name */
-thead th:nth-child(2){width:55%;}   /* Description */
-td,th{vertical-align:top;}
-</style>
-
 > ### How to approach these tests
 > This page lists **Jelly protocol conformance tests**.
 > They are language-agnostic and are used by all Jelly implementations.
