@@ -1,0 +1,83 @@
+# conformance-report.ttl
+
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# --- Document metadata ---
+<> foaf:primaryTopic <#impl> ;
+   dc:issued "2026-01-1T00:00:00Z"^^xsd:dateTime ;
+   foaf:maker <#assertor> .
+
+# --- Assertor (you/your org/your bot) ---
+<#assertor> a foaf:Person, earl:Assertor ;
+  foaf:name "Your Name or Bot Name" ;
+  foaf:homepage <https://example.org/your-homepage> .
+
+# --- Test Subject (your implementation) ---
+<#impl> a doap:Project, earl:TestSubject, earl:Software ;
+  doap:name "Your Jelly implementation" ;
+  doap:homepage <https://example.org/your-impl-homepage> ;
+  doap:description "Your implemenation description"@en ;
+  doap:programming-language "Rust" ;
+  doap:developer <#assertor> ;
+  doap:release [
+    doap:name "Your Jelly implementation 1.0.0" ;
+    doap:revision "1.0.0" ;
+    dc:created "2026-01-01"^^xsd:date
+  ] .
+
+# --- Assertions — one per test from the Jelly manifests you ran. ---
+# --- Outcomes values can only include: passed, failed, inapplicable, cantTell, untested. ---
+
+# Example 1
+<#a-triples_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+# Example 2
+<#a-graphs_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+# Example 3
+<#a-triples_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed  
+  ] .
+
+# Example 4
+<#a-triples_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+  # ... Example n-th
