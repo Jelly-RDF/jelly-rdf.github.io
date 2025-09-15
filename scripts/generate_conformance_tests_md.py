@@ -1,238 +1,222 @@
-from __future__ import annotations
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-import re
-import shutil
-import subprocess
-import tempfile
-from collections import defaultdict, Counter
+from __future__ import annotations
 from pathlib import Path
+import re, subprocess
+from collections import defaultdict, Counter
 from urllib.parse import urlparse, unquote
 
 from rdflib import Graph, Namespace
 from rdflib.namespace import RDF, RDFS
 
-OUTPUT_MD = Path("docs/conformance/tests.md")
+REPO_ROOT = Path("submodules/protobuf").resolve()
 PROTOBUF_REPO = "https://github.com/Jelly-RDF/jelly-protobuf.git"
-BRANCH = "main"
-FROM_MANIFEST_REL = Path("test/rdf/from_jelly/manifest.ttl")
-TO_MANIFEST_REL   = Path("test/rdf/to_jelly/manifest.ttl")
+JELLY_CLI_REPO = "https://github.com/Jelly-RDF/cli"
+
+FROM_MANIFEST = REPO_ROOT / "test/rdf/from_jelly/manifest.ttl"
+TO_MANIFEST   = REPO_ROOT / "test/rdf/to_jelly/manifest.ttl"
+OUTPUT_MD = Path("docs/conformance/tests.md")
 
 MF = Namespace("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#")
-EXTS = (".nt", ".nq", ".jelly", ".ttl")
 
-def run(cmd, cwd=None):
+ALLOWED_FILE_PATTERNS = (
+    r"in\.jelly$", r"out\.jelly$", r"out_\d+\.(nt|nq)$",
+    r".*\.(nt|nq|ttl|jelly)$"
+)
+
+def sh(cmd, cwd=None) -> str:
     return subprocess.check_output(cmd, cwd=cwd, text=True).strip()
 
-def shallow_clone(repo_url: str, branch: str, dst: Path) -> str:
-    run(["git", "init"], cwd=dst)
-    run(["git", "remote", "add", "origin", repo_url], cwd=dst)
-    run(["git", "fetch", "--depth=1", "origin", branch], cwd=dst)
-    run(["git", "checkout", branch], cwd=dst)
-    return run(["git", "rev-parse", "HEAD"], cwd=dst)
+def slug_for_mkdocs(s: str) -> str:
+    s = (s or "").strip().lower()
+    s = re.sub(r"\s+", "-", s)
+    s = re.sub(r"[^a-z0-9_-]", "", s)
+    s = re.sub(r"-{2,}", "-", s).strip("-")
+    return s or "section"
+
+def md_text(s: str) -> str:
+    return (s or "").replace("|", r"\|").replace("\n", " ").strip()
+
+def short(s: str, limit: int = 160) -> str:
+    s = (s or "").strip()
+    if len(s) <= limit: return s
+    cut = s[:limit].rsplit(" ", 1)[0]
+    return cut + "…"
+
+def gh_blob_url(repo_https: str, sha: str, rel_path: Path) -> str:
+    return f"{repo_https.rstrip('.git')}/blob/{sha}/{rel_path.as_posix()}"
 
 def rdf_list(g: Graph, head):
-    items = []
+    out = []
     node = head
     while node and node != RDF.nil:
         first = g.value(node, RDF.first)
-        if first: items.append(first)
+        if first is not None: out.append(first)
         node = g.value(node, RDF.rest)
-    return items
+    return out
 
-def norm_repo_rel(raw_val, manifest_path: Path, repo_root: Path) -> Path | None:
-    s = str(raw_val).strip()
+def _looks_like_file_token(s: str) -> bool:
+    return any(re.search(p, s) for p in ALLOWED_FILE_PATTERNS)
+
+def norm_repo_rel(val, manifest_path: Path, repo_root: Path) -> Path | None:
+    s = str(val).strip()
+    if not s: return None
     if s.startswith(("http://", "https://")):
-        u = urlparse(s); path = unquote(u.path or "")
+        u = urlparse(s)
+        path = unquote(u.path or "")
         parts = [p for p in path.split("/") if p]
-        if "tests" in parts:
-            i = parts.index("tests")
-            rel = Path("test", *parts[i+1:])
-            return rel
-        if "test" in parts:
-            i = parts.index("test")
-            rel = Path(*parts[i:])
-            return rel
+        for n in ("test", "tests"):
+            if n in parts:
+                i = parts.index(n)
+                rel = Path(*parts[i:])
+                if rel.parts[0] == "tests": rel = Path("test", *rel.parts[1:])
+                return rel
         return None
-    if "/" not in s and not s.lower().endswith(EXTS):
-        return None
+    if "/" not in s and not _looks_like_file_token(s): return None
     p = Path(s)
-    if not p.is_absolute():
-        p = (manifest_path.parent / p).resolve()
-    try:
-        rel = p.relative_to(repo_root)
-    except Exception:
+    if not p.is_absolute(): p = (manifest_path.parent / p).resolve()
+    try: rel = p.relative_to(repo_root)
+    except:
         parts = list(p.parts)
-        if "test" in parts:
-            rel = Path(*parts[parts.index("test"):])
-        else:
-            return None
+        if "test" in parts: rel = Path(*parts[parts.index("test"):])
+        else: return None
     return rel if rel.parts and rel.parts[0] == "test" else None
 
-def parse_manifest(manifest_path: Path):
-    g = Graph(); g.parse(manifest_path, format="turtle")
-    repo_root = manifest_path.parents[3]
-    entries = []
-    for m in g.subjects(RDF.type, MF.Manifest):
-        lst = g.value(m, MF.entries)
-        if lst: entries.extend(rdf_list(g, lst))
+def detect_category(paths: list[Path]) -> str:
+    for p in paths:
+        for a in ("from_jelly","to_jelly"):
+            if a in p.parts:
+                i = p.parts.index(a)
+                if i+1 < len(p.parts): return p.parts[i+1]
+    return "uncategorized"
 
-    def collect_paths(node):
-        out = set()
-        rel = norm_repo_rel(node, manifest_path, repo_root)
-        if rel: out.add(rel)
-        for _,__,val in g.triples((node, None, None)):
-            rel = norm_repo_rel(val, manifest_path, repo_root)
-            if rel: out.add(rel)
-        return sorted(out)
-
-    tests = []
-    for t in entries:
-        name    = str(g.value(t, MF.name) or "").strip()
-        comment = str(g.value(t, RDFS.comment) or "").strip()
-
-        types = {str(o) for o in g.objects(t, RDF.type)}
-        if any("Negative" in x or x.endswith("#NegativeEvaluationTest") for x in types):
-            ttype = "negative"
-        else:
-            ttype = "positive" if any("Positive" in x for x in types) else "positive"
-
-        actions, results = [], []
-        for _,__,act in g.triples((t, MF.action, None)):
-            actions += collect_paths(act)
-        for _,__,res in g.triples((t, MF.result, None)):
-            results += collect_paths(res)
-
-        def detect_category(paths):
-            for p in paths:
-                parts = p.parts
-                if "from_jelly" in parts:
-                    i = parts.index("from_jelly"); return parts[i+1] if i+1 < len(parts) else "uncategorized"
-                if "to_jelly" in parts:
-                    i = parts.index("to_jelly");   return parts[i+1] if i+1 < len(parts) else "uncategorized"
-            return "uncategorized"
-
-        tests.append(dict(
-            name=name, comment=comment, type=ttype,
-            actions=actions, results=results,
-            category=detect_category(actions or results),
-        ))
-    return tests
-
-def detect_data(paths):
+def detect_data(paths: list[Path], category: str) -> str:
     exts = {p.suffix.lower() for p in paths}
     if ".nt" in exts: return "triples"
     if ".nq" in exts: return "quads"
     for p in paths:
         if "graphs" in p.parts: return "graphs"
+    if "triples" in category: return "triples"
+    if "quads" in category: return "quads"
+    if "graphs" in category: return "graphs"
     return "—"
 
-def short_sentence(text: str, limit: int = 160) -> str:
-    t = " ".join((text or "").split())
-    if not t: return "—"
-    p = t.find(". ")
-    if 0 < p <= limit: return t[:p+1]
-    return t if len(t) <= limit else t[:limit].rstrip() + "…"
+def parse_manifest(manifest_path: Path, repo_root: Path):
+    g = Graph(); g.parse(manifest_path, format="turtle")
+    entries = []
+    for m in g.subjects(RDF.type, MF.Manifest):
+        lst = g.value(m, MF.entries)
+        if lst: entries.extend(rdf_list(g, lst))
 
-def md(s: str) -> str:
-    return (s or "").replace("|", r"\|").replace("\n", " ").strip()
+    def collect(node):
+        out=set()
+        rel=norm_repo_rel(node, manifest_path, repo_root)
+        if rel: out.add(rel)
+        for _,__,v in g.triples((node,None,None)):
+            rel=norm_repo_rel(v, manifest_path, repo_root)
+            if rel: out.add(rel)
+        return sorted(out)
 
-def slug(s: str) -> str:
-    return re.sub(r"[^a-z0-9]+","-", (s or "").lower()).strip("-") or "section"
+    tests = []
+    for t in entries:
+        name = str(g.value(t, MF.name) or "").strip()
+        desc = str(g.value(t, RDFS.comment) or "").strip()
+        types = {str(o) for o in g.objects(t, RDF.type)}
+        pol = "negative" if any("Negative" in x for x in types) else "positive"
+        acts, ress = [], []
+        for _,__,a in g.triples((t, MF.action, None)): acts += collect(a)
+        for _,__,r in g.triples((t, MF.result, None)): ress += collect(r)
+        cat = detect_category(acts or ress)
+        tests.append(dict(raw_name=name, description=desc, polarity=pol, actions=acts, results=ress, category=cat))
+    return tests
 
-def gh(repo_https: str, sha: str, rel_path: Path) -> str:
-    return f"{repo_https.rstrip('.git')}/blob/{sha}/{rel_path.as_posix()}"
+TABLE_HEADER = "| Name | Description | Data | Input(s) | Expected output |\n|---|---|---|---|---|\n"
 
-def render_tables(cases, repo_https, sha, is_from: bool) -> str:
+def files_to_links(paths: list[Path], repo_https: str, sha: str) -> str:
+    if not paths: return "—"
+    return "<br>".join(f"[{p.name}]({gh_blob_url(repo_https, sha, p)})" for p in paths)
+
+def render_tables(cases: list[dict], repo_https: str, sha: str) -> str:
     out = []
     grouped = defaultdict(lambda: defaultdict(list))
-    for c in cases:
-        grouped[c["category"]][c["type"]].append(c)
-
+    for c in cases: grouped[c["category"]][c["polarity"]].append(c)
     cats = sorted(grouped.keys())
-    out.append("### Jump to category\n\n" + "\n".join(f"- [{md(c)}](#{slug(c)})" for c in cats) + "\n\n")
-
-    counters = {"positive":0, "negative":0}
+    out.append("### Jump to category\n\n")
+    for cat in cats: out.append(f"- [{md_text(cat)}](#{slug_for_mkdocs(cat)})\n")
+    out.append("\n")
     for cat in cats:
-        pos_n = len(grouped[cat].get("positive", []))
-        neg_n = len(grouped[cat].get("negative", []))
-        out.append(f"### {md(cat)}\n\n*{pos_n} positive, {neg_n} negative*\n\n")
-        for t in ("positive","negative"):
-            rows = grouped[cat].get(t, [])
+        pos = len(grouped[cat].get("positive", []))
+        neg = len(grouped[cat].get("negative", []))
+        out.append(f"### {md_text(cat)}\n\n*{pos} positive, {neg} negative*\n\n")
+        for pol in ("positive","negative"):
+            rows = grouped[cat].get(pol, [])
             if not rows: continue
-            out.append(f"#### {t.capitalize()}\n\n")
-            out.append("| Name | Description | Type | Data | Input(s) | Expected | Category |\n|---|---|---|---|---|---|---|\n")
-            for c in sorted(rows, key=lambda r: (r["name"], r["comment"])):
-                counters[t]+=1
-                sname = f"{'pos' if t=='positive' else 'neg'}_{counters[t]:03d}"
-                desc = md(short_sentence(c["comment"] or c["name"], 160))
-
-                data = detect_data(c["results"] or c["actions"]) if is_from else detect_data(c["actions"] or c["results"])
-
-                if is_from:
-                    inputs = "—"
-                    if c["actions"]:
-                        p = c["actions"][0]; inputs = f"[{p.name}]({gh(repo_https, sha, p)})"
-                    expected = "—" if not c["results"] else "<br>".join(f"[{p.name}]({gh(repo_https, sha, p)})" for p in c["results"])
-                else:
-                    inputs = "—" if not c["actions"] else "<br>".join(f"[{p.name}]({gh(repo_https, sha, p)})" for p in c["actions"])
-                    expected = "—"
-                    if c["results"]:
-                        p = c["results"][0]; expected = f"[{p.name}]({gh(repo_https, sha, p)})"
-
-                out.append(f"| {sname} | {desc} | {t} | `{data}` | {inputs} | {expected} | {md(cat)} |\n")
+            out.append(f"#### {pol.capitalize()}\n\n{TABLE_HEADER}")
+            for r in sorted(rows,key=lambda x:(x["raw_name"],x["description"])):
+                desc = md_text(short(r["description"] or r["raw_name"], 200))
+                data = detect_data((r["actions"] or [])+(r["results"] or []), r["category"])
+                inputs = files_to_links(r["actions"], repo_https, sha)
+                expected = files_to_links(r["results"], repo_https, sha)
+                out.append(f"| {md_text(r['category'])} | {desc} | `{data}` | {inputs} | {expected} |\n")
             out.append("\n")
     return "".join(out)
 
 def main():
-    tmp = Path(tempfile.mkdtemp(prefix="jellypb-"))
-    try:
-        sha = shallow_clone(PROTOBUF_REPO, BRANCH, tmp)
-        from_tests = parse_manifest(tmp / FROM_MANIFEST_REL)
-        to_tests   = parse_manifest(tmp / TO_MANIFEST_REL)
+    sha = sh(["git","rev-parse","HEAD"],cwd=REPO_ROOT)
+    from_tests = parse_manifest(FROM_MANIFEST, REPO_ROOT)
+    to_tests = parse_manifest(TO_MANIFEST, REPO_ROOT)
+    def stats(ts):
+        c=Counter(x["polarity"] for x in ts)
+        return len(ts),c.get("positive",0),c.get("negative",0)
+    nf,pf,nfneg = stats(from_tests)
+    nt,pt,ntneg = stats(to_tests)
+    md = []
+    md.append("# Protocol conformance — Tests\n\n")
+    md.append(
+        "<style>"
+        "table{table-layout:fixed;width:100%;}"
+        "thead th:nth-child(1){width:120px;}"
+        "thead th:nth-child(2){width:9999px;}"
+        "thead th:nth-child(3),thead th:nth-child(4),thead th:nth-child(5){width:1%;}"
+        "td,th{vertical-align:top;}"
+        "</style>\n\n"
+    )
+    md.append(
+        "This page lists all protocol conformance tests used by every Jelly implementation.\n\n"
+        "Each test entry shows: **Name** (category), **Description** (with test ID), **Data** (triples / quads / graphs), "
+        "**Input(s)**, and **Expected output**.\n\n"
+        "Use the jump list below to navigate by category.\n\n"
+        "**Finding relevant tests:**\n"
+        "Categories indicate supported features: `rdf_star` (RDF-star), `generalized`, `graphs`, `quads`, `triples`.\n"
+        "Skip tests from categories you do not implement.\n\n"
+        "**Running a test:**\n"
+        "Compare your output with the expected one:\n\n"
+        "```bash\n"
+        "jelly-cli rdf validate --compare-ordered=true <your_output> <expected_output>\n"
+        "```\n"
+        f"See [jelly-cli]({JELLY_CLI_REPO}).\n\n"
+        "Run locally in Python:\n\n"
+        "```bash\n"
+        "pytest tests/conformance_tests/test_rdf\n"
+        "```\n\n"
+    )
+    md.append(
+        "Manifests: "
+        f"[from_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{FROM_MANIFEST.relative_to(REPO_ROOT).as_posix()}) · "
+        f"[to_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{TO_MANIFEST.relative_to(REPO_ROOT).as_posix()})\n\n"
+    )
+    md.append("### Summary\n\n")
+    md.append(f"- **All tests:** {nf+nt}\n")
+    md.append(f"- **From Jelly:** {nf} (positive: {pf}, negative: {nfneg})\n")
+    md.append(f"- **To Jelly:** {nt} (positive: {pt}, negative: {ntneg})\n\n")
+    md.append("## From Jelly (parse)\n\n")
+    md.append(render_tables(from_tests, PROTOBUF_REPO, sha))
+    md.append("## To Jelly (serialize)\n\n")
+    md.append(render_tables(to_tests, PROTOBUF_REPO, sha))
+    OUTPUT_MD.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_MD.write_text("".join(md),encoding="utf-8")
+    print(f"Generated: {OUTPUT_MD}")
 
-        def count(ts):
-            return len(ts), Counter(x["type"] for x in ts)
-
-        n_f, c_f = count(from_tests)
-        n_t, c_t = count(to_tests)
-
-        mdout = []
-        mdout.append("# Protocol conformance — Tests\n\n")
-        mdout.append("<style>table{table-layout:fixed;width:100%;} thead th:nth-child(1){width:110px;} thead th:nth-child(2){width:55%;} td,th{vertical-align:top;}</style>\n\n")
-        mdout.append(
-            "> ### How to approach these tests\n"
-            "> This page lists **Jelly protocol conformance tests**. They are language-agnostic and are used by all Jelly implementations.\n"
-            ">\n"
-            "> Each test is defined in a manifest and includes: **Name**, **Description**, **Type** (`positive`/`negative`), **Category**, Data (`triples`/`quads`/`graphs`), **Input(s)** and **Expected**.\n"
-            ">\n"
-            "> **Finding the right tests:** filter by **Category** (e.g., `rdf_star`, `generalized`) and Data.\n"
-            ">\n"
-            "> **Validate results:**\n"
-            "> ```bash\n"
-            "> jelly-cli rdf validate --compare-ordered=true <your_output> <expected_output>\n"
-            "> ```\n"
-            "> *(see jelly-cli: https://github.com/Jelly-RDF/cli)*\n"
-            ">\n"
-            "> **Run locally (Python):**\n"
-            "> ```bash\n"
-            "> pytest tests/conformance_tests/test_rdf\n"
-            "> ```\n\n"
-        )
-        mdout.append(f"**Manifests:** [{FROM_MANIFEST_REL}]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{FROM_MANIFEST_REL.as_posix()}) · [{TO_MANIFEST_REL}]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{TO_MANIFEST_REL.as_posix()})\n\n")
-        mdout.append("### Summary\n\n")
-        mdout.append(f"- **All tests:** {n_f+n_t}\n")
-        mdout.append(f"- **From Jelly:** {n_f} (positive: {c_f.get('positive',0)}, negative: {c_f.get('negative',0)})\n")
-        mdout.append(f"- **To Jelly:** {n_t} (positive: {c_t.get('positive',0)}, negative: {c_t.get('negative',0)})\n\n")
-        mdout.append("## From Jelly (parse)\n\n")
-        mdout.append(render_tables(from_tests, PROTOBUF_REPO, sha, is_from=True))
-        mdout.append("## To Jelly (serialize)\n\n")
-        mdout.append(render_tables(to_tests, PROTOBUF_REPO, sha, is_from=False))
-
-        OUTPUT_MD.parent.mkdir(parents=True, exist_ok=True)
-        OUTPUT_MD.write_text("".join(mdout), encoding="utf-8")
-        print(f"✅ Generated: {OUTPUT_MD}")
-    finally:
-        shutil.rmtree(tmp, ignore_errors=True)
-
-if __name__ == "__main__":
+if __name__=="__main__":
     main()
