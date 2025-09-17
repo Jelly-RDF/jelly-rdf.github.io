@@ -177,7 +177,6 @@ def generate_conformance_page():
     nf,pf,nfneg = stats(from_tests)
     nt,pt,ntneg = stats(to_tests)
     md = []
-    md.append("# Protocol conformance — Tests\n\n")
     md.append(
         "<style>"
         "table{table-layout:fixed;width:100%;}"
