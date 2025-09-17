@@ -6,7 +6,8 @@ plugins:
   - search
   - include-markdown
   - mike
-  - macros
+  - macros:
+      module_name: scripts
   - glightbox
   - git-revision-date-localized:
       enable_creation_date: true

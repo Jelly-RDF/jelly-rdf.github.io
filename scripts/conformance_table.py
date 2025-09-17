@@ -1,13 +1,16 @@
 from __future__ import annotations
-from pathlib import Path
-import re, subprocess
+
+import re
+import subprocess
 from collections import defaultdict, Counter
+from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 from rdflib import Graph, Namespace
 from rdflib.namespace import RDF, RDFS
 
-REPO_ROOT = Path("submodules/protobuf").resolve()
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+REPO_ROOT = PROJECT_ROOT / "submodules/protobuf"
 PROTOBUF_REPO = "https://github.com/Jelly-RDF/jelly-protobuf.git"
 JELLY_CLI_REPO = "https://github.com/Jelly-RDF/cli"
 
