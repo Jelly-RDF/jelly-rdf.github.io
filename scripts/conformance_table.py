@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
 from pathlib import Path
 import re, subprocess
@@ -15,8 +12,7 @@ PROTOBUF_REPO = "https://github.com/Jelly-RDF/jelly-protobuf.git"
 JELLY_CLI_REPO = "https://github.com/Jelly-RDF/cli"
 
 FROM_MANIFEST = REPO_ROOT / "test/rdf/from_jelly/manifest.ttl"
-TO_MANIFEST   = REPO_ROOT / "test/rdf/to_jelly/manifest.ttl"
-OUTPUT_MD = Path("docs/conformance/tests.md")
+TO_MANIFEST = REPO_ROOT / "test/rdf/to_jelly/manifest.ttl"
 
 MF = Namespace("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#")
 
@@ -162,10 +158,16 @@ def render_tables(cases: list[dict], repo_https: str, sha: str) -> str:
             out.append("\n")
     return "".join(out)
 
-def main():
-    sha = sh(["git","rev-parse","HEAD"],cwd=REPO_ROOT)
+def generate_conformance_page():
+    try:
+        sha = sh(["git","rev-parse","HEAD"],cwd=REPO_ROOT)
+    except Exception as e:
+        print(f"Warning: Could not get git SHA for protobuf submodule. Error: {e}")
+        sha = "main"
+
     from_tests = parse_manifest(FROM_MANIFEST, REPO_ROOT)
     to_tests = parse_manifest(TO_MANIFEST, REPO_ROOT)
+
     def stats(ts):
         c=Counter(x["polarity"] for x in ts)
         return len(ts),c.get("positive",0),c.get("negative",0)
@@ -214,9 +216,5 @@ def main():
     md.append(render_tables(from_tests, PROTOBUF_REPO, sha))
     md.append("## To Jelly (serialize)\n\n")
     md.append(render_tables(to_tests, PROTOBUF_REPO, sha))
-    OUTPUT_MD.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_MD.write_text("".join(md),encoding="utf-8")
-    print(f"Generated: {OUTPUT_MD}")
 
-if __name__=="__main__":
-    main()
+    return "".join(md)
