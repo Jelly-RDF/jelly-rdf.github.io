@@ -16,7 +16,7 @@ jobs:
         with:
           path: pages
           fetch-depth: 0
-          submodules: true
+          submodules: recursive
 
       - uses: actions/checkout@v4
         with:
@@ -24,7 +24,7 @@ jobs:
           sparse-checkout: proto
           path: p
           ref: ${{ github.event.client_payload.tag }}
-          submodules: true
+          submodules: recursive
 
       - id: jvm_release
         uses: pozetroninc/github-action-get-latest-release@v0.8.0

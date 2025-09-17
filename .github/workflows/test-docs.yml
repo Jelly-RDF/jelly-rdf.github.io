@@ -15,14 +15,14 @@ jobs:
         with:
           path: pages
           fetch-depth: 0
-          submodules: true
+          submodules: recursive
 
       - uses: actions/checkout@v4
         with:
           repository: Jelly-RDF/jelly-protobuf
           sparse-checkout: proto
           path: p
-          submodules: true
+          submodules: recursive
 
       - id: jvm_release
         uses: pozetroninc/github-action-get-latest-release@v0.8.0
