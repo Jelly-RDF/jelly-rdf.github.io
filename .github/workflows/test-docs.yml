@@ -22,6 +22,7 @@ jobs:
           repository: Jelly-RDF/jelly-protobuf
           sparse-checkout: proto
           path: p
+          submodules: true
 
       - id: jvm_release
         uses: pozetroninc/github-action-get-latest-release@v0.8.0

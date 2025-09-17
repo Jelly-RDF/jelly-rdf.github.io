@@ -24,6 +24,7 @@ jobs:
           sparse-checkout: proto
           path: p
           ref: ${{ github.event.client_payload.tag }}
+          submodules: true
 
       - id: jvm_release
         uses: pozetroninc/github-action-get-latest-release@v0.8.0

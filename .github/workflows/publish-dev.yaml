@@ -25,6 +25,7 @@ jobs:
           repository: Jelly-RDF/jelly-protobuf
           sparse-checkout: proto
           path: p
+          submodules: true
 
 
       - id: jvm_release
@@ -52,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./pages
-        run: pip install -r requirements.txt 
+        run: pip install -r requirements.txt
 
       - name: Deploy site
         working-directory: ./pages
