@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from scripts.conformance_table import generate_conformance_page
 import re
 
 
@@ -117,3 +118,8 @@ def define_env(env):
         transform_nav_item(item)
         for item in env.conf['nav']
     ]
+
+
+    @env.macro
+    def conformance_tests():
+        return generate_conformance_page()
