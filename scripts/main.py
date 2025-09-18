@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from conformance_table import generate_conformance_page
+from scripts.conformance_table import generate_conformance_page
 import re
 
 
