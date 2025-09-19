@@ -8,7 +8,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 
 # --- Document metadata ---
 <> foaf:primaryTopic <#impl> ;
-   dc:issued "2026-01-1T00:00:00Z"^^xsd:dateTime ;
+   dc:issued "2026-01-01T00:00:00Z"^^xsd:dateTime ;
    foaf:maker <#assertor> .
 
 # --- Assertor (you/your org/your bot) ---
@@ -40,7 +40,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -52,7 +52,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
     earl:outcome earl:failed
   ] .
 
@@ -64,7 +64,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
     earl:outcome earl:passed  
   ] .
 
@@ -76,7 +76,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-01-1T0:00:00Z"^^xsd:dateTime ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
     earl:outcome earl:inapplicable
   ] .
 
