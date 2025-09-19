@@ -18,12 +18,14 @@ jobs:
         with:
           path: pages
           fetch-depth: 0
+          submodules: recursive
 
       - uses: actions/checkout@v4
         with:
           repository: Jelly-RDF/jelly-protobuf
           sparse-checkout: proto
           path: p
+          submodules: recursive
 
 
       - id: jvm_release
@@ -51,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./pages
-        run: pip install -r requirements.txt 
+        run: pip install -r requirements.txt
 
       - name: Deploy site
         working-directory: ./pages
