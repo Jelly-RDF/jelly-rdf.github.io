@@ -6,7 +6,8 @@ plugins:
   - search
   - include-markdown
   - mike
-  - macros
+  - macros:
+      module_name: scripts
   - glightbox
   - git-revision-date-localized:
       enable_creation_date: true
@@ -107,6 +108,8 @@ nav:
     - Protobuf source: 'specification/protobuf-source.md'
     - File extensions and media types: 'specification/media-type.md'
 
+  - Test cases:
+    - 'Jelly-RDF test cases': 'conformance/tests.md'
   - JVM implementation: 'https://w3id.org/jelly/jelly-jvm/'
   - Python implementation: 'https://w3id.org/jelly/pyjelly/'
 
