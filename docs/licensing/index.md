@@ -52,6 +52,7 @@ Sowiński, P., Grzymkowski, K., Danilenka, A. (2025). Jelly-Patch: a Fast Format
     - [Slides](https://ostrzyciel.eu/assets/pdf/2025/slides_semantics_industry.pdf)
     - [One-page abstract](https://ostrzyciel.eu/assets/pdf/2025/paper_semantics_industry.pdf)
 - Sowiński, P., Bogacka, K., Danilenka, A., Kozlov, N. (2025). Jelly: a Fast and Convenient RDF Serialization Format. In _arXiv preprint arXiv:2506.11298_. Developers Workshop, co-located with SEMANTiCS'25: International Conference on Semantic Systems, September 3-5, 2025, Vienna, Austria. DOI: [10.48550/arXiv.2506.11298](https://doi.org/10.48550/arXiv.2506.11298)
+    - [Slides](https://ostrzyciel.eu/assets/pdf/2025/slides_semantics_semdev.pdf)
 - Sowiński, P., Wasielewska-Michniewska, K., Ganzha, M., & Paprzycki, M. (2022, October). Efficient RDF streaming for the edge-cloud continuum. In 2022 IEEE 8th World Forum on Internet of Things (WF-IoT) (pp. 1-8). IEEE. DOI: [10.1109/WF-IoT54382.2022.10152225](https://doi.org/10.1109/WF-IoT54382.2022.10152225)
 
 ## See also
