@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from typing import Optional
 from scripts.conformance_table import generate_conformance_page
 import re
 
@@ -40,9 +41,20 @@ def define_env(env):
     
 
     @env.macro
+    def git_test_link(file: str):
+        tag = git_tag()
+        return f'https://github.com/Jelly-RDF/jelly-protobuf/blob/{tag}/test/{file}'
+
+
+    @env.macro
     def git_docs_link(file: str):
         tag = git_tag()
         return f'https://github.com/Jelly-RDF/jelly-rdf.github.io/blob/{tag}/{file}'
+    
+
+    @env.macro
+    def git_tree_link(subdir: str = ''):
+        return f'https://github.com/Jelly-RDF/jelly-rdf.github.io/{subdir}'
     
 
     @env.macro
