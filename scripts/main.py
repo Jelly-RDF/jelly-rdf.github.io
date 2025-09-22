@@ -2,8 +2,8 @@
 
 import os
 from pathlib import Path
-from typing import Optional
 from scripts.conformance_table import generate_conformance_page
+from scripts.generate_report import generate_conformance_md
 import re
 
 
@@ -135,3 +135,8 @@ def define_env(env):
     @env.macro
     def conformance_tests():
         return generate_conformance_page()
+
+
+    @env.macro
+    def conformance_report():
+        return generate_conformance_md()
