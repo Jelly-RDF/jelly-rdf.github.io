@@ -110,6 +110,7 @@ nav:
 
   - Test cases:
     - 'Jelly-RDF test cases': 'conformance/tests.md'
+    - Reporting conformance: 'conformance/reporting-conformance.md'
   - JVM implementation: 'https://w3id.org/jelly/jelly-jvm/'
   - Python implementation: 'https://w3id.org/jelly/pyjelly/'
 
