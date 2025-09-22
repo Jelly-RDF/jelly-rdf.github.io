@@ -206,7 +206,7 @@ def _render_reports_section_md(
     return "\n".join(lines)
 
 
-def generate_conformance_md() -> str:
+def generate_conformance_report() -> str:
     reports_dir = Path("docs/conformance/reports")
     paths = [*reports_dir.glob("*.ttl")]
 
