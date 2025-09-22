@@ -3,3 +3,5 @@ Implementations MAY choose to implement only a subset of the following specifica
 !!! note
 
     Implementations may in particular choose to not implement features that are not supported on the target platform (e.g., RDF datasets, RDF-star, generalized RDF terms, etc.).
+
+Implementations MAY also choose to extend Jelly with additional features that SHOULD NOT interfere with the serialization being readable by implementations which follow the specification.
