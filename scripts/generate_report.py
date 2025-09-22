@@ -96,7 +96,6 @@ def _render_matrix_md(
     header = "| Test | Category | " + " | ".join(impl_labels.values()) + " |"
     sep = "|" + "---|" * (2 + len(impl_keys))
 
-    # Compute pass percentages for summary row
     def percent_for(k: str):
         total = len(
             [
