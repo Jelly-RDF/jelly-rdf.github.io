@@ -1,4 +1,4 @@
-# conformance-report.ttl
+# example-report.ttl
 
 PREFIX earl: <http://www.w3.org/ns/earl#>
 PREFIX doap: <http://usefulinc.com/ns/doap#> 
@@ -6,78 +6,2079 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dc:   <http://purl.org/dc/terms/> 
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#> 
 
-# --- Document metadata ---
 <> foaf:primaryTopic <#impl> ;
    dc:issued "2026-01-01T00:00:00Z"^^xsd:dateTime ;
    foaf:maker <#assertor> .
 
-# --- Assertor (you/your org/your bot) ---
 <#assertor> a foaf:Person, earl:Assertor ;
-  foaf:name "Your Name or Bot Name" ;
-  foaf:homepage <https://example.org/your-homepage> .
+  foaf:name "Dummy Assertor" ;
+  foaf:homepage <https://example.org/assertor> .
 
-# --- Test Subject (your implementation) ---
 <#impl> a doap:Project, earl:TestSubject, earl:Software ;
-  doap:name "Your Jelly implementation" ;
-  doap:homepage <https://example.org/your-impl-homepage> ;
-  doap:description "Your implemenation description"@en ;
-  doap:programming-language "Rust" ;
+  doap:name "Dummy Jelly Implementation" ;
+  doap:homepage <https://example.org/jelly-impl> ;
+  doap:description "Example Jelly implementation for demonstration"@en ;
+  doap:programming-language "Python" ;
   doap:developer <#assertor> ;
   doap:release [
-    doap:name "Your Jelly implementation 1.0.0" ;
+    doap:name "Dummy Jelly Implementation 1.0.0" ;
     doap:revision "1.0.0" ;
     dc:created "2026-01-01"^^xsd:date
   ] .
 
-# --- Assertions — one per test from the Jelly manifests you ran. ---
-# --- Outcomes values can only include: passed, failed, inapplicable, cantTell, untested. ---
-
-# Example 1
-<#a-triples_rdf_1_1_pos_001> a earl:Assertion ;
+<#assertion-1> a earl:Assertion ;
   earl:assertedBy <#assertor> ;
-  earl:subject    <#impl> ;
-  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_001> ;
-  earl:mode       earl:automatic ;
-  earl:result [
-    a earl:TestResult ;
-    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
-    earl:outcome earl:passed
-  ] .
-
-# Example 2
-<#a-graphs_rdf_1_1_pos_001> a earl:Assertion ;
-  earl:assertedBy <#assertor> ;
-  earl:subject    <#impl> ;
-  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_001> ;
-  earl:mode       earl:automatic ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_001> ;
+  earl:mode earl:automatic ;
   earl:result [
     a earl:TestResult ;
     dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
     earl:outcome earl:failed
   ] .
 
-# Example 3
-<#a-triples_rdf_1_1_neg_001> a earl:Assertion ;
+<#assertion-2> a earl:Assertion ;
   earl:assertedBy <#assertor> ;
-  earl:subject    <#impl> ;
-  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_001> ;
-  earl:mode       earl:automatic ;
-  earl:result [
-    a earl:TestResult ;
-    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
-    earl:outcome earl:passed  
-  ] .
-
-# Example 4
-<#a-triples_rdf_star_pos_001> a earl:Assertion ;
-  earl:assertedBy <#assertor> ;
-  earl:subject    <#impl> ;
-  earl:test       <https://example.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_001> ;
-  earl:mode       earl:automatic ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_002> ;
+  earl:mode earl:automatic ;
   earl:result [
     a earl:TestResult ;
     dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
     earl:outcome earl:inapplicable
   ] .
 
-  # ... Example n-th
+<#assertion-3> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-4> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-5> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-6> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-7> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-8> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_010> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-9> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_012> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-10> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/neg_013> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-11> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-12> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-13> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-14> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-15> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-16> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-17> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-18> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-19> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_009> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-20> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_011> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-21> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_012> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-22> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_013> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-23> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_014> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-24> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_015> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-25> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_016> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-26> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_017> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-27> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1/pos_018> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-28> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-29> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-30> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-31> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-32> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-33> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-34> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-35> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-36> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-37> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-38> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_009> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-39> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_010> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-40> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_1_1/pos_011> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-41> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-42> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-43> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-44> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-45> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-46> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-47> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-48> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-49> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-50> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-51> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-52> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-53> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-54> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-55> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-56> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_1_1_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-57> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-58> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-59> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-60> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-61> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_1_1_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-62> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-63> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-64> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-65> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-66> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-67> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-68> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-69> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-70> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-71> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-72> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-73> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-74> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-75> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-76> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-77> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-78> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-79> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-80> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-81> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-82> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-83> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-84> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-85> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-86> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-87> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-88> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-89> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-90> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-91> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-92> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/graphs_rdf_star/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-93> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-94> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-95> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-96> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-97> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-98> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-99> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-100> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-101> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/quads_rdf_star_generalized/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-102> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-103> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-104> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/neg_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-105> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-106> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-107> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-108> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-109> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-110> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/from_jelly/triples_rdf_star_generalized/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-111> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/neg_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-112> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/neg_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-113> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-114> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-115> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-116> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-117> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-118> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-119> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-120> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-121> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_009> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-122> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_010> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-123> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_011> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-124> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_012> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-125> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_013> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-126> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_014> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-127> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_015> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-128> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1/pos_016> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-129> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-130> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-131> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-132> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-133> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-134> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-135> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-136> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-137> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-138> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-139> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-140> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-141> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-142> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-143> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_1_1/pos_009> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-144> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-145> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-146> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-147> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-148> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_1_1_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-149> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-150> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-151> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-152> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-153> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_1_1_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-154> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-155> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-156> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-157> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-158> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-159> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-160> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-161> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star/pos_008> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-162> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-163> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-164> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-165> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-166> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-167> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-168> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-169> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-170> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-171> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-172> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-173> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-174> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-175> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/graphs_rdf_star/pos_007> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-176> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-177> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-178> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-179> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-180> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-181> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/quads_rdf_star_generalized/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-182> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star_generalized/pos_001> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#assertion-183> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star_generalized/pos_002> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:cantTell
+  ] .
+
+<#assertion-184> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star_generalized/pos_003> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:untested
+  ] .
+
+<#assertion-185> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star_generalized/pos_004> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#assertion-186> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star_generalized/pos_005> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:failed
+  ] .
+
+<#assertion-187> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject <#impl> ;
+  earl:test <https://w3id.org/jelly/dev/tests/rdf/to_jelly/triples_rdf_star_generalized/pos_006> ;
+  earl:mode earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-01-01T00:00:00Z"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .

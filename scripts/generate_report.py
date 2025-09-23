@@ -57,33 +57,27 @@ def _category_of(uri: str) -> str:
     return parts[-2] if len(parts) >= 2 else ""
 
 
-def _format_outcome(token: str) -> str:
-    token = (token or "").lower()
-    if token == "passed":
-        return '<span style="color:green;font-weight:bold">PASS</span>'
-    elif token == "failed":
-        return '<span style="color:red;font-weight:bold">FAILED</span>'
-    elif token == "inapplicable":
-        return "INAPPLICABLE"
-    elif token == "cantTell":
-        return "CANTTELL"
-    elif token == "untested":
-        return "UNTESTED"
-    return ""
+def _type_of(uri: str) -> str:
+    uri = uri.lower()
+    if "from_jelly" in uri:
+        return "from jelly"
+    if "to_jelly" in uri:
+        return "to jelly"
+    return "unknown"
 
 
 def _format_outcome(token: str) -> str:
     token = (token or "").lower()
     if token == "passed":
-        return '<div align="center"><span style="color:green;font-weight:bold">PASS</span></div>'
+        return '<div align="center"><span style="color:#1f77b4;font-weight:bold">PASS</span></div>'
     elif token == "failed":
-        return '<div align="center"><span style="color:red;font-weight:bold">FAILED</span></div>'
+        return '<div align="center"><span style="color:#e66101;font-weight:bold">FAILED</span></div>'
     elif token == "inapplicable":
-        return '<div align="center">INAPPLICABLE</div>'
-    elif token == "cantTell":
-        return '<div align="center">CANTTELL</div>'
+        return '<div align="center"><span style="color:#f0e442;font-weight:bold">INAPPLICABLE</span></div>'
+    elif token == "canttell":
+        return '<div align="center"><span style="color:#f0e442;font-weight:bold">CANTTELL</span></div>'
     elif token == "untested":
-        return '<div align="center">UNTESTED</div>'
+        return '<div align="center"><span style="color:#f0e442;font-weight:bold">UNTESTED</span></div>'
     return '<div align="center"></div>'
 
 
@@ -93,8 +87,8 @@ def _render_matrix_md(
 ) -> str:
     impl_keys = list(impl_labels.keys())
 
-    header = "| Test | Category | " + " | ".join(impl_labels.values()) + " |"
-    sep = "|" + "---|" * (2 + len(impl_keys))
+    header = "| Test | Type | Category | " + " | ".join(impl_labels.values()) + " |"
+    sep = "|" + "---|" * (3 + len(impl_keys))
 
     def percent_for(k: str):
         total = len(
@@ -106,20 +100,22 @@ def _render_matrix_md(
         )
         passed = len([o for o in matrix.values() if k in o and o[k] == "passed"])
         pct = (passed / total * 100.0) if total else 0.0
-        return f'<div align="center"><b>{pct:.1f}% PASS</b></div>'
+        color = "#1f77b4" if pct == 100.0 else "#e66101"
+        return f'<div align="center"><b><span style="color:{color}">{pct:.1f}% PASS</span></b></div>'
 
     rows = []
     for test_uri, impl_map in matrix.items():
+        ttype = _type_of(test_uri)
         cat = _category_of(test_uri)
         link = f"[{_short_id(test_uri)}]({test_uri})"
         cells = []
         for k in impl_keys:
             token = impl_map.get(k, "")
             cells.append(_format_outcome(token))
-        rows.append("| " + " | ".join([link, cat] + cells) + " |")
+        rows.append("| " + " | ".join([link, ttype, cat] + cells) + " |")
 
     summary = (
-        "| **Percentage passed:** |  | "
+        "| **Percentage passed:** |  |  | "
         + " | ".join(percent_for(k) for k in impl_keys)
         + " |"
     )
@@ -135,9 +131,13 @@ def _render_matrix_md(
 def _render_reports_section_md(
     graphs: dict[Path, Graph], outcomes: dict[str, dict[str, str]]
 ) -> str:
-    lines = ["## Available Reports", ""]
+    lines = ["## Available reports", ""]
+    lines.append(
+        "This section lists all submitted implementation reports, with metadata from the DOAP/FOAF descriptions, "
+        "together with compliance statistics based on the official Jelly-RDF test manifests."
+    )
+    lines.append("")
     for path, g in graphs.items():
-        # Implementation information
         impl_name = impl_desc = lang = homepage = rev = ""
         dev_name = dev_home = ""
         for subj in g.subjects(RDF.type, DOAP.Project):
@@ -154,18 +154,15 @@ def _render_reports_section_md(
                 dev_home = str(g.value(dev, FOAF.homepage) or "")
             break
 
-        # Assertor information
         as_name = as_home = ""
         for subj in g.subjects(RDF.type, EARL.Assertor):
             as_name = str(g.value(subj, FOAF.name) or "")
             as_home = str(g.value(subj, FOAF.homepage) or "")
             break
 
-        # Report date information
         issued = g.value(None, DCTERMS.issued)
         issued_str = str(issued) if issued else ""
 
-        # Compliance information
         impl_key = (impl_name + " " + rev).strip()
         outmap = outcomes.get(impl_key, {})
         total = len(
@@ -205,8 +202,11 @@ def _render_reports_section_md(
     return "\n".join(lines)
 
 
+CONFORMANCE_REPRTS_PATH = "docs/conformance/reports"
+
+
 def generate_conformance_report() -> str:
-    reports_dir = Path("docs/conformance/reports")
+    reports_dir = Path(CONFORMANCE_REPRTS_PATH)
     paths = [*reports_dir.glob("*.ttl")]
 
     impl_labels = OrderedDict()
@@ -229,7 +229,7 @@ def generate_conformance_report() -> str:
     def _sort_key(u: str):
         sid = _short_id(u)
         sid = sid.zfill(8) if sid.isdigit() else sid
-        return (_category_of(u), sid)
+        return (_type_of(u), _category_of(u), sid)
 
     tests_sorted = sorted(test_set, key=_sort_key)
 

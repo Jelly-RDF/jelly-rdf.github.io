@@ -15,7 +15,7 @@ Run the official Jelly test manifests for the protocol version you implement; it
 
 ### Where to submit / how it’s used
 
-Submit the EARL file (in Turtle format) via pull request [to this directory]({{ git_tree_link('tree/main/docs/conformance/reports') }}). Submitted EARL files are then aggregated into a human-readable table on the site.  
+Submit the EARL file (in Turtle format) via pull request [to this directory]({{ git_tree_link('tree/main/docs/conformance/reports') }}). Submitted EARL files are then aggregated into a human-readable table on the [site](conformance-reports-page.md).  
 
 !!! note "Example EARL report"
     An example, complete, ready-to-submit EARL report template can be found [here]({{ git_tree_link('tree/main/docs/conformance/reports') }}). Replace placeholders (names, dates) and add one **`earl:Assertion`** per Jelly test you executed (use the exact test IRIs from the Jelly manifests).  
