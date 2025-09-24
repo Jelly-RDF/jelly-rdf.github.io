@@ -28,13 +28,10 @@ The following assumptions are used in this document:
 {% include "./includes/conformance.md" %}
 
 !!! note "Conformance and tests"
-    Implementations MUST follow the specification for the scope they have
-    claimed (e.g., selected targets/features).
-
     The official [conformance tests]({{git_test_link('rdf')}}) provide
     objective verification for the declared scope.
     These tests determine whether an implementation is conformant to this
-    specification for its claimed applicability.
+    specification for its claimed scope.
 
     More information about the tests is available on the
     [test cases](../conformance/tests.md) page.
