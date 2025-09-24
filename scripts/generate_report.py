@@ -9,7 +9,7 @@ DOAP = Namespace("http://usefulinc.com/ns/doap#")
 
 def _load_graph(path: Path) -> Graph:
     g = Graph()
-    g.parse(path.as_posix(), format="turtle")
+    g.parse(path, format="turtle")
     return g
 
 
@@ -43,7 +43,7 @@ def _read_assertions(g: Graph) -> dict[str, str]:
             oc = g.value(res, EARL.outcome)
             if isinstance(oc, URIRef):
                 token = str(oc).split("#")[-1]
-        out[str(test)] = token
+        out[str(test)] = token.lower()
     return out
 
 
@@ -57,84 +57,85 @@ def _category_of(uri: str) -> str:
     return parts[-2] if len(parts) >= 2 else ""
 
 
-def _type_of(uri: str) -> str:
-    uri = uri.lower()
-    if "from_jelly" in uri:
-        return "from jelly"
-    if "to_jelly" in uri:
-        return "to jelly"
-    return "unknown"
-
-
-def _format_outcome(token: str) -> str:
+def _cell_html(token: str) -> str:
     token = (token or "").lower()
     if token == "passed":
-        return '<div align="center"><span style="color:#1f77b4;font-weight:bold">PASS</span></div>'
+        return '<td style="background-color:#00b8d41a;text-align:center">PASSED</td>'
     elif token == "failed":
-        return '<div align="center"><span style="color:#e66101;font-weight:bold">FAILED</span></div>'
+        return '<td style="background-color:#ff17441a;text-align:center">FAILED</td>'
     elif token == "inapplicable":
-        return '<div align="center"><span style="color:#f0e442;font-weight:bold">INAPPLICABLE</span></div>'
+        return (
+            '<td style="background-color:#ff91001a;text-align:center">INAPPLICABLE</td>'
+        )
     elif token == "canttell":
-        return '<div align="center"><span style="color:#f0e442;font-weight:bold">CANTTELL</span></div>'
+        return '<td style="background-color:#ff91001a;text-align:center">CANTTELL</td>'
     elif token == "untested":
-        return '<div align="center"><span style="color:#f0e442;font-weight:bold">UNTESTED</span></div>'
-    return '<div align="center"></div>'
+        return '<td style="background-color:#ff91001a;text-align:center">UNTESTED</td>'
+    return '<td style="text-align:center"></td>'
 
 
 def _render_matrix_md(
     matrix: "OrderedDict[str, dict[str, str]]",
     impl_labels: "OrderedDict[str, str]",
 ) -> str:
+    md = []
     impl_keys = list(impl_labels.keys())
 
-    header = "| Test | Type | Category | " + " | ".join(impl_labels.values()) + " |"
-    sep = "|" + "---|" * (3 + len(impl_keys))
+    md.append("# Report table\n")
 
-    def percent_for(k: str):
-        total = len(
-            [
-                o
-                for o in matrix.values()
-                if k in o and o[k] not in ("inapplicable", "untested")
-            ]
-        )
-        passed = len([o for o in matrix.values() if k in o and o[k] == "passed"])
-        pct = (passed / total * 100.0) if total else 0.0
-        color = "#1f77b4" if pct == 100.0 else "#e66101"
-        return f'<div align="center"><b><span style="color:{color}">{pct:.1f}% PASS</span></b></div>'
-
-    rows = []
-    for test_uri, impl_map in matrix.items():
-        ttype = _type_of(test_uri)
+    grouped = {}
+    for test_uri in matrix.keys():
+        type_ = test_uri.split("/")[-3] if "/" in test_uri else "unknown"
         cat = _category_of(test_uri)
-        link = f"[{_short_id(test_uri)}]({test_uri})"
-        cells = []
-        for k in impl_keys:
-            token = impl_map.get(k, "")
-            cells.append(_format_outcome(token))
-        rows.append("| " + " | ".join([link, ttype, cat] + cells) + " |")
+        grouped.setdefault(type_, {}).setdefault(cat, []).append(test_uri)
 
-    summary = (
-        "| **Percentage passed:** |  |  | "
-        + " | ".join(percent_for(k) for k in impl_keys)
-        + " |"
-    )
+    for type_, cats in grouped.items():
+        md.append(f"## {type_}\n")
+        for cat, tests in cats.items():
+            md.append(f"### {cat}\n")
+            header = (
+                "<table><thead><tr><th>Test</th>"
+                + "".join(f"<th>{impl_labels[k]}</th>" for k in impl_keys)
+                + "</tr></thead><tbody>"
+            )
+            rows = [header]
+            totals = {k: {"passed": 0, "total": 0} for k in impl_keys}
 
-    md = []
-    md.append(header)
-    md.append(sep)
-    md.extend(rows)
-    md.append(summary)
+            for test_uri in sorted(tests, key=lambda t: _short_id(t)):
+                short = _short_id(test_uri)
+                link = f'<td><a href="{test_uri}" target="_blank">{short}</a></td>'
+                cells = []
+                for k in impl_keys:
+                    token = matrix[test_uri].get(k, "")
+                    if token not in ("inapplicable", "untested", ""):
+                        totals[k]["total"] += 1
+                    if token == "passed":
+                        totals[k]["passed"] += 1
+                    cells.append(_cell_html(token))
+                rows.append("<tr>" + link + "".join(cells) + "</tr>")
+
+            pct_row = (
+                "<tr><td><b>Percentage passed:</b></td>"
+                + "".join(
+                    f'<td style="text-align:center"><b>{(totals[k]["passed"] / totals[k]["total"] * 100.0 if totals[k]["total"] else 0):.1f}%</b></td>'
+                    for k in impl_keys
+                )
+                + "</tr>"
+            )
+
+            rows.append(pct_row)
+            rows.append("</tbody></table>\n")
+            md.extend(rows)
+
     return "\n".join(md)
 
 
 def _render_reports_section_md(
     graphs: dict[Path, Graph], outcomes: dict[str, dict[str, str]]
 ) -> str:
-    lines = ["## Available reports", ""]
+    lines = ["# Available reports", ""]
     lines.append(
-        "This section lists all submitted implementation reports, with metadata from the DOAP/FOAF descriptions, "
-        "together with compliance statistics based on the official Jelly-RDF test manifests."
+        "This section lists all submitted implementation reports, with metadata from DOAP/FOAF, and their compliance scores."
     )
     lines.append("")
     for path, g in graphs.items():
@@ -166,7 +167,7 @@ def _render_reports_section_md(
         impl_key = (impl_name + " " + rev).strip()
         outmap = outcomes.get(impl_key, {})
         total = len(
-            [o for o in outmap.values() if o not in ("inapplicable", "untested")]
+            [o for o in outmap.values() if o not in ("inapplicable", "untested", "")]
         )
         passed = len([o for o in outmap.values() if o == "passed"])
         percent = (passed / total * 100.0) if total else 0.0
@@ -202,11 +203,8 @@ def _render_reports_section_md(
     return "\n".join(lines)
 
 
-CONFORMANCE_REPRTS_PATH = "docs/conformance/reports"
-
-
 def generate_conformance_report() -> str:
-    reports_dir = Path(CONFORMANCE_REPRTS_PATH)
+    reports_dir = Path("docs/conformance/reports")
     paths = [*reports_dir.glob("*.ttl")]
 
     impl_labels = OrderedDict()
@@ -226,22 +224,14 @@ def generate_conformance_report() -> str:
         per_impl_outcomes.setdefault(key, {}).update(outcomes)
         test_set.update(outcomes.keys())
 
-    def _sort_key(u: str):
-        sid = _short_id(u)
-        sid = sid.zfill(8) if sid.isdigit() else sid
-        return (_type_of(u), _category_of(u), sid)
-
-    tests_sorted = sorted(test_set, key=_sort_key)
-
     matrix = OrderedDict()
-    for t in tests_sorted:
+    for t in test_set:
         row = {}
         for ik, outmap in per_impl_outcomes.items():
             if t in outmap:
                 row[ik] = outmap[t]
         matrix[t] = row
 
-    matrix_md = _render_matrix_md(matrix, impl_labels)
-    reports_md = _render_reports_section_md(graphs, per_impl_outcomes)
-
-    return "## Turtle tests\n\n" + matrix_md + "\n\n" + reports_md
+    md_matrix = _render_matrix_md(matrix, impl_labels)
+    md_reports = _render_reports_section_md(graphs, per_impl_outcomes)
+    return md_matrix + "\n\n" + md_reports
