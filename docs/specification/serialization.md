@@ -27,6 +27,19 @@ The following assumptions are used in this document:
 
 {% include "./includes/conformance.md" %}
 
+!!! note "Conformance and tests"
+    Implementations MUST follow the specification for the scope they have
+    claimed (e.g., selected targets/features).
+
+    The official [conformance tests]({{git_test_link('rdf')}}) provide
+    objective verification for the declared scope.
+    These tests determine whether an implementation is conformant to this
+    specification for its claimed applicability.
+
+    More information about the tests is available on the
+    [test cases](../conformance/tests.md) page.
+
+
 ## Versioning
 
 The protocol follows the [Semantic Versioning 2.0](https://semver.org/) scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the protocol. The version tag is encoded in the `version` field of the [`RdfStreamOptions`](reference.md#rdfstreamoptions) message. See also the [section on stream options](#stream-options) for more information on how to handle the version tags in serialized streams.
