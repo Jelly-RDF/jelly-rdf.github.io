@@ -81,7 +81,7 @@ def _render_matrix_md(
     md = []
     impl_keys = list(impl_labels.keys())
 
-    md.append("# Report table\n")
+    md.append("## Report table\n")
 
     grouped = {}
     for test_uri in matrix.keys():
@@ -90,9 +90,13 @@ def _render_matrix_md(
         grouped.setdefault(type_, {}).setdefault(cat, []).append(test_uri)
 
     for type_, cats in grouped.items():
-        md.append(f"## {type_}\n")
+        type_label = {
+            "to_jelly": "To Jelly (serialize)",
+            "from_jelly": "From Jelly (parse)",
+        }.get(type_, type_)
+        md.append(f"### {type_label}\n")
         for cat, tests in cats.items():
-            md.append(f"### {cat}\n")
+            md.append(f"#### {cat}\n")
             header = (
                 "<table><thead><tr><th>Test</th>"
                 + "".join(f"<th>{impl_labels[k]}</th>" for k in impl_keys)
@@ -133,7 +137,7 @@ def _render_matrix_md(
 def _render_reports_section_md(
     graphs: dict[Path, Graph], outcomes: dict[str, dict[str, str]]
 ) -> str:
-    lines = ["# Available reports", ""]
+    lines = ["## Available reports", ""]
     lines.append(
         "This section lists all submitted implementation reports, with metadata from DOAP/FOAF, and their compliance scores."
     )
@@ -197,7 +201,10 @@ def _render_reports_section_md(
         if issued_str:
             lines.append(f"- **Issued:** {issued_str}")
         lines.append(f"- **Test Suite Compliance:** {badge}")
-        lines.append(f"- **Report file:** `{path.name}`")
+        lines.append(
+            f"- **Report file:** [`{path.name}`](https://github.com/Jelly-RDF/jelly-rdf.github.io/tree/main/docs/conformance/reports/{path.name})"
+        )
+
         lines.append("")
 
     return "\n".join(lines)
