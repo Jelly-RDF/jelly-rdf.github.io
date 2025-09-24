@@ -19,8 +19,8 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   doap:programming-language "Java" ;
   doap:developer <#assertor> ;
   doap:release [
-    doap:name "Jelly-JVM dev" ;
-    doap:revision "dev" ;
+    doap:name "Jelly-JVM 3.5.2" ;
+    doap:revision "3.5.2" ;
     dc:created "2025-09-24"^^xsd:date
   ] .
 
