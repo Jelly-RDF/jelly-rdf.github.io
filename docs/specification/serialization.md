@@ -28,10 +28,8 @@ The following assumptions are used in this document:
 {% include "./includes/conformance.md" %}
 
 !!! note "Conformance and tests"
-    The official [conformance tests]({{git_test_link('rdf')}}) provide
-    objective verification for the declared scope.
-    These tests determine whether an implementation is conformant to this
-    specification for its claimed scope.
+    The official [conformance tests]( {{git_test_link('rdf')}} ) are used to assess conformance for a claimed scope
+    (e.g., selected targets/features), providing objective and reproducible verification.
 
     More information about the tests is available on the
     [test cases](../conformance/tests.md) page.
