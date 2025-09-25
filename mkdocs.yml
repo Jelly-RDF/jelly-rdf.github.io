@@ -109,9 +109,9 @@ nav:
     - File extensions and media types: 'specification/media-type.md'
 
   - Test cases:
-    - 'Jelly-RDF test cases': 'conformance/tests.md'
     - Reporting conformance: 'conformance/reporting-conformance.md'
-    - Conformance reports: 'conformance/conformance-reports-page.md'
+    - Jelly-RDF test cases: 'conformance/rdf-test-cases.md'
+    - Jelly-RDF conformance reports: 'conformance/rdf-reports.md'
   - JVM implementation: 'https://w3id.org/jelly/jelly-jvm/'
   - Python implementation: 'https://w3id.org/jelly/pyjelly/'
 
