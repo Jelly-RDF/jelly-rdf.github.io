@@ -1,0 +1,2086 @@
+PREFIX earl: <http://www.w3.org/ns/earl#>
+PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc:   <http://purl.org/dc/terms/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+<> foaf:primaryTopic <#impl> ;
+   dc:issued "2025-09-25T05:23:21.928776144"^^xsd:dateTime ;
+   foaf:maker <#assertor> .
+
+<#developer> a foaf:Group ;
+  foaf:name "Jelly-JVM contributors" ;
+  foaf:homepage <https://w3id.org/jelly/jelly-jvm> .
+
+<#assertor> a earl:Software, earl:Assertor ;
+  foaf:name "Jelly-JVM integration test suite" ;
+  foaf:homepage <https://github.com/Jelly-RDF/jelly-jvm/tree/main/integration-tests> .
+
+<#impl> a doap:Project, earl:TestSubject, earl:Software ;
+  doap:name "Jelly-JVM (RDF4J)" ;
+  doap:homepage <https://w3id.org/jelly/jelly-jvm> ;
+  doap:description "Jelly-JVM integration with RDF4J"@en ;
+  doap:programming-language "Java" ;
+  doap:developer <#developer> ;
+  doap:release [
+    doap:name "Jelly-JVM 3.5.2" ;
+    doap:revision "3.5.2" ;
+    dc:created "2025-09-16"^^xsd:date
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.164"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.166"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.184"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.202"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.219"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.237"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.256"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.272"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.288"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.307"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.325"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.349"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.369"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.387"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.404"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_014> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_014> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.421"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_015> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_015> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.439"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_pos_016> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1/pos_016> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.458"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.480"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.498"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.516"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.536"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.554"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.571"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.572"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.572"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.573"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.573"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.574"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.574"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.575"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.575"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_1_1_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_1_1/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.576"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.577"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.577"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.577"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.578"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_1_1_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_1_1_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.578"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.578"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.579"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.579"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.580"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_1_1_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_1_1_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.580"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.599"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.615"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.635"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.656"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.678"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.696"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.720"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.743"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.743"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.744"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.745"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.745"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.746"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.746"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.747"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.747"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.748"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.748"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.749"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.749"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.749"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_graphs_rdf_star_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/graphs_rdf_star/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.750"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.750"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.750"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.751"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.751"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.752"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_quads_rdf_star_generalized_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/quads_rdf_star_generalized/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.753"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.754"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.754"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.755"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.755"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.756"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_to_jelly_triples_rdf_star_generalized_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/to_jelly/triples_rdf_star_generalized/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:18.756"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.204"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.208"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.211"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.215"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.219"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.223"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.225"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.229"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.232"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_neg_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/neg_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.235"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.239"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.241"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.245"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.247"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.250"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.253"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.255"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.257"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.260"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.262"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.264"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.265"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_014> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_014> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.266"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_015> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_015> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.268"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_016> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_016> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.270"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_017> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_017> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.271"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_pos_018> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1/pos_018> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.273"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.275"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.277"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.279"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.280"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.281"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.282"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.283"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.285"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.286"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.289"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.291"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.293"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_1_1_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_1_1/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.294"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.298"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.301"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.305"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.307"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.309"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.310"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.312"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.314"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.316"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.319"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.321"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.321"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.322"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.322"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.323"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_1_1_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_1_1_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.323"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.323"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.323"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.324"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.324"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_1_1_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_1_1_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.324"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.328"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.332"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.337"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.338"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.339"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.340"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.341"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.343"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.344"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.346"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.348"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.348"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.349"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.349"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.349"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.350"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.350"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.350"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.351"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.351"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.351"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.351"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.352"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.352"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.352"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.352"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.353"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.353"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.353"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.353"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_graphs_rdf_star_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/graphs_rdf_star/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.354"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.354"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.354"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.354"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.355"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.355"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.355"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.355"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.355"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_quads_rdf_star_generalized_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/quads_rdf_star_generalized/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.356"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.356"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.356"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.356"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.357"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.357"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.357"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.357"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.357"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
+
+<#rdf_from_jelly_triples_rdf_star_generalized_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/rdf/from_jelly/triples_rdf_star_generalized/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2025-09-25T05:23:21.358"^^xsd:dateTime ;
+    earl:outcome earl:inapplicable
+  ] .
