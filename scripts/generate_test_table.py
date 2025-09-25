@@ -168,7 +168,7 @@ def render_tables(cases: list[dict], repo_https: str, sha: str) -> str:
             out.append("\n")
     return "".join(out)
 
-def generate_conformance_page():
+def generate_test_table():
     try:
         sha = sh(["git","rev-parse","HEAD"],cwd=REPO_ROOT)
     except Exception as e:
@@ -194,30 +194,10 @@ def generate_conformance_page():
         "</style>\n\n"
     )
     md.append(
-        "This page lists all protocol conformance tests used by every Jelly implementation.\n\n"
-        "Each test entry shows: **Name** (category), **Description** (with test ID), **Data** (triples / quads / graphs), "
-        "**Input(s)**, and **Expected output**.\n\n"
-        "Use the jump list below to navigate by category.\n\n"
-        "**Finding relevant tests:**\n"
-        "Categories indicate supported features: `rdf_star` (RDF-star), `generalized`, `graphs`, `quads`, `triples`.\n"
-        "Skip tests from categories you do not implement.\n\n"
-        "**Running a test:**\n"
-        "Compare your output with the expected one:\n\n"
-        "```bash\n"
-        "jelly-cli rdf validate --compare-ordered=true <your_output> <expected_output>\n"
-        "```\n"
-        f"See [jelly-cli]({JELLY_CLI_REPO}).\n\n"
-        "Run locally in Python:\n\n"
-        "```bash\n"
-        "pytest tests/conformance_tests/test_rdf\n"
-        "```\n\n"
-    )
-    md.append(
-        "Manifests: "
+        "**Manifests used to generate this page:** "
         f"[from_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{FROM_MANIFEST.relative_to(REPO_ROOT).as_posix()}) · "
         f"[to_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{TO_MANIFEST.relative_to(REPO_ROOT).as_posix()})\n\n"
     )
-    md.append("### Summary\n\n")
     md.append(f"- **All tests:** {nf+nt}\n")
     md.append(f"- **From Jelly:** {nf} (positive: {pf}, negative: {nfneg})\n")
     md.append(f"- **To Jelly:** {nt} (positive: {pt}, negative: {ntneg})\n\n")
