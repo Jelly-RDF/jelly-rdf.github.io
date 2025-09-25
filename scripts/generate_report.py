@@ -91,7 +91,9 @@ def _render_matrix_md(
         cat = _category_of(test_uri)
         grouped.setdefault(type_, {}).setdefault(cat, []).append(test_uri)
 
-    for type_, cats in grouped.items():
+    grouped_items = sorted(grouped.items(), key=lambda kv: kv[0].lower())
+
+    for type_, cats in grouped_items:
         type_label = {
             "to_jelly": "To Jelly (serialize)",
             "from_jelly": "From Jelly (parse)",
