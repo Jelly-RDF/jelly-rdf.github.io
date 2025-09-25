@@ -79,7 +79,9 @@ def _render_matrix_md(
     impl_labels: "OrderedDict[str, str]",
 ) -> str:
     md = []
-    impl_keys = list(impl_labels.keys())
+    impl_keys = [
+        k for k, v in sorted(impl_labels.items(), key=lambda kv: kv[1].lower())
+    ]
 
     md.append("## Report table\n")
 
@@ -95,7 +97,9 @@ def _render_matrix_md(
             "from_jelly": "From Jelly (parse)",
         }.get(type_, type_)
         md.append(f"### {type_label}\n")
-        for cat, tests in cats.items():
+
+        for cat in sorted(cats.keys(), key=lambda s: s.lower()):
+            tests = cats[cat]
             md.append(f"#### {cat}\n")
             header = (
                 "<table><thead><tr><th>Test</th>"
@@ -142,7 +146,8 @@ def _render_reports_section_md(
         "This section lists all submitted implementation reports, with metadata from DOAP/FOAF, and their compliance scores."
     )
     lines.append("")
-    for path, g in graphs.items():
+    for path in sorted(graphs.keys(), key=lambda p: p.name.lower()):
+        g = graphs[path]
         impl_name = impl_desc = lang = homepage = rev = ""
         dev_name = dev_home = ""
         for subj in g.subjects(RDF.type, DOAP.Project):
@@ -212,7 +217,7 @@ def _render_reports_section_md(
 
 def generate_conformance_report() -> str:
     reports_dir = Path("docs/conformance/reports")
-    paths = [*reports_dir.glob("*.ttl")]
+    paths = [p for p in reports_dir.glob("*.ttl") if p.name != "example-report.ttl"]
 
     impl_labels = OrderedDict()
     per_impl_outcomes = {}
