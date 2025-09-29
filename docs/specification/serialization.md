@@ -14,11 +14,11 @@ The following assumptions are used in this document:
 
 | Document information | |
 | --- | --- |
-| **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)) |
+| **Authors:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)), Anastasiya Danilenka ([adanilenka](https://github.com/adanilenka)) |
 | **Version:** | {{ proto_version() }} |
 | **Date:** | {{ git_revision_date_localized }} |
 | **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/serialization`](https://w3id.org/jelly/{{ proto_version() }}/specification/serialization) |
-| **Document status**: | {{ specification_status() }} specification |
+| **Document status**: | {{ specification_status() }} |
 | **License:** | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
 {% include "./includes/start_info.md" %}
@@ -26,6 +26,15 @@ The following assumptions are used in this document:
 ## Conformance
 
 {% include "./includes/conformance.md" %}
+
+To claim conformance with this specification, an implementation MUST pass all applicable tests from the [Jelly-RDF conformance test suite](../conformance/rdf-test-cases.md), and MUST provide a conformance report as described on the [reporting conformance](../conformance/reporting-conformance.md) page.
+
+!!! note
+
+    Conformance tests are a way to verify that implementations correctly follow the specification. However, passing all tests does not guarantee that the implementation perfectly implements the specification, is free of bugs, or that it will work in all scenarios.
+
+    Implementations typically also employ extensive unit tests, integration tests, and other quality assurance measures to ensure correctness and reliability.
+
 
 ## Versioning
 
@@ -649,4 +658,6 @@ The following implementations of the Jelly RDF serialization format specificatio
 - [pyjelly implementation]( {{ python_link() }} )
     - Specification version: {{ proto_version() }}
     - Implemented actors: producer, consumer
-    - Supported RDF libraries: [rdflib](https://rdflib.readthedocs.io/)
+    - Supported RDF libraries: [rdflib](https://rdflib.readthedocs.io/), generic integration (no RDF library)
+
+See the **[conformance reports](../conformance/rdf-reports.md)** for details on the supported features of each implementation.

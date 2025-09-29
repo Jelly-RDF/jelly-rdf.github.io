@@ -16,7 +16,7 @@ The following assumptions are used in this document:
 | **Version:** | {{ proto_version() }} |
 | **Date:** | {{ git_revision_date_localized }} |
 | **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/streaming`](https://w3id.org/jelly/{{ proto_version() }}/specification/streaming) |
-| **Document status**: | {{ specification_status() }} specification |
+| **Document status**: | {{ specification_status() }} |
 
 !!! info
 
