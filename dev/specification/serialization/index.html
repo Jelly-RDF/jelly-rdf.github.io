@@ -1147,29 +1147,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../conformance/tests/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Jelly-RDF test cases
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../conformance/reporting-conformance/" class="md-nav__link">
         
   
@@ -1193,12 +1170,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../conformance/conformance-reports-page/" class="md-nav__link">
+      <a href="../../conformance/rdf-test-cases/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Conformance reports
+    Jelly-RDF test cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformance/rdf-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Jelly-RDF conformance reports
     
   </span>
   
@@ -1894,8 +1894,8 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Author:</strong></td>
-<td><a href="https://ostrzyciel.eu">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>)</td>
+<td><strong>Authors:</strong></td>
+<td><a href="https://ostrzyciel.eu">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>), Anastasiya Danilenka (<a href="https://github.com/adanilenka">adanilenka</a>)</td>
 </tr>
 <tr>
 <td><strong>Version:</strong></td>
@@ -1903,7 +1903,7 @@
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2025</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2025</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
@@ -1911,7 +1911,7 @@
 </tr>
 <tr>
 <td><strong>Document status</strong>:</td>
-<td>Draft specification</td>
+<td>Draft specification <em>(use the version selector on the top bar to find a stable specification)</em></td>
 </tr>
 <tr>
 <td><strong>License:</strong></td>
@@ -1938,6 +1938,12 @@
 <p>Implementations may in particular choose to not implement features that are not supported on the target platform (e.g., RDF datasets, RDF-star, generalized RDF terms, etc.).</p>
 </div>
 <p>Implementations MAY also choose to extend Jelly with additional features that SHOULD NOT interfere with the serialization being readable by implementations which follow the specification.</p>
+<p>To claim conformance with this specification, an implementation MUST pass all applicable tests from the <a href="../../conformance/rdf-test-cases/">Jelly-RDF conformance test suite</a>, and MUST provide a conformance report as described on the <a href="../../conformance/reporting-conformance/">reporting conformance</a> page.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conformance tests are a way to verify that implementations correctly follow the specification. However, passing all tests does not guarantee that the implementation perfectly implements the specification, is free of bugs, or that it will work in all scenarios.</p>
+<p>Implementations typically also employ extensive unit tests, integration tests, and other quality assurance measures to ensure correctness and reliability.</p>
+</div>
 <h2 id="versioning">Versioning</h2>
 <p>The protocol follows the <a href="https://semver.org/">Semantic Versioning 2.0</a> scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the protocol. The version tag is encoded in the <code>version</code> field of the <a href="../reference/#rdfstreamoptions"><code>RdfStreamOptions</code></a> message. See also the <a href="#stream-options">section on stream options</a> for more information on how to handle the version tags in serialized streams.</p>
 <p>The following versions of the protocol are defined:</p>
@@ -1978,7 +1984,7 @@
 <tr>
 <td>2</td>
 <td>1.1.3 <strong>(current)</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2025</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2025</span></td>
 <td><em>(in development)</em></td>
 </tr>
 </tbody>
@@ -2563,10 +2569,11 @@
 <li><a href="https://w3id.org/jelly/pyjelly/dev/">pyjelly implementation</a><ul>
 <li>Specification version: dev</li>
 <li>Implemented actors: producer, consumer</li>
-<li>Supported RDF libraries: <a href="https://rdflib.readthedocs.io/">rdflib</a></li>
+<li>Supported RDF libraries: <a href="https://rdflib.readthedocs.io/">rdflib</a>, generic integration (no RDF library)</li>
 </ul>
 </li>
 </ul>
+<p>See the <strong><a href="../../conformance/rdf-reports/">conformance reports</a></strong> for details on the supported features of each implementation.</p>
 
 
 
@@ -2589,7 +2596,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2025</span>
   </span>
 
     

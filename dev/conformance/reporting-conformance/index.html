@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://jelly-rdf.github.io/dev/conformance/reporting-conformance/">
       
       
-        <link rel="prev" href="../tests/">
+        <link rel="prev" href="../../specification/media-type/">
       
       
-        <link rel="next" href="../conformance-reports-page/">
+        <link rel="next" href="../rdf-test-cases/">
       
       
       <link rel="icon" href="../../assets/jelly_color.png">
@@ -730,29 +730,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../tests/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Jelly-RDF test cases
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -812,6 +789,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#what-to-include" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to include
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#where-to-submit-how-its-used" class="md-nav__link">
     <span class="md-ellipsis">
       Where to submit / how it’s used
@@ -820,8 +806,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#where-to-find-the-test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where to find the test cases
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
   
 </li>
       
@@ -841,12 +845,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../conformance-reports-page/" class="md-nav__link">
+      <a href="../rdf-test-cases/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Conformance reports
+    Jelly-RDF test cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rdf-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Jelly-RDF conformance reports
     
   </span>
   
@@ -1135,6 +1162,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#what-to-include" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to include
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#where-to-submit-how-its-used" class="md-nav__link">
     <span class="md-ellipsis">
       Where to submit / how it’s used
@@ -1143,8 +1179,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#where-to-find-the-test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where to find the test cases
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
   
 </li>
       
@@ -1174,29 +1228,29 @@
 
   <h1>Reporting conformance</h1>
 
-<p>To ensure interoperability between different Jelly implementations, it is important to verify that each system correctly follows the specification. Conformance testing provides a consistent way to demonstrate which features are implemented and how well they align with the standard. Results are recorded in a standardized format so they can be automatically aggregated, compared, and published.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Implementations may extend Jelly with additional features, provided these extensions do not prevent the serialization from being readable by implementations that follow the requirements.</p>
-</div>
+<p>Jelly uses conformance test cases as an additional way to verify that implementations correctly follow the specification. Results of these conformance tests ran against different implementations are recorded in a standardized format so they can be automatically aggregated, compared, and published.</p>
 <h2 id="how-to-report-conformance">How to report conformance?</h2>
-<p>Report results using <strong>EARL 1.0</strong> (<a href="https://www.w3.org/WAI/standards-guidelines/earl/">Evaluation and Report Language</a>), one <strong><code>earl:Assertion</code></strong> per test.<br />
-Run the official Jelly test manifests for the protocol version you implement; iterate each applicable entry and record its outcome.  </p>
-<p><strong>What to include:</strong></p>
+<p>Report results using <strong>EARL 1.0</strong> (<a href="https://www.w3.org/WAI/standards-guidelines/earl/">Evaluation and Report Language</a>), one <code>earl:Assertion</code> per test. Run the official Jelly test manifests for the protocol version you implement; iterate each applicable entry and record its outcome.  </p>
+<h3 id="what-to-include">What to include</h3>
 <ul>
-<li><strong>Assertions:</strong> for every applicable test, create a <strong><code>earl:Assertion</code></strong> with <strong><code>earl:test</code></strong> (the test IRI from the manifest), <strong><code>earl:subject</code></strong> (your implementation), <strong><code>earl:assertedBy</code></strong>, <strong><code>earl:mode</code></strong> (usually <strong><code>earl:automatic</code></strong>), and <strong><code>earl:result/earl:outcome</code></strong> (allowed outcomes: <strong><code>earl:passed</code></strong>, <strong><code>earl:failed</code></strong>, <strong><code>earl:inapplicable</code></strong>, <strong><code>earl:cantTell</code></strong>, <strong><code>earl:untested</code></strong>).  </li>
+<li><strong>Assertions:</strong> for every applicable test, create a <code>earl:Assertion</code> with <code>earl:test</code> (the test IRI from the manifest), <code>earl:subject</code> (your implementation), <code>earl:assertedBy</code> (your test runner), <code>earl:mode</code> (usually <code>earl:automatic</code>), and <code>earl:result/earl:outcome</code> (allowed outcomes: <code>earl:passed</code>, <code>earl:failed</code>, <code>earl:inapplicable</code>, <code>earl:cantTell</code>, <code>earl:untested</code>).  </li>
 <li><strong>Metadata:</strong> describe the implementation with <a href="https://github.com/ewilderj/doap"><strong>DOAP</strong></a> (name, version, homepage) and the assertions with <a href="http://xmlns.com/foaf/spec/"><strong>FOAF</strong></a>.  </li>
 </ul>
 <h3 id="where-to-submit-how-its-used">Where to submit / how it’s used</h3>
-<p>Submit the EARL file (in Turtle format) via pull request <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/tree/main/docs/conformance/reports">to this directory</a>. Submitted EARL files are then aggregated into a human-readable table on the <a href="../conformance-reports-page/">site</a>.  </p>
+<p>Submit the EARL file (in Turtle format) via pull request <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/tree/main/docs/conformance/reports">to this directory</a>. Submitted EARL files are then aggregated into a human-readable table like <a href="../rdf-reports/">this one for Jelly-RDF</a> and published on the Jelly website.</p>
 <div class="admonition note">
 <p class="admonition-title">Example EARL report</p>
-<p>An example, complete, ready-to-submit EARL report template can be found <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/tree/main/docs/conformance/reports">here</a>. Replace placeholders (names, dates) and add one <strong><code>earl:Assertion</code></strong> per Jelly test you executed (use the exact test IRIs from the Jelly manifests).  </p>
+<p>An example, complete, ready-to-submit EARL report template can be found <strong><a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/tree/main/docs/conformance/reports">here</a></strong>. Replace placeholders (names, dates) and add one <code>earl:Assertion</code> per Jelly test you executed (use the exact test IRIs from the Jelly manifests).  </p>
 </div>
-<p><strong>Manifests:</strong></p>
+<h3 id="where-to-find-the-test-cases">Where to find the test cases</h3>
+<p>See the <a href="../rdf-test-cases/">Jelly-RDF test cases</a> page for details on the available tests and how to run them.</p>
+<h2 id="see-also">See also</h2>
 <ul>
-<li>Test manifests are RDF lists of tests that provide names, inputs/expecteds, and status; test runners iterate these to produce EARL reports.  </li>
-<li>Manifests for Jelly can be found <a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/test//rdf">here</a>.</li>
+<li>Jelly-RDF<ul>
+<li><a href="../rdf-test-cases/">Test cases</a></li>
+<li><a href="../rdf-reports/">Conformance reports</a></li>
+</ul>
+</li>
 </ul>
 
 
@@ -1220,7 +1274,7 @@ Run the official Jelly test manifests for the protocol version you implement; it
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2025</span>
   </span>
 
     

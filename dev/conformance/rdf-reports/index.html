@@ -10,10 +10,10 @@
       
       
       
-        <link rel="canonical" href="https://jelly-rdf.github.io/dev/conformance/conformance-reports-page/">
+        <link rel="canonical" href="https://jelly-rdf.github.io/dev/conformance/rdf-reports/">
       
       
-        <link rel="prev" href="../reporting-conformance/">
+        <link rel="prev" href="../rdf-test-cases/">
       
       
         <link rel="next" href="../../contributing/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Conformance reports - Jelly</title>
+        <title>Jelly-RDF conformance reports - Jelly</title>
       
     
     
@@ -64,7 +64,7 @@
         
     
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jelly – Conformance reports" />
+    <meta property="og:title" content="Jelly – Jelly-RDF conformance reports" />
     <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
     <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.png" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -100,7 +100,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#conformance-reports" class="md-skip">
+        <a href="#jelly-rdf-conformance-reports" class="md-skip">
           Skip to content
         </a>
       
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Conformance reports
+              Jelly-RDF conformance reports
             
           </span>
         </div>
@@ -733,12 +733,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../tests/" class="md-nav__link">
+      <a href="../reporting-conformance/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Jelly-RDF test cases
+    Reporting conformance
     
   </span>
   
@@ -756,12 +756,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../reporting-conformance/" class="md-nav__link">
+      <a href="../rdf-test-cases/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Reporting conformance
+    Jelly-RDF test cases
     
   </span>
   
@@ -793,7 +793,7 @@
   
   
   <span class="md-ellipsis">
-    Conformance reports
+    Jelly-RDF conformance reports
     
   </span>
   
@@ -806,7 +806,7 @@
   
   
   <span class="md-ellipsis">
-    Conformance reports
+    Jelly-RDF conformance reports
     
   </span>
   
@@ -1692,7 +1692,7 @@
 
 
   
-    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/conformance/conformance-reports-page.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/conformance/rdf-reports.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1700,15 +1700,20 @@
   
 
 
-<h1 id="conformance-reports">Conformance Reports</h1>
-<p>This page lists conformance testing results for all available Jelly-RDF implementations.<br />
-Details of the tests themselves are provided on the <a href="../tests/">conformance tests</a> page,<br />
-and guidance on producing reports can be found on the <a href="../reporting-conformance/">reporting conformance</a> page.</p>
+<h1 id="jelly-rdf-conformance-reports">Jelly-RDF conformance reports</h1>
+<p>This page lists conformance testing results for Jelly-RDF implementations. Details on the tests themselves are provided on the <a href="../rdf-test-cases/">conformance tests</a> page, and guidance on producing reports can be found on the <a href="../reporting-conformance/">reporting conformance</a> page.</p>
 <p>The information presented here includes:</p>
 <ul>
-<li>The <a href="#report-table"><strong>Report table</strong></a>, which provides a comparative overview of test outcomes across all submitted implementations.  </li>
-<li>The <a href="#available-reports"><strong>Available reports</strong></a> section, which lists implementation metadata (name, version, developer, assertor, and issue date) together with compliance statistics.</li>
+<li>The <a href="#report-table"><strong>report table</strong></a>, which provides a comparative overview of test outcomes across all submitted implementations.  </li>
+<li>The <a href="#available-reports"><strong>available reports</strong></a> section, which lists implementation metadata (name, version, developer, assertor, and issue date) together with compliance statistics.</li>
 </ul>
+<p>Note that implementations are not required to submit all features of Jelly-RDF. In particular, you will find that many implementations do not support:</p>
+<ul>
+<li>The GRAPHS physical type for serialization (to Jelly). The GRAPHS type is considered legacy, and using the QUADS type is recommended instead.</li>
+<li>Generalized RDF (e.g., triples with literals in subject position). Many RDF libraries do not support this feature.</li>
+<li>RDF-star (i.e., quoted triples). Some RDF libraries do not support this feature.</li>
+</ul>
+<p>In general, all implementations should at least pass the following test categories for parsing (from Jelly): <code>graphs_rdf_1_1</code>, <code>triples_rdf_1_1</code>, and <code>quads_rdf_1_1</code>.</p>
 <h2 id="report-table">Report table</h2>
 <h3 id="from-jelly-parse">From Jelly (parse)</h3>
 <h4 id="graphs_rdf_1_1">graphs_rdf_1_1</h4>
@@ -2073,7 +2078,7 @@ and guidance on producing reports can be found on the <a href="../reporting-conf
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2025</span>
   </span>
 
     
@@ -2083,7 +2088,7 @@ and guidance on producing reports can be found on the <a href="../reporting-conf
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 29, 2025</span>
   </span>
 
     
