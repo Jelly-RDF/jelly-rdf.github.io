@@ -7,7 +7,7 @@ The information presented here includes:
 - The [**report table**](#report-table), which provides a comparative overview of test outcomes across all submitted implementations.  
 - The [**available reports**](#available-reports) section, which lists implementation metadata (name, version, developer, assertor, and issue date) together with compliance statistics.
 
-Note that implementations are not required to submit all features of Jelly-RDF. In particular, you will find that many implementations do not support:
+Note that implementations are not required to cover all features of Jelly-RDF. In particular, you will find that many implementations do not support:
 
 - The GRAPHS physical type for serialization (to Jelly). The GRAPHS type is considered legacy, and using the QUADS type is recommended instead.
 - Generalized RDF (e.g., triples with literals in subject position). Many RDF libraries do not support this feature.
