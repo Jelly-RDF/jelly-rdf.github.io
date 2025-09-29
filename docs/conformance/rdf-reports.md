@@ -10,7 +10,7 @@ The information presented here includes:
 Note that implementations are not required to submit all features of Jelly-RDF. In particular, you will find that many implementations do not support:
 
 - The GRAPHS physical type for serialization (to Jelly). The GRAPHS type is considered legacy, and using the QUADS type is recommended instead.
-- Generalized RDF (i.e. triples with literals in subject position). Many RDF libraries do not support this feature.
+- Generalized RDF (e.g., triples with literals in subject position). Many RDF libraries do not support this feature.
 - RDF-star (i.e. quoted triples). Some RDF libraries do not support this feature.
 
 In general, all implementations should at least pass the following test categories for parsing (from Jelly): `graphs_rdf_1_1`, `triples_rdf_1_1`, and `quads_rdf_1_1`.
