@@ -27,6 +27,12 @@ The same methodology was used as in the [Apache Jena benchmarks](index.md), with
 
     The results can only be used to compare the performance within RDF4J.
 
+!!! warning
+
+    The RDF4J Jelly parser by default does no validation of IRIs or literals, and does not support skolemization of blank nodes. This makes it much faster than other RDF4J parsers, which by default perform validation and skolemization. These features can also be enabled in the Jelly parser to get 1:1 feature parity with other RDF4J parsers, but this will have a negative impact on the performance.
+
+    **The results shown here are for the Jelly parser with validation and skolemization disabled**, which results in a not-so-fair comparison with other RDF4J parsers. We are working on new benchmarks that will disable these features in other RDF4J parsers as well, to get a more fair comparison.
+
 ### Flat streaming serialization throughput
 
 - RiverBench task: [`flat-serialization-throughput` (2.1.0)](https://w3id.org/riverbench/v/2.1.0/tasks/flat-serialization-throughput)
