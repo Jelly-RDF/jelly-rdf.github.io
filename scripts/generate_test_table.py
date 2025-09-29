@@ -90,17 +90,6 @@ def detect_category(paths: list[Path]) -> str:
                 if i+1 < len(p.parts): return p.parts[i+1]
     return "uncategorized"
 
-def detect_data(paths: list[Path], category: str) -> str:
-    exts = {p.suffix.lower() for p in paths}
-    if ".nt" in exts: return "triples"
-    if ".nq" in exts: return "quads"
-    for p in paths:
-        if "graphs" in p.parts: return "graphs"
-    if "triples" in category: return "triples"
-    if "quads" in category: return "quads"
-    if "graphs" in category: return "graphs"
-    return "—"
-
 def parse_manifest(manifest_path: Path, repo_root: Path):
     g = Graph(); g.parse(manifest_path, format="turtle")
     entries = []
@@ -110,10 +99,10 @@ def parse_manifest(manifest_path: Path, repo_root: Path):
 
     def collect(node):
         out=set()
-        rel=norm_repo_rel(node, manifest_path, repo_root)
+        rel = norm_repo_rel(node, manifest_path, repo_root)
         if rel: out.add(rel)
-        for _,__,v in g.triples((node,None,None)):
-            rel=norm_repo_rel(v, manifest_path, repo_root)
+        for _, __, v in g.triples((node, None, None)):
+            rel = norm_repo_rel(v, manifest_path, repo_root)
             if rel: out.add(rel)
         return sorted(out)
 
@@ -134,10 +123,20 @@ def parse_manifest(manifest_path: Path, repo_root: Path):
             for n in nodes:
                 ress += collect(n)
         cat = detect_category(acts or ress)
-        tests.append(dict(raw_name=name, description=desc, polarity=pol, actions=acts, results=ress, category=cat))
+        path = norm_repo_rel(t, manifest_path, repo_root)
+        tests.append(dict(
+            iri=str(t),
+            raw_name=name,
+            description=desc,
+            polarity=pol,
+            path=path,
+            actions=acts,
+            results=ress,
+            category=cat
+        ))
     return tests
 
-TABLE_HEADER = "| Name | Description | Data | Input(s) | Expected output |\n|---|---|---|---|---|\n"
+TABLE_HEADER = "| Name | Description | Input(s) | Expected output |\n|---|---|---|---|\n"
 
 def files_to_links(paths: list[Path], repo_https: str, sha: str) -> str:
     if not paths: return "—"
@@ -155,16 +154,16 @@ def render_tables(cases: list[dict], repo_https: str, sha: str) -> str:
         pos = len(grouped[cat].get("positive", []))
         neg = len(grouped[cat].get("negative", []))
         out.append(f"### {md_text(cat)}\n\n*{pos} positive, {neg} negative*\n\n")
-        for pol in ("positive","negative"):
+        for pol in ("positive", "negative"):
             rows = grouped[cat].get(pol, [])
             if not rows: continue
             out.append(f"#### {pol.capitalize()}\n\n{TABLE_HEADER}")
-            for r in sorted(rows,key=lambda x:(x["raw_name"],x["description"])):
-                desc = md_text(short(r["description"] or r["raw_name"], 200))
-                data = detect_data((r["actions"] or [])+(r["results"] or []), r["category"])
+            for r in sorted(rows, key=lambda x: (x["iri"])):
+                desc = md_text(r["raw_name"] + " " + r["description"])
                 inputs = files_to_links(r["actions"], repo_https, sha)
                 expected = files_to_links(r["results"], repo_https, sha)
-                out.append(f"| {md_text(r['category'])} | {desc} | `{data}` | {inputs} | {expected} |\n")
+                id = files_to_links([r["path"]], repo_https, sha)
+                out.append(f"| {id} | {desc} | {inputs} | {expected} |\n")
             out.append("\n")
     return "".join(out)
 
