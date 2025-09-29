@@ -124,8 +124,15 @@ def parse_manifest(manifest_path: Path, repo_root: Path):
         types = {str(o) for o in g.objects(t, RDF.type)}
         pol = "negative" if any("Negative" in x for x in types) else "positive"
         acts, ress = [], []
-        for _,__,a in g.triples((t, MF.action, None)): acts += collect(a)
-        for _,__,r in g.triples((t, MF.result, None)): ress += collect(r)
+        for _, __, a in g.triples((t, MF.action, None)):
+            nodes = rdf_list(g, a) if (a, RDF.first, None) in g else [a]
+            for n in nodes:
+                acts += collect(n)
+
+        for _, __, r in g.triples((t, MF.result, None)):
+            nodes = rdf_list(g, r) if (r, RDF.first, None) in g else [r]
+            for n in nodes:
+                ress += collect(n)
         cat = detect_category(acts or ress)
         tests.append(dict(raw_name=name, description=desc, polarity=pol, actions=acts, results=ress, category=cat))
     return tests
