@@ -6,7 +6,7 @@ Report results using **EARL 1.0** ([Evaluation and Report Language](https://www.
 
 ### What to include
 
-- **Assertions:** for every applicable test, create a `earl:Assertion` with `earl:test` (the test IRI from the manifest), `earl:subject` (your implementation), `earl:assertedBy`, `earl:mode` (usually `earl:automatic`), and `earl:result/earl:outcome` (allowed outcomes: `earl:passed`, `earl:failed`, `earl:inapplicable`, `earl:cantTell`, `earl:untested`).  
+- **Assertions:** for every applicable test, create a `earl:Assertion` with `earl:test` (the test IRI from the manifest), `earl:subject` (your implementation), `earl:assertedBy` (your test runner), `earl:mode` (usually `earl:automatic`), and `earl:result/earl:outcome` (allowed outcomes: `earl:passed`, `earl:failed`, `earl:inapplicable`, `earl:cantTell`, `earl:untested`).  
 - **Metadata:** describe the implementation with [**DOAP**](https://github.com/ewilderj/doap) (name, version, homepage) and the assertions with [**FOAF**](http://xmlns.com/foaf/spec/).  
 
 ### Where to submit / how it’s used
