@@ -28,6 +28,13 @@
 - **[RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax)** uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
     - This is implemented using [jelly-cli](https://github.com/Jelly-RDF/cli). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
 
+## [pyjelly]({{ python_link() }})
+
+### Tools and libraries
+
+- **[YATTER](https://github.com/citiususc/yatter)** – a library and CLI tool that translates between YARRRML documents and their corresponding RML or R2RML representations. 
+    - YATTER CLI supports Jelly as one of the input/output formats for RML/R2RML mappings.
+
 ## Example datasets in the Jelly format
 
 Below listed are some example datasets available in the Jelly format. All of these are in the [delimited format](user-guide.md#delimited-vs-non-delimited-jelly). The licenses for these datasets are specified on the linked documentation pages.
