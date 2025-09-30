@@ -48,7 +48,7 @@ The following versions of the protocol are defined:
 | 2           | 1.1.0 | December 21, 2024 | Added [`RdfNamespaceDeclaration`](#namespace-declarations) |
 | 2           | 1.1.1 | March 10, 2025 | Added [`RdfStreamFrame.metadata`](#stream-frame-metadata) |
 | 2           | 1.1.2 | June 12, 2025 | Bugfixes: [#35](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/35), [#43](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/43), [#44](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/44) |
-| 2           | 1.1.3 | September 30, 2025 **(current)** | Added the [conformance test suite](#conformance) |
+| 2           | 1.1.3 | September 30, 2025 | Added the [conformance test suite](#conformance) |
 | 2           | 1.1.4 **(current)** | {{ git_revision_date_localized }} | *(in development)* |
 
 !!! note
