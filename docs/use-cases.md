@@ -28,6 +28,40 @@
 - **[RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax)** uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
     - This is implemented using [jelly-cli](https://github.com/Jelly-RDF/cli). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
 
+## Morph-KGC (Python)
+
+**[Morph-KGC](https://github.com/morph-kgc/morph-kgc)** is a Python engine for generating RDF knowledge graphs from heterogeneous data sources using **RML** and **R2RML** mappings.  
+Morph-KGC includes **optional Jelly output support** through RDFLib and the `pyjelly` package.
+
+### How Morph-KGC uses Jelly
+
+- Adds **`output_format = JELLY`** as a dedicated serialization option.
+- Jelly works in both:
+    - **CLI mode:** `python -m morph_kgc`
+    - **Python API:** `graph.serialize(destination=..., format="jelly")`
+- Produces a single compact **.jelly** binary file suitable for large datasets and downstream streaming pipelines.
+- Jelly support is available via:
+  ```bash
+  pip install "morph-kgc[jelly]"
+  ```
+
+### Notes
+
+- Current implementation uses Morph-KGC’s existing text-based pipeline, so Jelly output may be **slower than N-Quads** for very large graphs.
+- RDF-star is **not supported** in Jelly output due to reliance on embedded triples.
+- The integration is fully accepted upstream; architectural improvements may enable direct binary graph construction in the future.
+
+### Example configuration
+
+```ini
+[CONFIGURATION]
+output_file = kg.jelly
+output_format = JELLY
+
+[DataSource1]
+mappings = mapping.ttl
+```
+
 ## Example datasets in the Jelly format
 
 Below listed are some example datasets available in the Jelly format. All of these are in the [delimited format](user-guide.md#delimited-vs-non-delimited-jelly). The licenses for these datasets are specified on the linked documentation pages.
@@ -41,7 +75,7 @@ Below listed are some example datasets available in the Jelly format. All of the
     - [:octicons-download-24: RDF-STaX ontology](https://w3id.org/stax/1.1.4/ontology.jelly) ([documentation](https://w3id.org/stax/1.1.4/ontology)).
     - [:octicons-download-24: RiverBench suite metadata](https://w3id.org/riverbench/v/dev.jelly) ([documentation](https://w3id.org/riverbench/v/dev/documentation/metadata)) – *RiverBench also includes metadata in Jelly for benchmark tasks, datasets, and more.*
 
-You can find some more interesting datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
+You can find additional datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
 
 ## Commercial support
 
