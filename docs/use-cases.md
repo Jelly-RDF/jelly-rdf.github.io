@@ -34,6 +34,8 @@
 
 - **[YATTER](https://github.com/citiususc/yatter)** – a library and CLI tool that translates between YARRRML documents and their corresponding RML or R2RML representations. 
     - YATTER CLI supports Jelly as one of the input/output formats for RML/R2RML mappings.
+- **[Morph-KGC](https://github.com/morph-kgc/morph-kgc)** – a Python engine for materializing RDF knowledge graphs from heterogeneous data sources using RML and R2RML.
+    - Morph-KGC can output graphs in the Jelly format via RDFLib and the `pyjelly` plugin (optional extra: `pip install "morph-kgc[jelly]"`).
 
 ## Example datasets in the Jelly format
 
