@@ -28,39 +28,12 @@
 - **[RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax)** uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
     - This is implemented using [jelly-cli](https://github.com/Jelly-RDF/cli). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
 
-## Morph-KGC (Python)
+## [pyjelly]({{ python_link() }})
 
-**[Morph-KGC](https://github.com/morph-kgc/morph-kgc)** is a Python engine for generating RDF knowledge graphs from heterogeneous data sources using **RML** and **R2RML** mappings.  
-Morph-KGC includes **optional Jelly output support** through RDFLib and the `pyjelly` package.
+### Tools and libraries
 
-### How Morph-KGC uses Jelly
-
-- Adds **`output_format = JELLY`** as a dedicated serialization option.
-- Jelly works in both:
-    - **CLI mode:** `python -m morph_kgc`
-    - **Python API:** `graph.serialize(destination=..., format="jelly")`
-- Produces a single compact **.jelly** binary file suitable for large datasets and downstream streaming pipelines.
-- Jelly support is available via:
-  ```bash
-  pip install "morph-kgc[jelly]"
-  ```
-
-### Notes
-
-- Current implementation uses Morph-KGC’s existing text-based pipeline, so Jelly output may be **slower than N-Quads** for very large graphs.
-- RDF-star is **not supported** in Jelly output due to reliance on embedded triples.
-- The integration is fully accepted upstream; architectural improvements may enable direct binary graph construction in the future.
-
-### Example configuration
-
-```ini
-[CONFIGURATION]
-output_file = kg.jelly
-output_format = JELLY
-
-[DataSource1]
-mappings = mapping.ttl
-```
+- **[YATTER](https://github.com/citiususc/yatter)** – a library and CLI tool that translates between YARRRML documents and their corresponding RML or R2RML representations. 
+    - YATTER CLI supports Jelly as one of the input/output formats for RML/R2RML mappings.
 
 ## Example datasets in the Jelly format
 

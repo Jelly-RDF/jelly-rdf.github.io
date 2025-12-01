@@ -48,7 +48,7 @@ Software: Linux kernel 6.10.11, Oracle GraalVM 23.0.2+7.1, Apache Jena 5.3.0, Ec
 
 ## Results
 
-!!! info "RDF4J performance results"
+!!! error "RDF4J performance results"
 
     This page only shows the performance results for Apache Jena. The results for RDF4J can be found here: **[RDF4J performance](rdf4j.md)**.
 

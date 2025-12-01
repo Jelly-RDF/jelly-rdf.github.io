@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from scripts.conformance_table import generate_conformance_page
+from scripts.generate_test_table import generate_test_table
 from scripts.generate_report import generate_conformance_report
 import re
 
@@ -59,8 +59,9 @@ def define_env(env):
 
     @env.macro
     def specification_status():
-        return 'Draft' if git_tag() == 'main' else 'Stable'
-    
+        return 'Draft specification *(use the version selector on the top bar to find a stable specification)*' if (
+            git_tag() == 'main'
+        ) else f'Stable specification ({proto_version()})'
 
     @env.macro
     def stax_version():
@@ -134,7 +135,7 @@ def define_env(env):
 
     @env.macro
     def conformance_tests():
-        return generate_conformance_page()
+        return generate_test_table()
 
 
     @env.macro

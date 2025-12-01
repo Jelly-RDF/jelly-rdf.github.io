@@ -14,3 +14,7 @@ See the specification pages for more details:
     - [Protobuf reference](reference.md)
     - [Protobuf sources](protobuf-source.md)
 - [File extensions and media types](media-type.md)
+
+## See also
+
+- [Conformance test cases](../conformance/reporting-conformance.md)
