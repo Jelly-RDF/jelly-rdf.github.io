@@ -75,7 +75,7 @@ Below listed are some example datasets available in the Jelly format. All of the
     - [:octicons-download-24: RDF-STaX ontology](https://w3id.org/stax/1.1.4/ontology.jelly) ([documentation](https://w3id.org/stax/1.1.4/ontology)).
     - [:octicons-download-24: RiverBench suite metadata](https://w3id.org/riverbench/v/dev.jelly) ([documentation](https://w3id.org/riverbench/v/dev/documentation/metadata)) – *RiverBench also includes metadata in Jelly for benchmark tasks, datasets, and more.*
 
-You can find additional datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
+You can find some more interesting datasets in the Jelly format on the [RiverBench website](https://w3id.org/riverbench/dev/datasets).
 
 ## Commercial support
 
