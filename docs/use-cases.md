@@ -36,6 +36,8 @@
     - YATTER CLI supports Jelly as one of the input/output formats for RML/R2RML mappings.
 - **[Morph-KGC](https://github.com/morph-kgc/morph-kgc)** – a Python engine for materializing RDF knowledge graphs from heterogeneous data sources using RML and R2RML.
     - Morph-KGC can output graphs in the Jelly format via RDFLib and the `pyjelly` plugin (optional extra: `pip install "morph-kgc[jelly]"`).
+- **[KGX](https://github.com/biolink/kgx)** – Python library and CLI tool for transforming and exchanging Biolink knowledge graphs across multiple formats.
+    - Supports reading and writing the Jelly RDF serialization format via `pyjelly`.
 
 ## Example datasets in the Jelly format
 
