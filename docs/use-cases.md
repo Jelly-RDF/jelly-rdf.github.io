@@ -38,6 +38,8 @@
     - Morph-KGC can output graphs in the Jelly format via RDFLib and the `pyjelly` plugin (optional extra: `pip install "morph-kgc[jelly]"`).
 - **[KGX](https://github.com/biolink/kgx)** – Python library and CLI tool for transforming and exchanging Biolink knowledge graphs across multiple formats.
     - Supports reading and writing the Jelly RDF serialization format via `pyjelly`.
+- **[kglab](https://github.com/DerwenAI/kglab)** – Python library for building and analyzing knowledge graphs.
+    - Supports loading and saving RDF graphs in the Jelly RDF serialization format via `pyjelly`.
 
 ## Example datasets in the Jelly format
 
