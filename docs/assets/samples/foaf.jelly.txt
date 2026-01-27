@@ -1,0 +1,189 @@
+# Frame 0
+rows {
+  options {
+    physical_type: PHYSICAL_STREAM_TYPE_TRIPLES
+    max_name_table_size: 4000
+    max_prefix_table_size: 150
+    max_datatype_table_size: 32
+    logical_type: LOGICAL_STREAM_TYPE_FLAT_TRIPLES
+    version: 1
+  }
+}
+rows {
+  prefix {
+    value: "https://neverblink.eu/example#"
+  }
+}
+rows {
+  name {
+    value: "Piotr"
+  }
+}
+rows {
+  prefix {
+    value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  }
+}
+rows {
+  name {
+    value: "type"
+  }
+}
+rows {
+  prefix {
+    value: "http://xmlns.com/foaf/0.1/"
+  }
+}
+rows {
+  name {
+    value: "Person"
+  }
+}
+rows {
+  triple {
+    s_iri {
+      prefix_id: 1
+    }
+    p_iri {
+      prefix_id: 2
+    }
+    o_iri {
+      prefix_id: 3
+    }
+  }
+}
+rows {
+  prefix {
+    value: "https://schema.org/"
+  }
+}
+rows {
+  triple {
+    o_iri {
+      prefix_id: 4
+      name_id: 3
+    }
+  }
+}
+rows {
+  name {
+    value: "givenName"
+  }
+}
+rows {
+  triple {
+    p_iri {
+      prefix_id: 3
+    }
+    o_literal {
+      lex: "Piotr"
+    }
+  }
+}
+rows {
+  name {
+    value: "familyName"
+  }
+}
+rows {
+  triple {
+    p_iri {
+    }
+    o_literal {
+      lex: "Sowi\305\204ski"
+    }
+  }
+}
+rows {
+  name {
+    value: "homepage"
+  }
+}
+rows {
+  prefix {
+    value: "https://"
+  }
+}
+rows {
+  name {
+    value: "ostrzyciel.eu"
+  }
+}
+rows {
+  triple {
+    p_iri {
+    }
+    o_iri {
+      prefix_id: 5
+    }
+  }
+}
+rows {
+  name {
+    value: "Organization"
+  }
+}
+rows {
+  triple {
+    s_bnode: "0000"
+    p_iri {
+      prefix_id: 2
+      name_id: 2
+    }
+    o_iri {
+      prefix_id: 4
+      name_id: 8
+    }
+  }
+}
+rows {
+  name {
+    value: "name"
+  }
+}
+rows {
+  triple {
+    p_iri {
+    }
+    o_literal {
+      lex: "NeverBlink"
+    }
+  }
+}
+rows {
+  name {
+    value: "url"
+  }
+}
+rows {
+  name {
+    value: "neverblink.eu"
+  }
+}
+rows {
+  triple {
+    p_iri {
+    }
+    o_iri {
+      prefix_id: 5
+    }
+  }
+}
+rows {
+  name {
+    value: "worksFor"
+  }
+}
+rows {
+  triple {
+    s_iri {
+      prefix_id: 1
+      name_id: 1
+    }
+    p_iri {
+      prefix_id: 4
+      name_id: 12
+    }
+    o_bnode: "0000"
+  }
+}

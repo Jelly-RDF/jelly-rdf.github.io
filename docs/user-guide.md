@@ -444,6 +444,16 @@ You can read more about how this works in the [serialization format specificatio
 - [Jelly-JVM]({{ jvm_link() }}) supports both variants, but uses them in different contexts. When writing to a Java byte stream (typically a file) with Apache Jena RIOT or RDF4J Rio, the delimited variant is used. However, the RIOT/Rio integrations can parse either delimited or non-delimited Jelly data. In the gRPC protocol, the non-delimited variant is used.
 - [RiverBench](http://w3id.org/riverbench) publishes its RDF metadata and datasets as Jelly files. These files are always written using the delimited variant.
 
+## Sample files
+
+`foaf.jelly` is a simple Jelly file that may be useful when trying to understand how the format works. You can download it here:
+
+- [:octicons-download-24: foaf.jelly](assets/samples/foaf.jelly)
+- [:octicons-download-24: foaf.ttl](assets/samples/foaf.ttl) – same file in the Turtle format.
+- [:octicons-download-24: foaf.jelly.txt](assets/samples/foaf.jelly.txt) – text representation of the Jelly file, for debugging purposes.
+
+You can find more example datasets (including ones with millions of triples) **[on this page](use-cases.md#example-datasets-in-the-jelly-format)**. The [conformance test cases](conformance/rdf-test-cases.md) contain dozens of valid Jelly files testing all features of the format.
+
 ## Implementing Jelly
 
 !!! note

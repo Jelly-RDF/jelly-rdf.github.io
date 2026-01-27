@@ -45,6 +45,11 @@
 
 Below listed are some example datasets available in the Jelly format. All of these are in the [delimited format](user-guide.md#delimited-vs-non-delimited-jelly). The licenses for these datasets are specified on the linked documentation pages.
 
+- Toy dataset (starting example – `foaf.jelly`):
+    - [:octicons-download-24: foaf.jelly](assets/samples/foaf.jelly)
+    - [:octicons-download-24: foaf.ttl](assets/samples/foaf.ttl) – same file in the Turtle format.
+    - [:octicons-download-24: foaf.jelly.txt](assets/samples/foaf.jelly.txt) – text representation of the Jelly file, for debugging purposes.
+
 - Large datasets (millions of triples/quads):
     - [:octicons-download-24: ASSIST-IoT weather measurements](https://w3id.org/riverbench/datasets/assist-iot-weather/1.0.3/files/jelly_full.jelly.gz) ([documentation](https://w3id.org/riverbench/datasets/assist-iot-weather/1.0.3)) – 80 million triples.
     - [:octicons-download-24: 5 million nanopublications](https://w3id.org/riverbench/datasets/nanopubs/1.0.3/files/jelly_full.jelly.gz) ([documentation](https://w3id.org/riverbench/datasets/nanopubs/1.0.3)) – 171 million quads.
