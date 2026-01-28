@@ -696,6 +696,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sample-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#implementing-jelly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1786,6 +1797,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sample-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#implementing-jelly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2344,6 +2366,14 @@
 <li><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM</a> supports both variants, but uses them in different contexts. When writing to a Java byte stream (typically a file) with Apache Jena RIOT or RDF4J Rio, the delimited variant is used. However, the RIOT/Rio integrations can parse either delimited or non-delimited Jelly data. In the gRPC protocol, the non-delimited variant is used.</li>
 <li><a href="http://w3id.org/riverbench">RiverBench</a> publishes its RDF metadata and datasets as Jelly files. These files are always written using the delimited variant.</li>
 </ul>
+<h2 id="sample-files">Sample files</h2>
+<p><code>foaf.jelly</code> is a simple Jelly file that may be useful when trying to understand how the format works. You can download it here:</p>
+<ul>
+<li><a href="../assets/samples/foaf.jelly"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf.jelly</a></li>
+<li><a href="../assets/samples/foaf.ttl"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf.ttl</a> – same file in the Turtle format.</li>
+<li><a href="../assets/samples/foaf.jelly.txt"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf.jelly.txt</a> – text representation of the Jelly file, for debugging purposes.</li>
+</ul>
+<p>You can find more example datasets (including ones with millions of triples) <strong><a href="../use-cases/#example-datasets-in-the-jelly-format">on this page</a></strong>. The <a href="../conformance/rdf-test-cases/">conformance test cases</a> contain dozens of valid Jelly files testing all features of the format.</p>
 <h2 id="implementing-jelly">Implementing Jelly</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2386,7 +2416,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 27, 2026</span>
   </span>
 
     
