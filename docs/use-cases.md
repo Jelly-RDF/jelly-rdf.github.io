@@ -4,8 +4,6 @@
 
 ## [Jelly-JVM]({{ jvm_link() }})
 
-### Tools and libraries
-
 - **[jelly-cli](https://github.com/Jelly-RDF/cli)** – simple but performant command-line utility for working with Jelly files.
     - The app can be used to convert to/from Jelly, validate and debug Jelly files.
     - You can find the code and released binaries on [GitHub](https://github.com/Jelly-RDF/cli). The repository also has up-to-date installation instructions and command usage examples.
@@ -14,8 +12,21 @@
     - RMLMapper supports Jelly as one of the output formats. You can use it to convert CSV, JSON, Excel, SQL, and other data sources into Jelly.
 - **[nanopub-java](https://github.com/Nanopublication/nanopub-java)** – Java library for working with [nanopublications](https://nanopub.net).
     - The library supports Jelly as one of the serialization formats, including processing streams of multiple nanopublications.
+- **[TopBraid SHACL](https://github.com/TopQuadrant/shacl)** – library and CLI tool for validating RDF and reasoning with SHACL shapes.
+    - The CLI tool supports reading and writing Jelly files by setting the format to `jelly`.
 
-### Projects
+## [pyjelly]({{ python_link() }})
+
+- **[YATTER](https://github.com/citiususc/yatter)** – a library and CLI tool that translates between YARRRML documents and their corresponding RML or R2RML representations. 
+    - YATTER CLI supports Jelly as one of the input/output formats for RML/R2RML mappings.
+- **[Morph-KGC](https://github.com/morph-kgc/morph-kgc)** – a Python engine for materializing RDF knowledge graphs from heterogeneous data sources using RML and R2RML.
+    - Morph-KGC can output graphs in the Jelly format via RDFLib and the `pyjelly` plugin (optional extra: `pip install "morph-kgc[jelly]"`).
+- **[KGX](https://github.com/biolink/kgx)** – Python library and CLI tool for transforming and exchanging Biolink knowledge graphs across multiple formats.
+    - Supports reading and writing the Jelly RDF serialization format via `pyjelly`.
+- **[kglab](https://github.com/DerwenAI/kglab)** – Python library for building and analyzing knowledge graphs.
+    - Supports loading and saving RDF graphs in the Jelly RDF serialization format via `pyjelly`.
+
+## Projects
 
 - **[Nanopub Registry](https://github.com/knowledgepixels/nanopub-registry)** and **[Nanopub Query](https://github.com/knowledgepixels/nanopub-query)** – next-gen services for distributed storage, management, and querying of [nanopublications](https://nanopub.net).
     - Jelly is used for communication between the services in the nanopub network. Jelly endpoints (ending with `.jelly`) are also exposed for downstream applications to consume nanopubs.
@@ -27,19 +38,6 @@
 - **[Jelly-JVM benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks)**. This code was used to produce the results seen on the [performance page](performance/index.md).
 - **[RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax)** uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
     - This is implemented using [jelly-cli](https://github.com/Jelly-RDF/cli). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
-
-## [pyjelly]({{ python_link() }})
-
-### Tools and libraries
-
-- **[YATTER](https://github.com/citiususc/yatter)** – a library and CLI tool that translates between YARRRML documents and their corresponding RML or R2RML representations. 
-    - YATTER CLI supports Jelly as one of the input/output formats for RML/R2RML mappings.
-- **[Morph-KGC](https://github.com/morph-kgc/morph-kgc)** – a Python engine for materializing RDF knowledge graphs from heterogeneous data sources using RML and R2RML.
-    - Morph-KGC can output graphs in the Jelly format via RDFLib and the `pyjelly` plugin (optional extra: `pip install "morph-kgc[jelly]"`).
-- **[KGX](https://github.com/biolink/kgx)** – Python library and CLI tool for transforming and exchanging Biolink knowledge graphs across multiple formats.
-    - Supports reading and writing the Jelly RDF serialization format via `pyjelly`.
-- **[kglab](https://github.com/DerwenAI/kglab)** – Python library for building and analyzing knowledge graphs.
-    - Supports loading and saving RDF graphs in the Jelly RDF serialization format via `pyjelly`.
 
 ## Example datasets in the Jelly format
 
