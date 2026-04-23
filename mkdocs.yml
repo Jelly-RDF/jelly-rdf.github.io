@@ -95,6 +95,13 @@ extra:
 nav:
   - Home: 'index.md'
   - User guide: 'user-guide.md'
+
+  - Implementations:
+    - Java / JVM: 'https://w3id.org/jelly/jelly-jvm/'
+    - Python: 'https://w3id.org/jelly/pyjelly/'
+    - Rust (experimental): 'https://github.com/Jelly-RDF/jelly_rs'
+    - Dart (community): 'https://locorda.dev/rdf/jelly/'
+
   - Performance: 
     - 'performance/index.md'
     - RDF4J benchmarks: 'performance/rdf4j.md'
@@ -112,9 +119,7 @@ nav:
     - Reporting conformance: 'conformance/reporting-conformance.md'
     - Jelly-RDF test cases: 'conformance/rdf-test-cases.md'
     - Jelly-RDF conformance reports: 'conformance/rdf-reports.md'
-  - JVM implementation: 'https://w3id.org/jelly/jelly-jvm/'
-  - Python implementation: 'https://w3id.org/jelly/pyjelly/'
-
+    
   - Contributing:
     - 'contributing/index.md'
     - Code of conduct: 'contributing/code_of_conduct.md'
