@@ -24,7 +24,7 @@
 
     [:octicons-arrow-right-24: pyjelly]({{ python_link() }})
 
-    [:octicons-arrow-right-24: *More implementations*](user-guide.md)
+    [:octicons-arrow-right-24: More implementations](user-guide.md)
 
 -   :fontawesome-solid-angles-right:{ .lg .middle } __End-to-end streaming__
 
