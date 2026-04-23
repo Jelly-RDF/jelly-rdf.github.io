@@ -35,6 +35,11 @@ Best way to start is to hop on the [Jelly Discord chat](https://discord.gg/A8sN5
 - [GitHub repository](https://github.com/Jelly-RDF/jelly_rs)
 - [Issue tracker](https://github.com/Jelly-RDF/jelly_rs/issues)
 
+### Locorda (Dart, *unofficial, experimental*)
+
+- [Website](https://locorda.dev/rdf/jelly/)
+- [GitHub repository](https://github.com/locorda/rdf)
+
 ## New implementations and integrations
 
 Would you like to integrate Jelly into your project or implement it in a new language? You are welcome to do so! Check out [our tips for implementing Jelly in a new language](../user-guide.md#implementing-jelly). You can also join the [Jelly Discord chat](https://discord.gg/A8sN5XwVa5) to discuss your plans and get help. Or, if you have a commercial project in mind, you can [contact NeverBlink](mailto:piotr@neverblink) for professional support.

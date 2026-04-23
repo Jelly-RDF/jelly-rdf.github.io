@@ -24,6 +24,8 @@
 
     [:octicons-arrow-right-24: pyjelly]({{ python_link() }})
 
+    [:octicons-arrow-right-24: *More implementations*](user-guide.md)
+
 -   :fontawesome-solid-angles-right:{ .lg .middle } __End-to-end streaming__
 
     ---
@@ -269,6 +271,8 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
     - [Rust implementation](https://github.com/Jelly-RDF/jelly_rs) *(experimental)*
     - [Command-line utility (`jelly-cli`)](https://github.com/Jelly-RDF/cli)
     - [Website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
+- **Community projects:**
+    - [Implementation in Dart](https://locorda.dev/rdf/jelly/)
 - **[Licensing and citation](licensing/index.md)**
 
 
