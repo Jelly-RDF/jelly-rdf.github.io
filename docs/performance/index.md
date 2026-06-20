@@ -5,7 +5,7 @@ The following results were obtained by benchmarking [Jelly-JVM]({{ jvm_link() }}
 The benchmarks were performed on two kinds of RDF streams (according to the [RDF-STaX taxonomy](https://w3id.org/stax/dev/taxonomy)):
 
 - **Flat RDF streams** – streams of RDF triples or quads. This is the "classic" serialization – equivalent to, for example N-Triples or N-Quads.
-- **Grouped RDF streams** – streams of RDF graphs or datasets.
+- **[RDF Message Streams](https://w3c-cg.github.io/rsp/spec/messages) / grouped RDF streams** – streams of RDF graphs or datasets.
 
 Jelly has a major performance advantage especially in grouped RDF streams. This is mostly due to Jelly being the only tested serialization that natively supports [grouped RDF streams](https://w3id.org/stax/dev/taxonomy). Because of this, Jelly can exploit the repeating terms, prefixes, and structures in the stream to achieve much better compression and serialization speed.
 
