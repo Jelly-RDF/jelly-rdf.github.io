@@ -1979,18 +1979,18 @@
 <h1 id="jelly-user-guide">Jelly user guide</h1>
 <p>To use Jelly, pick an implementation that matches your tech stack:</p>
 <ul>
+<li><strong><a href="https://github.com/Jelly-RDF/cli">jelly-cli</a></strong> – command-line tool, works on Windows, macOS, and Linux.</li>
 <li><strong><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM</a></strong> – written in Java, integrated with Apache Jena, RDF4J, Titanium, and Neo4j.</li>
 <li><strong><a href="https://w3id.org/jelly/pyjelly/dev/">pyjelly</a></strong> – written in Python, integrated with RDFLib. Can also be used without RDFLib.</li>
 <li><strong><a href="https://github.com/Jelly-RDF/jelly_rs">jelly_rs</a></strong> <em>(experimental)</em> – written in Rust, integrated with Sophia.</li>
 <li><strong><a href="https://locorda.dev/rdf/jelly/">Locorda</a></strong> <em>(unofficial, community-led)</em> – written in Dart.</li>
-<li><strong><a href="https://github.com/Jelly-RDF/cli">jelly-cli</a></strong> – command-line tool, works on Windows, macOS, and Linux.</li>
 </ul>
 <p>You can also <a href="#implementing-jelly">create your own implementation</a>. Because Jelly is built on top of <a href="https://protobuf.dev/">Protocol Buffers</a>, you can generate most of the code automatically in any popular programming language.</p>
 <h2 id="what-can-it-do">What can it do?</h2>
 <p>Jelly is designed to be a protocol for <em>streaming</em> RDF knowledge graphs, but it can also be used with static RDF datasets. Jelly was designed to be fast, well-compressed, and versatile.</p>
 <ul>
 <li>Jelly can work with <strong>any RDF knowledge graph data</strong>, including RDF 1.1, RDF-star, and generalized RDF.</li>
-<li>Jelly can be used to represent <strong>streams of triples, quads, graphs, or datasets</strong>.</li>
+<li>Jelly can be used to represent <strong>streams of triples or quads</strong> and also <strong>graphs or datasets</strong> (<a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages</a>).</li>
 <li>Jelly can also be used to represent a <strong>single graph or dataset</strong>.</li>
 <li>Jelly-Patch can be used to <a href="../specification/patch/"><strong>record changes</strong> to RDF datasets</a>, including add/delete operations and transactions.</li>
 <li>Jelly can be used for <strong>streaming data over the network</strong> (e.g., with MQTT, Kafka, gRPC), but also for <strong>working with flat files</strong>.</li>
@@ -2233,22 +2233,27 @@
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.6&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span></code></pre></div>
-<p>...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. Jelly offers a simpler way, where multiple graphs or datasets can live within one file. We use <em>frames</em> as boundary markers:</p>
-<div class="language-turtle highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># Frame 1</span>
+<p>...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. </p>
+<p><a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages</a> is a proposal by the RDF Stream Processing Community Group that offers a simpler way, fully implemented in Jelly. In this approach, multiple graphs or datasets can live within one file. We use <em>messages</em> as boundary markers:</p>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># Message 1</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.4&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c"># Frame 2</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c"># Message 2</span>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.6&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span></code></pre></div>
-<p>We call this a <em>grouped RDF stream</em>. A Jelly parser can unpack this and process the frames one by one. The best part is that the compression (explained <a href="#how-does-it-work--encoding">above</a>) is applied <strong>across the entire stream</strong>. So, if an IRI appears in frame 1, and then again in frame 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).</p>
+<p>We call this an <em>RDF Message Stream</em>, or, alternatively, a <em>grouped RDF stream</em>. A Jelly parser can unpack this and process the messages one by one. The best part is that the compression (explained <a href="#how-does-it-work--encoding">above</a>) is applied <strong>across the entire stream</strong>. So, if an IRI appears in message 1, and then again in message 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jelly predates the RDF Messages proposal, but it implements the same concept. Originally Jelly called these "frames" instead of "messages", and internally the code still uses the term "frames".</p>
+</div>
 <p><strong>As a summary:</strong></p>
 <ul>
 <li><strong>Flat RDF stream</strong> – just a sequence of triples or quads. Great for processing a single file.</li>
-<li><strong>Grouped RDF stream</strong> – a sequence of graphs or datasets. Great if you have many small files.</li>
+<li><strong>RDF Message Stream / grouped RDF stream</strong> – a sequence of messages. Great if you have many small files.</li>
 </ul>
 <p>Jelly can record in its files whether the stream is flat or grouped, but this annotation is entirely optional, and parsers can ignore it. In fact, in both cases the physical layout of the stream is the same, only the interpretation of it changes.</p>
 <p>The following sections contain more details about stream types in Jelly.</p>
@@ -2516,6 +2521,7 @@
 <li><a href="https://w3id.org/jelly/jelly-jvm/dev/getting-started-devs">Jelly-JVM getting started guide</a></li>
 <li><a href="https://w3id.org/jelly/pyjelly/dev/getting-started">pyjelly getting started guide</a></li>
 <li><a href="../use-cases/">Applications using Jelly</a></li>
+<li><a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages spec</a></li>
 </ul>
 
 
@@ -2539,7 +2545,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 23, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2026</span>
   </span>
 
     
