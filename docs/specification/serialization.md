@@ -9,6 +9,7 @@ The following assumptions are used in this document:
 - The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/)).
 - Additionally, the RDF 1.1 Turtle specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-turtle-20140225/)) is used in parts as a basis for selected definitions.
 - In parts referring to RDF-star, the RDF-star draft specification ([W3C Community Group Draft Report 29 June 2023](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html)) is used. As the scope in which the RDF-star specification is used here is minimal, later versions of the specification are expected to be compatible with this document.
+- In parts referring to the RDF Messages living document, the [latest version of the RDF Messages specification](https://w3c-cg.github.io/rsp/spec/messages) is used.
 - In parts referring to the RDF Stream Taxonomy (RDF-STaX), the [RDF-STaX version {{ stax_version() }} ontology]({{ stax_link('ontology') }}) and [taxonomy]({{ stax_link('taxonomy') }}) are used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
@@ -89,7 +90,7 @@ Jelly supports several distinct [physical types of streams](#physical-stream-typ
 
 ### Stream frames
 
-A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#rdfstreamframe)). The message has a field `rows`, which is a repeated field of type `RdfStreamRow` ([reference](reference.md#rdfstreamrow)). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames.
+A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#rdfstreamframe)). The message has a field `rows`, which is a repeated field of type `RdfStreamRow` ([reference](reference.md#rdfstreamrow)). A stream frame may contain any number of rows, however it is RECOMMENDED to keep the size of the frames below 1 MB. The semantics for the frames are not defined by the protocol. The end users are free to define their own semantics for the frames, for example using [RDF Messages](https://w3c-cg.github.io/rsp/spec/messages).
 
 !!! note
 
@@ -97,7 +98,7 @@ A stream frame is a message of type `RdfStreamFrame` ([reference](reference.md#r
 
 !!! note
 
-    Stream frames can also be used to indicate individual stream elements. For example, in the case of a stream of RDF datasets, each frame may contain one dataset. [RiverBench datasets](https://w3id.org/riverbench/datasets) use this convention in their distributions.
+    Stream frames can also be used to indicate individual stream elements. For example, in the case of an RDF Message Stream of RDF datasets, each frame corresponds to one dataset (message). [RiverBench datasets](https://w3id.org/riverbench/datasets) use this convention in their distributions.
 
 #### Ordering
 
@@ -226,7 +227,7 @@ The following table shows the RECOMMENDED support matrix for the logical stream 
 
 In the table above, the following interpretations are used:
 
-- **Framed** – each stream frame SHOULD be interpreted as a stream element, as per RDF-STaX definition.
+- **Framed** – each stream frame SHOULD be interpreted as an RDF Message. As per RDF-STaX, each frame SHOULD be interpreted as a single stream element.
 - **Continuous** – the stream SHOULD be interpreted as a continuous flat stream of elements, as per RDF-STaX definition. In this case, the stream frames carry no meaning.
 - **✘** – the combination of the logical stream type and the physical stream type is not directly supported.
 

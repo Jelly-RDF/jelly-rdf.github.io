@@ -2,11 +2,11 @@
 
 To use Jelly, pick an implementation that matches your tech stack:
 
+- **[jelly-cli](https://github.com/Jelly-RDF/cli)** – command-line tool, works on Windows, macOS, and Linux.
 - **[Jelly-JVM]({{ jvm_link() }})** – written in Java, integrated with Apache Jena, RDF4J, Titanium, and Neo4j.
 - **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib. Can also be used without RDFLib.
 - **[jelly_rs](https://github.com/Jelly-RDF/jelly_rs)** *(experimental)* – written in Rust, integrated with Sophia.
 - **[Locorda](https://locorda.dev/rdf/jelly/)** *(unofficial, community-led)* – written in Dart.
-- **[jelly-cli](https://github.com/Jelly-RDF/cli)** – command-line tool, works on Windows, macOS, and Linux.
 
 You can also [create your own implementation](#implementing-jelly). Because Jelly is built on top of [Protocol Buffers](https://protobuf.dev/), you can generate most of the code automatically in any popular programming language.
 
@@ -15,7 +15,7 @@ You can also [create your own implementation](#implementing-jelly). Because Jell
 Jelly is designed to be a protocol for *streaming* RDF knowledge graphs, but it can also be used with static RDF datasets. Jelly was designed to be fast, well-compressed, and versatile.
 
 - Jelly can work with **any RDF knowledge graph data**, including RDF 1.1, RDF-star, and generalized RDF.
-- Jelly can be used to represent **streams of triples, quads, graphs, or datasets**.
+- Jelly can be used to represent **streams of triples or quads** and also **graphs or datasets** ([RDF Messages](https://w3c-cg.github.io/rsp/spec/messages)).
 - Jelly can also be used to represent a **single graph or dataset**.
 - Jelly-Patch can be used to [**record changes** to RDF datasets](specification/patch.md), including add/delete operations and transactions.
 - Jelly can be used for **streaming data over the network** (e.g., with MQTT, Kafka, gRPC), but also for **working with flat files**.
@@ -242,26 +242,32 @@ ex:sensor ex:measuredProperty ex:temperature ;
     ex:value "280.6"^^xsd:decimal .
 ```
 
-...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. Jelly offers a simpler way, where multiple graphs or datasets can live within one file. We use *frames* as boundary markers:
+...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. 
+
+[RDF Messages](https://w3c-cg.github.io/rsp/spec/messages) is a proposal by the RDF Stream Processing Community Group that offers a simpler way, fully implemented in Jelly. In this approach, multiple graphs or datasets can live within one file. We use *messages* as boundary markers:
 
 ```turtle
-# Frame 1
+# Message 1
 ex:sensor ex:measuredProperty ex:temperature ;
     ex:unit ex:Kelvin ;
     ex:value "280.4"^^xsd:decimal .
 
-# Frame 2
+# Message 2
 ex:sensor ex:measuredProperty ex:temperature ;
     ex:unit ex:Kelvin ;
     ex:value "280.6"^^xsd:decimal .
 ```
 
-We call this a *grouped RDF stream*. A Jelly parser can unpack this and process the frames one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in frame 1, and then again in frame 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).
+We call this an *RDF Message Stream*, or, alternatively, a *grouped RDF stream*. A Jelly parser can unpack this and process the messages one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in message 1, and then again in message 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).
+
+!!! note
+
+    Jelly predates the RDF Messages proposal, but it implements the same concept. Originally Jelly called these "frames" instead of "messages", and internally the code still uses the term "frames".
 
 **As a summary:**
 
 - **Flat RDF stream** – just a sequence of triples or quads. Great for processing a single file.
-- **Grouped RDF stream** – a sequence of graphs or datasets. Great if you have many small files.
+- **RDF Message Stream / grouped RDF stream** – a sequence of messages. Great if you have many small files.
 
 Jelly can record in its files whether the stream is flat or grouped, but this annotation is entirely optional, and parsers can ignore it. In fact, in both cases the physical layout of the stream is the same, only the interpretation of it changes.
 
@@ -476,3 +482,4 @@ That's it! You may also want to implement streaming facilities, such as [Reactiv
 - [Jelly-JVM getting started guide]({{ jvm_link('getting-started-devs') }})
 - [pyjelly getting started guide]({{ python_link('getting-started') }})
 - [Applications using Jelly](use-cases.md)
+- [RDF Messages spec](https://w3c-cg.github.io/rsp/spec/messages)
