@@ -6,6 +6,7 @@ To use Jelly, pick an implementation that matches your tech stack:
 - **[Jelly-JVM]({{ jvm_link() }})** – written in Java, integrated with Apache Jena, RDF4J, Titanium, and Neo4j.
 - **[pyjelly]({{ python_link() }})** – written in Python, integrated with RDFLib. Can also be used without RDFLib.
 - **[jelly_rs](https://github.com/Jelly-RDF/jelly_rs)** *(experimental)* – written in Rust, integrated with Sophia.
+- **[rdfjs-jelly](https://github.com/pietercolpaert/rdfjs-jelly) *(unofficial, community-led)* – written in JavaScript.
 - **[Locorda](https://locorda.dev/rdf/jelly/)** *(unofficial, community-led)* – written in Dart.
 
 You can also [create your own implementation](#implementing-jelly). Because Jelly is built on top of [Protocol Buffers](https://protobuf.dev/), you can generate most of the code automatically in any popular programming language.
