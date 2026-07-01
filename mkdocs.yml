@@ -100,6 +100,7 @@ nav:
     - Java / JVM: 'https://w3id.org/jelly/jelly-jvm/'
     - Python: 'https://w3id.org/jelly/pyjelly/'
     - Rust (experimental): 'https://github.com/Jelly-RDF/jelly_rs'
+    - JavaScript (community): 'https://github.com/pietercolpaert/rdfjs-jelly'
     - Dart (community): 'https://locorda.dev/rdf/jelly/'
 
   - Performance: 

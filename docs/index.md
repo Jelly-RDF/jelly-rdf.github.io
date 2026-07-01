@@ -272,7 +272,8 @@ Community support is available on the **[Jelly Discord chat](https://discord.gg/
     - [Command-line utility (`jelly-cli`)](https://github.com/Jelly-RDF/cli)
     - [Website](https://github.com/Jelly-RDF/jelly-rdf.github.io)
 - **Community projects:**
-    - [Implementation in Dart](https://locorda.dev/rdf/jelly/)
+    - [JavaScript implementation](https://github.com/pietercolpaert/rdfjs-jelly)
+    - [Dart implementation](https://locorda.dev/rdf/jelly/)
 - **[RDF Messages specification](https://w3c-cg.github.io/rsp/spec/messages)** – theoretical basis for Jelly's support for grouped RDF streams.
 - **[Licensing and citation](licensing/index.md)**
 
