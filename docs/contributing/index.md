@@ -35,7 +35,12 @@ Best way to start is to hop on the [Jelly Discord chat](https://discord.gg/A8sN5
 - [GitHub repository](https://github.com/Jelly-RDF/jelly_rs)
 - [Issue tracker](https://github.com/Jelly-RDF/jelly_rs/issues)
 
-### Locorda (Dart, *unofficial, experimental*)
+### rdfjs-jelly (JavaScript, *unofficial, community-led*)
+
+- [GitHub repository](https://github.com/pietercolpaert/rdfjs-jelly)
+- [Issue tracker](https://github.com/pietercolpaert/rdfjs-jelly/issues)
+
+### Locorda (Dart, *unofficial, community-led*)
 
 - [Website](https://locorda.dev/rdf/jelly/)
 - [GitHub repository](https://github.com/locorda/rdf)
