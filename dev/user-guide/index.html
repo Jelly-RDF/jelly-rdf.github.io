@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2057,8 +2057,8 @@
 <h2 id="how-does-it-work-encoding">How does it work – encoding</h2>
 <p>RDF data consists of triples (subject, predicate, object) or quads (subject, predicate, object, graph name). We will use these three triples in the N-Triples format as a running example:</p>
 <div class="language-turtle highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</span> <span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="p">.</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">&quot;Jelly&quot;</span> <span class="p">.</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">&quot;Serialization format&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">.</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Jelly"</span> <span class="p">.</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Serialization format"</span><span class="o">@</span><span class="ge">en</span> <span class="p">.</span>
 </span></code></pre></div>
 <p>You can read that as "Jelly is an instance of a serialization format".</p>
 <p>Jelly encodes a sequence of triples or quads as a binary stream, using efficient encoding. The first thing it does is splitting IRIs into prefixes and postfixes (we call postfixes "names"):</p>
@@ -2186,22 +2186,22 @@
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">}</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.org/&quot;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/"</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">}</span>
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jelly&quot;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">"jelly"</span>
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="p">}</span>
 </span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">  </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span>
 </span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="p">}</span>
 </span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type&quot;</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">"type"</span>
 </span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="p">}</span>
 </span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
@@ -2212,14 +2212,14 @@
 </span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w">    </span><span class="err">p_iri</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">      </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix_id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
 </span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w">    </span><span class="err">o_b</span><span class="kc">n</span><span class="err">ode</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b1&quot;</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w">    </span><span class="err">o_b</span><span class="kc">n</span><span class="err">ode</span><span class="p">:</span><span class="w"> </span><span class="s2">"b1"</span>
 </span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="w">    </span><span class="err">g_de</span><span class="kc">fault</span><span class="err">_graph</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="p">}</span>
 </span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="w">  </span><span class="kc">na</span><span class="err">me</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span>
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="w">    </span><span class="err">value</span><span class="p">:</span><span class="w"> </span><span class="s2">"label"</span>
 </span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="p">}</span>
 </span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
@@ -2228,16 +2228,16 @@
 </span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a><span class="w">      </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix_id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 </span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a><span class="w">    </span><span class="err">o_li</span><span class="kc">teral</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a><span class="w">      </span><span class="err">lex</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jelly&quot;</span>
+</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a><span class="w">      </span><span class="err">lex</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jelly"</span>
 </span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a><span class="p">}</span>
 </span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a><span class="w">  </span><span class="err">quad</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="w">    </span><span class="err">s_b</span><span class="kc">n</span><span class="err">ode</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b1&quot;</span>
+</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="w">    </span><span class="err">s_b</span><span class="kc">n</span><span class="err">ode</span><span class="p">:</span><span class="w"> </span><span class="s2">"b1"</span>
 </span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a><span class="w">    </span><span class="err">o_li</span><span class="kc">teral</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a><span class="w">      </span><span class="err">lex</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Serialization format&quot;</span>
-</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a><span class="w">      </span><span class="err">la</span><span class="kc">n</span><span class="err">g</span><span class="kc">ta</span><span class="err">g</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en&quot;</span>
+</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a><span class="w">      </span><span class="err">lex</span><span class="p">:</span><span class="w"> </span><span class="s2">"Serialization format"</span>
+</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a><span class="w">      </span><span class="err">la</span><span class="kc">n</span><span class="err">g</span><span class="kc">ta</span><span class="err">g</span><span class="p">:</span><span class="w"> </span><span class="s2">"en"</span>
 </span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a><span class="p">}</span>
@@ -2249,32 +2249,32 @@
 <p>A stream is just a sequence of items. We want to only look at one element of the stream at a time – this limits memory usage and allows us to process infinitely long streams.</p>
 <p>The most basic kind of RDF stream is what you would see in an N-Triples or N-Quads file – after all, it's just a sequence of triples:</p>
 <div class="language-turtle highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</span> <span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="p">.</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">&quot;Jelly&quot;</span> <span class="p">.</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">&quot;Serialization format&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">.</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Jelly"</span> <span class="p">.</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Serialization format"</span><span class="o">@</span><span class="ge">en</span> <span class="p">.</span>
 </span></code></pre></div>
 <p>We call this a <em>flat RDF stream</em>. Jelly supports this kind of streams – you will find them useful in transferring large RDF files, query responses, database dumps, and so on.</p>
 <p>But, what if our stream contains a sequence of RDF graphs or datasets? For example, if we want to transfer the measurements of a temperature sensor, we would have:</p>
 <p>Graph 1:</p>
 <div class="language-turtle highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.4&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.4"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span></code></pre></div>
 <p>Graph 2:</p>
 <div class="language-turtle highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.6&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.6"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span></code></pre></div>
 <p>...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. </p>
 <p><a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages</a> is a proposal by the RDF Stream Processing Community Group that offers a simpler way, fully implemented in Jelly. In this approach, multiple graphs or datasets can live within one file. We use <em>messages</em> as boundary markers:</p>
 <div class="language-turtle highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># Message 1</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.4&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.4"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c"># Message 2</span>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;280.6&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.6"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
 </span></code></pre></div>
 <p>We call this an <em>RDF Message Stream</em>, or, alternatively, a <em>grouped RDF stream</em>. A Jelly parser can unpack this and process the messages one by one. The best part is that the compression (explained <a href="#how-does-it-work--encoding">above</a>) is applied <strong>across the entire stream</strong>. So, if an IRI appears in message 1, and then again in message 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).</p>
 <div class="admonition note">
@@ -2674,7 +2674,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

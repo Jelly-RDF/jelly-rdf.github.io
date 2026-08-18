@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/jelly_color.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1574,7 +1574,7 @@
 </div>
 <div class="tabbed-block">
 <p>You can install <code>jelly-cli</code> on any platform (including Windows) using <a href="https://mise.jdx.dev/getting-started.html">mise</a>. Simply run:</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mise<span class="w"> </span>use<span class="w"> </span>-g<span class="w"> </span><span class="s1">&#39;ubi:Jelly-RDF/cli[exe=jelly-cli]&#39;</span>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mise<span class="w"> </span>use<span class="w"> </span>-g<span class="w"> </span><span class="s1">'ubi:Jelly-RDF/cli[exe=jelly-cli]'</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>jelly-cli
 </span></code></pre></div>
 </div>
@@ -1593,12 +1593,12 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rdflib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Graph</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">g</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://xmlns.com/foaf/spec/index.rdf&quot;</span><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">g</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="s2">&quot;foaf.jelly&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;jelly&quot;</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">g</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">"http://xmlns.com/foaf/spec/index.rdf"</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">g</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="s2">"foaf.jelly"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"jelly"</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Read a Jelly file:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">g</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;foaf.jelly&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;jelly&quot;</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">g</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">"foaf.jelly"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"jelly"</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong><a href="https://w3id.org/jelly/pyjelly/dev/getting-started">See the full user guide and API reference.</a></strong></p>
 <p>Other integrations (with or without RDFLib) are available, including Neo4j and NetworkX – see the <a href="https://w3id.org/jelly/pyjelly/dev/overview">Python user guide</a>.</p>
@@ -1672,8 +1672,8 @@
 <p><strong>Usage:</strong></p>
 <p>All features of the <a href="https://neo4j.com/labs/neosemantics/">neosemantics plugin</a> are supported. For example, to import a Jelly file into your Neo4j instance:</p>
 <div class="language-cypher highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">CALL</span><span class="w"> </span><span class="n">n10s</span><span class="p">.</span><span class="n">rdf</span><span class="p">.</span><span class="n">import</span><span class="p">.</span><span class="n">fetch</span><span class="p">(</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="s">&#39;https://w3id.org/riverbench/dumps-with-results/dev.jelly.gz&#39;</span><span class="p">,</span><span class="w"> </span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="s">&#39;Jelly&#39;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="s">'https://w3id.org/riverbench/dumps-with-results/dev.jelly.gz'</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="s">'Jelly'</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">)</span>
 </span></code></pre></div>
 <p><strong><a href="https://w3id.org/jelly/jelly-jvm/dev/getting-started-neo4j">See the full installation and usage guide.</a></strong></p>
@@ -1692,7 +1692,7 @@
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="p">)</span>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">))</span>
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">neo4j_store</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;foaf.jelly&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;jelly&quot;</span><span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">neo4j_store</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">"foaf.jelly"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"jelly"</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong><a href="https://w3id.org/jelly/pyjelly/dev/rdflib-neo4j-integration">See the full installation and user guide.</a></strong></p>
 </div>
@@ -1875,7 +1875,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
