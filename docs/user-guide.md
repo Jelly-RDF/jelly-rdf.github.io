@@ -270,7 +270,7 @@ We call this an *RDF Message Stream*, or, alternatively, a *grouped RDF stream*.
 - **Flat RDF stream** – just a sequence of triples or quads. Great for processing a single file.
 - **RDF Message Stream / grouped RDF stream** – a sequence of messages. Great if you have many small files.
 
-Jelly can record in its files whether the stream is flat or grouped, but this annotation is entirely optional, and parsers can ignore it. In fact, in both cases the physical layout of the stream is the same, only the interpretation of it changes.
+Jelly can record in its files whether the stream is flat or grouped, but this annotation is entirely optional, and parsers can ignore it. In fact, in both cases the physical layout of the stream is the same, only the interpretation of it changes. One important difference is that when using RDF Messages (grouped streams), the blank node identifiers are scoped to the message, so you can have the same blank node identifier in different messages without them being considered the same node.
 
 The following sections contain more details about stream types in Jelly.
 
