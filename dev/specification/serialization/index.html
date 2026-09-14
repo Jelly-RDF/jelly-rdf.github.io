@@ -2338,7 +2338,7 @@
 </tr>
 <tr>
 <td><strong>Date:</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2026</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2026</span></td>
 </tr>
 <tr>
 <td><strong>Permanent URL:</strong></td>
@@ -2425,7 +2425,7 @@
 <tr>
 <td>2</td>
 <td>1.1.4 <strong>(current)</strong></td>
-<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2026</span></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2026</span></td>
 <td><em>(in development)</em></td>
 </tr>
 </tbody>
@@ -2875,10 +2875,10 @@
 </div>
 <h4 id="blank-nodes">Blank nodes</h4>
 <p>RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier MUST be a valid UTF-8 string.</p>
-<p>Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The consumer MAY use the <a href="#logical-stream-types">logical stream type</a> to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.</p>
+<p>Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame (as is the case when RDF Messages are used). The consumer MAY use the <a href="#logical-stream-types">logical stream type</a> to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets (grouped RDF stream in RDF-STaX), then the blank node identifiers should be unique only within a single frame.</p>
+<p>If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers must be unique across the stream so that you can refer to them across stream frame boundaries. If the frames are intended to be individual RDF Messages (grouped RDF stream in RDF-STaX), then the blank node identifiers must be unique only within a single frame.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3037,7 +3037,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2026</span>
   </span>
 
     
