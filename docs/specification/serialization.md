@@ -485,11 +485,11 @@ The IRI is then constructed by first decoding the prefix and the name using the 
 
 RDF blank nodes are represented using simple strings. The string is the identifier of the blank node. The identifier MUST be a valid UTF-8 string.
 
-Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame. The consumer MAY use the [logical stream type](#logical-stream-types) to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.
+Because the spec does not define the semantics of the stream frames, blank node identifiers are not guaranteed to be unique across multiple stream frames. The consumer MAY choose to treat the blank nodes as unique across the stream (and thus treat all occurences of the identifier as a single node), or it MAY choose to treat them as unique only within a single stream frame (as is the case when RDF Messages are used). The consumer MAY use the [logical stream type](#logical-stream-types) to determine how to treat the blank nodes. The producer SHOULD specify in the documentation which strategy it uses.
 
 !!! note
 
-    If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers should be unique across the stream so that you can refer to them across stream frame boundaries. If the frames refer to different graphs or datasets (grouped RDF stream in RDF-STaX), then the blank node identifiers should be unique only within a single frame.
+    If the stream is meant to represent a single RDF graph or dataset (flat RDF stream in RDF-STaX), then the blank node identifiers must be unique across the stream so that you can refer to them across stream frame boundaries. If the frames are intended to be individual RDF Messages (grouped RDF stream in RDF-STaX), then the blank node identifiers must be unique only within a single frame.
 
 !!! note
 
