@@ -1342,32 +1342,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rdfdatatypeentrypacked" class="md-nav__link">
+  <a href="#rdflookupentrypacked" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RdfDatatypeEntryPacked
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rdfnameentrypacked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RdfNameEntryPacked
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rdfprefixentrypacked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RdfPrefixEntryPacked
+        RdfLookupEntryPacked
       
     </span>
   </a>
@@ -2402,32 +2380,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rdfdatatypeentrypacked" class="md-nav__link">
+  <a href="#rdflookupentrypacked" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RdfDatatypeEntryPacked
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rdfnameentrypacked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RdfNameEntryPacked
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rdfprefixentrypacked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RdfPrefixEntryPacked
+        RdfLookupEntryPacked
       
     </span>
   </a>
@@ -2667,9 +2623,7 @@
 <li>
 <p><a href="#rdf2-proto">rdf2.proto</a></p>
 <ul>
-<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntryPacked">RdfDatatypeEntryPacked</a></li>
-<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntryPacked">RdfNameEntryPacked</a></li>
-<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntryPacked">RdfPrefixEntryPacked</a></li>
+<li><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLookupEntryPacked">RdfLookupEntryPacked</a></li>
 </ul>
 </li>
 <li>
@@ -3851,9 +3805,18 @@ structure of the data. See LogicalStreamType for the latter.</p>
 <p align="right"><a href="#top">Top</a></p>
 
 <h2 id="rdf2proto">rdf2.proto</h2>
-<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntryPacked"></a></p>
-<h3 id="rdfdatatypeentrypacked">RdfDatatypeEntryPacked</h3>
-<p>Packed entries of the datatype lookup table</p>
+<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfLookupEntryPacked"></a></p>
+<h3 id="rdflookupentrypacked">RdfLookupEntryPacked</h3>
+<p>Packed entries of a lookup table (name, prefix, or datatype).</p>
+<p>Lookup entries are almost always assigned consecutive identifiers, because
+that is what the &#34;id = 0 means previous_id &#43; 1&#34; rule of the unpacked entries
+optimizes for. A packed entry states the identifier once and then lists the
+values of a whole run of consecutive entries, saving the framing of every
+entry after the first.</p>
+<p>The identifier of the first value follows the same rule as the unpacked
+entries: 0 means previous_id &#43; 1, or 1 at the start of the stream. Every
+following value takes the identifier of the previous one plus 1.</p>
+<p>A packed entry with no values at all is a no-op and must not be written.</p>
 <table>
 <thead>
 <tr>
@@ -3868,71 +3831,13 @@ structure of the data. See LogicalStreamType for the latter.</p>
 <td>id</td>
 <td><a href="#uint32">uint32</a></td>
 <td></td>
-<td>1-based identifier of the first value. If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first datatype entry of the stream, it should be interpreted as 1.</td>
+<td>1-based identifier of the first value. If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first entry of a given lookup table in the stream, it should be interpreted as 1.</td>
 </tr>
 <tr>
 <td>values</td>
 <td><a href="#string">string</a></td>
 <td>repeated</td>
-<td>Values of the datatypes (UTF-8 encoded), for consecutive identifiers starting at id.</td>
-</tr>
-</tbody>
-</table>
-<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntryPacked"></a></p>
-<h3 id="rdfnameentrypacked">RdfNameEntryPacked</h3>
-<p>Packed entries of the name lookup table</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Label</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td><a href="#uint32">uint32</a></td>
-<td></td>
-<td>1-based identifier of the first value. If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first name entry of the stream, it should be interpreted as 1.</td>
-</tr>
-<tr>
-<td>values</td>
-<td><a href="#string">string</a></td>
-<td>repeated</td>
-<td>Values of the names (UTF-8 encoded), for consecutive identifiers starting at id.</td>
-</tr>
-</tbody>
-</table>
-<p><a name="eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntryPacked"></a></p>
-<h3 id="rdfprefixentrypacked">RdfPrefixEntryPacked</h3>
-<p>Packed entries of the prefix lookup table</p>
-<p>Note: the prefixes in the lookup table can be arbitrary strings, and are
-NOT meant to be user-facing. They are only used for IRI compression.
-To transmit user-facing namespace declarations for cosmetic purposes, use
-RdfNamespaceDeclaration.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Label</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td><a href="#uint32">uint32</a></td>
-<td></td>
-<td>1-based identifier of the first value. If id=0, it should be interpreted as previous_id &#43; 1. If id=0 appears in the first prefix entry of the stream, it should be interpreted as 1.</td>
-</tr>
-<tr>
-<td>values</td>
-<td><a href="#string">string</a></td>
-<td>repeated</td>
-<td>Values of the prefixes (UTF-8 encoded), for consecutive identifiers starting at id.</td>
+<td>Values of the lookup entries (UTF-8 encoded), for consecutive identifiers starting at id.</td>
 </tr>
 </tbody>
 </table>
@@ -4137,19 +4042,19 @@ preceding frames and the most recently transmitted header.</p>
 </tr>
 <tr>
 <td>names</td>
-<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfNameEntryPacked">eu.ostrzyciel.jelly.core.proto.v1.RdfNameEntryPacked</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLookupEntryPacked">eu.ostrzyciel.jelly.core.proto.v1.RdfLookupEntryPacked</a></td>
 <td>repeated</td>
 <td>Entries in the name lookup table. All lookup entries of a frame are applied, in order, before any column of the frame is decoded. Consequently, every lookup id referenced by the frame&#39;s columns must still hold the intended value after all entries are applied: the working set of a single frame must fit in the lookup tables.</td>
 </tr>
 <tr>
 <td>prefixes</td>
-<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfPrefixEntryPacked">eu.ostrzyciel.jelly.core.proto.v1.RdfPrefixEntryPacked</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLookupEntryPacked">eu.ostrzyciel.jelly.core.proto.v1.RdfLookupEntryPacked</a></td>
 <td>repeated</td>
-<td>Entries in the prefix lookup table. See <code>names</code> for ordering rules.</td>
+<td>Entries in the prefix lookup table. See <code>names</code> for ordering rules. Note: the prefixes in the lookup table can be arbitrary strings, and are NOT meant to be user-facing. They are only used for IRI compression. To transmit user-facing namespace declarations for cosmetic purposes, use RdfNamespaceDeclaration.</td>
 </tr>
 <tr>
 <td>datatypes</td>
-<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfDatatypeEntryPacked">eu.ostrzyciel.jelly.core.proto.v1.RdfDatatypeEntryPacked</a></td>
+<td><a href="#eu-ostrzyciel-jelly-core-proto-v1-RdfLookupEntryPacked">eu.ostrzyciel.jelly.core.proto.v1.RdfLookupEntryPacked</a></td>
 <td>repeated</td>
 <td>Entries in the datatype lookup table. See <code>names</code> for ordering rules.</td>
 </tr>
@@ -4528,7 +4433,7 @@ preceding frames and the most recently transmitted header.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2026</span>
   </span>
 
     
@@ -4538,7 +4443,7 @@ preceding frames and the most recently transmitted header.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 14, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2026</span>
   </span>
 
     
