@@ -111,6 +111,7 @@ nav:
     - 'specification/index.md'
     - RDF serialization format: 'specification/serialization.md'
     - RDF Patch serialization format: 'specification/patch.md'
+    - SPARQL results format: 'specification/sparql.md'
     - gRPC RDF streaming protocol: 'specification/streaming.md'
     - Protobuf reference: 'specification/reference.md'
     - Protobuf source: 'specification/protobuf-source.md'
