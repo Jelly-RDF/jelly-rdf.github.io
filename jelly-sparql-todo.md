@@ -8,7 +8,7 @@ The spec is currently **ahead of both `sparql.proto` and Jelly-JVM**. Everything
 
 ## 1. `jelly-protobuf`
 
-### 1.1 `proto/sparql.proto` — new messages and fields
+### 1.1 `proto/sparql.proto` – new messages and fields ✅ done
 
 **New message.** The [stream trailer](docs/specification/sparql.md#stream-trailer):
 
@@ -34,7 +34,7 @@ message SparqlResultsTrailer {
   SparqlResultsTrailer trailer = 12;
 ```
 
-### 1.2 `proto/sparql.proto` — comment changes
+### 1.2 `proto/sparql.proto` – comment changes ✅ done
 
 | Where | Current comment says | Must now say |
 | --- | --- | --- |
@@ -49,49 +49,55 @@ The `SparqlResultsOptions` table size comments need **no** change: the `>= 128` 
 
 ### 1.3 `proto/rdf2.proto`
 
-Nothing to do — the single `RdfLookupEntryPacked` message is what the spec describes, and it is on `main` now.
+Nothing to do – the single `RdfLookupEntryPacked` message is what the spec describes, and it is on `main` now.
 
-### 1.4 Conformance test suite (new, `test/sparql/`)
+### 1.4 Conformance test suite (`test/sparql/`) ✅ done (uncommitted)
 
-Does not exist. The spec now describes the planned shape, so this needs building:
+195 tests: 167 from Jelly (91 positive, 76 negative) and 28 to Jelly (22 positive, 6 negative), in four categories: `select_rdf_1_1`, `ask`, `select_rdf_1_2_basic`, `select_rdf_1_2`. New vocabulary terms: `jellyt:TestSparql`, `jellyt:TestSparqlFromJelly`, `jellyt:TestSparqlToJelly`, `jellyt:requirementRdf12Basic`, `jellyt:requirementRdf12`.
 
-- manifests using the Jelly-RDF manifest vocabulary, under `test/sparql`;
-- `from_jelly` (parse) and `to_jelly` (serialize) directions, `pos_` / `neg_` cases;
-- expected result sets in SPARQL Query Results JSON (`.srj`);
-- equivalence = same variables in the same order, same solutions in the same order and cardinality, blank node labels compared up to a bijection;
-- all fixtures in the delimited variant.
+All files are written by `test/sparql/generator/generate.py` (plain Python, no dependencies; `--check` verifies the files are up to date). It checks each case against a reference decoder and encoder written from the spec. Every negative case must fail for its intended reason.
 
-Coverage worth having from the start: all four column types, polymorphic columns, header restatement, options repetition (a concatenated file), zero-variable result sets, empty result sets, ASK true/false, every layout token shape (inline and escaped lengths, unbound runs, repeat runs, trailing padding), both `xsd:string` encodings, and the corrupt-layout negative cases the JVM decoder already rejects.
+Consumer rules that produce undefined results when ignored are now MUST in the spec: corrupt layouts, literal-column form conflicts, an empty polymorphic term, the `prefix_ids` length, column indices that are not a permutation, and a restated header with other variables. Unknown `rdf_version` values are now an explicit MUST as well. Tests of rules that stay SHOULD (15 of them) carry `mf:notable jellyt:featureShouldLevel`.
 
-**Needs your confirmation:** `.srj` as the expected-output format, and the equivalence rule above.
+Run against Jelly-JVM (Jena), with an untracked runner `integration-tests/.../sparql/SparqlConformanceSpec.scala`: 189 of 195 pass. The 6 failures are negative tests the JVM accepts:
+
+- MUST-level, to fix in the JVM:
+    - `from_jelly/select_rdf_1_1/neg_002` – a truncated last frame is silently accepted.
+    - `from_jelly/select_rdf_1_1/neg_010` – unknown `rdf_version` value 4 is not rejected.
+    - `from_jelly/select_rdf_1_2_basic/neg_007`, `neg_008` – unknown base direction values (3, 7) are not rejected.
+- SHOULD-level:
+    - `from_jelly/select_rdf_1_1/neg_003` – version tag 0 is not rejected.
+    - `from_jelly/ask/neg_004` – a trailer-only frame after the ASK frame is accepted on purpose (see 2.1), but the spec says consumers SHOULD throw on any frame after it. Either the spec or the JVM should change.
 
 ---
 
 ## 2. `jelly-jvm`
 
-### 2.1 `core-sparql` — trailer support (new feature)
+### 2.1 `core-sparql` – trailer support (new feature) ✅ done
 
-- `SparqlEncoder` — a way to attach a trailer to the frame being finished. Something like `endFrame(String error)` alongside the current `endFrame()`, or a `setTrailer` called before `endFrame`.
-- `SparqlResultsHandler` — a new callback, e.g. `handleTrailer(String error)`, with a default no-op so existing handlers keep compiling.
-- `SparqlDecoderImpl` — read `frame.getTrailer()`, push it to the handler, and reject a frame that follows a trailer unless it carries the options.
-- The decoder cannot know where the stream ends, so "no trailer was seen" is the **reader's** job, not the decoder's — see 2.4.
+Done as `SparqlEncoder.endStream()` / `endStream(String error)` (end the stream, encoder unusable afterwards; `endStream(error)` also works after a failed `appendRow`, dropping the half-written frame's content), `SparqlResultsHandler.handleTrailer(String)` (default no-op), and `askResultFrame` now includes an empty trailer. The decoder also now rejects any result content after an ASK result, but accepts a trailer-only frame there.
 
-### 2.2 `core-sparql` — `SparqlDecoderImpl`
+- `SparqlEncoder` – a way to attach a trailer to the frame being finished. Something like `endFrame(String error)` alongside the current `endFrame()`, or a `setTrailer` called before `endFrame`.
+- `SparqlResultsHandler` – a new callback, e.g. `handleTrailer(String error)`, with a default no-op so existing handlers keep compiling.
+- `SparqlDecoderImpl` – read `frame.getTrailer()`, push it to the handler, and reject a frame that follows a trailer unless it carries the options.
+- The decoder cannot know where the stream ends, so "no trailer was seen" is the **reader's** job, not the decoder's – see 2.4.
+
+### 2.2 `core-sparql` – `SparqlDecoderImpl` ✅ done
 
 | What | Where | Change |
 | --- | --- | --- |
-| Options reset | `handleOptions` | Currently `if (currentOptions == null) currentOptions = options;` — a repeat is validated and then silently dropped. Must now: adopt the new options, empty the name/prefix/datatype lookups (recreating them if the sizes changed), and mark the header as no longer in effect so the frame is required to restate it. |
+| Options reset | `handleOptions` | Currently `if (currentOptions == null) currentOptions = options;` – a repeat is validated and then silently dropped. Must now: adopt the new options, empty the name/prefix/datatype lookups (recreating them if the sizes changed), and mark the header as no longer in effect so the frame is required to restate it. |
 | Zero-variable detection | `ingestFrame` | The condition `variableNames == null && frame.getOptions() != null && !askResultReceived` breaks after a reset, when `variableNames` is no longer null. Key it off "this frame carries the options" plus "the header is not in effect". |
 | Column count | `ingestFrame` | `totalColumns != variableNames.length` must now also accept `totalColumns == 0` when `rows == 0` (or when there are no variables). |
 | Row count bound | `ingestFrame` | Currently only rejects `rows < 0` (over 2^31). Must reject anything above 2^27 − 1. |
-| Header after reset | `handleHeader` | The "restated header must declare the same variables" check already does the right thing — confirm it still fires when the header was dropped by a reset rather than restated normally. |
+| Header after reset | `handleHeader` | The "restated header must declare the same variables" check already does the right thing – confirm it still fires when the header was dropped by a reset rather than restated normally. |
 
-### 2.3 `core-sparql` — `SparqlEncoderImpl`
+### 2.3 `core-sparql` – `SparqlEncoderImpl` ✅ done
 
-- `endFrame` — when `rowCount == 0`, omit the column messages entirely instead of emitting one empty message per variable. The four per-type loops currently always append.
+- `endFrame` – when `rowCount == 0`, omit the column messages entirely instead of emitting one empty message per variable. The four per-type loops currently always append.
 - Trailer plumbing (see 2.1).
 
-### 2.4 `core-sparql` — lookup table size limits
+### 2.4 `core-sparql` – lookup table size limits ✅ done
 
 The spec does **not** set maxima on the lookup table sizes, matching Jelly-RDF, which has only a minimum (8 names) and leaves the ceiling to implementations via the security considerations. Jelly-SPARQL's minimum is 128 names; the recommended *default* ceiling a consumer accepts is 16384 names / 4096 prefixes / 256 datatypes, and it should be configurable.
 
@@ -102,21 +108,46 @@ The spec does **not** set maxima on the lookup table sizes, matching Jelly-RDF, 
 
 A reader whose acceptance limit equals the writer preset rejects any stream written with slightly more generous options, which is the bug the current setup has – note `BIG`'s 64 datatypes in particular.
 
-### 2.5 `jena-sparql` and `rdf4j-sparql`
+### 2.5 `jena-sparql` and `rdf4j-sparql` ✅ done
 
-- **Write a trailer.** `RowSetWriterJelly.write` and `AbstractJellySparqlWriter` should set an empty trailer on the last frame of a successful write, and — if iterating the row set throws — write a trailer carrying the error message before rethrowing. That is the whole point of the feature.
-- **Read a trailer.** `RowSetReaderJelly` and `AbstractJellySparqlParser` should throw when they see a non-empty `error`, and decide what to do when the stream ends with no trailer at all. Probably: do not throw (too many producers will not write one yet), but expose it somehow. Jena's `RowSet` has no slot for this, so it may end up being a log line — worth thinking about.
+- Writers always end with `endStream()`; when the rows end exactly on a frame boundary, that adds a tiny trailer-only frame. Jena writes the error trailer when the `RowSet` throws. RDF4J never tells a writer about failures, so it got a public `AbstractJellySparqlWriter.endQueryResultWithError(String)` that callers must use themselves.
+- Readers throw after handing out all rows received before the error. A missing trailer is accepted by default, and an opt-in strict mode rejects it: Jena `SYMBOL_REQUIRE_TRAILER`, RDF4J `JellySparqlParserSettings.REQUIRE_TRAILER`. No logging.
+- Framing: the non-delimited option stays, and its docs now say the media type is delimited-only.
+- `link` metadata: done for RDF4J only (`handleLinks` on both the writer and the parser). Jena has no API for links: its readers skip them and its writers never write them. Core got `JellySparqlMetadata`, which encodes and decodes `link` and adds metadata to a frame the encoder already built (the encoder itself keeps no metadata state).
+
+- **Write a trailer.** `RowSetWriterJelly.write` and `AbstractJellySparqlWriter` should set an empty trailer on the last frame of a successful write, and – if iterating the row set throws – write a trailer carrying the error message before rethrowing. That is the whole point of the feature.
+- **Read a trailer.** `RowSetReaderJelly` and `AbstractJellySparqlParser` should throw when they see a non-empty `error`, and decide what to do when the stream ends with no trailer at all. Probably: do not throw (too many producers will not write one yet), but expose it somehow. Jena's `RowSet` has no slot for this, so it may end up being a log line – worth thinking about.
 - **Framing.** The spec now says `application/x-jelly-sparql` is delimited-only. `RowSetWriterJelly.Options.delimited` defaults to `true`, which is right; the question is whether the `false` path should stay reachable for the registered Jena `Lang` / RDF4J format at all. Suggestion: keep the option for callers embedding a single frame somewhere else, but never use it behind the media type. `IoUtils.autodetectDelimiting` on the read side can stay as leniency.
 - **`link` metadata.** Optional, low priority: map the well-known `link` key to whatever Jena and RDF4J expose for `head.link`.
 
+### 2.6 `core-sparql` – per-column language tag ✅ done (JVM side)
+
+Encoder: no new fields in `ColumnState` – `columnDatatype` got one more state, "every literal so far has the same tag", and the tag itself is kept in the column's `PolyBuffers` side object (one new field there). Matching values store only their lexical form, so the strings buffer is directly `lex_values`. Tags are compared with `equals`. The encoder never writes a `datatype` for language-tagged strings. Decoder: new `LangLiteralReader`, and it rejects `langtag` without `lex_values` and `langtag` together with `datatype`. A new `lit-lang-one` preset in `SparqlDataGen` puts the single-language case into the fuzz tests. The conformance test bullet below is still open (1.4).
+
+The spec and the proto now have `SparqlLiteralColumn.langtag` (5), see 3.
+
+- `SparqlEncoderImpl` – put a literal column in the lexical form when every run value is a language-tagged string with the same tag (compared as a plain string, no case folding). Never write `datatype` pointing at `rdf:langString`.
+- `SparqlDecoderImpl` – when `lex_values` is non-empty and `langtag` is set, build language-tagged literals. Reject `langtag` with empty `lex_values`, and `langtag` together with `datatype`.
+- Conformance tests (1.4) should cover a single-language column, a column mixing two tags (full form), and a column mixing a tagged and an untagged literal (full form).
+
+### 2.7 RDF 1.2 terms
+
+The spec and the proto now support RDF 1.2, see 3. New in `rdf2.proto`: `RdfVersion`, `RdfBaseDirection`, `RdfLiteral2`, `RdfTripleTerm`. New fields: `SparqlResultsOptions.rdf_version` (5), `SparqlTerm.triple_term` (4), `SparqlLiteralColumn.direction` (6). `SparqlTerm.literal` and `SparqlLiteralColumn.values` are now `RdfLiteral2` (wire-compatible with `RdfLiteral`).
+
+- `JellySparqlOptions` – expose `rdf_version`, and check it in `checkCompatibility` against what the reader supports.
+- `SparqlEncoderImpl` – write base directions (both in `RdfLiteral2` and in the lexical-form `direction`) and triple terms (poly columns only). The IRIs inside a triple term go through the column's `name_id` inference state in subject, predicate, object order. Throw on a term the declared version doesn't allow.
+- `SparqlDecoderImpl` – read both. Reject: `direction` without `langtag`, unknown `direction` values, a triple term with a missing position, and any term the declared version doesn't allow.
+- `jena-sparql` / `rdf4j-sparql` – map to the RDF 1.2 terms of each library (triple terms and literals with a base direction). Pick the writer's default `rdf_version` from what the library supports. Drop RDF4J's "no triple term support" declaration.
+- Conformance tests (1.4) should cover each `rdf_version` value, `ltr` and `rtl` literals in both column forms, nested triple terms, IRI inference through a triple term, and negative cases for terms not allowed by the declared version.
+
 ---
 
-## 3. Backlog — after 1.0
+## 3. Backlog – after 1.0
 
-Both are listed in the spec under "Planned for future versions", so they are visible to implementers but not promised for version 1.
+Nothing left: both items were moved into version 1.
 
-- **Per-column language tag.** A single language-tagged literal forces a whole literal column out of the compact `lex_values` + `datatype` form. A column of labels all in one language is one of the commonest shapes in SPARQL results. Options: a `langtag` field on `SparqlLiteralColumn` (mutually exclusive with `datatype`), or a parallel `lang_values` list. Needs a new field number and a version bump.
-- **RDF 1.2 / SPARQL 1.2 terms.** `SparqlTerm` has no triple term, and `RdfLiteral` has no base direction. Adding a triple term also raises the question of whether it gets its own monomorphic column type. Jelly-JVM currently throws on both; the RDF4J integration declares "no triple term support" so RDF4J applies its own IRI-encoding fallback.
+- ~~**Per-column language tag.**~~ ✅ Moved into version 1: a `langtag` field (5) on `SparqlLiteralColumn`, mutually exclusive with `datatype`, used with `lex_values`. No version bump, since version 1 is still a draft. Spec and proto done; the JVM work is in 2.6.
+- ~~**RDF 1.2 / SPARQL 1.2 terms.**~~ ✅ Moved into version 1. A new `RdfVersion` enum in the stream options (`1.1` / `1.2-basic` / `1.2`; unspecified means no version is announced, as in Turtle 1.2; a declared version is binding), `RdfLiteral2` with a base direction, and a typed `RdfTripleTerm` in `rdf2.proto`. Triple terms are only allowed in polymorphic columns. Spec and proto done; the JVM work is in 2.7.
 
 ---
 
@@ -126,23 +157,23 @@ Both are listed in the spec under "Planned for future versions", so they are vis
 | --- | --- | --- |
 | 1 | Which proto is authoritative | Single `RdfLookupEntryPacked`, merged to `main` |
 | 2 | Versioning track | Independent of Jelly-RDF and Jelly-Patch |
-| 3 | RDF 1.2 terms | Backlog |
+| 3 | RDF 1.2 terms | In version 1: `rdf_version` enum in the options, `RdfLiteral2` and `RdfTripleTerm` in `rdf2.proto`, triple terms in poly columns only |
 | 4 | Options repeated in later frames | Allowed |
 | 5 | Zero-variable result sets | Layout unchanged; a repeated options message resets the lookups and the header, which must be restated. For concatenating files only |
 | 6 | Lookup table bounds | Minimum 128 names is normative; **no** maxima in the format. Recommended default consumer limit (configurable): 16384 / 4096 / 256. Matches how Jelly-RDF handles it |
-| 7 | Frame working-set rule | Unchanged — producer-side MUST, consumer cannot detect |
+| 7 | Frame working-set rule | Unchanged – producer-side MUST, consumer cannot detect |
 | 8 | Max `row_count` | 2^27 − 1 as the theoretical bound; frame byte size is the practical one |
-| 9 | Per-column language tag | Backlog |
+| 9 | Per-column language tag | In version 1: `SparqlLiteralColumn.langtag` (5), mutually exclusive with `datatype` |
 | 10 | Blank node scoping | Scoped to the whole stream; **not** reset by repeated options |
 | 11 | Self-contained frames | A note, not a normative mode. `stream_name` keeps its Jelly-RDF meaning |
 | 12 | Error signalling | Trailer with a single `error` string |
 | 13 | `head.link` | Well-known `metadata` key `link`, UTF-8, IRIs separated by LF |
 | 14 | Variable names | Producer-side SHOULD (unique, `VARNAME`); consumers need not check |
 | 15 | gRPC | Skipped |
-| 16 | Conformance test suite | Describe the planned layout in the spec — done |
+| 16 | Conformance test suite | Describe the planned layout in the spec – done |
 | 17 | Media type / content negotiation | `application/x-jelly-sparql` + `.jellys` confirmed; content negotiation guidance written |
 | 18 | `reserved` field numbers | No |
 | 19 | Framing | Delimited only for the media type |
-| 20 | Never-bound column type | No recommendation — streams are not byte-level canonical |
+| 20 | Never-bound column type | No recommendation – streams are not byte-level canonical |
 | 21 | Two `xsd:string` encodings | Both legal |
 | 22 | Frames with no rows | May omit their columns |

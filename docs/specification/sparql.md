@@ -1,28 +1,21 @@
-# Jelly SPARQL results format specification
+# Jelly SPARQL query results format specification
 
 !!! warning
 
-    Jelly-SPARQL is an early draft and is **not** finalized. Both the Protobuf definition and this document are expected to change. Do not use it in production, and do not write long-lived files with it yet. Feedback is very welcome – **[open an issue on GitHub](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose)**.
+    Jelly-SPARQL is in beta-testing phase and is not yet finalized. You are encouraged to try it out and let us know about any suggestions or bugs you found by **[opening an issue on GitHub](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose)**.
 
-!!! danger "This document is ahead of the Protobuf definition"
+**This document is the specification of the Jelly SPARQL query results format, also known as Jelly-SPARQL. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
-    Some of the rules below are not yet reflected in `sparql.proto`, and are not yet implemented anywhere:
-
-    - the [stream trailer](#stream-trailer) needs a new `SparqlResultsTrailer` message and a new field in `SparqlResultsFrame`;
-    - [repeated stream options](#repeating-the-stream-options), the [maximum row count](#result-frames), and [frames that omit their columns](#frames-with-no-rows) need the Protobuf comments and the implementations to be updated.
-
-**This document is the specification of the Jelly SPARQL results format, also known as Jelly-SPARQL. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
-
-Jelly-SPARQL is a binary serialization format for **SPARQL query results** – solution sequences (`SELECT`) and boolean results (`ASK`). It plays the same role as the [SPARQL Query Results XML](https://www.w3.org/TR/rdf-sparql-XMLres/), [JSON](https://www.w3.org/TR/sparql11-results-json/), and [CSV/TSV](https://www.w3.org/TR/sparql11-results-csv-tsv/) formats, but it is binary, streamable, and reuses the RDF term encoding of [Jelly-RDF](serialization.md).
+Jelly-SPARQL is a binary serialization format for **SPARQL query results** – solution sequences (`SELECT`) and boolean results (`ASK`). It is binary, streamable, and reuses the RDF term encoding of [Jelly-RDF](serialization.md).
 
 This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definitions themselves ([`sparql.proto`]({{ git_proto_link('sparql.proto') }}) and [`rdf2.proto`]({{ git_proto_link('rdf2.proto') }})).
 
 The following assumptions are used in this document:
 
 - Jelly-SPARQL reuses Protobuf messages and encoding rules from the [Jelly RDF serialization format](serialization.md), version `{{ proto_version() }}`. Concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.
-- The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/)).
-- The basis for the terms related to query results is the SPARQL 1.1 Query Language specification ([W3C Recommendation 21 March 2013](https://www.w3.org/TR/2013/REC-sparql11-query-20130321/)), in particular the definitions of a *solution*, a *solution sequence*, and a *query variable*.
-- In parts referring to the semantics of result sets, the SPARQL 1.1 Query Results JSON Format ([W3C Recommendation 21 March 2013](https://www.w3.org/TR/2013/REC-sparql11-results-json-20130321/)) is used.
+- The basis for the terms used is the RDF 1.2 specification ([W3C Candidate Recommendation Snapshot 07 April 2026](https://www.w3.org/TR/rdf12-concepts/)). The format support a RDF 1.1 mode as well.
+- The basis for the terms related to query results is the SPARQL 1.2 Query Language specification ([W3C Working Draft 21 September 2026](https://www.w3.org/TR/sparql12-query/)), in particular the definitions of a *solution*, a *solution sequence*, and a *query variable*.
+- In parts referring to the semantics of result sets, the SPARQL 1.2 Query Results JSON Format ([W3C Working Draft 13 August 2026](https://www.w3.org/TR/sparql12-results-json/)) is used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
 
 | Document information | |
@@ -42,17 +35,16 @@ The following assumptions are used in this document:
 
 ### Test suite
 
-The Jelly-SPARQL conformance test suite does not exist yet. Until it does, implementations cannot claim conformance with this specification in the sense used by [Jelly-RDF](serialization.md#conformance).
+The Jelly-SPARQL conformance test suite is in the [jelly-protobuf repository](https://github.com/Jelly-RDF/jelly-protobuf) under `test/sparql`. Like this specification, it is an experimental draft and may change. Its machine-readable manifests use the same manifest vocabulary as the [Jelly-RDF test cases](../conformance/rdf-test-cases.md). Every test links to the rule of this specification that it exercises.
 
-The planned shape of the test suite, for implementers who want to prepare for it, is the following:
-
-- Machine-readable manifests live in the [jelly-protobuf repository](https://github.com/Jelly-RDF/jelly-protobuf) under `test/sparql`, using the same manifest vocabulary as the [Jelly-RDF test cases](../conformance/rdf-test-cases.md).
 - There are two directions of tests, as in Jelly-RDF:
-    - **From Jelly (parse)** – the input is a `.jellys` file, and the expected output is the same result set in another format.
-    - **To Jelly (serialize)** – the input is a result set in another format plus a file holding the stream options to use, and the expected output is a `.jellys` file.
+    - **From Jelly (parse)** – the input is a `.jellys` file, and the expected output is the same result set in the [SPARQL Query Results JSON Format](https://www.w3.org/TR/sparql12-results-json/) (`.srj`).
+    - **To Jelly (serialize)** – the input is a `.srj` file plus a `.jellys` file holding the stream options to use. The expected output is a `.jellys` file. Jelly-SPARQL is not byte-level canonical, so the output is checked by reading it back, not by comparing bytes.
 - Test cases beginning with `pos_` are positive tests and those beginning with `neg_` are negative tests, exactly as in Jelly-RDF.
-- Expected result sets are expressed in the [SPARQL Query Results JSON Format](https://www.w3.org/TR/sparql11-results-json/) (`.srj`), which can express everything Jelly-SPARQL can: bound and unbound variables, all three term types, and boolean results.
+- The `.srj` files use the SPARQL 1.2 form of the JSON format, which can express everything Jelly-SPARQL can: bound and unbound variables, all four term types (including triple terms), base directions, and boolean results.
 - Two result sets are considered equivalent when they have the same variables in the same order, the same number of solutions in the same order, and there is a bijection between the blank node labels of the two result sets under which the solutions are pairwise equal.
+- Tests that use literals with a base direction require RDF 1.2 Basic support, and tests that use triple terms require RDF 1.2 support. Implementations without it can skip them.
+- Tests of rules that this specification states with SHOULD rather than MUST are marked as such in the manifest. An implementation may fail them and still conform.
 - All test files use the [delimited variant](#framing).
 
 !!! note
@@ -91,10 +83,7 @@ Jelly-SPARQL has its own version tag, which is independent of the version tags o
 
 *This section is not part of the specification.*
 
-Two features are known to be missing from version 1 and are planned for a future version of Jelly-SPARQL:
-
-- **RDF 1.2 terms** – [`SparqlTerm`](#polymorphic-columns) has no field for triple terms, and `RdfLiteral` cannot carry a base direction, so SPARQL 1.2 result sets using these cannot be represented. See [RDF terms](#rdf-terms).
-- **Per-column language tags** – a single language-tagged literal currently forces a whole literal column out of its compact form. See [literal columns](#literal-columns).
+No features are currently planned for a future version of Jelly-SPARQL. Suggestions are welcome – [open an issue on GitHub](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose).
 
 ## Actors and implementations
 
@@ -190,6 +179,7 @@ The stream options instruct the consumer on the sizes of the lookup tables neede
 The stream options message contains the following fields:
 
 - `stream_name` (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream. It has the same meaning as in [Jelly-RDF](serialization.md#stream-options) – it may be used for, e.g., topic names in a pub/sub system.
+- `rdf_version` (5) – the version of RDF whose terms may occur in the stream, as an [`RdfVersion`](reference.md#rdfversion) value. This field is OPTIONAL and defaults to `RDF_VERSION_UNSPECIFIED`, which means that no version is announced. See [RDF version](#rdf-version).
 - `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 128. The size of the lookup MUST NOT exceed the value of this field.
 - `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream, which effectively prohibits the use of datatype literals. If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
@@ -208,9 +198,9 @@ The minimum name table size of 128 is higher than Jelly-RDF's minimum of 8. A so
 
 !!! note
 
-    There are no fields for the physical stream type, logical stream type, generalized statements, or RDF-star. None of them apply to SPARQL results: a result stream is always a sequence of solutions, and only RDF terms that can be bound to a query variable can occur in it.
+    There are no fields for the physical stream type, logical stream type, generalized statements, or RDF-star. None of them apply to SPARQL results: a result stream is always a sequence of solutions, and only RDF terms that can be bound to a query variable can occur in it. The `rdf_version` field takes the place of the `rdf_star` flag of Jelly-RDF.
 
-    The field numbers of `SparqlResultsOptions` are deliberately aligned with those of [`RdfStreamOptions`](reference.md#rdfstreamoptions), which is why there are gaps at 2–8 and 12–14.
+    The field numbers of `SparqlResultsOptions` are deliberately aligned with those of [`RdfStreamOptions`](reference.md#rdfstreamoptions), which is why there are gaps at 2–4, 6–8, and 12–14. Field 5 (`rdf_version`) is not used in `RdfStreamOptions`.
 
 #### Repeating the stream options
 
@@ -220,7 +210,7 @@ A frame other than the first one MAY carry the stream options. Doing so **resets
 - the [result set header](#result-set-header) ceases to be in effect – the same frame MUST restate it;
 - any [trailer](#stream-trailer) seen earlier in the stream ceases to apply.
 
-The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a result stream always describes exactly one result set. The consumer SHOULD throw an error otherwise.
+The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a result stream always describes exactly one result set. The consumer MUST throw an error otherwise.
 
 The repeated stream options need not be identical to the previous ones, but they MUST be valid on their own. The consumer MAY throw an error if it does not support the new options.
 
@@ -271,7 +261,7 @@ Let *N* be the number of variables declared by the header in effect for a frame.
 
 - A frame MUST contain either exactly *N* columns in total, counting all four column lists together, or no columns at all. The consumer MUST throw an error otherwise.
 - A frame that contains no columns MUST have `row_count` equal to 0, unless *N* is 0. See [frames with no rows](#frames-with-no-rows).
-- The `column_index` values of the header MUST form a permutation of the integers from 0 to *N* − 1, that is, every column MUST be referenced by exactly one variable. The consumer SHOULD throw an error otherwise.
+- The `column_index` values of the header MUST form a permutation of the integers from 0 to *N* − 1, that is, every column MUST be referenced by exactly one variable. The consumer MUST throw an error otherwise.
 
 !!! note
 
@@ -283,7 +273,7 @@ A later frame MAY restate the header to change the column layout in the middle o
 
 The following rules apply to a restated header:
 
-- It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame. Only the `column_index` values (and, consequently, the number of columns of each type in the frame) may differ. The consumer SHOULD throw an error if a restated header declares different variables.
+- It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame. Only the `column_index` values (and, consequently, the number of columns of each type in the frame) may differ. The consumer MUST throw an error if a restated header declares different variables.
 - It takes effect for the frame it appears in, and for all subsequent frames, until it is restated again.
 - A frame MAY restate a header identical to the one currently in effect. Producers SHOULD NOT do this, unless they are deliberately making every frame [independently decodable](#ordering).
 
@@ -451,7 +441,7 @@ emit run values i .. m, one cell each      # implicit tail
 emit unbound cells until pos == n          # padding
 ```
 
-A frame is corrupt, and the consumer SHOULD throw an error, if any of the following holds for any of its columns:
+A frame is corrupt, and the consumer MUST throw an error, if any of the following holds for any of its columns:
 
 - `i + skip > m` – a `skip` runs past the last run value;
 - a repeat run starts when `i == m` – the run points past the last run value;
@@ -504,7 +494,7 @@ The `prefix_ids` list MUST have one of three lengths:
 
 In the third form, the `prefix_id` inference rule of `RdfIri` applies along the list: a value of 0 means "the same prefix as the previous IRI in this column". **The inference state resets at the start of every column in every frame**, starting from prefix 0 (no prefix).
 
-The consumer SHOULD throw an error if the length of `prefix_ids` is none of the three allowed values.
+The consumer MUST throw an error if the length of `prefix_ids` is none of the three allowed values.
 
 !!! note "Difference from Jelly-RDF"
 
@@ -559,32 +549,37 @@ Blank node labels are **scoped to the result set**, that is, to the entire resul
 
 A literal column is a [`SparqlLiteralColumn`](reference.md#sparqlliteralcolumn) message. It has two mutually exclusive forms.
 
-**The lexical form.** A column in which every value has the same datatype – including a column of simple literals, whose datatype is `xsd:string` – states that datatype once and lists only the lexical forms:
+**The lexical form.** A column in which every value has the same datatype, or every value has the same language tag and [base direction](#base-direction), states that datatype or language tag once and lists only the lexical forms:
 
 - `lex_values` (3) – the lexical forms of the run values, in row order.
 - `datatype` (4) – the datatype shared by every run value: a 1-based reference to an entry in the [datatype lookup](#prefix-name-and-datatype-lookup-entries), or 0 for simple literals (that is, literals with the datatype `http://www.w3.org/2001/XMLSchema#string`).
+- `langtag` (5) – the language tag shared by every run value, as a UTF-8 string. If set, every run value is a language-tagged string (a literal with the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString`) with this language tag. The language tag SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag, as in [Jelly-RDF](serialization.md#literals).
+- `direction` (6) – the [base direction](#base-direction) shared by every run value, as an [`RdfBaseDirection`](reference.md#rdfbasedirection) value. It MUST NOT be set unless `langtag` is set. If set, every run value is a directional language-tagged string (a literal with the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`).
 - `values` (1) MUST be empty.
+- At most one of `datatype` and `langtag` MAY be set. If neither is set, the run values are simple literals.
 
 A simple literal does not need an `xsd:string` entry in the datatype lookup: the producer states no datatype at all, and the consumer produces the same term, because a simple literal and an `xsd:string` literal are the same thing. Both encodings are legal and produce the same result.
 
-**The full form.** A column holding language-tagged literals, or literals of more than one datatype, uses [`RdfLiteral`](serialization.md#literals) messages:
+The producer MUST NOT set `datatype` to a reference to `rdf:langString` or `rdf:dirLangString`, because a literal with that datatype and no language tag is not a valid RDF term. Language-tagged strings in the lexical form always use `langtag`.
 
-- `values` (1) – the run values, in row order, each an `RdfLiteral` message encoded exactly as in [Jelly-RDF](serialization.md#literals).
-- `lex_values` (3) MUST be empty and `datatype` (4) MUST NOT be set.
+**The full form.** A column holding literals of more than one datatype, literals with more than one language tag or base direction, or a mix of language-tagged and other literals, uses [`RdfLiteral2`](reference.md#rdfliteral2) messages:
+
+- `values` (1) – the run values, in row order, each an `RdfLiteral2` message. It is encoded exactly as an `RdfLiteral` in [Jelly-RDF](serialization.md#literals), plus an optional [base direction](#base-direction).
+- `lex_values` (3) MUST be empty, and none of `datatype` (4), `langtag` (5), and `direction` (6) may be set.
 
 Both forms use `layouts` (2) for the [sequence layout](#sequence-layout).
 
 A column with no run values at all (that is, a column that is unbound in every row of the frame) is an empty message, and is read as the full form.
 
-The consumer SHOULD throw an error if a literal column has both `values` and `lex_values` set, or if it sets `datatype` while `lex_values` is empty.
+The consumer MUST throw an error if a literal column has both `values` and `lex_values` set, if it sets `datatype`, `langtag`, or `direction` while `lex_values` is empty, if it sets both `datatype` and `langtag`, or if it sets `direction` without `langtag`.
 
 !!! note
 
-    The lexical form drops the length-delimited sub-message and the datatype reference of every value. It also lets a reader keep the column in a plain string array instead of allocating one object per value. This is the common case in SPARQL results – think of a `?label` or `?count` column.
+    The lexical form drops the length-delimited sub-message and the datatype reference or language tag of every value. It also lets a reader keep the column in a plain string array instead of allocating one object per value. This is the common case in SPARQL results – think of a `?count` column, or a `?label` column filtered to one language.
 
-!!! note "Known limitation"
+!!! note
 
-    A single language-tagged literal forces the whole column into the full form, even when every value in the column carries the same language tag. A per-column language tag, analogous to `datatype`, is [planned for a future version](#planned-for-future-versions).
+    The language tag is compared as a plain string when deciding whether values can share a column: `en` and `EN` are different strings, so a column holding both uses the full form. Producers are not required to normalize the case of language tags.
 
 #### Polymorphic columns
 
@@ -593,32 +588,97 @@ A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) me
 - `values` (1) – the run values, in row order, each a [`SparqlTerm`](reference.md#sparqlterm) message.
 - `layouts` (2) – the [sequence layout](#sequence-layout).
 
-A `SparqlTerm` message has a `term` oneof with three fields, of which **exactly one** MUST be set:
+A `SparqlTerm` message has a `term` oneof with four fields, of which **exactly one** MUST be set:
 
 - `iri` (1) – an IRI, as an `RdfIri` message.
 - `bnode` (2) – a blank node label, as a string.
-- `literal` (3) – a literal, as an `RdfLiteral` message.
+- `literal` (3) – a literal, as an [`RdfLiteral2`](reference.md#rdfliteral2) message (see [literal columns](#literal-columns)).
+- `triple_term` (4) – a [triple term](#triple-terms), as an [`RdfTripleTerm`](reference.md#rdftripleterm) message.
 
-The consumer SHOULD throw an error if none of the fields of the `term` oneof is set.
+The consumer MUST throw an error if none of the fields of the `term` oneof is set.
 
-The `RdfIri` inference state (see [IRI columns](#iri-columns)) is shared by all the IRIs in one polymorphic column: it advances through the run values in order, skipping the values that are not IRIs. Like in the monomorphic columns, the state resets at the start of every column in every frame.
+The `RdfIri` inference state (see [IRI columns](#iri-columns)) is shared by all the IRIs in one polymorphic column: it advances through the run values in order, skipping the values that are not IRIs. The IRIs inside [triple terms](#triple-terms) take part in it too. Like in the monomorphic columns, the state resets at the start of every column in every frame.
 
 Producers SHOULD use polymorphic columns only for variables whose values in a frame actually mix term types. A variable may be held in a monomorphic column in one frame and in a polymorphic one in another – that is what [restating the header](#restating-the-header) is for.
 
 ### RDF terms
 
-The RDF terms that can be bound to a variable in Jelly-SPARQL are IRIs, blank nodes, and literals. They are encoded exactly as in [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes), with the differences in the scope of the IRI inference state described above.
+The RDF terms that can be bound to a variable in Jelly-SPARQL are IRIs, blank nodes, literals, and – in [RDF 1.2](#rdf-12-terms) – triple terms. IRIs, blank nodes, and literals without a base direction are encoded exactly as in [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes), with the differences in the scope of the IRI inference state described above.
 
-Two kinds of value that Jelly-RDF can encode are not representable in a Jelly-SPARQL result stream, and no message in `sparql.proto` has a field for them:
+The default graph node ([`RdfDefaultGraph`](reference.md#rdfdefaultgraph)) of Jelly-RDF is not representable in a Jelly-SPARQL result stream. It is not an RDF term and cannot be bound to a variable.
 
-- the default graph node ([`RdfDefaultGraph`](reference.md#rdfdefaultgraph)) – it is not an RDF term and cannot be bound to a variable;
-- RDF-star quoted triples / RDF 1.2 triple terms ([`RdfTriple`](reference.md#rdftriple)).
+### RDF 1.2 terms
 
-A producer that is handed a solution binding a variable to a triple term MUST throw an error, unless it applies an implementation-defined fallback encoding, which it MUST document.
+Jelly-SPARQL supports the two new kinds of term of [RDF 1.2](https://www.w3.org/TR/rdf12-concepts/): directional language-tagged strings and triple terms. The messages for them are defined in `rdf2.proto` ([source code]({{ git_proto_link('rdf2.proto') }})), so that other Jelly formats can share them.
 
-!!! note "Known limitation"
+#### RDF version
 
-    RDF 1.2 literals with a base direction cannot be represented either. Support for both triple terms and base directions is [planned for a future version](#planned-for-future-versions).
+The `rdf_version` field (5) of the [stream options](#stream-options) announces which terms may occur in the stream. Its values follow the [version labels of RDF 1.2](https://www.w3.org/TR/rdf12-concepts/#defined-version-labels):
+
+| `RdfVersion` value            | Version label | Base directions | Triple terms |
+| ----------------------------- | ------------- | --------------- | ------------ |
+| `RDF_VERSION_UNSPECIFIED` (0) | none          | yes             | yes          |
+| `RDF_VERSION_1_1` (1)         | `1.1`         | no              | no           |
+| `RDF_VERSION_1_2_BASIC` (2)   | `1.2-basic`   | yes             | no           |
+| `RDF_VERSION_1_2` (3)         | `1.2`         | yes             | yes          |
+
+The following rules apply:
+
+- If `rdf_version` is `RDF_VERSION_UNSPECIFIED`, no version is announced, and the stream MAY contain any term of RDF 1.2.
+- The consumer MUST throw an error if `rdf_version` has a value that is not listed above.
+- Producers SHOULD declare a version. It is RECOMMENDED to declare the lowest version that allows every term the producer knows in advance it may write. A producer that cannot know in advance which terms the results will contain (for example, because it streams them from a store that supports RDF 1.2) MAY declare a higher version than the terms turn out to need.
+- If a version is declared, the stream MUST NOT contain a term that the version does not allow. The consumer MUST throw an error if it does.
+- A consumer that does not support the declared version SHOULD throw an error when it reads the stream options, rather than when it first meets a term it cannot represent.
+- A producer that is handed a solution binding a variable to a term that the declared version does not allow MUST throw an error, unless it applies an implementation-defined fallback encoding, which it MUST document.
+- When the stream options are [repeated](#repeating-the-stream-options), the new `rdf_version` applies from that frame on.
+
+!!! note
+
+    An unspecified version follows the RDF 1.2 text formats, such as [Turtle](https://www.w3.org/TR/rdf12-turtle/) and [N-Triples](https://www.w3.org/TR/rdf12-n-triples/). There, the `VERSION` directive and the `version` parameter of the media type are both optional, and a document that announces no version may use any RDF 1.2 feature. A producer that knows nothing about RDF 1.2 still writes a valid stream by leaving the field out.
+
+    Unlike in the text formats, where the announced version is only a hint, a version declared in a Jelly-SPARQL stream is binding. A Jelly-SPARQL stream is always written by a program, which knows what terms it can emit, and checking is cheap. A term outside the declared version therefore means the producer is broken.
+
+    Each version includes the ones before it: RDF 1.1 results are valid RDF 1.2 Basic results, which are valid RDF 1.2 results.
+
+#### Base direction
+
+In RDF 1.2, a language-tagged string may have a base direction: `ltr` (left-to-right) or `rtl` (right-to-left). Such a literal has the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`.
+
+Literals are encoded as [`RdfLiteral2`](reference.md#rdfliteral2) messages. Fields 1–3 (`lex`, `langtag`, `datatype`) are the same as in the [`RdfLiteral`](serialization.md#literals) message of Jelly-RDF, so a literal without a base direction is encoded in exactly the same bytes in both. `RdfLiteral2` adds one field:
+
+- `direction` (4) – the base direction, as an [`RdfBaseDirection`](reference.md#rdfbasedirection) value: `RDF_BASE_DIRECTION_UNSPECIFIED` (0, the default: no base direction), `RDF_BASE_DIRECTION_LTR` (1), or `RDF_BASE_DIRECTION_RTL` (2).
+
+The following rules apply, both to `RdfLiteral2` and to the `direction` field of the lexical form of [literal columns](#literal-columns):
+
+- `direction` MUST NOT be set unless `langtag` is set. The consumer MUST throw an error otherwise.
+- `datatype` MUST NOT refer to `rdf:langString` or `rdf:dirLangString`. The consumer SHOULD throw an error otherwise.
+- The consumer MUST throw an error if `direction` has a value that is not listed above.
+- Base directions MUST NOT occur in a stream that declares `RDF_VERSION_1_1`.
+
+#### Triple terms
+
+A triple term is encoded as an [`RdfTripleTerm`](reference.md#rdftripleterm) message. Triple terms can only occur in [polymorphic columns](#polymorphic-columns), in the `triple_term` field (4) of `SparqlTerm`, and not in a stream that declares `RDF_VERSION_1_1` or `RDF_VERSION_1_2_BASIC`.
+
+`RdfTripleTerm` has the following fields:
+
+- the `subject` oneof – `s_iri` (1), an `RdfIri`, or `s_bnode` (2), a blank node label;
+- `p_iri` (5) – the predicate, an `RdfIri`;
+- the `object` oneof – `o_iri` (9), an `RdfIri`; `o_bnode` (10), a blank node label; `o_literal` (11), an `RdfLiteral2`; or `o_triple_term` (12), a nested `RdfTripleTerm`.
+
+The following rules apply:
+
+- The subject, the predicate, and the object MUST all be set. Unlike in Jelly-RDF statements, there are no [repeated terms](serialization.md#repeated-terms). The consumer MUST throw an error if any of them is missing.
+- The IRIs of a triple term take part in the `RdfIri` inference state of the polymorphic column, in the order subject, predicate, object, recursively into nested triple terms. This is the same order as for quoted triples in [Jelly-RDF](serialization.md#iris).
+- The blank node labels of a triple term have the same [scope](#blank-node-columns) as all other blank node labels in the stream.
+- Triple terms may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
+
+!!! note "Why not `RdfTriple`?"
+
+    The `RdfTriple` message of Jelly-RDF allows shapes that are not valid RDF 1.2 triple terms: literal subjects, triple terms in the subject or predicate position, and omitted (repeated) terms. Its literals also cannot carry a base direction. `RdfTripleTerm` can only express valid RDF 1.2 triple terms, so there is less for a consumer to check. Its field numbers are the same as those of `RdfTriple`.
+
+!!! note
+
+    There is no monomorphic column type for triple terms. Triple terms are rare in query results, so a variable bound to them uses a polymorphic column.
 
 ### Frames with no rows
 
@@ -672,7 +732,7 @@ The [Jelly gRPC streaming protocol](streaming.md) does not cover Jelly-SPARQL: i
 
 *This section is not part of the specification.*
 
-The same security considerations apply to Jelly-SPARQL as to [Jelly-RDF](serialization.md#security-considerations), in particular those about Protocol Buffers, [overly large lookup tables](#overly-large-lookup-tables), and invalid lookup entry identifiers. The considerations about infinite recursion of RDF-star quoted triples do not apply, because Jelly-SPARQL has no recursive messages.
+The same security considerations apply to Jelly-SPARQL as to [Jelly-RDF](serialization.md#security-considerations), in particular those about Protocol Buffers, [overly large lookup tables](#overly-large-lookup-tables), and invalid lookup entry identifiers. The considerations about [infinite recursion of RDF-star quoted triples](serialization.md#infinite-recursion-of-rdf-star-quoted-triples) apply to [triple terms](#triple-terms) in the same way – see [deeply nested triple terms](#deeply-nested-triple-terms).
 
 ### Overly large lookup tables
 
@@ -695,6 +755,10 @@ The recommended mitigation is to grow the decoding buffers to the size actually 
 ### Column layouts
 
 The layout tokens of a column drive how many cells the consumer writes. A consumer must validate every token against the number of run values it actually has and against `row_count`, as described in [sequence layout](#sequence-layout), before writing anything. In particular, the extension varint of an escaped length token is attacker-controlled and must not be trusted to fit into the remaining space of the row buffer.
+
+### Deeply nested triple terms
+
+`RdfTripleTerm` is a recursive message: the object of a triple term may be another triple term. A malicious producer could send a triple term nested deeply enough to overflow the consumer's stack while parsing or converting it. The recommended mitigation is the same as in [Jelly-RDF](serialization.md#infinite-recursion-of-rdf-star-quoted-triples): limit the nesting depth accepted by the Protocol Buffers parser. A consumer that does not support triple terms can also reject any stream that declares `RDF_VERSION_1_2` up front. It cannot do so for a stream that declares no version, so it still needs the depth limit.
 
 ### Query results content
 
