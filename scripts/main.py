@@ -134,8 +134,8 @@ def define_env(env):
 
 
     @env.macro
-    def conformance_tests():
-        return generate_test_table()
+    def conformance_tests(suite: str = 'rdf'):
+        return generate_test_table(suite)
 
 
     @env.macro

@@ -33,23 +33,14 @@ The following assumptions are used in this document:
 
 {% include "./includes/conformance.md" %}
 
-### Test suite
-
-The Jelly-SPARQL conformance test suite is in the [jelly-protobuf repository](https://github.com/Jelly-RDF/jelly-protobuf) under `test/sparql`. Like this specification, it is an experimental draft and may change. Its machine-readable manifests use the same manifest vocabulary as the [Jelly-RDF test cases](../conformance/rdf-test-cases.md). Every test links to the rule of this specification that it exercises.
-
-- There are two directions of tests, as in Jelly-RDF:
-    - **From Jelly (parse)** – the input is a `.jellys` file, and the expected output is the same result set in the [SPARQL Query Results JSON Format](https://www.w3.org/TR/sparql12-results-json/) (`.srj`).
-    - **To Jelly (serialize)** – the input is a `.srj` file plus a `.jellys` file holding the stream options to use. The expected output is a `.jellys` file. Jelly-SPARQL is not byte-level canonical, so the output is checked by reading it back, not by comparing bytes.
-- Test cases beginning with `pos_` are positive tests and those beginning with `neg_` are negative tests, exactly as in Jelly-RDF.
-- The `.srj` files use the SPARQL 1.2 form of the JSON format, which can express everything Jelly-SPARQL can: bound and unbound variables, all four term types (including triple terms), base directions, and boolean results.
-- Two result sets are considered equivalent when they have the same variables in the same order, the same number of solutions in the same order, and there is a bijection between the blank node labels of the two result sets under which the solutions are pairwise equal.
-- Tests that use literals with a base direction require RDF 1.2 Basic support, and tests that use triple terms require RDF 1.2 support. Implementations without it can skip them.
-- Tests of rules that this specification states with SHOULD rather than MUST are marked as such in the manifest. An implementation may fail them and still conform.
-- All test files use the [delimited variant](#framing).
+To claim conformance with this specification, an implementation MUST pass all applicable tests from the [Jelly-SPARQL conformance test suite](../conformance/sparql-test-cases.md), and MUST provide a conformance report as described on the [reporting conformance](../conformance/reporting-conformance.md) page. Implementations SHOULD pass the conformance tests marked with the `SHOULD` conformance level (`jellyt:featureShouldLevel`).
 
 !!! note
 
-    Comparing result sets is stricter than comparing RDF graphs: the order of solutions and the number of duplicates both matter, because both are significant in SPARQL. Only blank node labels are compared up to renaming.
+    Conformance tests are a way to verify that implementations correctly follow the specification. However, passing all tests does not guarantee that the implementation perfectly implements the specification, is free of bugs, or that it will work in all scenarios.
+
+    Implementations typically also employ extensive unit tests, integration tests, and other quality assurance measures to ensure correctness and reliability.
+
 
 ## Versioning
 
@@ -79,12 +70,6 @@ Jelly-SPARQL has its own version tag, which is independent of the version tags o
 
     See also the notes about the practical implications of this in the [Jelly-RDF specification](serialization.md#forward-compatibility).
 
-### Planned for future versions
-
-*This section is not part of the specification.*
-
-No features are currently planned for a future version of Jelly-SPARQL. Suggestions are welcome – [open an issue on GitHub](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose).
-
 ## Actors and implementations
 
 Jelly-SPARQL assumes there to be two actors involved in processing the stream: the producer (writer) and the consumer (reader). The producer is responsible for serializing the SPARQL query results into the Jelly-SPARQL format, and the consumer is responsible for parsing the Jelly-SPARQL format into SPARQL query results.
@@ -95,14 +80,14 @@ Implementations may include only the producer, only the consumer, or both.
 
 Jelly-SPARQL uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly-SPARQL is defined in `sparql.proto` ([source code]({{ git_proto_link('sparql.proto') }}), [reference](reference.md#sparqlproto)), which imports `rdf.proto` and `rdf2.proto`.
 
-A Jelly-SPARQL **result stream** is an ordered sequence of **result frames**. The frames may be sent one-by-one using a streaming protocol (e.g., an HTTP response, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see [framing](#framing).
+A Jelly-SPARQL **result stream** is an ordered sequence of **result frames**. The frames may be sent one-by-one using a streaming protocol (e.g., gRPC, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see [framing](#framing).
 
-A result stream carries exactly one of the two kinds of SPARQL query results:
+A result stream always contains exactly one of the two kinds of SPARQL query results:
 
-- a **solution sequence** – an ordered sequence of solutions (rows), each binding a subset of the result variables to RDF terms;
-- a **boolean result** – a single `true` or `false` value, as produced by an `ASK` query.
+- A **solution sequence** – an ordered sequence of solutions (rows). Each solution binds a subset of the result variables to RDF terms.
+- A **boolean result** – a single `true` or `false` value, as produced by an `ASK` query.
 
-The kind of the result is determined by the first frame of the stream and MUST NOT change within a stream. A result stream always describes exactly one result set.
+The kind of the result is determined by the first frame of the stream: if the `ask_result` field is set in it, the stream contains a boolean result; otherwise, it contains a solution sequence (possibly with [zero variables](#zero-variable-result-sets)). A result stream always describes exactly one result set.
 
 Within a frame, solutions are stored **column-wise**: one column per result variable, with the columns grouped by the type of the RDF terms they hold. Most variables in real result sets are bound to terms of a single type (most often IRIs), which lets the values of such a column be stored as a flat list of primitives instead of one Protobuf message per value.
 
@@ -112,9 +97,9 @@ Within a frame, solutions are stored **column-wise**: one column per result vari
 
 ### Result frames
 
-A result frame is a message of type [`SparqlResultsFrame`](reference.md#sparqlresultsframe). A frame carries a batch of rows (solutions), together with any [lookup entries](#prefix-name-and-datatype-lookup-entries) it needs. It is RECOMMENDED to keep the serialized size of a frame below 1 MB.
+A result frame is a message of type [`SparqlResultsFrame`](reference.md#sparqlresultsframe). A frame contains a batch of rows (solutions), together with any [lookup entries](#prefix-name-and-datatype-lookup-entries) it needs. It is RECOMMENDED to keep the serialized size of a frame below 1 MB.
 
-A result stream MUST contain at least one frame. The first frame MUST carry the [stream options](#stream-options) and either the [result set header](#result-set-header) or the [boolean result](#boolean-results).
+A result stream MUST contain at least one frame. The first frame MUST contain the [stream options](#stream-options) and either the [result set header](#result-set-header) or the [boolean result](#boolean-results).
 
 The number of rows in a frame is given by the `row_count` field (3). It MUST NOT be greater than 2<sup>27</sup> − 1, which is the largest number of cells the [sequence layout](#sequence-layout) of a column can address.
 
@@ -122,7 +107,7 @@ The number of rows in a frame is given by the `row_count` field (3). It MUST NOT
 
     In practice the row count is bounded far below 2<sup>27</sup> − 1 by the recommended frame size: a frame of a few hundred kilobytes cannot hold anywhere near a hundred million rows. The limit only exists so that the format has a fixed bound that does not depend on the contents of the columns.
 
-The frames of a result stream carry no semantics of their own – they are purely a batching mechanism. In particular, a frame boundary does not separate one result set from another.
+The frames of a result stream have no meaning of their own – they are purely a batching mechanism. In particular, a frame boundary does not separate one result set from another.
 
 !!! note
 
@@ -162,7 +147,7 @@ This specification defines the following well-known keys. The value of a well-kn
 | -------- | ----- |
 | `link`   | Zero or more IRIs, separated by the LF character (U+000A). Corresponds to `head.link` in the [SPARQL Query Results JSON Format](https://www.w3.org/TR/sparql11-results-json/) and to the `<link>` elements of the [XML format](https://www.w3.org/TR/rdf-sparql-XMLres/). |
 
-The `link` key describes the result set as a whole, not the frame it appears in. Producers SHOULD set it only in the frame that carries the [result set header](#result-set-header), and consumers SHOULD apply it to the whole result set.
+The `link` key describes the result set as a whole, not the frame it appears in. Producers SHOULD set it only in the frame that contains the [result set header](#result-set-header), and consumers SHOULD apply it to the whole result set.
 
 All other keys are implementation-defined. Future versions of this specification may define further well-known keys.
 
@@ -204,7 +189,7 @@ The minimum name table size of 128 is higher than Jelly-RDF's minimum of 8. A so
 
 #### Repeating the stream options
 
-A frame other than the first one MAY carry the stream options. Doing so **resets the state of the stream**:
+A frame other than the first one MAY contain the stream options. Doing so **resets the state of the stream**:
 
 - the name, prefix, and datatype lookups are emptied, and their identifier numbering restarts from 1;
 - the [result set header](#result-set-header) ceases to be in effect – the same frame MUST restate it;
@@ -230,7 +215,7 @@ Blank node labels are **not** reset – they remain [scoped to the whole stream]
 
 The result set header declares the variables of the result set and maps each of them to one column. It is the `variables` field (2) of `SparqlResultsFrame`, a repeated [`SparqlVariable`](reference.md#sparqlvariable) message.
 
-The header MUST be present in the first frame of a stream carrying a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options). It MUST NOT be present in a stream carrying a [boolean result](#boolean-results).
+The header MUST be present in the first frame of a stream with a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options). It MUST NOT be present in a stream with a [boolean result](#boolean-results).
 
 The `SparqlVariable` message contains the following fields:
 
@@ -281,25 +266,25 @@ The following rules apply to a restated header:
 
 A result set may have no variables at all. In this case the `variables` field is empty, and the `row_count` of each frame conveys the number of empty solutions in it. Frames of such a stream contain no columns.
 
-An empty `variables` field in a frame that carries the [stream options](#stream-options) MUST be interpreted as declaring a zero-variable result set, unless the frame carries a [boolean result](#boolean-results). An empty `variables` field in any other frame MUST be interpreted as "the header is not restated in this frame".
+An empty `variables` field in a frame with the [stream options](#stream-options) set MUST be interpreted as declaring a zero-variable result set, unless the frame also has a [boolean result](#boolean-results). An empty `variables` field in any other frame MUST be interpreted as "the header is not restated in this frame".
 
 ### Boolean results
 
-A stream that carries the result of an `ASK` query consists of exactly one frame, with the `ask_result` field (11) set to a [`SparqlAskResult`](reference.md#sparqlaskresult) message. The `SparqlAskResult` message has a single field:
+A stream with the result of an `ASK` query consists of exactly one frame, with the `ask_result` field (11) set to a [`SparqlAskResult`](reference.md#sparqlaskresult) message. The `SparqlAskResult` message has a single field:
 
 - `value` (1) – the boolean value of the result. This field is OPTIONAL and defaults to `false`.
 
 The following rules apply:
 
 - The `ask_result` field MUST NOT be set in any frame other than the first frame of the stream.
-- The frame carrying a boolean result MUST NOT declare any variables, MUST NOT contain any columns, and MUST have `row_count` equal to 0. The consumer SHOULD throw an error otherwise.
-- No further result content may follow in the stream. The consumer SHOULD throw an error if any frame follows the frame carrying the boolean result.
+- The frame with a boolean result MUST NOT declare any variables, MUST NOT contain any columns, and MUST have `row_count` equal to 0. The consumer SHOULD throw an error otherwise.
+- No further result content may follow in the stream. The consumer SHOULD throw an error if any frame follows the frame with the boolean result.
 
-Consequently, streams carrying boolean results cannot be concatenated the way [solution sequences can](#repeating-the-stream-options).
+Consequently, streams with boolean results cannot be concatenated the way [solution sequences can](#repeating-the-stream-options).
 
 !!! note
 
-    The `metadata` and `trailer` fields may be used in a frame carrying a boolean result – neither is result content.
+    The `metadata` and `trailer` fields may be used in a frame with a boolean result – neither is result content.
 
 !!! note
 
@@ -314,8 +299,8 @@ The `trailer` field (12) of `SparqlResultsFrame` holds a [`SparqlResultsTrailer`
 The following rules apply:
 
 - The `trailer` field is OPTIONAL. Producers SHOULD set it in the last frame they write.
-- A frame that carries a trailer MUST NOT be followed by any frame that does not carry the [stream options](#stream-options). In other words: a trailer ends the stream, or ends a segment of a concatenated stream.
-- A frame carrying a trailer MAY also carry rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that carries only the trailer, with `row_count` equal to 0.
+- A frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer ends the stream, or ends a segment of a concatenated stream.
+- A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that contains only the trailer, with `row_count` equal to 0.
 - If a consumer reaches the end of the stream without having seen a trailer, it SHOULD treat the result set as possibly truncated, and SHOULD report this to the caller.
 - If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set as incomplete, and SHOULD report the message to the caller.
 - The rows delivered before an `error` trailer are valid solutions and MAY be used. The stream simply stops short of the full solution sequence.
@@ -334,11 +319,11 @@ The following rules apply:
 
 Jelly-SPARQL uses the same lookup table mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries) to compress IRIs and datatypes. All the rules specified there apply here as well, with two differences: the entries are transmitted in a [packed form](#packed-lookup-entries), and there is an additional constraint on [the working set of a frame](#the-working-set-of-a-frame).
 
-The lookup tables are stream-scoped: their contents carry over from one frame to the next, and their identifier numbering continues across frames, until the stream options are [repeated](#repeating-the-stream-options).
+The lookup tables are stream-scoped: their contents are kept from one frame to the next, and their identifier numbering continues across frames, until the stream options are [repeated](#repeating-the-stream-options).
 
 #### Packed lookup entries
 
-Lookup entries are carried in the following fields of `SparqlResultsFrame`, each a repeated [`RdfLookupEntryPacked`](reference.md#rdflookupentrypacked) message:
+Lookup entries are stored in the following fields of `SparqlResultsFrame`, each a repeated [`RdfLookupEntryPacked`](reference.md#rdflookupentrypacked) message:
 
 - `names` (4) – entries of the name lookup.
 - `prefixes` (5) – entries of the prefix lookup.
@@ -528,7 +513,7 @@ The consumer MUST throw an error if the length of `prefix_ids` is none of the th
     }
     ```
 
-    The same column in a frame where every IRI is in the `https://a.org/` namespace would carry `prefix_ids: [1]` instead – one entry for the whole column.
+    The same column in a frame where every IRI is in the `https://a.org/` namespace would have `prefix_ids: [1]` instead – one entry for the whole column.
 
 #### Blank node columns
 
@@ -539,7 +524,7 @@ A blank node column is a [`SparqlBnodeColumn`](reference.md#sparqlbnodecolumn) m
 
 Blank node labels are represented as plain UTF-8 strings, and are not compressed with any lookup table.
 
-Blank node labels are **scoped to the result set**, that is, to the entire result stream. Two cells anywhere in one stream that carry the same label MUST be interpreted as referring to the same blank node, regardless of which frame they are in, and regardless of whether the [stream options were repeated](#repeating-the-stream-options) between them. Two cells carrying different labels MUST be interpreted as referring to different blank nodes.
+Blank node labels are **scoped to the result set**, that is, to the entire result stream. Two cells anywhere in one stream with the same label MUST be interpreted as referring to the same blank node, regardless of which frame they are in, and regardless of whether the [stream options were repeated](#repeating-the-stream-options) between them. Two cells with different labels MUST be interpreted as referring to different blank nodes.
 
 !!! note "Difference from Jelly-RDF"
 
@@ -674,7 +659,7 @@ The following rules apply:
 
 !!! note "Why not `RdfTriple`?"
 
-    The `RdfTriple` message of Jelly-RDF allows shapes that are not valid RDF 1.2 triple terms: literal subjects, triple terms in the subject or predicate position, and omitted (repeated) terms. Its literals also cannot carry a base direction. `RdfTripleTerm` can only express valid RDF 1.2 triple terms, so there is less for a consumer to check. Its field numbers are the same as those of `RdfTriple`.
+    The `RdfTriple` message of Jelly-RDF allows shapes that are not valid RDF 1.2 triple terms: literal subjects, triple terms in the subject or predicate position, and omitted (repeated) terms. Its literals also cannot have a base direction. `RdfTripleTerm` can only express valid RDF 1.2 triple terms, so there is less for a consumer to check. Its field numbers are the same as those of `RdfTriple`.
 
 !!! note
 
@@ -682,9 +667,9 @@ The following rules apply:
 
 ### Frames with no rows
 
-A frame MAY have `row_count` equal to 0. This is the case for a result set with no solutions at all, which is still a valid result set and MUST be serialized as at least one frame carrying the stream options and the header.
+A frame MAY have `row_count` equal to 0. This is the case for a result set with no solutions at all, which is still a valid result set and MUST be serialized as at least one frame with the stream options and the header.
 
-A frame with `row_count` equal to 0 SHOULD omit its columns entirely, rather than carrying one empty column message per variable.
+A frame with `row_count` equal to 0 SHOULD omit its columns entirely, rather than including one empty column message per variable.
 
 !!! note
 
@@ -696,9 +681,9 @@ Protobuf messages [are not self-delimiting](https://protobuf.dev/programming-gui
 
 A byte stream in the **delimited variant** consists of a series of delimited `SparqlResultsFrame` messages.
 
-A Jelly-SPARQL stream stored in a file, or carried in an HTTP message body, with the `application/x-jelly-sparql` [media type](#internet-media-type-and-file-extension) MUST use the delimited variant. This holds even when the stream consists of a single frame – there is no non-delimited variant of the media type, and consumers do not have to guess which of the two they are reading.
+A Jelly-SPARQL stream stored in a file, or sent in an HTTP message body, with the `application/x-jelly-sparql` [media type](#internet-media-type-and-file-extension) MUST use the delimited variant. This holds even when the stream consists of a single frame – there is no non-delimited variant of the media type, and consumers do not have to guess which of the two they are reading.
 
-Transports that provide their own message framing (for example gRPC, MQTT, or Kafka) carry one bare, non-delimited `SparqlResultsFrame` message per transport message.
+Transports that provide their own message framing (for example gRPC, MQTT, or Kafka) send one bare, non-delimited `SparqlResultsFrame` message per transport message.
 
 ## Internet media type and file extension
 
@@ -724,9 +709,9 @@ A service implementing the [SPARQL 1.1 Protocol](https://www.w3.org/TR/sparql11-
 
 ## Streaming over the network
 
-Jelly-SPARQL streams can be transmitted over any transport that can carry an ordered sequence of messages – an HTTP response body, a WebSocket connection, or a message broker such as Kafka or MQTT. See [framing](#framing) for how the frames are delimited in each case.
+Jelly-SPARQL streams can be transmitted over any transport that can deliver an ordered sequence of messages – an HTTP response body, a WebSocket connection, or a message broker such as Kafka or MQTT. See [framing](#framing) for how the frames are delimited in each case.
 
-The [Jelly gRPC streaming protocol](streaming.md) does not cover Jelly-SPARQL: its service definition only carries `RdfStreamFrame` messages. There are no plans to extend it to SPARQL results at the moment.
+The [Jelly gRPC streaming protocol](streaming.md) does not cover Jelly-SPARQL: its service definition only covers `RdfStreamFrame` messages. There are no plans to extend it to SPARQL results at the moment.
 
 ## Security considerations
 
