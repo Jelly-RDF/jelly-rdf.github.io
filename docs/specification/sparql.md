@@ -129,8 +129,6 @@ Implementations MAY choose to adopt a **non-standard** solution where the order 
 
     This costs space, but it is the way to build a stream whose frames can be dropped or processed out of order.
 
-<!-- DONE SO FAR -->
-
 #### Frame metadata
 
 `SparqlResultsFrame` messages have a `metadata` field (15) of type `map<string, bytes>`. This field is OPTIONAL and does not influence the processing of the results in any manner.
@@ -139,7 +137,7 @@ The general rules for the metadata field are identical to those of the [Jelly-RD
 
 ##### Well-known metadata keys
 
-This specification defines the following well-known keys. The value of a well-known key MUST be valid UTF-8. Consumers SHOULD validate this, and SHOULD ignore the key if the value does not parse.
+This specification defines the following well-known keys for the `metadata` field. The value of a well-known key MUST be valid UTF-8. Consumers SHOULD validate this, and SHOULD ignore the key if the value does not parse.
 
 | Key      | Value |
 | -------- | ----- |
@@ -149,22 +147,18 @@ The `link` key describes the result set as a whole, not the frame it appears in.
 
 All other keys are implementation-defined. Future versions of this specification may define further well-known keys.
 
-!!! note
-
-    An IRI cannot contain an LF character, so splitting the value of `link` on LF is unambiguous. A single link is simply a value with no LF in it.
-
 ### Stream options
 
-The stream options is a message of type [`SparqlResultsOptions`](reference.md#sparqlresultsoptions). It MUST be set in the first frame of the stream. It MAY also be set in a later frame, which [resets the stream state](#repeating-the-stream-options). Consumers MAY throw an error if the stream options are not present in the first frame. Alternatively, they MAY use their own, implementation-specified default options.
+The stream options is a message of type [`SparqlResultsOptions`](reference.md#sparqlresultsoptions). It MUST be set in the first frame of the stream. It MAY also be set in a later frame, which [resets the stream state](#repeating-the-stream-options).
 
 The stream options instruct the consumer on the sizes of the lookup tables needed to decode the stream, and on the version of the format used.
 
 The stream options message contains the following fields:
 
-- `stream_name` (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream. It has the same meaning as in [Jelly-RDF](serialization.md#stream-options) – it may be used for, e.g., topic names in a pub/sub system.
-- `rdf_version` (5) – the version of RDF whose terms may occur in the stream, as an [`RdfVersion`](reference.md#rdfversion) value. This field is OPTIONAL and defaults to `RDF_VERSION_UNSPECIFIED`, which means that no version is announced. See [RDF version](#rdf-version).
-- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 128. The size of the lookup MUST NOT exceed the value of this field.
-- `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `stream_name` (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream.
+- `rdf_version` (5) – the version of RDF whose terms may occur in the stream, as an [`RdfVersion`](reference.md#rdfversion) value. This field is OPTIONAL and defaults to `RDF_VERSION_UNSPECIFIED`: no version is announced, and the consumer can assume RDF 1.2. See [RDF version](#rdf-version).
+- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 128. The size of the name lookup MUST NOT exceed the value of this field.
+- `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the prefix lookup MUST NOT exceed the value of this field.
 - `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream, which effectively prohibits the use of datatype literals. If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED. The rules are the same as for the [Jelly-RDF `version` field](serialization.md#stream-options):
     - The version tag is encoded as a varint. The version tag MUST be greater than 0.
@@ -177,21 +171,13 @@ The stream options message contains the following fields:
 
 This specification sets no upper bound on the lookup table sizes. Instead, as in [Jelly-RDF](serialization.md#overly-large-lookup-tables), each consumer SHOULD define the largest tables it is willing to allocate and reject a stream that asks for more – see [security considerations](#overly-large-lookup-tables). The RECOMMENDED defaults are **16384** names, **4096** prefixes, and **256** datatypes, and consumers SHOULD let the user raise or lower them.
 
-The minimum name table size of 128 is higher than Jelly-RDF's minimum of 8. A solution sequence is a projection, so one row of results tends to touch far more distinct terms than one RDF statement does. On top of that, [the working set of a whole frame must fit in the tables](#the-working-set-of-a-frame), so a producer given a tiny name table would have to cut the frames down to very few rows, or fail outright.
-
-!!! note
-
-    There are no fields for the physical stream type, logical stream type, generalized statements, or RDF-star. None of them apply to SPARQL results: a result stream is always a sequence of solutions, and only RDF terms that can be bound to a query variable can occur in it. The `rdf_version` field takes the place of the `rdf_star` flag of Jelly-RDF.
-
-    The field numbers of `SparqlResultsOptions` are deliberately aligned with those of [`RdfStreamOptions`](reference.md#rdfstreamoptions), which is why there are gaps at 2–4, 6–8, and 12–14. Field 5 (`rdf_version`) is not used in `RdfStreamOptions`.
-
-#### Repeating the stream options
+#### Repeating the stream options (stream concatenation) { #repeating-the-stream-options }
 
 A frame other than the first one MAY contain the stream options. Doing so **resets the state of the stream**:
 
-- the name, prefix, and datatype lookups are emptied, and their identifier numbering restarts from 1;
-- the [result set header](#result-set-header) ceases to be in effect – the same frame MUST restate it;
-- any [trailer](#stream-trailer) seen earlier in the stream ceases to apply.
+- The name, prefix, and datatype lookups are emptied, and their identifier numbering restarts from 1.
+- The [result set header](#result-set-header) ceases to be in effect – the same frame MUST restate it.
+- A [trailer](#stream-trailer) without an error, seen earlier in the stream, ceases to apply. A trailer with an error does not – the result set stays incomplete.
 
 The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a result stream always describes exactly one result set. The consumer MUST throw an error otherwise.
 
@@ -201,7 +187,7 @@ Blank node labels are **not** reset – they remain [scoped to the whole stream]
 
 !!! note "What this is for"
 
-    This exists so that two Jelly-SPARQL files holding results of the same query can be concatenated into one valid file, without either of them having to know about the other. That is the only intended use.
+    This exists so that two Jelly-SPARQL files holding results of the same query can be concatenated into one valid file.
 
     It is **not** a general mid-stream reconfiguration mechanism, and it is **not** a way for a consumer to join a stream that is already in progress. If you want frames that can be decoded independently, see the [note on independently decodable frames](#ordering) instead.
 
@@ -211,14 +197,14 @@ Blank node labels are **not** reset – they remain [scoped to the whole stream]
 
 ### Result set header
 
-The result set header declares the variables of the result set and maps each of them to one column. It is the `variables` field (2) of `SparqlResultsFrame`, a repeated [`SparqlVariable`](reference.md#sparqlvariable) message.
+The result set header declares the variables of the result set and maps each of them to one column. The header is stored in the `variables` field (2) of `SparqlResultsFrame` (repeated `SparqlVariable`).
 
 The header MUST be present in the first frame of a stream with a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options). It MUST NOT be present in a stream with a [boolean result](#boolean-results).
 
 The `SparqlVariable` message contains the following fields:
 
-- `name` (1) – the name of the variable, without the leading `?` or `$`. It SHOULD conform to the [`VARNAME` production of SPARQL 1.1](https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#rVARNAME). An empty string (the default value) is allowed, but NOT RECOMMENDED.
-- `column_index` (2) – 0-based index of the [column](#columns) that holds the values of this variable.
+- `name` (1) – the name of the variable, without the leading `?` or `$`. It SHOULD conform to the [`VARNAME` production of SPARQL 1.1](https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#rVARNAME). It MUST NOT be empty. Consumers are not required to check this.
+- `column_index` (2) – 0-based index of the [column](#columns) that contains the values of this variable.
 
 The variables MUST be listed in projection order, that is, in the order in which they appear in the `SELECT` clause of the query. Consumers MUST preserve this order.
 
@@ -248,7 +234,9 @@ Let *N* be the number of variables declared by the header in effect for a frame.
 
 !!! note
 
-    Because the columns are grouped by type, the column order within a frame is generally not the projection order of the variables. The `column_index` field is what ties the two together, and the producer is free to assign the columns in any order that respects the grouping.
+    Because the columns are grouped by type, the column order within a frame is generally not the projection order of the variables. The producer is free to assign the columns in any order that respects the grouping.
+
+<!-- DONE SO FAR -->
 
 #### Restating the header
 
@@ -300,7 +288,7 @@ The following rules apply:
 - A frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer ends the stream, or ends a segment of a concatenated stream.
 - A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that contains only the trailer, with `row_count` equal to 0.
 - If a consumer reaches the end of the stream without having seen a trailer, it SHOULD treat the result set as possibly truncated, and SHOULD report this to the caller.
-- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set as incomplete, and SHOULD report the message to the caller.
+- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set as incomplete, and SHOULD report the message to the caller. This holds even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error.
 - The rows delivered before an `error` trailer are valid solutions and MAY be used. The stream simply stops short of the full solution sequence.
 
 !!! note "Why a trailer"
@@ -695,7 +683,7 @@ The `rdf_version` field (5) of the [stream options](#stream-options) announces w
 
 The following rules apply:
 
-- If `rdf_version` is `RDF_VERSION_UNSPECIFIED`, no version is announced, and the stream MAY contain any term of RDF 1.2.
+- If `rdf_version` is `RDF_VERSION_UNSPECIFIED`, no version is announced, and the consumer can assume RDF 1.2: the stream MAY contain any term of RDF 1.2.
 - The consumer MUST throw an error if `rdf_version` has a value that is not listed above.
 - Producers SHOULD declare a version. It is RECOMMENDED to declare the lowest version that allows every term the producer knows in advance it may write. A producer that cannot know in advance which terms the results will contain (for example, because it streams them from a store that supports RDF 1.2) MAY declare a higher version than the terms turn out to need.
 - If a version is declared, the stream MUST NOT contain a term that the version does not allow. The consumer MUST throw an error if it does.
