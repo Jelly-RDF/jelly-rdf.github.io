@@ -236,15 +236,13 @@ Let *N* be the number of variables declared by the header in effect for a frame.
 
     Because the columns are grouped by type, the column order within a frame is generally not the projection order of the variables. The producer is free to assign the columns in any order that respects the grouping.
 
-<!-- DONE SO FAR -->
-
 #### Restating the header
 
-A later frame MAY restate the header to change the column layout in the middle of a stream. This is needed when the values of a variable stop fitting the column type used so far – for example, when a variable that has only held IRIs encounters a literal and has to move to a [polymorphic column](#polymorphic-columns).
+A later frame MAY restate the header to change the column layout in the middle of a stream. This is needed when the values of a variable stop fitting the column type used so far – for example, when a variable that has was only bound to IRIs encounters a literal and has to move to a [polymorphic column](#polymorphic-columns).
 
 The following rules apply to a restated header:
 
-- It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame. Only the `column_index` values (and, consequently, the number of columns of each type in the frame) may differ. The consumer MUST throw an error if a restated header declares different variables.
+- It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame. Only the `column_index` values may differ. The consumer MUST throw an error if a restated header declares different variables.
 - It takes effect for the frame it appears in, and for all subsequent frames, until it is restated again.
 - A frame MAY restate a header identical to the one currently in effect. Producers SHOULD NOT do this, unless they are deliberately making every frame [independently decodable](#ordering).
 
@@ -252,7 +250,7 @@ The following rules apply to a restated header:
 
 A result set may have no variables at all. In this case the `variables` field is empty, and the `row_count` of each frame conveys the number of empty solutions in it. Frames of such a stream contain no columns.
 
-An empty `variables` field in a frame with the [stream options](#stream-options) set MUST be interpreted as declaring a zero-variable result set, unless the frame also has a [boolean result](#boolean-results). An empty `variables` field in any other frame MUST be interpreted as "the header is not restated in this frame".
+An empty `variables` field in a frame with the [stream options](#stream-options) set MUST be interpreted as declaring a zero-variable result set, unless the frame has a [boolean result](#boolean-results). An empty `variables` field in any other frame MUST be interpreted as "the header is not restated in this frame".
 
 ### Boolean results
 
@@ -264,79 +262,64 @@ The following rules apply:
 
 - The `ask_result` field MUST NOT be set in any frame other than the first frame of the stream.
 - The frame with a boolean result MUST NOT declare any variables, MUST NOT contain any columns, and MUST have `row_count` equal to 0. The consumer SHOULD throw an error otherwise.
-- No further result content may follow in the stream. The consumer SHOULD throw an error if any frame follows the frame with the boolean result.
+- No further content may follow in the stream. The consumer SHOULD throw an error if any frame follows the frame with the boolean result.
 
 Consequently, streams with boolean results cannot be concatenated the way [solution sequences can](#repeating-the-stream-options).
 
 !!! note
 
-    The `metadata` and `trailer` fields may be used in a frame with a boolean result – neither is result content.
-
-!!! note
-
-    A boolean result frame is tiny (a handful of bytes). It is still a complete Jelly-SPARQL stream, with the stream options and everything else a reader expects.
+    The `metadata` and `trailer` fields may still be used in a frame with a boolean result.
 
 ### Stream trailer
 
-The `trailer` field (12) of `SparqlResultsFrame` holds a [`SparqlResultsTrailer`](reference.md#sparqlresultstrailer) message, which marks the end of the stream and says whether the result set is complete. The message has a single field:
+The `trailer` field (12) of `SparqlResultsFrame` contains a [`SparqlResultsTrailer`](reference.md#sparqlresultstrailer) message, which marks the end of the stream and says whether the result set is complete. The message has a single field:
 
 - `error` (1) – an empty string (the default value) means the result set is complete. A non-empty value is a human-readable, UTF-8 explanation of why the producer could not produce the complete result.
 
 The following rules apply:
 
-- The `trailer` field is OPTIONAL. Producers SHOULD set it in the last frame they write.
-- A frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer ends the stream, or ends a segment of a concatenated stream.
+- A producer MUST set the `trailer` field in the last frame of the stream, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a stream ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.
+- A frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer either ends the stream, or ends a segment of a concatenated stream.
 - A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that contains only the trailer, with `row_count` equal to 0.
-- If a consumer reaches the end of the stream without having seen a trailer, it SHOULD treat the result set as possibly truncated, and SHOULD report this to the caller.
-- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set as incomplete, and SHOULD report the message to the caller. This holds even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error.
-- The rows delivered before an `error` trailer are valid solutions and MAY be used. The stream simply stops short of the full solution sequence.
+- If a consumer reaches the end of the stream without having seen a trailer, it SHOULD treat the result set as truncated, and SHOULD report this to the caller.
+- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set as incomplete, and SHOULD report the message to the caller. This applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error.
 
 !!! note "Why a trailer"
 
-    A producer that fails part-way through a query – a timeout, a broken backend, a cancelled request – has already written some rows by the time it finds out. Without a trailer, the bytes it has written are indistinguishable from a complete, shorter result set, and a consumer would silently return wrong answers. The same gap exists in the SPARQL Query Results XML and JSON formats.
-
-    The trailer also tells a consumer that a stream ended on purpose rather than because the connection dropped, which is not something the transport can always answer.
+    A producer that fails part-way through a query (e.g., due to a federation timeout or a broken backend) has already written some rows by the time it finds out. Without a trailer, the bytes it has written are indistinguishable from a complete, shorter result set, and a consumer would silently return wrong answers.
 
 !!! note
 
-    A producer whose process dies outright cannot write a trailer at all. That is why the absence of a trailer means "possibly truncated" rather than "complete".
+    A producer whose process dies outright cannot write a trailer at all. That is why the absence of a trailer means "likely truncated" rather than "complete".
 
 ### Prefix, name, and datatype lookup entries
 
 Jelly-SPARQL uses the same lookup table mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries) to compress IRIs and datatypes. All the rules specified there apply here as well, with two differences: the entries are transmitted in a [packed form](#packed-lookup-entries), and there is an additional constraint on [the working set of a frame](#the-working-set-of-a-frame).
 
-The lookup tables are stream-scoped: their contents are kept from one frame to the next, and their identifier numbering continues across frames, until the stream options are [repeated](#repeating-the-stream-options).
+The lookup tables are stream-scoped: their contents are kept from one frame to the next, and their identifier numbering continues across frames.
 
 #### Packed lookup entries
 
-Lookup entries are stored in the following fields of `SparqlResultsFrame`, each a repeated [`RdfLookupEntryPacked`](reference.md#rdflookupentrypacked) message:
+Lookup entries are stored in the following fields of `SparqlResultsFrame`. Each field contains a repeated [`RdfLookupEntryPacked`](reference.md#rdflookupentrypacked) message:
 
 - `names` (4) – entries of the name lookup.
 - `prefixes` (5) – entries of the prefix lookup.
 - `datatypes` (6) – entries of the datatype lookup.
 
-Lookup entries are almost always assigned consecutive identifiers, because that is what the `id = 0` rule of the unpacked Jelly-RDF entries optimizes for. A packed entry states the identifier once and then lists the values of a whole run of consecutive entries, which saves the framing of every entry after the first.
+Lookup entries are often assigned consecutive identifiers. A packed entry states the identifier once and then lists the values of a whole run of consecutive entries, which saves the framing of every entry after the first.
 
 The `RdfLookupEntryPacked` message contains the following fields:
 
 - `id` (1) – 1-based identifier of the **first** value in this entry. The default value of 0 follows the same rule as in Jelly-RDF: it MUST be interpreted as `previous_id + 1`, where `previous_id` is the identifier assigned by the previous entry of *the same lookup table* in the stream. If 0 appears in the first entry of a given lookup table in the stream, it MUST be interpreted as 1.
 - `values` (2) – the values of the entries, in UTF-8. The first value is assigned the identifier `id`, and every following value is assigned the identifier of the previous one plus 1.
 
-A packed entry with no values at all is a no-op and MUST NOT be written. Consumers MAY throw an error if they encounter one.
-
-!!! note
-
-    The packing is per frame: a producer starts a new packed entry in every frame, even when the identifiers would continue the run of the previous frame. The identifier numbering itself, however, does run across frames.
-
-!!! note
-
-    `RdfLookupEntryPacked` is defined in `rdf2.proto` rather than `sparql.proto`, because it is shared with future versions of Jelly-RDF. The same message type is used for all three lookup tables.
+A packed entry with zero values MUST NOT be written. Consumers MAY throw an error if they encounter one.
 
 #### The working set of a frame
 
-All lookup entries of a frame are applied, in order, **before any column of the frame is decoded**. This is what makes the columns of a frame decodable independently of each other.
+All lookup entries of a frame are applied **before any column of the frame is decoded**. This allows the columns of a frame to be decoded independently of each other.
 
-As a consequence, every lookup identifier referenced by the columns of a frame MUST still hold the intended value after all of the frame's entries have been applied. In other words: **the working set of a single frame must fit in the lookup tables.** A producer MUST NOT overwrite, within one frame, an identifier that the same frame's columns still refer to.
+As a consequence, every lookup identifier referenced by the columns of a frame MUST still contain the intended value after all of the frame's entries have been applied. In other words: **the working set of a single frame must fit in the lookup tables.** A producer MUST NOT overwrite, within one frame, an identifier that the same frame's columns still refer to.
 
 If a producer cannot satisfy this, it MUST end the frame and start a new one. If a single row cannot be encoded even in an otherwise empty frame, the producer MUST throw an error – the configured lookup table sizes are too small for these results.
 
@@ -347,6 +330,8 @@ If a producer cannot satisfy this, it MUST end the frame and start a new one. If
 !!! note
 
     A simple way to implement this on the producer's side is to track which identifiers the current frame has touched (assigned or referenced), and to end the frame before a row could touch an identifier that is already in that set. If the lookup uses an LRU eviction policy, everything the frame has touched sits at the recent end, so the frame stays safe exactly as long as it has not touched every identifier of the table.
+
+<!-- DONE SO FAR -->
 
 ### Columns
 
@@ -778,7 +763,7 @@ A service implementing the [SPARQL 1.1 Protocol](https://www.w3.org/TR/sparql11-
 - Clients that can read Jelly-SPARQL SHOULD list `application/x-jelly-sparql` in the `Accept` header of the query request, and SHOULD also list a W3C-defined results format as a fallback with a lower q-value.
 - Because Jelly-SPARQL is not one of the results formats defined by W3C, a service SHOULD return it only when the client named it explicitly. A service SHOULD NOT select `application/x-jelly-sparql` for a request whose `Accept` header does not name it – for example `Accept: */*`.
 - A service that streams the response SHOULD flush the connection after each frame, so that the client can start processing solutions before the query has finished.
-- A service that fails part-way through a query SHOULD write a [trailer](#stream-trailer) with a non-empty `error` before closing the connection. The HTTP status line has already been sent by then, so the trailer is the only place left to say what went wrong.
+- A service that fails part-way through a query MUST write a [trailer](#stream-trailer) with a non-empty `error` before closing the connection, unless it cannot write anything more at all. The HTTP status line has already been sent by then, so the trailer is the only place left to say what went wrong.
 
 !!! note
 
