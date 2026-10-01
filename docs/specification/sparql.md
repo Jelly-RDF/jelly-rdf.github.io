@@ -1,9 +1,5 @@
 # Jelly SPARQL query results format specification
 
-!!! warning
-
-    Jelly-SPARQL is in beta-testing phase and is not yet finalized. You are encouraged to try it out and let us know about any suggestions or bugs you found by **[opening an issue on GitHub](https://github.com/Jelly-RDF/jelly-protobuf/issues/new/choose)**.
-
 **This document is the specification of the Jelly SPARQL query results format, also known as Jelly-SPARQL. It is intended for implementers of Jelly libraries and applications.** If you are looking for a user-friendly introduction to Jelly, see the [Jelly index page](index.md).
 
 Jelly-SPARQL is a binary serialization format for **SPARQL query results** – solution sequences (`SELECT`) and boolean results (`ASK`). It is binary, streamable, and reuses the RDF term encoding of [Jelly-RDF](serialization.md).
@@ -20,7 +16,7 @@ The following assumptions are used in this document:
 
 | Document information | |
 | --- | --- |
-| **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)) |
+| **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)), Anastasiya Danilenka ([adanilenka](https://github.com/adanilenka)) |
 | **Version:** | experimental (dev) |
 | **Date:** | {{ git_revision_date_localized }} |
 | **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/sparql`](https://w3id.org/jelly/{{ proto_version() }}/specification/sparql) |
@@ -52,7 +48,7 @@ The following versions of the format are defined:
 | ----------- | ------------------- | --------------------------------- | ------------------------------- |
 | 1           | 1.0.0               | Not finalized yet (draft)         | (initial version)               |
 
-Jelly-SPARQL has its own version tag, which is independent of the version tags of [Jelly-RDF](serialization.md#versioning) and [Jelly-Patch](patch.md#versioning). A version tag value MUST NOT be compared across formats.
+Jelly-SPARQL has its own version tag, which is independent of the version tags of [Jelly-RDF](serialization.md#versioning) and [Jelly-Patch](patch.md#versioning).
 
 !!! note
 
@@ -78,7 +74,7 @@ Implementations may include only the producer, only the consumer, or both.
 
 ## Format specification
 
-Jelly-SPARQL uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly-SPARQL is defined in `sparql.proto` ([source code]({{ git_proto_link('sparql.proto') }}), [reference](reference.md#sparqlproto)), which imports `rdf.proto` and `rdf2.proto`.
+Jelly-SPARQL uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly-SPARQL is defined in `sparql.proto` ([source code]({{ git_proto_link('sparql.proto') }}), [reference](reference.md#sparqlproto)), which imports `rdf2.proto` and `rdf.proto`.
 
 A Jelly-SPARQL **result stream** is an ordered sequence of **result frames**. The frames may be sent one-by-one using a streaming protocol (e.g., gRPC, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see [framing](#framing).
 
@@ -89,7 +85,7 @@ A result stream always contains exactly one of the two kinds of SPARQL query res
 
 The kind of the result is determined by the first frame of the stream: if the `ask_result` field is set in it, the stream contains a boolean result; otherwise, it contains a solution sequence (possibly with [zero variables](#zero-variable-result-sets)). A result stream always describes exactly one result set.
 
-Within a frame, solutions are stored **column-wise**: one column per result variable, with the columns grouped by the type of the RDF terms they hold. Most variables in real result sets are bound to terms of a single type (most often IRIs), which lets the values of such a column be stored as a flat list of primitives instead of one Protobuf message per value.
+Within a frame, solutions are stored **column-wise**: one column per result variable, with the columns grouped by the type of the RDF terms they contain. Most variables in real result sets are bound to terms of a single type, which lets the values of such a column be stored efficiently as a flat list of primitives.
 
 !!! note "Why columns?"
 
@@ -105,7 +101,7 @@ The number of rows in a frame is given by the `row_count` field (3). It MUST NOT
 
 !!! note
 
-    In practice the row count is bounded far below 2<sup>27</sup> − 1 by the recommended frame size: a frame of a few hundred kilobytes cannot hold anywhere near a hundred million rows. The limit only exists so that the format has a fixed bound that does not depend on the contents of the columns.
+    In practice the row count is bounded far below 2<sup>27</sup> − 1 by the recommended frame size.
 
 The frames of a result stream have no meaning of their own – they are purely a batching mechanism. In particular, a frame boundary does not separate one result set from another.
 
@@ -119,7 +115,7 @@ The frames of a result stream have no meaning of their own – they are purely a
 
 Result frames MUST be processed strictly in order. Each frame MUST be processed in its entirety before the next frame is processed.
 
-The order of rows within a frame, and the order of the frames, together define the order of the solution sequence. Consumers MUST preserve this order, and MUST NOT deduplicate rows – both the order and the cardinality of a solution sequence are significant in SPARQL.
+The order of rows within a frame, and the order of the frames, together define the order of the solution sequence. Consumers MUST preserve this order.
 
 Implementations MAY choose to adopt a **non-standard** solution where the order or delivery of the frames is not guaranteed. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.
 
@@ -129,9 +125,11 @@ Implementations MAY choose to adopt a **non-standard** solution where the order 
 
 !!! note "Making frames independently decodable"
 
-    Because the [IRI inference state resets per column, per frame](#iri-columns), a frame can be decoded using only the stream options, the lookup table state, and the header in effect. A producer that re-emits all the lookup entries its columns use, and restates the header, in **every** frame makes each frame decodable on its own, given the stream options.
+    Because the [IRI inference state resets per column, per frame](#iri-columns), a frame can be decoded using only the stream options, the lookup table state, and the header in effect. A producer that re-emits all the lookup entries and restates the header, in **every** frame makes each frame decodable on its own, given the stream options.
 
-    This costs space – the lookup entries are repeated in every frame – but it is the way to build a stream whose frames can be dropped or processed out of order. Note that a consumer still needs the stream options from the first frame; [repeating them](#repeating-the-stream-options) is not a way to join a stream mid-way.
+    This costs space, but it is the way to build a stream whose frames can be dropped or processed out of order.
+
+<!-- DONE SO FAR -->
 
 #### Frame metadata
 
@@ -532,63 +530,151 @@ Blank node labels are **scoped to the result set**, that is, to the entire resul
 
 #### Literal columns
 
-A literal column is a [`SparqlLiteralColumn`](reference.md#sparqlliteralcolumn) message. It has two mutually exclusive forms.
+A literal column is a [`SparqlLiteralColumn`](reference.md#sparqlliteralcolumn) message with the following fields:
 
-**The lexical form.** A column in which every value has the same datatype, or every value has the same language tag and [base direction](#base-direction), states that datatype or language tag once and lists only the lexical forms:
+- `lex_values` (1) – the lexical forms of the run values, in row order. **The length of this list is the number of run values in the column.**
+- `layouts` (2) – the [sequence layout](#sequence-layout).
+- `literal_kinds` (3) – the literal kinds of the run values, in row order, see below.
+- `langtags` (4) – the language tags that the literal kinds refer to, as UTF-8 strings.
+- `langtag_directions` (5) – the [base directions](#base-direction) of the language tags, parallel to `langtags`, as [`RdfBaseDirection`](reference.md#rdfbasedirection) values.
 
-- `lex_values` (3) – the lexical forms of the run values, in row order.
-- `datatype` (4) – the datatype shared by every run value: a 1-based reference to an entry in the [datatype lookup](#prefix-name-and-datatype-lookup-entries), or 0 for simple literals (that is, literals with the datatype `http://www.w3.org/2001/XMLSchema#string`).
-- `langtag` (5) – the language tag shared by every run value, as a UTF-8 string. If set, every run value is a language-tagged string (a literal with the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString`) with this language tag. The language tag SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag, as in [Jelly-RDF](serialization.md#literals).
-- `direction` (6) – the [base direction](#base-direction) shared by every run value, as an [`RdfBaseDirection`](reference.md#rdfbasedirection) value. It MUST NOT be set unless `langtag` is set. If set, every run value is a directional language-tagged string (a literal with the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`).
-- `values` (1) MUST be empty.
-- At most one of `datatype` and `langtag` MAY be set. If neither is set, the run values are simple literals.
+Each run value is a lexical form plus a **literal kind**, which says what sort of literal it is. A literal kind is an unsigned integer *v*:
 
-A simple literal does not need an `xsd:string` entry in the datatype lookup: the producer states no datatype at all, and the consumer produces the same term, because a simple literal and an `xsd:string` literal are the same thing. Both encodings are legal and produce the same result.
+| Literal kind *v*       | Meaning |
+| ---------------------- | ------- |
+| 0                      | A simple literal, that is, a literal with the datatype `http://www.w3.org/2001/XMLSchema#string`. |
+| odd *v*                | A literal with the datatype of the [datatype lookup](#prefix-name-and-datatype-lookup-entries) entry with identifier (*v* + 1) / 2. |
+| even *v* > 0           | A language-tagged string with the language tag `langtags[`*v* / 2 − 1`]` (a 0-based index), and the base direction `langtag_directions[`*v* / 2 − 1`]`. |
 
-The producer MUST NOT set `datatype` to a reference to `rdf:langString` or `rdf:dirLangString`, because a literal with that datatype and no language tag is not a valid RDF term. Language-tagged strings in the lexical form always use `langtag`.
+So the datatype identifiers 1, 2, 3, … are the literal kinds 1, 3, 5, …, and the language tags at the indices 0, 1, 2, … are the literal kinds 2, 4, 6, ….
 
-**The full form.** A column holding literals of more than one datatype, literals with more than one language tag or base direction, or a mix of language-tagged and other literals, uses [`RdfLiteral2`](reference.md#rdfliteral2) messages:
+The `literal_kinds` list MUST have one of three lengths:
 
-- `values` (1) – the run values, in row order, each an `RdfLiteral2` message. It is encoded exactly as an `RdfLiteral` in [Jelly-RDF](serialization.md#literals), plus an optional [base direction](#base-direction).
-- `lex_values` (3) MUST be empty, and none of `datatype` (4), `langtag` (5), and `direction` (6) may be set.
+| Length              | Meaning |
+| ------------------- | ------- |
+| 0                   | Every run value is a simple literal. |
+| 1                   | Every run value has the literal kind given by the single entry. This is the case for a column of values that share one datatype, or one language tag and base direction. |
+| `len(lex_values)`   | One entry per run value. |
 
-Both forms use `layouts` (2) for the [sequence layout](#sequence-layout).
+The consumer MUST throw an error if the length of `literal_kinds` is none of the three allowed values, or if a literal kind refers to an index past the end of `langtags`.
 
-A column with no run values at all (that is, a column that is unbound in every row of the frame) is an empty message, and is read as the full form.
+The following rules apply to the language tags:
 
-The consumer MUST throw an error if a literal column has both `values` and `lex_values` set, if it sets `datatype`, `langtag`, or `direction` while `lex_values` is empty, if it sets both `datatype` and `langtag`, or if it sets `direction` without `langtag`.
+- Each entry of `langtags` SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag, as in [Jelly-RDF](serialization.md#literals).
+- Producers SHOULD list the language tags in the order in which the run values first use them, and SHOULD NOT list a language tag that no run value uses. Consumers are not required to check this.
+- The same language tag MAY appear in `langtags` more than once, with different base directions. Producers SHOULD NOT list the same pair of language tag and base direction twice.
+- `langtag_directions` MUST be empty, or have exactly as many entries as `langtags`. An empty list means that no language tag of the column has a base direction. The consumer MUST throw an error if the list has any other length.
+
+A literal kind that refers to a datatype MUST NOT refer to an entry holding `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString` or `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`, because a literal with that datatype and no language tag is not a valid RDF term. Language-tagged strings always use a language tag from `langtags`. The consumer SHOULD throw an error otherwise.
+
+A simple literal does not need an `xsd:string` entry in the datatype lookup: the producer uses the literal kind 0, and the consumer produces the same term, because a simple literal and an `xsd:string` literal are the same thing. A literal kind referring to an `xsd:string` entry is also legal and produces the same result.
 
 !!! note
 
-    The lexical form drops the length-delimited sub-message and the datatype reference or language tag of every value. It also lets a reader keep the column in a plain string array instead of allocating one object per value. This is the common case in SPARQL results – think of a `?count` column, or a `?label` column filtered to one language.
+    Compared to one message per literal, a literal column drops the length-delimited sub-message and the datatype reference or language tag of every value. A column in which every value has the same literal kind – think of a `?count` column, or a `?label` column filtered to one language – states the kind once, so a reader can keep the column in a plain string array.
 
 !!! note
 
-    The language tag is compared as a plain string when deciding whether values can share a column: `en` and `EN` are different strings, so a column holding both uses the full form. Producers are not required to normalize the case of language tags.
+    The language tag is compared as a plain string when deciding whether two values have the same literal kind: `en` and `EN` are different strings, so they are two entries of `langtags`. Producers are not required to normalize the case of language tags.
+
+??? example "Example (click to expand)"
+
+    A column holding, in four consecutive rows:
+
+    ```
+    "cat"@en
+    "42"^^xsd:integer
+    "chat"@fr
+    "dog"@en
+    ```
+
+    Assume the datatype lookup holds `xsd:integer` at id 1.
+
+    ```protobuf
+    SparqlLiteralColumn {
+        lex_values: ["cat", "42", "chat", "dog"]
+        literal_kinds: [2, 1, 4, 2]
+        # 2 -> langtags[0] (en)
+        # 1 -> datatype 1 (xsd:integer)
+        # 4 -> langtags[1] (fr)
+        langtags: ["en", "fr"]
+        # langtag_directions is empty: no base directions
+    }
+    ```
+
+    A column of the same four rows, but with every value tagged `@en`, would have `literal_kinds: [2]` and `langtags: ["en"]` instead.
 
 #### Polymorphic columns
 
-A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) message with the following fields:
+A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) message. It holds RDF terms of any type. Its run values are split by term type into **sub-columns**, one per type, and the `kinds` field says which sub-column holds each run value. The message has the following fields:
 
-- `values` (1) – the run values, in row order, each a [`SparqlTerm`](reference.md#sparqlterm) message.
-- `layouts` (2) – the [sequence layout](#sequence-layout).
+- `kinds` (1) – the term kind of each run value, in row order, see below.
+- `layouts` (2) – the [sequence layout](#sequence-layout) of the whole column.
+- `iris` (3) – the IRIs of the column, as a [`SparqlIriColumn`](reference.md#sparqliricolumn).
+- `literals` (4) – the literals of the column, as a [`SparqlLiteralColumn`](reference.md#sparqlliteralcolumn).
+- `bnodes` (5) – the blank nodes of the column, as a [`SparqlBnodeColumn`](reference.md#sparqlbnodecolumn).
+- `triple_terms` (6) – the [triple terms](#triple-terms) of the column, each an [`RdfTripleTerm`](reference.md#rdftripleterm) message.
 
-A `SparqlTerm` message has a `term` oneof with four fields, of which **exactly one** MUST be set:
+The run values of each sub-column are read exactly as in the monomorphic column of the same type: an IRI sub-column as an [IRI column](#iri-columns), with its own `name_id` and `prefix_id` inference state, a literal sub-column as a [literal column](#literal-columns), with its own literal kinds and language tags, and a blank node sub-column as a [blank node column](#blank-node-columns). The sub-columns do not have a sequence layout of their own: the producer MUST NOT set their `layouts` field. The consumer SHOULD ignore it, and MAY throw an error if it is set. A sub-column that is not set has no run values.
 
-- `iri` (1) – an IRI, as an `RdfIri` message.
-- `bnode` (2) – a blank node label, as a string.
-- `literal` (3) – a literal, as an [`RdfLiteral2`](reference.md#rdfliteral2) message (see [literal columns](#literal-columns)).
-- `triple_term` (4) – a [triple term](#triple-terms), as an [`RdfTripleTerm`](reference.md#rdftripleterm) message.
+The **number of run values** of a polymorphic column is the total number of run values in its sub-columns, including the triple terms.
 
-The consumer MUST throw an error if none of the fields of the `term` oneof is set.
+The `kinds` field packs one term kind per run value into 2 bits, four run values per byte, starting from the least significant bits of the first byte:
 
-The `RdfIri` inference state (see [IRI columns](#iri-columns)) is shared by all the IRIs in one polymorphic column: it advances through the run values in order, skipping the values that are not IRIs. The IRIs inside [triple terms](#triple-terms) take part in it too. Like in the monomorphic columns, the state resets at the start of every column in every frame.
+| Term kind | Meaning |
+| --------- | ------- |
+| 0         | The next run value of `iris`. |
+| 1         | The next run value of `literals`. |
+| 2         | The next run value of `bnodes`. |
+| 3         | The next run value of `triple_terms`. |
+
+The run values of the column are obtained by going through the term kinds in order, and taking the next run value from the sub-column that each kind names. Then the `layouts` of the column are applied to these run values, as in any other column.
+
+The consumer MUST throw an error if any of the following holds:
+
+- `kinds` does not have exactly ⌈*m* / 4⌉ bytes, where *m* is the number of run values of the column;
+- the unused bits of the last byte of `kinds` are not 0;
+- the term kinds refer to more run values of a sub-column than the sub-column has.
+
+As the number of term kinds is equal to the total number of run values, the last rule also means that every run value of every sub-column is used exactly once.
+
+Like in the monomorphic columns, the inference state of each sub-column resets at the start of every column in every frame.
 
 Producers SHOULD use polymorphic columns only for variables whose values in a frame actually mix term types. A variable may be held in a monomorphic column in one frame and in a polymorphic one in another – that is what [restating the header](#restating-the-header) is for.
 
+!!! note
+
+    Keeping the values of each type in their own sub-column means that the IRIs of a polymorphic column are still two flat lists of integers, and its literals are still a list of strings. The cost of mixing types is 2 bits per run value.
+
+??? example "Example (click to expand)"
+
+    A column holding, in five consecutive rows (`_` marks an unbound cell):
+
+    ```
+    https://a.org/x
+    _:b1
+    "hello"
+    "hello"
+    https://a.org/y
+    ```
+
+    Assume the prefix lookup holds `https://a.org/` at id 1, and the name lookup holds `x` at 1 and `y` at 2. The run values are `x`, `_:b1`, `"hello"`, `y`, with the term kinds 0, 2, 1, 0, and `"hello"` occupies two cells.
+
+    ```protobuf
+    SparqlPolyColumn {
+        layouts: [64]
+        # skip = 2, repeat run of 2 cells
+        kinds: "\x18"
+        # 0b00_01_10_00: iri, bnode, literal, iri (least significant bits first)
+        iris: { name_ids: [0, 0], prefix_ids: [1] }
+        literals: { lex_values: ["hello"] }
+        bnodes: { values: ["b1"] }
+    }
+    ```
+
 ### RDF terms
 
-The RDF terms that can be bound to a variable in Jelly-SPARQL are IRIs, blank nodes, literals, and – in [RDF 1.2](#rdf-12-terms) – triple terms. IRIs, blank nodes, and literals without a base direction are encoded exactly as in [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes), with the differences in the scope of the IRI inference state described above.
+The RDF terms that can be bound to a variable in Jelly-SPARQL are IRIs, blank nodes, literals, and – in [RDF 1.2](#rdf-12-terms) – triple terms. IRIs and blank nodes are built from the same parts as in [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes): the prefix, name, and datatype lookups, and blank node labels. The IRI inference state has a different scope, described above. Literals in columns use [literal kinds](#literal-columns) instead of one `RdfLiteral` message per value. Literals inside triple terms use `RdfLiteral2`, which, for a literal without a base direction, is encoded in the same bytes as `RdfLiteral`.
 
 The default graph node ([`RdfDefaultGraph`](reference.md#rdfdefaultgraph)) of Jelly-RDF is not representable in a Jelly-SPARQL result stream. It is not an RDF term and cannot be bound to a variable.
 
@@ -629,31 +715,34 @@ The following rules apply:
 
 In RDF 1.2, a language-tagged string may have a base direction: `ltr` (left-to-right) or `rtl` (right-to-left). Such a literal has the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`.
 
-Literals are encoded as [`RdfLiteral2`](reference.md#rdfliteral2) messages. Fields 1–3 (`lex`, `langtag`, `datatype`) are the same as in the [`RdfLiteral`](serialization.md#literals) message of Jelly-RDF, so a literal without a base direction is encoded in exactly the same bytes in both. `RdfLiteral2` adds one field:
+A base direction is an [`RdfBaseDirection`](reference.md#rdfbasedirection) value: `RDF_BASE_DIRECTION_UNSPECIFIED` (0, the default: no base direction), `RDF_BASE_DIRECTION_LTR` (1), or `RDF_BASE_DIRECTION_RTL` (2). It occurs in two places:
 
-- `direction` (4) – the base direction, as an [`RdfBaseDirection`](reference.md#rdfbasedirection) value: `RDF_BASE_DIRECTION_UNSPECIFIED` (0, the default: no base direction), `RDF_BASE_DIRECTION_LTR` (1), or `RDF_BASE_DIRECTION_RTL` (2).
+- In [literal columns](#literal-columns), the `langtag_directions` field gives the base direction of each language tag of the column.
+- In [triple terms](#triple-terms), the object literal is an [`RdfLiteral2`](reference.md#rdfliteral2) message. Its fields 1–3 (`lex`, `langtag`, `datatype`) are the same as in the [`RdfLiteral`](serialization.md#literals) message of Jelly-RDF, so a literal without a base direction is encoded in exactly the same bytes in both. `RdfLiteral2` adds the `direction` field (4), with the base direction.
 
-The following rules apply, both to `RdfLiteral2` and to the `direction` field of the lexical form of [literal columns](#literal-columns):
+The following rules apply:
 
-- `direction` MUST NOT be set unless `langtag` is set. The consumer MUST throw an error otherwise.
-- `datatype` MUST NOT refer to `rdf:langString` or `rdf:dirLangString`. The consumer SHOULD throw an error otherwise.
-- The consumer MUST throw an error if `direction` has a value that is not listed above.
-- Base directions MUST NOT occur in a stream that declares `RDF_VERSION_1_1`.
+- The consumer MUST throw an error if the base direction of a literal has a value that is not listed above.
+- A stream that declares `RDF_VERSION_1_1` MUST NOT contain a literal with a base direction other than `RDF_BASE_DIRECTION_UNSPECIFIED`. Producers SHOULD leave `langtag_directions` empty in such a stream.
+- Consumers are not required to check the entries of `langtag_directions` that no run value uses.
+- In `RdfLiteral2`, `direction` MUST NOT be set unless `langtag` is set. The consumer MUST throw an error otherwise.
+- In `RdfLiteral2`, `datatype` MUST NOT be 0, and MUST NOT refer to `rdf:langString` or `rdf:dirLangString`. The consumer MUST throw an error if it is 0, and SHOULD throw an error if it refers to `rdf:langString` or `rdf:dirLangString`.
 
 #### Triple terms
 
-A triple term is encoded as an [`RdfTripleTerm`](reference.md#rdftripleterm) message. Triple terms can only occur in [polymorphic columns](#polymorphic-columns), in the `triple_term` field (4) of `SparqlTerm`, and not in a stream that declares `RDF_VERSION_1_1` or `RDF_VERSION_1_2_BASIC`.
+A triple term is encoded as an [`RdfTripleTerm`](reference.md#rdftripleterm) message. Triple terms can only occur in [polymorphic columns](#polymorphic-columns), in the `triple_terms` field (6) of `SparqlPolyColumn`, and not in a stream that declares `RDF_VERSION_1_1` or `RDF_VERSION_1_2_BASIC`. The consumer MUST throw an error if `triple_terms` is not empty in such a stream.
 
 `RdfTripleTerm` has the following fields:
 
 - the `subject` oneof – `s_iri` (1), an `RdfIri`, or `s_bnode` (2), a blank node label;
 - `p_iri` (5) – the predicate, an `RdfIri`;
-- the `object` oneof – `o_iri` (9), an `RdfIri`; `o_bnode` (10), a blank node label; `o_literal` (11), an `RdfLiteral2`; or `o_triple_term` (12), a nested `RdfTripleTerm`.
+- the `object` oneof – `o_iri` (9), an `RdfIri`; `o_bnode` (10), a blank node label; `o_literal` (11), an `RdfLiteral2` (see [base direction](#base-direction)); or `o_triple_term` (12), a nested `RdfTripleTerm`.
 
 The following rules apply:
 
 - The subject, the predicate, and the object MUST all be set. Unlike in Jelly-RDF statements, there are no [repeated terms](serialization.md#repeated-terms). The consumer MUST throw an error if any of them is missing.
-- The IRIs of a triple term take part in the `RdfIri` inference state of the polymorphic column, in the order subject, predicate, object, recursively into nested triple terms. This is the same order as for quoted triples in [Jelly-RDF](serialization.md#iris).
+- The IRIs of all the triple terms of one polymorphic column share one `RdfIri` inference state. It follows the rules of [`RdfIri`](serialization.md#iris) in Jelly-RDF: a `name_id` of 0 means "previous `name_id` + 1", and a `prefix_id` of 0 means "the same prefix as the previous IRI". It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms. This is the same order as for quoted triples in Jelly-RDF.
+- This state is separate from the state of the `iris` sub-column. Like the other inference states, it resets at the start of every column in every frame, where a `name_id` of 0 means 1 and a `prefix_id` of 0 means no prefix.
 - The blank node labels of a triple term have the same [scope](#blank-node-columns) as all other blank node labels in the stream.
 - Triple terms may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
 
