@@ -78,18 +78,49 @@ Jelly-SPARQL uses [Protocol Buffers version 3](https://protobuf.dev/programming-
 
 A Jelly-SPARQL **result stream** is an ordered sequence of **result frames**. The frames may be sent one-by-one using a streaming protocol (e.g., gRPC, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see [framing](#framing).
 
-A result stream always contains exactly one of the two kinds of SPARQL query results:
+A result stream contains one or more result sets – see [stream types](#stream-types). Each result set is one of the two kinds of SPARQL query results:
 
 - A **solution sequence** – an ordered sequence of solutions (rows). Each solution binds a subset of the result variables to RDF terms.
 - A **boolean result** – a single `true` or `false` value, as produced by an `ASK` query.
 
-The kind of the result is determined by the first frame of the stream: if the `ask_result` field is set in it, the stream contains a boolean result; otherwise, it contains a solution sequence (possibly with [zero variables](#zero-variable-result-sets)). A result stream always describes exactly one result set.
+The kind of a result set is determined by the [first frame of the result set](#stream-types): if the `ask_result` field is set in it, the result set is a boolean result. Otherwise, it is a solution sequence.
 
 Within a frame, solutions are stored **column-wise**: one column per result variable, with the columns grouped by the type of the RDF terms they contain. Most variables in real result sets are bound to terms of a single type, which lets the values of such a column be stored efficiently as a flat list of primitives.
 
 !!! note "Why columns?"
 
     In a row-oriented layout, every bound value needs its own length-delimited sub-message with a `oneof` selecting the term type, which costs several bytes of framing per value and one object per value on the consumer's side. Grouping the values of one variable together means the term type is stated once per column instead of once per value, values that repeat in consecutive rows can be collapsed cheaply, and a reader can keep a whole column in a primitive array.
+
+### Stream types
+
+A result stream represents either a single result set, or a sequence of result sets. This is set by the `stream_type` field (2) of the [stream options](#stream-options), a [`SparqlStreamType`](reference.md#sparqlstreamtype) value:
+
+- `SPARQL_STREAM_TYPE_FLAT` (0) – default value. The entire stream is a single result set.
+- `SPARQL_STREAM_TYPE_PUNCTUATED` (1) – the stream is a sequence of result sets, each ended by a [trailer](#stream-trailer).
+
+The consumer MUST throw an error if `stream_type` has a value that is not listed above.
+
+In a `FLAT` stream, the **first frame of the result set** is the first frame of the stream. In a `PUNCTUATED` stream, the first frame of each result set is the first frame of the stream, and every frame that directly follows a frame with a trailer.
+
+The following rules apply to `PUNCTUATED` streams:
+
+- A result set consists of one or more consecutive frames, starting with the first frame of the result set and ending with the first frame that has a trailer.
+- Each result set is either a solution sequence or a boolean result, decided by its own first frame. The result sets are independent of each other: they may declare different variables. Solution sequences and boolean results may be mixed in one stream.
+- The [lookup tables](#prefix-name-and-datatype-lookup-entries) are kept from one result set to the next.
+- [Blank node labels](#blank-node-columns) are scoped to a single result set.
+- The stream options MUST NOT be set in a frame other than the first frame of a result set. The consumer MUST throw an error otherwise.
+
+The value of `stream_type` MUST be the same in all stream options of a stream. The consumer MUST throw an error otherwise.
+
+Consumers which do not directly support `PUNCTUATED` streams. A consumer that does not support them SHOULD throw an error when it reads the stream options.
+
+!!! note "What `PUNCTUATED` streams are for"
+
+    Some applications produce many result sets, one after another: a continuous query that is evaluated once per window, a pub/sub topic with the answers to a stream of queries, or a file with the results of a batch of queries.
+
+!!! note
+
+    Concatenating two `PUNCTUATED` streams gives a valid `PUNCTUATED` stream with the result sets of both, in order, as long as the last result set of the first stream ends with a trailer. If it does not (for example, because the producer crashed), the stream options of the second stream end up in the middle of a result set, which is not allowed.
 
 ### Result frames
 
@@ -103,7 +134,7 @@ The number of rows in a frame is given by the `row_count` field (3). It MUST NOT
 
     In practice the row count is bounded far below 2<sup>27</sup> − 1 by the recommended frame size.
 
-The frames of a result stream have no meaning of their own – they are purely a batching mechanism. In particular, a frame boundary does not separate one result set from another.
+The frames of a result stream have no meaning of their own – they are purely a batching mechanism. In particular, a frame boundary on its own does not separate one result set from another – only a [trailer](#stream-trailer) in a [`PUNCTUATED` stream](#stream-types) does.
 
 !!! note
 
@@ -115,7 +146,7 @@ The frames of a result stream have no meaning of their own – they are purely a
 
 Result frames MUST be processed strictly in order. Each frame MUST be processed in its entirety before the next frame is processed.
 
-The order of rows within a frame, and the order of the frames, together define the order of the solution sequence. Consumers MUST preserve this order.
+The order of rows within a frame, and the order of the frames, together define the order of the solution sequence, and the order of the result sets in a [`PUNCTUATED` stream](#stream-types). Consumers MUST preserve this order.
 
 Implementations MAY choose to adopt a **non-standard** solution where the order or delivery of the frames is not guaranteed. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.
 
@@ -143,19 +174,20 @@ This specification defines the following well-known keys for the `metadata` fiel
 | -------- | ----- |
 | `link`   | Zero or more IRIs, separated by the LF character (U+000A). Corresponds to `head.link` in the [SPARQL Query Results JSON Format](https://www.w3.org/TR/sparql11-results-json/) and to the `<link>` elements of the [XML format](https://www.w3.org/TR/rdf-sparql-XMLres/). |
 
-The `link` key describes the result set as a whole, not the frame it appears in. Producers SHOULD set it only in the frame that contains the [result set header](#result-set-header), and consumers SHOULD apply it to the whole result set.
+The `link` key describes the result set the frame belongs to as a whole, not the frame it appears in. Producers SHOULD set it only in the [first frame of the result set](#stream-types), and consumers SHOULD apply it to the whole result set.
 
 All other keys are implementation-defined. Future versions of this specification may define further well-known keys.
 
 ### Stream options
 
-The stream options is a message of type [`SparqlResultsOptions`](reference.md#sparqlresultsoptions). It MUST be set in the first frame of the stream. It MAY also be set in a later frame, which [resets the stream state](#repeating-the-stream-options).
+The stream options is a message of type [`SparqlResultsOptions`](reference.md#sparqlresultsoptions). It MUST be set in the first frame of the stream. It MAY also be set in a later frame, which [resets the stream state](#repeating-the-stream-options). In a [`PUNCTUATED` stream](#stream-types), it may be set again only in the first frame of a result set.
 
 The stream options instruct the consumer on the sizes of the lookup tables needed to decode the stream, and on the version of the format used.
 
 The stream options message contains the following fields:
 
 - `stream_name` (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream.
+- `stream_type` (2) – the [stream type](#stream-types), as a [`SparqlStreamType`](reference.md#sparqlstreamtype) value. This field is OPTIONAL and defaults to `SPARQL_STREAM_TYPE_FLAT`, a single result set.
 - `rdf_version` (5) – the version of RDF whose terms may occur in the stream, as an [`RdfVersion`](reference.md#rdfversion) value. This field is OPTIONAL and defaults to `RDF_VERSION_UNSPECIFIED`: no version is announced, and the consumer can assume RDF 1.2. See [RDF version](#rdf-version).
 - `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 128. The size of the name lookup MUST NOT exceed the value of this field.
 - `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the prefix lookup MUST NOT exceed the value of this field.
@@ -173,13 +205,15 @@ This specification sets no upper bound on the lookup table sizes. Instead, as in
 
 #### Repeating the stream options (stream concatenation) { #repeating-the-stream-options }
 
+This section describes `FLAT` streams. In a [`PUNCTUATED` stream](#stream-types), the stream options may be repeated only in the first frame of a result set, where they only empty the lookups, as described below. The other rules of this section do not apply to `PUNCTUATED` streams.
+
 A frame other than the first one MAY contain the stream options. Doing so **resets the state of the stream**:
 
 - The name, prefix, and datatype lookups are emptied, and their identifier numbering restarts from 1.
 - The [result set header](#result-set-header) ceases to be in effect – the same frame MUST restate it.
 - A [trailer](#stream-trailer) without an error, seen earlier in the stream, ceases to apply. A trailer with an error does not – the result set stays incomplete.
 
-The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a result stream always describes exactly one result set. The consumer MUST throw an error otherwise.
+The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a `FLAT` stream always describes exactly one result set. The consumer MUST throw an error otherwise.
 
 The repeated stream options need not be identical to the previous ones, but they MUST be valid on their own. The consumer MAY throw an error if it does not support the new options.
 
@@ -199,7 +233,7 @@ Blank node labels are **not** reset – they remain [scoped to the whole stream]
 
 The result set header declares the variables of the result set and maps each of them to one column. The header is stored in the `variables` field (2) of `SparqlResultsFrame` (repeated `SparqlVariable`).
 
-The header MUST be present in the first frame of a stream with a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options). It MUST NOT be present in a stream with a [boolean result](#boolean-results).
+The header MUST be present in the [first frame of a result set](#stream-types) with a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options). It MUST NOT be present in a frame with a [boolean result](#boolean-results).
 
 The `SparqlVariable` message contains the following fields:
 
@@ -242,7 +276,7 @@ A later frame MAY restate the header to change the column layout in the middle o
 
 The following rules apply to a restated header:
 
-- It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame. Only the `column_index` values may differ. The consumer MUST throw an error if a restated header declares different variables.
+- It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame of the result set. Only the `column_index` values may differ. The consumer MUST throw an error if a restated header declares different variables.
 - It takes effect for the frame it appears in, and for all subsequent frames, until it is restated again.
 - A frame MAY restate a header identical to the one currently in effect. Producers SHOULD NOT do this, unless they are deliberately making every frame [independently decodable](#ordering).
 
@@ -250,21 +284,21 @@ The following rules apply to a restated header:
 
 A result set may have no variables at all. In this case the `variables` field is empty, and the `row_count` of each frame conveys the number of empty solutions in it. Frames of such a stream contain no columns.
 
-An empty `variables` field in a frame with the [stream options](#stream-options) set MUST be interpreted as declaring a zero-variable result set, unless the frame has a [boolean result](#boolean-results). An empty `variables` field in any other frame MUST be interpreted as "the header is not restated in this frame".
+An empty `variables` field in the [first frame of a result set](#stream-types), or in a frame with the [stream options](#stream-options) set, MUST be interpreted as declaring a zero-variable result set, unless the frame has a [boolean result](#boolean-results). An empty `variables` field in any other frame MUST be interpreted as "the header is not restated in this frame".
 
 ### Boolean results
 
-A stream with the result of an `ASK` query consists of exactly one frame, with the `ask_result` field (11) set to a [`SparqlAskResult`](reference.md#sparqlaskresult) message. The `SparqlAskResult` message has a single field:
+A boolean result (the result of an `ASK` query) consists of exactly one frame, with the `ask_result` field (11) set to a [`SparqlAskResult`](reference.md#sparqlaskresult) message. The `SparqlAskResult` message has a single field:
 
 - `value` (1) – the boolean value of the result. This field is OPTIONAL and defaults to `false`.
 
 The following rules apply:
 
-- The `ask_result` field MUST NOT be set in any frame other than the first frame of the stream.
+- The `ask_result` field MUST NOT be set in any frame other than the [first frame of a result set](#stream-types).
 - The frame with a boolean result MUST NOT declare any variables, MUST NOT contain any columns, and MUST have `row_count` equal to 0. The consumer SHOULD throw an error otherwise.
-- No further content may follow in the stream. The consumer SHOULD throw an error if any frame follows the frame with the boolean result.
+- The frame with the boolean result is the only frame of its result set. In a `FLAT` stream, no frame may follow it. In a `PUNCTUATED` stream, the next frame, if any, MUST start a new result set, so the frame with the boolean result MUST then have a trailer. The consumer SHOULD throw an error otherwise.
 
-Consequently, streams with boolean results cannot be concatenated the way [solution sequences can](#repeating-the-stream-options).
+Consequently, `FLAT` streams with boolean results cannot be concatenated the way [solution sequences can](#repeating-the-stream-options). To send several boolean results in one stream, use a [`PUNCTUATED` stream](#stream-types).
 
 !!! note
 
@@ -272,17 +306,17 @@ Consequently, streams with boolean results cannot be concatenated the way [solut
 
 ### Stream trailer
 
-The `trailer` field (12) of `SparqlResultsFrame` contains a [`SparqlResultsTrailer`](reference.md#sparqlresultstrailer) message, which marks the end of the stream and says whether the result set is complete. The message has a single field:
+The `trailer` field (12) of `SparqlResultsFrame` contains a [`SparqlResultsTrailer`](reference.md#sparqlresultstrailer) message, which marks the end of a result set and says whether the result set is complete. The message has a single field:
 
 - `error` (1) – an empty string (the default value) means the result set is complete. A non-empty value is a human-readable, UTF-8 explanation of why the producer could not produce the complete result.
 
 The following rules apply:
 
-- A producer MUST set the `trailer` field in the last frame of the stream, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a stream ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.
-- A frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer either ends the stream, or ends a segment of a concatenated stream.
+- A producer MUST set the `trailer` field in the last frame of every result set, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a result set ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.
+- In a `FLAT` stream, a frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer either ends the stream, or ends a segment of a concatenated stream. In a [`PUNCTUATED` stream](#stream-types), the frame after a trailer starts a new result set.
 - A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that contains only the trailer, with `row_count` equal to 0.
-- If a consumer reaches the end of the stream without having seen a trailer, it SHOULD treat the result set as truncated, and SHOULD report this to the caller.
-- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set as incomplete, and SHOULD report the message to the caller. This applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error.
+- If a consumer reaches the end of the stream without having seen a trailer for the last result set, it SHOULD treat that result set as truncated, and SHOULD report this to the caller.
+- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set it ends as incomplete, and SHOULD report the message to the caller. In a `FLAT` stream, this applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error. In a `PUNCTUATED` stream, the error applies only to the result set it ends, and the stream may go on with the next result set.
 
 !!! note "Why a trailer"
 
@@ -296,7 +330,7 @@ The following rules apply:
 
 Jelly-SPARQL uses the same lookup table mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries) to compress IRIs and datatypes. All the rules specified there apply here as well, with two differences: the entries are transmitted in a [packed form](#packed-lookup-entries), and there is an additional constraint on [the working set of a frame](#the-working-set-of-a-frame).
 
-The lookup tables are stream-scoped: their contents are kept from one frame to the next, and their identifier numbering continues across frames.
+The lookup tables are stream-scoped: their contents are kept from one frame to the next, and their identifier numbering continues across frames – also from one result set to the next in a [`PUNCTUATED` stream](#stream-types).
 
 #### Packed lookup entries
 
@@ -331,15 +365,13 @@ If a producer cannot satisfy this, it MUST end the frame and start a new one. If
 
     A simple way to implement this on the producer's side is to track which identifiers the current frame has touched (assigned or referenced), and to end the frame before a row could touch an identifier that is already in that set. If the lookup uses an LRU eviction policy, everything the frame has touched sits at the recent end, so the frame stays safe exactly as long as it has not touched every identifier of the table.
 
-<!-- DONE SO FAR -->
-
 ### Columns
 
 A column stores the cells of one variable across all `row_count` rows of a frame, in row order. A cell is either a **bound** RDF term or **unbound**.
 
 There are four column types, each in its own repeated field of `SparqlResultsFrame`:
 
-| Field                  | Message type                                            | Holds                      |
+| Field                  | Message type                                            | Contains                   |
 | ---------------------- | ------------------------------------------------------- | -------------------------- |
 | `iri_columns` (7)      | [`SparqlIriColumn`](reference.md#sparqliricolumn)         | IRIs only                  |
 | `bnode_columns` (8)    | [`SparqlBnodeColumn`](reference.md#sparqlbnodecolumn)     | blank nodes only           |
@@ -350,14 +382,10 @@ Producers SHOULD use a monomorphic column (IRI, blank node, or literal) whenever
 
 Every column of a frame contains:
 
-- a list of **run values** – the values of the column, with each run of consecutive equal values stored exactly once, and unbound cells not stored at all;
-- the `layouts` list – a description of where the sequence of cells deviates from "each run value occupies exactly one cell", see [sequence layout](#sequence-layout).
+- A list of **run values** – the values of the column, with each run of consecutive equal values stored exactly once, and unbound cells not stored at all.
+- The `layouts` list – a description of where the sequence of cells deviates from "each run value occupies exactly one cell", see [sequence layout](#sequence-layout).
 
-A column whose cells are all unbound in a frame is encoded as an empty message, of any of the four types. A column MUST decode to at most `row_count` cells; shorter columns are padded with unbound cells.
-
-!!! note
-
-    Two producers may encode the same result set into different bytes – the choice of column type for an all-unbound variable is one of several places where this happens. Jelly-SPARQL streams are not byte-level canonical, and implementations should compare decoded result sets rather than bytes.
+A column whose cells are all unbound in a frame is encoded as an empty message, of any of the four types. A column MUST NOT decode to more than `row_count` cells. If it decodes to fewer, the remaining cells at the end of the column are unbound.
 
 #### Sequence layout
 
@@ -373,10 +401,10 @@ token = (skip << 5) | (kind << 4) | len_code
 - `kind` – bit 4. `0` = repeat run, `1` = unbound run.
 - `len_code` – bits 0–3. If its value is 0–14, the run length code `len` is equal to it. If its value is 15, then `len` is 15 plus the value of the next varint in the `layouts` list (the *extension varint*).
 
-The run lengths are offset, because a repeat run of fewer than 2 cells and an unbound run of fewer than 1 cell make no sense:
+The run lenghts are interpreted as follows:
 
-- **repeat run** – the run value at the current position occupies `len + 2` cells;
-- **unbound run** – there are `len + 1` consecutive unbound cells.
+- **Repeat run** – the run value at the current position occupies `len + 2` cells.
+- **Unbound run** – there are `len + 1` consecutive unbound cells.
 
 An unbound run sits **before** the run value at the current position, or after the last run value once all run values have been consumed. This makes the order of an unbound run and a repeat run at the same position unambiguous.
 
@@ -397,14 +425,14 @@ emit run values i .. m, one cell each      # implicit tail
 emit unbound cells until pos == n          # padding
 ```
 
-A frame is corrupt, and the consumer MUST throw an error, if any of the following holds for any of its columns:
+A frame is corrupt, and the consumer MUST throw an error, if any of the following is true for any of its columns:
 
-- `i + skip > m` – a `skip` runs past the last run value;
-- a repeat run starts when `i == m` – the run points past the last run value;
-- `len_code` is 15 and the token is not followed by an extension varint;
-- the column decodes to more than `row_count` cells.
+- `i + skip > m` – a `skip` runs past the last run value.
+- A repeat run starts when `i == m` – the run points past the last run value.
+- `len_code` is 15 and the token is not followed by an extension varint.
+- The column decodes to more than `row_count` cells.
 
-Producers MUST merge adjacent runs. In particular, a producer MUST NOT emit two unbound runs separated by `skip == 0`. Producers SHOULD omit trailing unbound runs and rely on the padding rule.
+Producers MUST merge adjacent runs. In particular, a producer MUST NOT emit two unbound runs separated by `skip == 0`. Producers SHOULD omit trailing unbound runs and rely on the padding rule instead (see: [Columns](#columns)).
 
 !!! note
 
@@ -432,7 +460,7 @@ Producers MUST merge adjacent runs. In particular, a producer MUST NOT emit two 
 
 An IRI column is a [`SparqlIriColumn`](reference.md#sparqliricolumn) message with the following fields:
 
-- `name_ids` (1) – the name identifiers of the run values, in row order. **The length of this list is the number of run values in the column.**
+- `name_ids` (1) – the name identifiers of the run values, in row order. The length of this list is the number of run values in the column.
 - `layouts` (2) – the [sequence layout](#sequence-layout).
 - `prefix_ids` (3) – the prefix identifiers of the run values, in row order.
 
@@ -455,8 +483,6 @@ The consumer MUST throw an error if the length of `prefix_ids` is none of the th
 !!! note "Difference from Jelly-RDF"
 
     In Jelly-RDF, the `prefix_id` and `name_id` inference state runs across the whole stream, in a strict order of rows and terms within rows. In Jelly-SPARQL it is **per column, per frame**. That is what lets a consumer decode the columns of a frame in any order, or in parallel, given only the lookup tables.
-
-    The price is that a producer has to state the prefix and name identifiers again at the start of every frame, even when the value is the same as in the previous frame.
 
 ??? example "Example (click to expand)"
 
@@ -493,13 +519,12 @@ A blank node column is a [`SparqlBnodeColumn`](reference.md#sparqlbnodecolumn) m
 - `values` (1) – the run values, that is, the blank node labels, in row order.
 - `layouts` (2) – the [sequence layout](#sequence-layout).
 
-Blank node labels are represented as plain UTF-8 strings, and are not compressed with any lookup table.
+Blank node labels are represented as plain UTF-8 strings.
 
-Blank node labels are **scoped to the result set**, that is, to the entire result stream. Two cells anywhere in one stream with the same label MUST be interpreted as referring to the same blank node, regardless of which frame they are in, and regardless of whether the [stream options were repeated](#repeating-the-stream-options) between them. Two cells with different labels MUST be interpreted as referring to different blank nodes.
+Blank node labels are **scoped to the result set**. In a `FLAT` stream, that is the entire result stream. In a [`PUNCTUATED` stream](#stream-types), it is each result set on its own. Two cells in one result set with the same label MUST be interpreted as referring to the same blank node, regardless of which frame they are in, and regardless of whether the [stream options were repeated](#repeating-the-stream-options) between them. Two cells with different labels MUST be interpreted as referring to different blank nodes. Two cells in different result sets of a `PUNCTUATED` stream MUST be interpreted as referring to different blank nodes, even if they have the same label.
 
-!!! note "Difference from Jelly-RDF"
+<!-- DONE SO FAR -->
 
-    Jelly-RDF deliberately leaves the scope of blank node labels open, because the semantics of its stream frames are not fixed. Jelly-SPARQL fixes it, because a Jelly-SPARQL stream always describes exactly one result set, and both the [SPARQL Query Results XML](https://www.w3.org/TR/rdf-sparql-XMLres/#bnodes) and [JSON](https://www.w3.org/TR/sparql11-results-json/) formats scope blank node labels to the result set.
 
 #### Literal columns
 
@@ -729,7 +754,7 @@ The following rules apply:
 
 ### Frames with no rows
 
-A frame MAY have `row_count` equal to 0. This is the case for a result set with no solutions at all, which is still a valid result set and MUST be serialized as at least one frame with the stream options and the header.
+A frame MAY have `row_count` equal to 0. This is the case for a result set with no solutions at all, which is still a valid result set and MUST be serialized as at least one frame with the header (and, if it is the first frame of the stream, the stream options).
 
 A frame with `row_count` equal to 0 SHOULD omit its columns entirely, rather than including one empty column message per variable.
 
@@ -751,7 +776,7 @@ Transports that provide their own message framing (for example gRPC, MQTT, or Ka
 
 The RECOMMENDED media type for Jelly-SPARQL is `application/x-jelly-sparql`. The RECOMMENDED file extension is `.jellys`.
 
-The same media type is used for solution sequences and for boolean results – the two are distinguished by the contents of the first frame, not by the media type.
+The same media type is used for solution sequences and for boolean results – the two are distinguished by the contents of the first frame of each result set, not by the media type. The same holds for the [stream type](#stream-types), which is set in the stream options.
 
 The bytes MUST be in the [delimited variant](#framing).
 

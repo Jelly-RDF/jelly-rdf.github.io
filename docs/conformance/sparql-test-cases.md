@@ -12,9 +12,9 @@ See also instructions on [reporting conformance](reporting-conformance.md).
 
 ## Test categories
 
-Categories indicate supported features: `select_rdf_1_1` (solution sequences with IRIs, blank nodes, and literals), `ask` (boolean results), `select_rdf_1_2_basic` (literals with a base direction, RDF 1.2 Basic), `select_rdf_1_2` (triple terms, RDF 1.2).
+Categories indicate supported features: `select_rdf_1_1` (solution sequences with IRIs, blank nodes, and literals), `ask` (boolean results), `select_rdf_1_2_basic` (literals with a base direction, RDF 1.2 Basic), `select_rdf_1_2` (triple terms, RDF 1.2), `punctuated` (streams with a sequence of result sets, the [`PUNCTUATED` stream type](../specification/sparql.md#stream-types)).
 
-Tests in the `select_rdf_1_2_basic` category are marked with `mf:requires jellyt:requirementRdf12Basic`, and tests in the `select_rdf_1_2` category with `mf:requires jellyt:requirementRdf12`. If your implementation does not support a given feature, you should skip the corresponding tests.
+Tests in the `select_rdf_1_2_basic` category are marked with `mf:requires jellyt:requirementRdf12Basic`, tests in the `select_rdf_1_2` category with `mf:requires jellyt:requirementRdf12`, and tests in the `punctuated` category with `mf:requires jellyt:requirementPunctuated`. If your implementation does not support a given feature, you should skip the corresponding tests.
 
 ## Running tests
 
@@ -24,10 +24,10 @@ Tests in the `select_rdf_1_2_basic` category are marked with `mf:requires jellyt
 - There are two types of tests:
     - From Jelly (parse) tests – `jellyt:TestSparqlFromJelly`. The goal of the test is to convert the Jelly-SPARQL input specified in `mf:action` to a SPARQL result.
         - The input (`mf:action`) MUST be an RDF IRI pointing to a `.jellys` file.
-        - If the test is positive, the output (`mf:result`) MUST be an RDF IRI pointing to a `.srj` file with the expected result.
+        - If the test is positive, the output (`mf:result`) MUST be an RDF IRI pointing to a `.srj` file with the expected result. For a `PUNCTUATED` stream, it MUST instead be an `rdf:List` of `.srj` files, one per result set, in order. The implementation must then read the same number of result sets, and each must be equivalent to the expected one at the same position.
         - This class MUST be combined with either `jellyt:TestPositive` or `jellyt:TestNegative`. When combined with `jellyt:TestPositive`, the test succeeds when the input is read without errors, and the result is equivalent to the expected result specified in `mf:result`.
     - To Jelly (serialize) tests – `jellyt:TestSparqlToJelly`. The goal of the test is to convert the SPARQL result specified in `mf:action` to a Jelly-SPARQL file.
-        - The input (`mf:action`) MUST be an `rdf:List` of two elements. The first element is a Jelly-SPARQL file with one frame, holding only the stream options to be used by the producer. The second element is a `.srj` file with the SPARQL result to be converted.
+        - The input (`mf:action`) MUST be an `rdf:List` of two or more elements. The first element is a Jelly-SPARQL file with one frame, holding only the stream options to be used by the producer. The remaining elements are `.srj` files with the SPARQL results to be converted: one file, or, for a `PUNCTUATED` stream, one file per result set, in order.
         - If the test is positive, the output (`mf:result`) MUST be an RDF IRI pointing to a `.jellys` file with one valid serialization of the result. If the test is negative, `mf:result` is not set.
         - This class MUST be combined with either `jellyt:TestPositive` or `jellyt:TestNegative`. When combined with `jellyt:TestPositive`, the test succeeds when the first frame of the resulting Jelly-SPARQL file has the expected stream options, and reading the file back gives a result equivalent to the input. Jelly-SPARQL is not byte-level canonical, so the resulting file SHOULD NOT be compared with the file in `mf:result` byte by byte.
 - Two SPARQL results are equivalent when both are boolean results with the same value, or when they have the same variables in the same order, the same number of solutions in the same order, and there is a bijection between their blank node labels under which the solutions are pairwise equal. A simple literal and an `xsd:string` literal with the same lexical form are the same term. Links (`head.link`) are not compared.
