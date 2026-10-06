@@ -76,7 +76,7 @@ Implementations may include only the producer, only the consumer, or both.
 
 Jelly-SPARQL uses [Protocol Buffers version 3](https://protobuf.dev/programming-guides/proto3/) as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly-SPARQL is defined in `sparql.proto` ([source code]({{ git_proto_link('sparql.proto') }}), [reference](reference.md#sparqlproto)), which imports `rdf2.proto` and `rdf.proto`.
 
-A Jelly-SPARQL **result stream** is an ordered sequence of **result frames**. The frames may be sent one-by-one using a streaming protocol (e.g., gRPC, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see [framing](#framing).
+A Jelly-SPARQL **result stream** is an ordered sequence of **result frames**. The frames may be sent one-by-one using a streaming protocol (e.g., gRPC, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see the [delimited variant](#delimited).
 
 A result stream contains one or more result sets – see [stream types](#stream-types). Each result set is one of the two kinds of SPARQL query results:
 
@@ -263,7 +263,7 @@ The `column_index` of a variable is an index into the *virtual concatenation* of
 Let *N* be the number of variables declared by the header in effect for a frame. The following rules apply:
 
 - A frame MUST contain either exactly *N* columns in total, counting all four column lists together, or no columns at all. The consumer MUST throw an error otherwise.
-- A frame that contains no columns MUST have `row_count` equal to 0, unless *N* is 0. See [frames with no rows](#frames-with-no-rows).
+- A frame that contains no columns MUST have `row_count` equal to 0, unless *N* is 0.
 - The `column_index` values of the header MUST form a permutation of the integers from 0 to *N* − 1, that is, every column MUST be referenced by exactly one variable. The consumer MUST throw an error otherwise.
 
 !!! note
@@ -725,23 +725,13 @@ The following rules apply:
 
 <!-- DONE SO FAR -->
 
-### Frames with no rows
-
-A frame MAY have `row_count` equal to 0. This is the case for a result set with no solutions at all, which is still a valid result set and MUST be serialized as at least one frame with the header (and, if it is the first frame of the stream, the stream options).
-
-A frame with `row_count` equal to 0 SHOULD omit its columns entirely, rather than including one empty column message per variable.
-
-!!! note
-
-    This is why the [column count rule](#column-indices) allows a frame to have either exactly *N* columns or none at all: an empty frame of a 20-variable result set would otherwise waste 40 bytes stating twenty times that it has nothing to say.
-
-## Framing
+## Delimited variant of Jelly-SPARQL {#delimited}
 
 Protobuf messages [are not self-delimiting](https://protobuf.dev/programming-guides/techniques/#streaming), so a byte stream holding more than one message needs a delimiter between them. Jelly-SPARQL uses the same convention as [Jelly-RDF](serialization.md#delimited-variant-of-jelly): a Protobuf varint holding the length of the message in bytes, prepended before it.
 
 A byte stream in the **delimited variant** consists of a series of delimited `SparqlResultsFrame` messages.
 
-A Jelly-SPARQL stream stored in a file, or sent in an HTTP message body, with the `application/x-jelly-sparql` [media type](#internet-media-type-and-file-extension) MUST use the delimited variant. This holds even when the stream consists of a single frame – there is no non-delimited variant of the media type, and consumers do not have to guess which of the two they are reading.
+A Jelly-SPARQL stream stored in a file, or sent in an HTTP message body, with the `application/x-jelly-sparql` [media type](#internet-media-type-and-file-extension) MUST use the delimited variant. This applies also when the stream consists of a single frame.
 
 Transports that provide their own message framing (for example gRPC, MQTT, or Kafka) send one bare, non-delimited `SparqlResultsFrame` message per transport message.
 
@@ -751,33 +741,25 @@ The RECOMMENDED media type for Jelly-SPARQL is `application/x-jelly-sparql`. The
 
 The same media type is used for solution sequences and for boolean results – the two are distinguished by the contents of the first frame of each result set, not by the media type. The same holds for the [stream type](#stream-types), which is set in the stream options.
 
-The bytes MUST be in the [delimited variant](#framing).
+The bytes MUST be in the [delimited variant](#delimited).
 
 ### Use with the SPARQL 1.1 Protocol
 
 A service implementing the [SPARQL 1.1 Protocol](https://www.w3.org/TR/sparql11-protocol/) MAY offer Jelly-SPARQL as a query results format. The following applies:
 
 - Jelly-SPARQL is a results format for `SELECT` and `ASK` queries. `CONSTRUCT` and `DESCRIBE` queries return RDF graphs, and should use [Jelly-RDF](serialization.md) (`application/x-jelly-rdf`) instead.
-- Clients that can read Jelly-SPARQL SHOULD list `application/x-jelly-sparql` in the `Accept` header of the query request, and SHOULD also list a W3C-defined results format as a fallback with a lower q-value.
-- Because Jelly-SPARQL is not one of the results formats defined by W3C, a service SHOULD return it only when the client named it explicitly. A service SHOULD NOT select `application/x-jelly-sparql` for a request whose `Accept` header does not name it – for example `Accept: */*`.
 - A service that streams the response SHOULD flush the connection after each frame, so that the client can start processing solutions before the query has finished.
-- A service that fails part-way through a query MUST write a [trailer](#stream-trailer) with a non-empty `error` before closing the connection, unless it cannot write anything more at all. The HTTP status line has already been sent by then, so the trailer is the only place left to say what went wrong.
+- A service that fails part-way through a query MUST write a [trailer](#stream-trailer) with a non-empty `error` before closing the connection, unless it cannot write anything more. The HTTP status line has already been sent by then, so the trailer is the only place left to say what went wrong.
 
 !!! note
 
     The last point is the main practical reason for the trailer. A `200 OK` response whose body stops early looks exactly like a complete, shorter result set.
 
-## Streaming over the network
-
-Jelly-SPARQL streams can be transmitted over any transport that can deliver an ordered sequence of messages – an HTTP response body, a WebSocket connection, or a message broker such as Kafka or MQTT. See [framing](#framing) for how the frames are delimited in each case.
-
-The [Jelly gRPC streaming protocol](streaming.md) does not cover Jelly-SPARQL: its service definition only covers `RdfStreamFrame` messages. There are no plans to extend it to SPARQL results at the moment.
-
 ## Security considerations
 
 *This section is not part of the specification.*
 
-The same security considerations apply to Jelly-SPARQL as to [Jelly-RDF](serialization.md#security-considerations), in particular those about Protocol Buffers, [overly large lookup tables](#overly-large-lookup-tables), and invalid lookup entry identifiers. The considerations about [infinite recursion of RDF-star quoted triples](serialization.md#infinite-recursion-of-rdf-star-quoted-triples) apply to [triple terms](#triple-terms) in the same way – see [deeply nested triple terms](#deeply-nested-triple-terms).
+The same security considerations apply to Jelly-SPARQL as to [Jelly-RDF](serialization.md#security-considerations), in particular those about Protocol Buffers, [overly large lookup tables](#overly-large-lookup-tables), and invalid lookup entry identifiers.
 
 ### Overly large lookup tables
 
@@ -787,10 +769,6 @@ The recommended mitigation is the same as in Jelly-RDF: each implementation defi
 
 The sizes RECOMMENDED as defaults for that limit are 16384 names, 4096 prefixes, and 256 datatypes. They are larger than the Jelly-RDF defaults because a frame of SPARQL results touches more distinct terms than a frame of RDF statements does, and because [the working set of a frame must fit in the tables](#the-working-set-of-a-frame).
 
-!!! info
-
-    These are limits on what a consumer *accepts*, not on what a producer *should use*. A producer has no reason to ask for tables this large in the first place – the Jelly-JVM writer defaults to 8192 names, 1024 prefixes, and 64 datatypes.
-
 ### Overly large row counts
 
 The `row_count` field of a frame is not bounded by the size of the frame: a frame of a few bytes can declare a row count in the tens of millions. A consumer that allocates a per-row buffer of `row_count` elements before decoding the columns would be a denial-of-service vector.
@@ -799,7 +777,7 @@ The recommended mitigation is to grow the decoding buffers to the size actually 
 
 ### Column layouts
 
-The layout tokens of a column drive how many cells the consumer writes. A consumer must validate every token against the number of run values it actually has and against `row_count`, as described in [sequence layout](#sequence-layout), before writing anything. In particular, the extension varint of an escaped length token is attacker-controlled and must not be trusted to fit into the remaining space of the row buffer.
+The layout tokens of a column decide how many cells the consumer will emit when decoding the column. A consumer must validate every token against the number of run values it actually has and against `row_count`, as described in [sequence layout](#sequence-layout), before emitting anything. In particular, the extension varint of an escaped length token is attacker-controlled and must not be trusted to fit into the remaining space of the row buffer.
 
 ### Deeply nested triple terms
 
@@ -815,7 +793,7 @@ Jelly-SPARQL is a general serialization format for SPARQL query results, and as 
 
 The following implementations of Jelly-SPARQL are available:
 
-- [Jelly-JVM implementation]({{ jvm_link() }}) *(experimental)*
+- [Jelly-JVM implementation]({{ jvm_link() }})
     - Implemented actors: producer, consumer
     - Supported libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/)
 
