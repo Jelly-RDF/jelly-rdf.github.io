@@ -112,7 +112,7 @@ The following rules apply to `PUNCTUATED` streams:
 
 The value of `stream_type` MUST be the same in all stream options of a stream. The consumer MUST throw an error otherwise.
 
-Consumers which do not directly support `PUNCTUATED` streams. A consumer that does not support them SHOULD throw an error when it reads the stream options.
+Consumers are not required to support `PUNCTUATED` streams. A consumer that does not support them SHOULD throw an error when it reads the stream options.
 
 !!! note "What `PUNCTUATED` streams are for"
 
@@ -126,9 +126,9 @@ Consumers which do not directly support `PUNCTUATED` streams. A consumer that do
 
 A result frame is a message of type [`SparqlResultsFrame`](reference.md#sparqlresultsframe). A frame contains a batch of rows (solutions), together with any [lookup entries](#prefix-name-and-datatype-lookup-entries) it needs. It is RECOMMENDED to keep the serialized size of a frame below 1 MB.
 
-A result stream MUST contain at least one frame. The first frame MUST contain the [stream options](#stream-options) and either the [result set header](#result-set-header) or the [boolean result](#boolean-results).
+A result stream MUST contain at least one frame. The consumer MUST throw an error otherwise. The first frame MUST contain the [stream options](#stream-options) and either the [result set header](#result-set-header) or the [boolean result](#boolean-results).
 
-The number of rows in a frame is given by the `row_count` field (3). It MUST NOT be greater than 2<sup>27</sup> − 1, which is the largest number of cells the [sequence layout](#sequence-layout) of a column can address.
+The number of rows in a frame is given by the `row_count` field (3). It MUST NOT be greater than 2<sup>27</sup> − 1, which is the largest number of cells the [sequence layout](#sequence-layout) of a column can address. The consumer MUST throw an error otherwise.
 
 !!! note
 
@@ -189,9 +189,9 @@ The stream options message contains the following fields:
 - `stream_name` (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream.
 - `stream_type` (2) – the [stream type](#stream-types), as a [`SparqlStreamType`](reference.md#sparqlstreamtype) value. This field is OPTIONAL and defaults to `SPARQL_STREAM_TYPE_FLAT`, a single result set.
 - `rdf_version` (5) – the version of RDF whose terms may occur in the stream, as an [`RdfVersion`](reference.md#rdfversion) value. This field is OPTIONAL and defaults to `RDF_VERSION_UNSPECIFIED`: no version is announced, and the consumer can assume RDF 1.2. See [RDF version](#rdf-version).
-- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 128. The size of the name lookup MUST NOT exceed the value of this field.
-- `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the prefix lookup MUST NOT exceed the value of this field.
-- `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream, which effectively prohibits the use of datatype literals. If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
+- `max_name_table_size` (9) – maximum size of the [name lookup](#prefix-name-and-datatype-lookup-entries). This field is REQUIRED and MUST be set to a value greater than or equal to 128. The consumer SHOULD throw an error otherwise. The size of the name lookup MUST NOT exceed the value of this field.
+- `max_prefix_table_size` (10) – maximum size of the [prefix lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream, and the consumer SHOULD throw an error if it is. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the prefix lookup MUST NOT exceed the value of this field.
+- `max_datatype_table_size` (11) – maximum size of the [datatype lookup](#prefix-name-and-datatype-lookup-entries). This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream, which effectively prohibits the use of datatype literals. The consumer SHOULD throw an error if it is used. If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.
 - `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED. The rules are the same as for the [Jelly-RDF `version` field](serialization.md#stream-options):
     - The version tag is encoded as a varint. The version tag MUST be greater than 0.
     - The producer of the stream MUST set the version tag to the version tag of the format that was used to serialize the stream.
@@ -205,7 +205,7 @@ This specification sets no upper bound on the lookup table sizes. Instead, as in
 
 #### Repeating the stream options (stream concatenation) { #repeating-the-stream-options }
 
-This section describes `FLAT` streams. In a [`PUNCTUATED` stream](#stream-types), the stream options may be repeated only in the first frame of a result set, where they only empty the lookups, as described below. The other rules of this section do not apply to `PUNCTUATED` streams.
+This section describes `FLAT` streams. In a [`PUNCTUATED` stream](#stream-types), the stream options may be repeated only in the first frame of a result set. There, the lookups are emptied as described below, and the new options (such as the lookup sizes and `rdf_version`) apply from that frame on. They MUST be valid on their own, and the consumer MAY throw an error if it does not support them. The other rules of this section do not apply to `PUNCTUATED` streams.
 
 A frame other than the first one MAY contain the stream options. Doing so **resets the state of the stream**:
 
@@ -263,7 +263,7 @@ The `column_index` of a variable is an index into the *virtual concatenation* of
 Let *N* be the number of variables declared by the header in effect for a frame. The following rules apply:
 
 - A frame MUST contain either exactly *N* columns in total, counting all four column lists together, or no columns at all. The consumer MUST throw an error otherwise.
-- A frame that contains no columns MUST have `row_count` equal to 0, unless *N* is 0.
+- A frame that contains no columns MUST have `row_count` equal to 0, unless *N* is 0. The consumer MUST throw an error otherwise.
 - The `column_index` values of the header MUST form a permutation of the integers from 0 to *N* − 1, that is, every column MUST be referenced by exactly one variable. The consumer MUST throw an error otherwise.
 
 !!! note
@@ -272,7 +272,7 @@ Let *N* be the number of variables declared by the header in effect for a frame.
 
 #### Restating the header
 
-A later frame MAY restate the header to change the column layout in the middle of a stream. This is needed when the values of a variable stop fitting the column type used so far – for example, when a variable that has was only bound to IRIs encounters a literal and has to move to a [polymorphic column](#polymorphic-columns).
+A later frame MAY restate the header to change the column layout in the middle of a stream. This is needed when the values of a variable stop fitting the column type used so far – for example, when a variable that was only bound to IRIs encounters a literal and has to move to a [polymorphic column](#polymorphic-columns).
 
 The following rules apply to a restated header:
 
@@ -294,7 +294,7 @@ A boolean result (the result of an `ASK` query) consists of exactly one frame, w
 
 The following rules apply:
 
-- The `ask_result` field MUST NOT be set in any frame other than the [first frame of a result set](#stream-types).
+- The `ask_result` field MUST NOT be set in any frame other than the [first frame of a result set](#stream-types). The consumer SHOULD throw an error otherwise.
 - The frame with a boolean result MUST NOT declare any variables, MUST NOT contain any columns, and MUST have `row_count` equal to 0. The consumer SHOULD throw an error otherwise.
 - The frame with the boolean result is the only frame of its result set. In a `FLAT` stream, no frame may follow it. In a `PUNCTUATED` stream, the next frame, if any, MUST start a new result set, so the frame with the boolean result MUST then have a trailer. The consumer SHOULD throw an error otherwise.
 
@@ -313,10 +313,10 @@ The `trailer` field (12) of `SparqlResultsFrame` contains a [`SparqlResultsTrail
 The following rules apply:
 
 - A producer MUST set the `trailer` field in the last frame of every result set, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a result set ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.
-- In a `FLAT` stream, a frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). In other words: a trailer either ends the stream, or ends a segment of a concatenated stream. In a [`PUNCTUATED` stream](#stream-types), the frame after a trailer starts a new result set.
+- In a `FLAT` stream, a frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). The consumer SHOULD throw an error otherwise. In other words: a trailer either ends the stream, or ends a segment of a concatenated stream. In a [`PUNCTUATED` stream](#stream-types), the frame after a trailer starts a new result set.
 - A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that contains only the trailer, with `row_count` equal to 0.
 - If a consumer reaches the end of the stream without having seen a trailer for the last result set, it SHOULD treat that result set as truncated, and SHOULD report this to the caller.
-- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set it ends as incomplete, and SHOULD report the message to the caller. In a `FLAT` stream, this applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error. In a `PUNCTUATED` stream, the error applies only to the result set it ends, and the stream may go on with the next result set.
+- If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set it ends as incomplete, and MUST signal an error to the caller. It MAY still hand over the rows it read before the trailer, and SHOULD include the message in the error. In a `FLAT` stream, this applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error. In a `PUNCTUATED` stream, the error applies only to the result set it ends, and the stream may go on with the next result set.
 
 !!! note "Why a trailer"
 
@@ -344,7 +344,7 @@ Lookup entries are often assigned consecutive identifiers. A packed entry states
 
 The `RdfLookupEntryPacked` message contains the following fields:
 
-- `id` (1) – 1-based identifier of the **first** value in this entry. The default value of 0 follows the same rule as in Jelly-RDF: it MUST be interpreted as `previous_id + 1`, where `previous_id` is the identifier assigned by the previous entry of *the same lookup table* in the stream. If 0 appears in the first entry of a given lookup table in the stream, it MUST be interpreted as 1.
+- `id` (1) – 1-based identifier of the **first** value in this entry. The default value of 0 follows the same rule as in Jelly-RDF: it MUST be interpreted as `previous_id + 1`, where `previous_id` is the last identifier assigned by the previous entry of *the same lookup table* in the stream. If 0 appears in the first entry of a given lookup table in the stream, it MUST be interpreted as 1.
 - `values` (2) – the values of the entries, in UTF-8. The first value is assigned the identifier `id`, and every following value is assigned the identifier of the previous one plus 1.
 
 A packed entry with zero values MUST NOT be written. Consumers MAY throw an error if they encounter one.
@@ -401,7 +401,7 @@ token = (skip << 5) | (kind << 4) | len_code
 - `kind` – bit 4. `0` = repeat run, `1` = unbound run.
 - `len_code` – bits 0–3. If its value is 0–14, the run length code `len` is equal to it. If its value is 15, then `len` is 15 plus the value of the next varint in the `layouts` list (the *extension varint*).
 
-The run lenghts are interpreted as follows:
+The run lengths are interpreted as follows:
 
 - **Repeat run** – the run value at the current position occupies `len + 2` cells.
 - **Unbound run** – there are `len + 1` consecutive unbound cells.
