@@ -523,14 +523,11 @@ Blank node labels are represented as plain UTF-8 strings.
 
 Blank node labels are **scoped to the result set**. In a `FLAT` stream, that is the entire result stream. In a [`PUNCTUATED` stream](#stream-types), it is each result set on its own. Two cells in one result set with the same label MUST be interpreted as referring to the same blank node, regardless of which frame they are in, and regardless of whether the [stream options were repeated](#repeating-the-stream-options) between them. Two cells with different labels MUST be interpreted as referring to different blank nodes. Two cells in different result sets of a `PUNCTUATED` stream MUST be interpreted as referring to different blank nodes, even if they have the same label.
 
-<!-- DONE SO FAR -->
-
-
 #### Literal columns
 
 A literal column is a [`SparqlLiteralColumn`](reference.md#sparqlliteralcolumn) message with the following fields:
 
-- `lex_values` (1) – the lexical forms of the run values, in row order. **The length of this list is the number of run values in the column.**
+- `lex_values` (1) – the lexical forms of the run values, in row order. The length of this list is the number of run values in the column.
 - `layouts` (2) – the [sequence layout](#sequence-layout).
 - `literal_kinds` (3) – the literal kinds of the run values, in row order, see below.
 - `langtags` (4) – the language tags that the literal kinds refer to, as UTF-8 strings.
@@ -558,26 +555,24 @@ The consumer MUST throw an error if the length of `literal_kinds` is none of the
 
 The following rules apply to the language tags:
 
-- Each entry of `langtags` SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag, as in [Jelly-RDF](serialization.md#literals).
-- Producers SHOULD list the language tags in the order in which the run values first use them, and SHOULD NOT list a language tag that no run value uses. Consumers are not required to check this.
+- Each entry of `langtags` SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
+- Producers SHOULD list the language tags in the order in which the run values first use them, and SHOULD NOT list a language tag that is not used by any run value. Consumers are not required to check this.
 - The same language tag MAY appear in `langtags` more than once, with different base directions. Producers SHOULD NOT list the same pair of language tag and base direction twice.
 - `langtag_directions` MUST be empty, or have exactly as many entries as `langtags`. An empty list means that no language tag of the column has a base direction. The consumer MUST throw an error if the list has any other length.
+- Consumers are not required to check the entries of `langtag_directions` that are not used by any run value.
+- Producers SHOULD leave `langtag_directions` empty in a stream that declares `RDF_VERSION_1_1`, because such a stream has no [base directions](#base-direction).
 
-A literal kind that refers to a datatype MUST NOT refer to an entry holding `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString` or `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`, because a literal with that datatype and no language tag is not a valid RDF term. Language-tagged strings always use a language tag from `langtags`. The consumer SHOULD throw an error otherwise.
+A literal kind that refers to a datatype MUST NOT refer to an entry containing `http://www.w3.org/1999/02/22-rdf-syntax-ns#langString` or `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`, because a literal with that datatype and no language tag is not a valid RDF term. Language-tagged strings always use a language tag from `langtags`. The consumer SHOULD throw an error otherwise.
 
-A simple literal does not need an `xsd:string` entry in the datatype lookup: the producer uses the literal kind 0, and the consumer produces the same term, because a simple literal and an `xsd:string` literal are the same thing. A literal kind referring to an `xsd:string` entry is also legal and produces the same result.
-
-!!! note
-
-    Compared to one message per literal, a literal column drops the length-delimited sub-message and the datatype reference or language tag of every value. A column in which every value has the same literal kind – think of a `?count` column, or a `?label` column filtered to one language – states the kind once, so a reader can keep the column in a plain string array.
+A simple literal does not need an `xsd:string` entry in the datatype lookup: the producer can use the literal kind 0 instead. A literal kind referring to an `xsd:string` entry is also legal and produces the same result.
 
 !!! note
 
-    The language tag is compared as a plain string when deciding whether two values have the same literal kind: `en` and `EN` are different strings, so they are two entries of `langtags`. Producers are not required to normalize the case of language tags.
+    This design allows for efficiently storing columns in which every value has the same literal kind – think of a `?count` column, or a `?label` column filtered to one language.
 
 ??? example "Example (click to expand)"
 
-    A column holding, in four consecutive rows:
+    Consider a column containing, in four consecutive rows:
 
     ```
     "cat"@en
@@ -586,7 +581,7 @@ A simple literal does not need an `xsd:string` entry in the datatype lookup: the
     "dog"@en
     ```
 
-    Assume the datatype lookup holds `xsd:integer` at id 1.
+    Assume the datatype lookup contains `xsd:integer` at id 1.
 
     ```protobuf
     SparqlLiteralColumn {
@@ -604,7 +599,7 @@ A simple literal does not need an `xsd:string` entry in the datatype lookup: the
 
 #### Polymorphic columns
 
-A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) message. It holds RDF terms of any type. Its run values are split by term type into **sub-columns**, one per type, and the `kinds` field says which sub-column holds each run value. The message has the following fields:
+A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) message. It stores RDF terms of any type. Its run values are split by term type into **sub-columns**, one per type, and the `kinds` field says which sub-column stores each run value. The message has the following fields:
 
 - `kinds` (1) – the term kind of each run value, in row order, see below.
 - `layouts` (2) – the [sequence layout](#sequence-layout) of the whole column.
@@ -613,7 +608,7 @@ A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) me
 - `bnodes` (5) – the blank nodes of the column, as a [`SparqlBnodeColumn`](reference.md#sparqlbnodecolumn).
 - `triple_terms` (6) – the [triple terms](#triple-terms) of the column, each an [`RdfTripleTerm`](reference.md#rdftripleterm) message.
 
-The run values of each sub-column are read exactly as in the monomorphic column of the same type: an IRI sub-column as an [IRI column](#iri-columns), with its own `name_id` and `prefix_id` inference state, a literal sub-column as a [literal column](#literal-columns), with its own literal kinds and language tags, and a blank node sub-column as a [blank node column](#blank-node-columns). The sub-columns do not have a sequence layout of their own: the producer MUST NOT set their `layouts` field. The consumer SHOULD ignore it, and MAY throw an error if it is set. A sub-column that is not set has no run values.
+The run values of each sub-column are read exactly as in the monomorphic column of the same type: an IRI sub-column as an [IRI column](#iri-columns), with its own `name_id` and `prefix_id` inference state, a literal sub-column as a [literal column](#literal-columns), with its own literal kinds and language tags, and a blank node sub-column as a [blank node column](#blank-node-columns). The sub-columns do not have a sequence layouts of their own: the producer MUST NOT set their `layouts` field. The consumer SHOULD ignore it, and MAY throw an error if it is set. A sub-column that is not set has no run values.
 
 The **number of run values** of a polymorphic column is the total number of run values in its sub-columns, including the triple terms.
 
@@ -626,27 +621,23 @@ The `kinds` field packs one term kind per run value into 2 bits, four run values
 | 2         | The next run value of `bnodes`. |
 | 3         | The next run value of `triple_terms`. |
 
-The run values of the column are obtained by going through the term kinds in order, and taking the next run value from the sub-column that each kind names. Then the `layouts` of the column are applied to these run values, as in any other column.
+The run values of the column are obtained by going through the term kinds in order, and taking the next run value from the sub-column corresponding to that kind. Then the `layouts` of the column are applied to these run values, as in any other column.
 
-The consumer MUST throw an error if any of the following holds:
+The consumer MUST throw an error if any of the following is true:
 
-- `kinds` does not have exactly ⌈*m* / 4⌉ bytes, where *m* is the number of run values of the column;
-- the unused bits of the last byte of `kinds` are not 0;
-- the term kinds refer to more run values of a sub-column than the sub-column has.
-
-As the number of term kinds is equal to the total number of run values, the last rule also means that every run value of every sub-column is used exactly once.
+- `kinds` does not have exactly ⌈*m* / 4⌉ bytes, where *m* is the number of run values of the column.
+- The unused bits of the last byte of `kinds` are not 0.
+- The `kinds` field refers to more run values of a sub-column than the sub-column has.
 
 Like in the monomorphic columns, the inference state of each sub-column resets at the start of every column in every frame.
 
-Producers SHOULD use polymorphic columns only for variables whose values in a frame actually mix term types. A variable may be held in a monomorphic column in one frame and in a polymorphic one in another – that is what [restating the header](#restating-the-header) is for.
-
 !!! note
 
-    Keeping the values of each type in their own sub-column means that the IRIs of a polymorphic column are still two flat lists of integers, and its literals are still a list of strings. The cost of mixing types is 2 bits per run value.
+    Keeping the values of each type in their own sub-column means that the IRIs of a polymorphic column are still two flat lists of integers, and its literals are a list of strings. The cost of mixing types is 2 bits per run value.
 
 ??? example "Example (click to expand)"
 
-    A column holding, in five consecutive rows (`_` marks an unbound cell):
+    A column containing, in five consecutive rows:
 
     ```
     https://a.org/x
@@ -656,7 +647,7 @@ Producers SHOULD use polymorphic columns only for variables whose values in a fr
     https://a.org/y
     ```
 
-    Assume the prefix lookup holds `https://a.org/` at id 1, and the name lookup holds `x` at 1 and `y` at 2. The run values are `x`, `_:b1`, `"hello"`, `y`, with the term kinds 0, 2, 1, 0, and `"hello"` occupies two cells.
+    Assume the prefix lookup contains `https://a.org/` at id 1, and the name lookup has `x` at 1 and `y` at 2. The run values are `x`, `_:b1`, `"hello"`, `y`, with the term kinds 0, 2, 1, 0, and `"hello"` occupies two cells.
 
     ```protobuf
     SparqlPolyColumn {
@@ -672,17 +663,9 @@ Producers SHOULD use polymorphic columns only for variables whose values in a fr
 
 ### RDF terms
 
-The RDF terms that can be bound to a variable in Jelly-SPARQL are IRIs, blank nodes, literals, and – in [RDF 1.2](#rdf-12-terms) – triple terms. IRIs and blank nodes are built from the same parts as in [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes): the prefix, name, and datatype lookups, and blank node labels. The IRI inference state has a different scope, described above. Literals in columns use [literal kinds](#literal-columns) instead of one `RdfLiteral` message per value. Literals inside triple terms use `RdfLiteral2`, which, for a literal without a base direction, is encoded in the same bytes as `RdfLiteral`.
-
-The default graph node ([`RdfDefaultGraph`](reference.md#rdfdefaultgraph)) of Jelly-RDF is not representable in a Jelly-SPARQL result stream. It is not an RDF term and cannot be bound to a variable.
-
-### RDF 1.2 terms
-
-Jelly-SPARQL supports the two new kinds of term of [RDF 1.2](https://www.w3.org/TR/rdf12-concepts/): directional language-tagged strings and triple terms. The messages for them are defined in `rdf2.proto` ([source code]({{ git_proto_link('rdf2.proto') }})), so that other Jelly formats can share them.
-
 #### RDF version
 
-The `rdf_version` field (5) of the [stream options](#stream-options) announces which terms may occur in the stream. Its values follow the [version labels of RDF 1.2](https://www.w3.org/TR/rdf12-concepts/#defined-version-labels):
+The `rdf_version` field (5) of the [stream options](#stream-options) announces which RDF terms may occur in the stream. Its values follow the [version labels of RDF 1.2](https://www.w3.org/TR/rdf12-concepts/#defined-version-labels):
 
 | `RdfVersion` value            | Version label | Base directions | Triple terms |
 | ----------------------------- | ------------- | --------------- | ------------ |
@@ -696,61 +679,51 @@ The following rules apply:
 - If `rdf_version` is `RDF_VERSION_UNSPECIFIED`, no version is announced, and the consumer can assume RDF 1.2: the stream MAY contain any term of RDF 1.2.
 - The consumer MUST throw an error if `rdf_version` has a value that is not listed above.
 - Producers SHOULD declare a version. It is RECOMMENDED to declare the lowest version that allows every term the producer knows in advance it may write. A producer that cannot know in advance which terms the results will contain (for example, because it streams them from a store that supports RDF 1.2) MAY declare a higher version than the terms turn out to need.
-- If a version is declared, the stream MUST NOT contain a term that the version does not allow. The consumer MUST throw an error if it does.
+- If a version is declared, the stream MUST NOT contain a term that the version does not allow. If it does, the consumer MAY throw an error, or it MAY ignore the declared version and read the term.
 - A consumer that does not support the declared version SHOULD throw an error when it reads the stream options, rather than when it first meets a term it cannot represent.
-- A producer that is handed a solution binding a variable to a term that the declared version does not allow MUST throw an error, unless it applies an implementation-defined fallback encoding, which it MUST document.
 - When the stream options are [repeated](#repeating-the-stream-options), the new `rdf_version` applies from that frame on.
-
-!!! note
-
-    An unspecified version follows the RDF 1.2 text formats, such as [Turtle](https://www.w3.org/TR/rdf12-turtle/) and [N-Triples](https://www.w3.org/TR/rdf12-n-triples/). There, the `VERSION` directive and the `version` parameter of the media type are both optional, and a document that announces no version may use any RDF 1.2 feature. A producer that knows nothing about RDF 1.2 still writes a valid stream by leaving the field out.
-
-    Unlike in the text formats, where the announced version is only a hint, a version declared in a Jelly-SPARQL stream is binding. A Jelly-SPARQL stream is always written by a program, which knows what terms it can emit, and checking is cheap. A term outside the declared version therefore means the producer is broken.
-
-    Each version includes the ones before it: RDF 1.1 results are valid RDF 1.2 Basic results, which are valid RDF 1.2 results.
 
 #### Base direction
 
 In RDF 1.2, a language-tagged string may have a base direction: `ltr` (left-to-right) or `rtl` (right-to-left). Such a literal has the datatype `http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString`.
 
-A base direction is an [`RdfBaseDirection`](reference.md#rdfbasedirection) value: `RDF_BASE_DIRECTION_UNSPECIFIED` (0, the default: no base direction), `RDF_BASE_DIRECTION_LTR` (1), or `RDF_BASE_DIRECTION_RTL` (2). It occurs in two places:
-
-- In [literal columns](#literal-columns), the `langtag_directions` field gives the base direction of each language tag of the column.
-- In [triple terms](#triple-terms), the object literal is an [`RdfLiteral2`](reference.md#rdfliteral2) message. Its fields 1–3 (`lex`, `langtag`, `datatype`) are the same as in the [`RdfLiteral`](serialization.md#literals) message of Jelly-RDF, so a literal without a base direction is encoded in exactly the same bytes in both. `RdfLiteral2` adds the `direction` field (4), with the base direction.
+A base direction is an [`RdfBaseDirection`](reference.md#rdfbasedirection) value: `RDF_BASE_DIRECTION_UNSPECIFIED` (0, the default: no base direction), `RDF_BASE_DIRECTION_LTR` (1), or `RDF_BASE_DIRECTION_RTL` (2). It is encoded in the `langtag_directions` field of [literal columns](#literal-columns), and in the `direction` field of [literals in triple terms](#literals-in-triple-terms).
 
 The following rules apply:
 
 - The consumer MUST throw an error if the base direction of a literal has a value that is not listed above.
-- A stream that declares `RDF_VERSION_1_1` MUST NOT contain a literal with a base direction other than `RDF_BASE_DIRECTION_UNSPECIFIED`. Producers SHOULD leave `langtag_directions` empty in such a stream.
-- Consumers are not required to check the entries of `langtag_directions` that no run value uses.
-- In `RdfLiteral2`, `direction` MUST NOT be set unless `langtag` is set. The consumer MUST throw an error otherwise.
-- In `RdfLiteral2`, `datatype` MUST NOT be 0, and MUST NOT refer to `rdf:langString` or `rdf:dirLangString`. The consumer MUST throw an error if it is 0, and SHOULD throw an error if it refers to `rdf:langString` or `rdf:dirLangString`.
+- A stream that declares `RDF_VERSION_1_1` MUST NOT contain a literal with a base direction other than `RDF_BASE_DIRECTION_UNSPECIFIED`.
+
+<!-- Note for editors: the following 3 sub-sections are here temporarily until we move them to Jelly-RDF 1.2 -->
 
 #### Triple terms
 
-A triple term is encoded as an [`RdfTripleTerm`](reference.md#rdftripleterm) message. Triple terms can only occur in [polymorphic columns](#polymorphic-columns), in the `triple_terms` field (6) of `SparqlPolyColumn`, and not in a stream that declares `RDF_VERSION_1_1` or `RDF_VERSION_1_2_BASIC`. The consumer MUST throw an error if `triple_terms` is not empty in such a stream.
+A triple term is encoded as an [`RdfTripleTerm`](reference.md#rdftripleterm) message. Triple terms can only occur in [polymorphic columns](#polymorphic-columns), in the `triple_terms` field (6) of `SparqlPolyColumn`, and not in a stream that declares `RDF_VERSION_1_1` or `RDF_VERSION_1_2_BASIC`. If `triple_terms` is not empty in such a stream, the consumer MAY throw an error (see [RDF version](#rdf-version)).
 
 `RdfTripleTerm` has the following fields:
 
 - the `subject` oneof – `s_iri` (1), an `RdfIri`, or `s_bnode` (2), a blank node label;
 - `p_iri` (5) – the predicate, an `RdfIri`;
-- the `object` oneof – `o_iri` (9), an `RdfIri`; `o_bnode` (10), a blank node label; `o_literal` (11), an `RdfLiteral2` (see [base direction](#base-direction)); or `o_triple_term` (12), a nested `RdfTripleTerm`.
+- the `object` oneof – `o_iri` (9), an `RdfIri`; `o_bnode` (10), a blank node label; `o_literal` (11), an `RdfLiteral2` (see [below](#literals-in-triple-terms)); or `o_triple_term` (12), a nested `RdfTripleTerm`.
 
 The following rules apply:
 
-- The subject, the predicate, and the object MUST all be set. Unlike in Jelly-RDF statements, there are no [repeated terms](serialization.md#repeated-terms). The consumer MUST throw an error if any of them is missing.
-- The IRIs of all the triple terms of one polymorphic column share one `RdfIri` inference state. It follows the rules of [`RdfIri`](serialization.md#iris) in Jelly-RDF: a `name_id` of 0 means "previous `name_id` + 1", and a `prefix_id` of 0 means "the same prefix as the previous IRI". It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms. This is the same order as for quoted triples in Jelly-RDF.
+- The subject, the predicate, and the object MUST all be set. The consumer MUST throw an error if any of them is missing.
+- The IRIs of all the triple terms of one polymorphic column share one `RdfIri` inference state. It follows the rules of [`RdfIri`](serialization.md#iris) in Jelly-RDF: a `name_id` of 0 means "previous `name_id` + 1", and a `prefix_id` of 0 means "the same prefix as the previous IRI". It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms.
 - This state is separate from the state of the `iris` sub-column. Like the other inference states, it resets at the start of every column in every frame, where a `name_id` of 0 means 1 and a `prefix_id` of 0 means no prefix.
 - The blank node labels of a triple term have the same [scope](#blank-node-columns) as all other blank node labels in the stream.
 - Triple terms may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
 
-!!! note "Why not `RdfTriple`?"
+##### Literals in triple terms
 
-    The `RdfTriple` message of Jelly-RDF allows shapes that are not valid RDF 1.2 triple terms: literal subjects, triple terms in the subject or predicate position, and omitted (repeated) terms. Its literals also cannot have a base direction. `RdfTripleTerm` can only express valid RDF 1.2 triple terms, so there is less for a consumer to check. Its field numbers are the same as those of `RdfTriple`.
+A literal in the object position of a triple term is an [`RdfLiteral2`](reference.md#rdfliteral2) message. Its fields 1–3 (`lex`, `langtag`, `datatype`) are the same as in the [`RdfLiteral`](serialization.md#literals) message of Jelly-RDF, so a literal without a base direction is encoded in exactly the same bytes in both. `RdfLiteral2` adds the `direction` field (4), with the [base direction](#base-direction) of a language-tagged string.
 
-!!! note
+The following rules apply:
 
-    There is no monomorphic column type for triple terms. Triple terms are rare in query results, so a variable bound to them uses a polymorphic column.
+- `direction` MUST NOT be set unless `langtag` is set. The consumer MUST throw an error otherwise.
+- `datatype` MUST NOT be 0, and MUST NOT refer to `rdf:langString` or `rdf:dirLangString`. The consumer MUST throw an error if it is 0, and SHOULD throw an error if it refers to `rdf:langString` or `rdf:dirLangString`.
+
+<!-- DONE SO FAR -->
 
 ### Frames with no rows
 
