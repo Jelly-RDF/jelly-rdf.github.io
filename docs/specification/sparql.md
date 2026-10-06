@@ -723,9 +723,7 @@ The following rules apply:
 - `direction` MUST NOT be set unless `langtag` is set. The consumer MUST throw an error otherwise.
 - `datatype` MUST NOT be 0, and MUST NOT refer to `rdf:langString` or `rdf:dirLangString`. The consumer MUST throw an error if it is 0, and SHOULD throw an error if it refers to `rdf:langString` or `rdf:dirLangString`.
 
-<!-- DONE SO FAR -->
-
-## Delimited variant of Jelly-SPARQL {#delimited}
+## Delimited variant of Jelly-SPARQL { #delimited }
 
 Protobuf messages [are not self-delimiting](https://protobuf.dev/programming-guides/techniques/#streaming), so a byte stream holding more than one message needs a delimiter between them. Jelly-SPARQL uses the same convention as [Jelly-RDF](serialization.md#delimited-variant-of-jelly): a Protobuf varint holding the length of the message in bytes, prepended before it.
 
