@@ -9,7 +9,7 @@ This document is accompanied by the [Jelly Protobuf reference](reference.md) and
 The following assumptions are used in this document:
 
 - Jelly-SPARQL reuses Protobuf messages and encoding rules from the [Jelly RDF serialization format](serialization.md), version `{{ proto_version() }}`. Concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.
-- The basis for the terms used is the RDF 1.2 specification ([W3C Candidate Recommendation Snapshot 07 April 2026](https://www.w3.org/TR/rdf12-concepts/)). The format support a RDF 1.1 mode as well.
+- The basis for the terms used is the RDF 1.2 specification ([W3C Candidate Recommendation Snapshot 07 April 2026](https://www.w3.org/TR/rdf12-concepts/)). The format also supports an RDF 1.1 mode.
 - The basis for the terms related to query results is the SPARQL 1.2 Query Language specification ([W3C Working Draft 21 September 2026](https://www.w3.org/TR/sparql12-query/)), in particular the definitions of a *solution*, a *solution sequence*, and a *query variable*.
 - In parts referring to the semantics of result sets, the SPARQL 1.2 Query Results JSON Format ([W3C Working Draft 13 August 2026](https://www.w3.org/TR/sparql12-results-json/)) is used.
 - All strings in the serialization are assumed to be UTF-8 encoded.
@@ -172,7 +172,7 @@ This specification defines the following well-known keys for the `metadata` fiel
 
 | Key      | Value |
 | -------- | ----- |
-| `link`   | Zero or more IRIs, separated by the LF character (U+000A). Corresponds to `head.link` in the [SPARQL Query Results JSON Format](https://www.w3.org/TR/sparql11-results-json/) and to the `<link>` elements of the [XML format](https://www.w3.org/TR/rdf-sparql-XMLres/). |
+| `link`   | Zero or more IRIs, separated by the LF character (U+000A). Corresponds to `head.link` in the [SPARQL 1.2 Query Results JSON Format](https://www.w3.org/TR/sparql12-results-json/) and to the `<link>` elements of the [XML format](https://www.w3.org/TR/sparql12-results-xml/). |
 
 The `link` key describes the result set the frame belongs to as a whole, not the frame it appears in. Producers SHOULD set it only in the [first frame of the result set](#stream-types), and consumers SHOULD apply it to the whole result set.
 
@@ -233,11 +233,11 @@ Blank node labels are **not** reset – they remain [scoped to the whole stream]
 
 The result set header declares the variables of the result set and maps each of them to one column. The header is stored in the `variables` field (2) of `SparqlResultsFrame` (repeated `SparqlVariable`).
 
-The header MUST be present in the [first frame of a result set](#stream-types) with a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options). It MUST NOT be present in a frame with a [boolean result](#boolean-results).
+The header MUST be present in the [first frame of a result set](#stream-types) with a solution sequence, and in every frame that [repeats the stream options](#repeating-the-stream-options), unless the frame has a [boolean result](#boolean-results). It MUST NOT be present in a frame with a boolean result.
 
 The `SparqlVariable` message contains the following fields:
 
-- `name` (1) – the name of the variable, without the leading `?` or `$`. It SHOULD conform to the [`VARNAME` production of SPARQL 1.1](https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#rVARNAME). It MUST NOT be empty. Consumers are not required to check this.
+- `name` (1) – the name of the variable, without the leading `?` or `$`. It SHOULD conform to the [`VARNAME` production of SPARQL 1.2](https://www.w3.org/TR/sparql12-query/#rVARNAME). It MUST NOT be empty. Consumers are not required to check this.
 - `column_index` (2) – 0-based index of the [column](#columns) that contains the values of this variable.
 
 The variables MUST be listed in projection order, that is, in the order in which they appear in the `SELECT` clause of the query. Consumers MUST preserve this order.
@@ -314,7 +314,7 @@ The following rules apply:
 
 - A producer MUST set the `trailer` field in the last frame of every result set, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a result set ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.
 - In a `FLAT` stream, a frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). The consumer SHOULD throw an error otherwise. In other words: a trailer either ends the stream, or ends a segment of a concatenated stream. In a [`PUNCTUATED` stream](#stream-types), the frame after a trailer starts a new result set.
-- A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY write a frame that contains only the trailer, with `row_count` equal to 0.
+- A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY end a solution sequence with a frame that contains only the trailer, with `row_count` equal to 0. This is not possible after a frame with a boolean result, which must have the trailer itself. In a `PUNCTUATED` stream, a frame with only a trailer that directly follows another frame with a trailer does not end the previous result set: it is a result set of its own, with zero variables and no solutions.
 - If a consumer reaches the end of the stream without having seen a trailer for the last result set, it SHOULD treat that result set as truncated, and SHOULD report this to the caller.
 - If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set it ends as incomplete, and MUST signal an error to the caller. It MAY still hand over the rows it read before the trailer, and SHOULD include the message in the error. In a `FLAT` stream, this applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error. In a `PUNCTUATED` stream, the error applies only to the result set it ends, and the stream may go on with the next result set.
 
@@ -608,7 +608,7 @@ A polymorphic column is a [`SparqlPolyColumn`](reference.md#sparqlpolycolumn) me
 - `bnodes` (5) – the blank nodes of the column, as a [`SparqlBnodeColumn`](reference.md#sparqlbnodecolumn).
 - `triple_terms` (6) – the [triple terms](#triple-terms) of the column, each an [`RdfTripleTerm`](reference.md#rdftripleterm) message.
 
-The run values of each sub-column are read exactly as in the monomorphic column of the same type: an IRI sub-column as an [IRI column](#iri-columns), with its own `name_id` and `prefix_id` inference state, a literal sub-column as a [literal column](#literal-columns), with its own literal kinds and language tags, and a blank node sub-column as a [blank node column](#blank-node-columns). The sub-columns do not have a sequence layouts of their own: the producer MUST NOT set their `layouts` field. The consumer SHOULD ignore it, and MAY throw an error if it is set. A sub-column that is not set has no run values.
+The run values of each sub-column are read exactly as in the monomorphic column of the same type: an IRI sub-column as an [IRI column](#iri-columns), with its own `name_id` and `prefix_id` inference state, a literal sub-column as a [literal column](#literal-columns), with its own literal kinds and language tags, and a blank node sub-column as a [blank node column](#blank-node-columns). The sub-columns do not have a sequence layout of their own: the producer MUST NOT set their `layouts` field. The consumer SHOULD ignore it, and MAY throw an error if it is set. A sub-column that is not set has no run values.
 
 The **number of run values** of a polymorphic column is the total number of run values in its sub-columns, including the triple terms.
 
@@ -694,7 +694,7 @@ The following rules apply:
 - The consumer MUST throw an error if the base direction of a literal has a value that is not listed above.
 - A stream that declares `RDF_VERSION_1_1` MUST NOT contain a literal with a base direction other than `RDF_BASE_DIRECTION_UNSPECIFIED`.
 
-<!-- Note for editors: the following 3 sub-sections are here temporarily until we move them to Jelly-RDF 1.2 -->
+<!-- Note for editors: the following 2 sub-sections are here temporarily until we move them to Jelly-RDF 1.2 -->
 
 #### Triple terms
 
@@ -711,7 +711,7 @@ The following rules apply:
 - The subject, the predicate, and the object MUST all be set. The consumer MUST throw an error if any of them is missing.
 - The IRIs of all the triple terms of one polymorphic column share one `RdfIri` inference state. It follows the rules of [`RdfIri`](serialization.md#iris) in Jelly-RDF: a `name_id` of 0 means "previous `name_id` + 1", and a `prefix_id` of 0 means "the same prefix as the previous IRI". It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms.
 - This state is separate from the state of the `iris` sub-column. Like the other inference states, it resets at the start of every column in every frame, where a `name_id` of 0 means 1 and a `prefix_id` of 0 means no prefix.
-- The blank node labels of a triple term have the same [scope](#blank-node-columns) as all other blank node labels in the stream.
+- The blank node labels of a triple term have the same [scope](#blank-node-columns) as all other blank node labels in the result set.
 - Triple terms may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
 
 ##### Literals in triple terms
@@ -743,9 +743,9 @@ The same media type is used for solution sequences and for boolean results – t
 
 The bytes MUST be in the [delimited variant](#delimited).
 
-### Use with the SPARQL 1.1 Protocol
+### Use with the SPARQL 1.2 Protocol
 
-A service implementing the [SPARQL 1.1 Protocol](https://www.w3.org/TR/sparql11-protocol/) MAY offer Jelly-SPARQL as a query results format. The following applies:
+A service implementing the [SPARQL 1.2 Protocol](https://www.w3.org/TR/sparql12-protocol/) MAY offer Jelly-SPARQL as a query results format. The following applies:
 
 - Jelly-SPARQL is a results format for `SELECT` and `ASK` queries. `CONSTRUCT` and `DESCRIBE` queries return RDF graphs, and should use [Jelly-RDF](serialization.md) (`application/x-jelly-rdf`) instead.
 - A service that streams the response SHOULD flush the connection after each frame, so that the client can start processing solutions before the query has finished.
@@ -785,7 +785,7 @@ The layout tokens of a column decide how many cells the consumer will emit when 
 
 ### Query results content
 
-Jelly-SPARQL is a general serialization format for SPARQL query results, and as such may be used to transmit malicious or misleading content. Please refer to the [security considerations of the SPARQL 1.1 Query Results JSON Format](https://www.w3.org/TR/sparql11-results-json/) and to the [RDF 1.1 Turtle W3C Recommendation](https://www.w3.org/TR/turtle/#sec-mediaReg).
+Jelly-SPARQL is a general serialization format for SPARQL query results, and as such may be used to transmit malicious or misleading content. Please refer to the [security considerations of the SPARQL 1.2 Query Results JSON Format](https://www.w3.org/TR/sparql12-results-json/#security) and to the [RDF 1.2 Turtle specification](https://www.w3.org/TR/rdf12-turtle/#sec-mediaReg).
 
 ## Implementations
 
