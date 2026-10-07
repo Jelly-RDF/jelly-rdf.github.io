@@ -1,0 +1,3566 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Jelly is a high-performance RDF streaming protocol">
+      
+      
+      
+        <link rel="canonical" href="https://jelly-rdf.github.io/dev/specification/sparql/">
+      
+      
+        <link rel="prev" href="../patch/">
+      
+      
+        <link rel="next" href="../streaming/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/jelly_color.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>SPARQL results format - Jelly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+    
+        
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jelly – SPARQL results format" />
+    <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
+    <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="google-site-verification" content="JMy5zT6f11aw--RbVdmvGDEfHi_khf67nj7XDkz0KvA" />
+
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jelly-sparql-query-results-format-specification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Jelly" class="md-header__button md-logo" aria-label="Jelly" data-md-component="logo">
+      
+  <img src="../../assets/jelly_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jelly
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SPARQL results format
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2c-1.05 0-2.05.16-3 .46 4.06 1.27 7 5.04 7 9.54s-2.94 8.27-7 9.54c.95.3 1.95.46 3 .46a10 10 0 0 0 10-10A10 10 0 0 0 9 2"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <!--
+  Adapted from: https://github.com/squidfunk/mkdocs-material/blob/ab1511074c6eb03063b9258e8e42a117a57f5853/src/templates/partials/source.html
+
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Repository information -->
+<a
+  href="https://github.com/Jelly-RDF/jelly-protobuf"
+  title="Go to repository"
+  class="md-source"
+  data-md-component="source"
+>
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jelly-RDF/jelly-protobuf
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jelly" class="md-nav__button md-logo" aria-label="Jelly" data-md-component="logo">
+      
+  <img src="../../assets/jelly_white.png" alt="logo">
+
+    </a>
+    Jelly
+  </label>
+  
+    <div class="md-nav__source">
+      <!--
+  Adapted from: https://github.com/squidfunk/mkdocs-material/blob/ab1511074c6eb03063b9258e8e42a117a57f5853/src/templates/partials/source.html
+
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Repository information -->
+<a
+  href="https://github.com/Jelly-RDF/jelly-protobuf"
+  title="Go to repository"
+  class="md-source"
+  data-md-component="source"
+>
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jelly-RDF/jelly-protobuf
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://w3id.org/jelly/jelly-jvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java / JVM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://w3id.org/jelly/pyjelly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Jelly-RDF/jelly_rs" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust (experimental)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pietercolpaert/rdfjs-jelly" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript (community)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://locorda.dev/rdf/jelly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dart (community)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../performance/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/rdf4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDF4J benchmarks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol specification
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Protocol specification
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serialization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDF serialization format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDF Patch serialization format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SPARQL results format
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SPARQL results format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conformance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conformance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backward-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backward compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actors-and-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actors and implementations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format specification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Result frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Result frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frame-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frame metadata
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frame metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#well-known-metadata-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Well-known metadata keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stream options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repeating-the-stream-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeating the stream options (stream concatenation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result-set-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Result set header
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Result set header">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#column-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column indices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restating-the-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restating the header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-variable-result-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-variable result sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-trailer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream trailer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefix-name-and-datatype-lookup-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prefix, name, and datatype lookup entries
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prefix, name, and datatype lookup entries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packed-lookup-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packed lookup entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-working-set-of-a-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The working set of a frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Columns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Columns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iri-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IRI columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blank-node-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blank node columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polymorphic-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polymorphic columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF terms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RDF terms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdf-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base direction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triple terms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Triple terms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literals-in-triple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literals in triple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delimited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delimited variant of Jelly-SPARQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internet-media-type-and-file-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internet media type and file extension
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Internet media type and file extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-with-the-sparql-12-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use with the SPARQL 1.2 Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overly-large-lookup-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overly large lookup tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overly-large-row-counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overly large row counts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column layouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deeply-nested-triple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deeply nested triple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-results-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query results content
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC RDF streaming protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../protobuf-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File extensions and media types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test cases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Test cases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformance/reporting-conformance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting conformance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformance/rdf-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-RDF test cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformance/rdf-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-RDF conformance reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformance/sparql-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-SPARQL test cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../contributing/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/code_of_conduct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code of conduct
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use cases and datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../licensing/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing and citation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Licensing and citation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../licensing/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects and funding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conformance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conformance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backward-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backward compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forward compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actors-and-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actors and implementations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format specification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Result frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Result frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frame-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frame metadata
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frame metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#well-known-metadata-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Well-known metadata keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stream options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repeating-the-stream-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeating the stream options (stream concatenation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result-set-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Result set header
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Result set header">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#column-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column indices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restating-the-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restating the header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-variable-result-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-variable result sets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-trailer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream trailer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefix-name-and-datatype-lookup-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prefix, name, and datatype lookup entries
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prefix, name, and datatype lookup entries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packed-lookup-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packed lookup entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-working-set-of-a-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The working set of a frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Columns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Columns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iri-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IRI columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blank-node-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blank node columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polymorphic-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polymorphic columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF terms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RDF terms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdf-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base direction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triple terms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Triple terms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literals-in-triple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literals in triple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delimited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delimited variant of Jelly-SPARQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internet-media-type-and-file-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internet media type and file extension
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Internet media type and file extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-with-the-sparql-12-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use with the SPARQL 1.2 Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overly-large-lookup-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overly large lookup tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overly-large-row-counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overly large row counts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column layouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deeply-nested-triple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deeply nested triple terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-results-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query results content
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/specification/sparql.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="jelly-sparql-query-results-format-specification">Jelly SPARQL query results format specification</h1>
+<p><strong>This document is the specification of the Jelly SPARQL query results format, also known as Jelly-SPARQL. It is intended for implementers of Jelly libraries and applications.</strong> If you are looking for a user-friendly introduction to Jelly, see the <a href="../">Jelly index page</a>.</p>
+<p>Jelly-SPARQL is a binary serialization format for <strong>SPARQL query results</strong> – solution sequences (<code>SELECT</code>) and boolean results (<code>ASK</code>). It is binary, streamable, and reuses the RDF term encoding of <a href="../serialization/">Jelly-RDF</a>.</p>
+<p>This document is accompanied by the <a href="../reference/">Jelly Protobuf reference</a> and the Protobuf definitions themselves (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/sparql.proto"><code>sparql.proto</code></a> and <a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/rdf2.proto"><code>rdf2.proto</code></a>).</p>
+<p>The following assumptions are used in this document:</p>
+<ul>
+<li>Jelly-SPARQL reuses Protobuf messages and encoding rules from the <a href="../serialization/">Jelly RDF serialization format</a>, version <code>dev</code>. Concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.</li>
+<li>The basis for the terms used is the RDF 1.2 specification (<a href="https://www.w3.org/TR/rdf12-concepts/">W3C Candidate Recommendation Snapshot 07 April 2026</a>). The format also supports an RDF 1.1 mode.</li>
+<li>The basis for the terms related to query results is the SPARQL 1.2 Query Language specification (<a href="https://www.w3.org/TR/sparql12-query/">W3C Working Draft 21 September 2026</a>), in particular the definitions of a <em>solution</em>, a <em>solution sequence</em>, and a <em>query variable</em>.</li>
+<li>In parts referring to the semantics of result sets, the SPARQL 1.2 Query Results JSON Format (<a href="https://www.w3.org/TR/sparql12-results-json/">W3C Working Draft 13 August 2026</a>) is used.</li>
+<li>All strings in the serialization are assumed to be UTF-8 encoded.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Document information</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Author:</strong></td>
+<td><a href="https://ostrzyciel.eu">Piotr Sowiński</a> (<a href="https://github.com/Ostrzyciel">Ostrzyciel</a>), Anastasiya Danilenka (<a href="https://github.com/adanilenka">adanilenka</a>)</td>
+</tr>
+<tr>
+<td><strong>Version:</strong></td>
+<td>experimental (dev)</td>
+</tr>
+<tr>
+<td><strong>Date:</strong></td>
+<td><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2026</span></td>
+</tr>
+<tr>
+<td><strong>Permanent URL:</strong></td>
+<td><a href="https://w3id.org/jelly/dev/specification/sparql"><code>https://w3id.org/jelly/dev/specification/sparql</code></a></td>
+</tr>
+<tr>
+<td><strong>Document status</strong>:</td>
+<td>Experimental draft specification</td>
+</tr>
+<tr>
+<td><strong>License:</strong></td>
+<td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The "Note" blocks in this document are not part of the specification, but rather provide additional information for implementers.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The "Example" blocks in this document are not part of the specification, but rather provide informal examples of the serialization format.</p>
+</div>
+<h2 id="conformance">Conformance</h2>
+<p>Implementations MAY choose to implement only a subset of the following specification. In this case, they SHOULD clearly specify which parts of the specification they implement. In the rest of this specification, the keywords "MUST", "MUST NOT", etc. refer to full (not partial) implementations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations may in particular choose to not implement features that are not supported on the target platform (e.g., RDF datasets, RDF-star, generalized RDF terms, etc.).</p>
+</div>
+<p>Implementations MAY also choose to extend Jelly with additional features that SHOULD NOT interfere with the serialization being readable by implementations which follow the specification.</p>
+<p>To claim conformance with this specification, an implementation MUST pass all applicable tests from the <a href="../../conformance/sparql-test-cases/">Jelly-SPARQL conformance test suite</a>, and MUST provide a conformance report as described on the <a href="../../conformance/reporting-conformance/">reporting conformance</a> page. Implementations SHOULD pass the conformance tests marked with the <code>SHOULD</code> conformance level (<code>jellyt:featureShouldLevel</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conformance tests are a way to verify that implementations correctly follow the specification. However, passing all tests does not guarantee that the implementation perfectly implements the specification, is free of bugs, or that it will work in all scenarios.</p>
+<p>Implementations typically also employ extensive unit tests, integration tests, and other quality assurance measures to ensure correctness and reliability.</p>
+</div>
+<h2 id="versioning">Versioning</h2>
+<p>The format follows the <a href="https://semver.org/">Semantic Versioning 2.0</a> scheme. Each MAJOR.MINOR semantic version corresponds to an integer version tag in the format. The version tag is encoded in the <code>version</code> field of the <a href="../reference/#sparqlresultsoptions"><code>SparqlResultsOptions</code></a> message. See also the <a href="#stream-options">section on stream options</a> for more information on how to handle the version tags in serialized streams.</p>
+<p>The following versions of the format are defined:</p>
+<table>
+<thead>
+<tr>
+<th>Version tag</th>
+<th>Semantic version</th>
+<th>Last release date</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1.0.0</td>
+<td>Not finalized yet (draft)</td>
+<td>(initial version)</td>
+</tr>
+</tbody>
+</table>
+<p>Jelly-SPARQL has its own version tag, which is independent of the version tags of <a href="../serialization/#versioning">Jelly-RDF</a> and <a href="../patch/#versioning">Jelly-Patch</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Releases of the protocol are published on <a href="https://github.com/Jelly-RDF/jelly-protobuf/releases">GitHub</a>.</p>
+</div>
+<h3 id="backward-compatibility">Backward compatibility</h3>
+<p>Implementations SHOULD ensure backward compatibility. To achieve backward compatibility, the implementation MUST be able to read all messages from the previous releases of the protocol with the same MAJOR version. The implementation MAY also be able to read messages from previous releases of the protocol with a different MAJOR version.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The protocol is designed in such a way that you don't need to worry about backward compatibility. The only thing you need to do is to implement the latest version of the protocol, and you will automatically get backward compatibility with all previous versions (of the same MAJOR).</p>
+</div>
+<h3 id="forward-compatibility">Forward compatibility</h3>
+<p>Forward compatibility is not guaranteed across different MINOR versions of the protocol. Implementations MAY be able to read messages from future releases of the protocol with the same MAJOR version. Implementations MAY also be able to read messages from future releases of the protocol with a different MAJOR version.</p>
+<p>New features introduced in PATCH versions of the protocol MUST NOT break forward compatibility.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See also the notes about the practical implications of this in the <a href="../serialization/#forward-compatibility">Jelly-RDF specification</a>.</p>
+</div>
+<h2 id="actors-and-implementations">Actors and implementations</h2>
+<p>Jelly-SPARQL assumes there to be two actors involved in processing the stream: the producer (writer) and the consumer (reader). The producer is responsible for serializing the SPARQL query results into the Jelly-SPARQL format, and the consumer is responsible for parsing the Jelly-SPARQL format into SPARQL query results.</p>
+<p>Implementations may include only the producer, only the consumer, or both.</p>
+<h2 id="format-specification">Format specification</h2>
+<p>Jelly-SPARQL uses <a href="https://protobuf.dev/programming-guides/proto3/">Protocol Buffers version 3</a> as the underlying serialization format. All implementations MUST use a compliant Protocol Buffers implementation. The Protocol Buffers schema for Jelly-SPARQL is defined in <code>sparql.proto</code> (<a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/proto/sparql.proto">source code</a>, <a href="../reference/#sparqlproto">reference</a>), which imports <code>rdf2.proto</code> and <code>rdf.proto</code>.</p>
+<p>A Jelly-SPARQL <strong>result stream</strong> is an ordered sequence of <strong>result frames</strong>. The frames may be sent one-by-one using a streaming protocol (e.g., gRPC, MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket) – see the <a href="#delimited">delimited variant</a>.</p>
+<p>A result stream contains one or more result sets – see <a href="#stream-types">stream types</a>. Each result set is one of the two kinds of SPARQL query results:</p>
+<ul>
+<li>A <strong>solution sequence</strong> – an ordered sequence of solutions (rows). Each solution binds a subset of the result variables to RDF terms.</li>
+<li>A <strong>boolean result</strong> – a single <code>true</code> or <code>false</code> value, as produced by an <code>ASK</code> query.</li>
+</ul>
+<p>The kind of a result set is determined by the <a href="#stream-types">first frame of the result set</a>: if the <code>ask_result</code> field is set in it, the result set is a boolean result. Otherwise, it is a solution sequence.</p>
+<p>Within a frame, solutions are stored <strong>column-wise</strong>: one column per result variable, with the columns grouped by the type of the RDF terms they contain. Most variables in real result sets are bound to terms of a single type, which lets the values of such a column be stored efficiently as a flat list of primitives.</p>
+<div class="admonition note">
+<p class="admonition-title">Why columns?</p>
+<p>In a row-oriented layout, every bound value needs its own length-delimited sub-message with a <code>oneof</code> selecting the term type, which costs several bytes of framing per value and one object per value on the consumer's side. Grouping the values of one variable together means the term type is stated once per column instead of once per value, values that repeat in consecutive rows can be collapsed cheaply (see <a href="#sequence-layout">sequence layout</a>), and a reader can keep a whole column in a primitive array.</p>
+</div>
+<h3 id="stream-types">Stream types</h3>
+<p>A result stream represents either a single result set, or a sequence of result sets. This is set by the <code>stream_type</code> field (2) of the <a href="#stream-options">stream options</a>, a <a href="../reference/#sparqlstreamtype"><code>SparqlStreamType</code></a> value:</p>
+<ul>
+<li><code>SPARQL_STREAM_TYPE_FLAT</code> (0) – default value. The entire stream is a single result set, ended by a <a href="#stream-trailer">trailer</a>.</li>
+<li><code>SPARQL_STREAM_TYPE_PUNCTUATED</code> (1) – the stream is a sequence of result sets, each ended by a <a href="#stream-trailer">trailer</a>.</li>
+</ul>
+<p>The consumer MUST throw an error if <code>stream_type</code> has a value that is not listed above.</p>
+<p>The first frame of the stream is the <strong>first frame of a result set</strong>. In a <code>PUNCTUATED</code> stream, every frame that directly follows a frame with a trailer is also the first frame of a result set.</p>
+<p>The following rules apply to <code>PUNCTUATED</code> streams:</p>
+<ul>
+<li>A result set consists of one or more consecutive frames, starting with the first frame of the result set and ending with the first frame that has a trailer.</li>
+<li>Each result set is either a solution sequence or a boolean result, decided by its own first frame. The result sets are independent of each other: they may declare different variables. Solution sequences and boolean results may be mixed in one stream.</li>
+<li>The <a href="#prefix-name-and-datatype-lookup-entries">lookup tables</a> are kept from one result set to the next.</li>
+<li><a href="#blank-node-columns">Blank node labels</a> are scoped to a single result set.</li>
+<li>The stream options MUST NOT be set in a frame other than the first frame of a result set. The consumer MUST throw an error otherwise.</li>
+</ul>
+<p>The value of <code>stream_type</code> MUST be the same in all stream options of a stream. The consumer MUST throw an error otherwise.</p>
+<p>Consumers are not required to support <code>PUNCTUATED</code> streams. A consumer that does not support them SHOULD throw an error when it reads the stream options.</p>
+<div class="admonition note">
+<p class="admonition-title">What <code>PUNCTUATED</code> streams are for</p>
+<p>Some applications produce many result sets, one after another: a continuous query that is evaluated once per window, a pub/sub topic with the answers to a stream of queries, or a file with the results of a batch of queries.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Concatenating two <code>PUNCTUATED</code> streams gives a valid <code>PUNCTUATED</code> stream with the result sets of both, in order, as long as the last result set of the first stream ends with a trailer. If it does not (for example, because the producer crashed), the stream options of the second stream end up in the middle of a result set, which is not allowed.</p>
+</div>
+<h3 id="result-frames">Result frames</h3>
+<p>A result frame is a message of type <a href="../reference/#sparqlresultsframe"><code>SparqlResultsFrame</code></a>. A frame contains a batch of rows (solutions), together with any <a href="#prefix-name-and-datatype-lookup-entries">lookup entries</a> it needs. It is RECOMMENDED to keep the serialized size of a frame below 1 MB.</p>
+<p>A result stream MUST contain at least one frame. An empty input (zero bytes) is not a valid result stream, and the consumer MUST throw an error if it reads one. The first frame MUST contain the <a href="#stream-options">stream options</a> and either the <a href="#result-set-header">result set header</a> or the <a href="#boolean-results">boolean result</a>.</p>
+<p>The number of rows in a frame is given by the <code>row_count</code> field (3). It MUST NOT be greater than 2<sup>27</sup> − 1, which is the largest number of cells the <a href="#sequence-layout">sequence layout</a> of a column can address. The consumer MUST throw an error otherwise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In practice the row count is bounded far below 2<sup>27</sup> − 1 by the recommended frame size.</p>
+</div>
+<p>The frames of a result stream have no meaning of their own – they are purely a batching mechanism. In particular, a frame boundary on its own does not separate one result set from another – only a <a href="#stream-trailer">trailer</a> in a <a href="#stream-types"><code>PUNCTUATED</code> stream</a> does.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because a frame is just a batch of rows, the producer is free to choose the batch size. A good default is to size the frames in <em>values</em> (cells) rather than rows, since the cost of a row grows with the number of variables: 4096 values means 4096 rows of a one-variable result set, but only 204 rows of a 20-variable one.</p>
+<p>The producer may also have to end a frame early, when the <a href="#the-working-set-of-a-frame">lookup tables fill up</a>.</p>
+</div>
+<h4 id="ordering">Ordering</h4>
+<p>Result frames MUST be processed strictly in order. Each frame MUST be processed in its entirety before the next frame is processed.</p>
+<p>The order of rows within a frame, and the order of the frames, together define the order of the solution sequence, and the order of the result sets in a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>. Consumers MUST preserve this order.</p>
+<p>Implementations MAY choose to adopt a <strong>non-standard</strong> solution where the order or delivery of the frames is not guaranteed. The implementation MUST clearly specify in the documentation that it uses such a non-standard solution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See also the notes about the practical implications of this in the <a href="../serialization/#ordering">Jelly-RDF specification</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Making frames independently decodable</p>
+<p>Because the <a href="#iri-columns">IRI inference state resets per column, per frame</a>, a frame can be decoded using only the stream options, the lookup table state, and the header in effect. A producer that re-emits all the lookup entries and restates the header, in <strong>every</strong> frame makes each frame decodable on its own, given the stream options.</p>
+<p>This costs space, but it is the way to build a stream whose frames can be dropped or processed out of order.</p>
+</div>
+<h4 id="frame-metadata">Frame metadata</h4>
+<p><code>SparqlResultsFrame</code> messages have a <code>metadata</code> field (15) of type <code>map&lt;string, bytes&gt;</code>. This field is OPTIONAL and does not influence the processing of the results in any manner.</p>
+<p>The general rules for the metadata field are identical to those of the <a href="../serialization/#stream-frame-metadata">Jelly-RDF stream frame metadata</a>. In particular, consumers SHOULD ignore unknown keys, and MUST NOT assume that the value of a key this specification does not define is a character string or valid UTF-8.</p>
+<h5 id="well-known-metadata-keys">Well-known metadata keys</h5>
+<p>This specification defines the following well-known keys for the <code>metadata</code> field. The value of a well-known key MUST be valid UTF-8. Consumers SHOULD validate this, and SHOULD ignore the key if the value does not parse.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>link</code></td>
+<td>Zero or more IRIs, separated by the LF character (U+000A). Corresponds to <code>head.link</code> in the <a href="https://www.w3.org/TR/sparql12-results-json/">SPARQL 1.2 Query Results JSON Format</a> and to the <code>&lt;link&gt;</code> elements of the <a href="https://www.w3.org/TR/sparql12-results-xml/">XML format</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>link</code> key describes the result set the frame belongs to as a whole, not the frame it appears in. Producers SHOULD set it only in the <a href="#stream-types">first frame of the result set</a>, and consumers SHOULD apply it to the whole result set.</p>
+<p>All other keys are implementation-defined. Future versions of this specification may define further well-known keys.</p>
+<h3 id="stream-options">Stream options</h3>
+<p>The stream options is a message of type <a href="../reference/#sparqlresultsoptions"><code>SparqlResultsOptions</code></a>. It MUST be set in the first frame of the stream. It MAY also be set in a later frame, which <a href="#repeating-the-stream-options">resets the stream state</a>. In a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>, it may be set again only in the first frame of a result set.</p>
+<p>The stream options instruct the consumer on the sizes of the lookup tables needed to decode the stream, and on the version of the format used.</p>
+<p>The stream options message contains the following fields:</p>
+<ul>
+<li><code>stream_name</code> (1) – name of the stream. This field is OPTIONAL and the manner in which it should be used is not defined by this specification. It MAY be used to identify the stream.</li>
+<li><code>stream_type</code> (2) – the <a href="#stream-types">stream type</a>, as a <a href="../reference/#sparqlstreamtype"><code>SparqlStreamType</code></a> value. This field is OPTIONAL and defaults to <code>SPARQL_STREAM_TYPE_FLAT</code>, a single result set.</li>
+<li><code>rdf_version</code> (5) – the version of RDF whose terms may occur in the stream, as an <a href="../reference/#rdfversion"><code>RdfVersion</code></a> value. This field is OPTIONAL and defaults to <code>RDF_VERSION_UNSPECIFIED</code>: no version is announced, and the consumer can assume RDF 1.2. See <a href="#rdf-version">RDF version</a>.</li>
+<li><code>max_name_table_size</code> (9) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">name lookup</a>. This field is REQUIRED and MUST be set to a value greater than or equal to 128. The consumer SHOULD throw an error otherwise. The size of the name lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_prefix_table_size</code> (10) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">prefix lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the prefix lookup MUST NOT be used in the stream, and the consumer SHOULD throw an error if it is. If the field is set to a positive value, the prefix lookup SHOULD be used in the stream and the size of the prefix lookup MUST NOT exceed the value of this field.</li>
+<li><code>max_datatype_table_size</code> (11) – maximum size of the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a>. This field is OPTIONAL and defaults to 0 (no lookup). If the field is set to 0, the datatype lookup MUST NOT be used in the stream, which effectively prohibits the use of datatype literals. The consumer SHOULD throw an error if it is used. If the field is set to a positive value, the datatype lookup SHOULD be used in the stream and the size of the lookup MUST NOT exceed the value of this field.</li>
+<li><code>version</code> (15) – <a href="#versioning">version tag</a> of the stream. This field is REQUIRED. The rules are the same as for the <a href="../serialization/#stream-options">Jelly-RDF <code>version</code> field</a>:<ul>
+<li>The version tag is encoded as a varint. The version tag MUST be greater than 0.</li>
+<li>The producer of the stream MUST set the version tag to the version tag of the format that was used to serialize the stream.</li>
+<li>It is RECOMMENDED that the producer uses the lowest possible version tag that is compatible with the features used in the stream.</li>
+<li>The consumer SHOULD throw an error if the version tag is greater than the version tag of the implementation.</li>
+<li>The consumer SHOULD throw an error if the version tag is zero.</li>
+<li>The consumer SHOULD NOT throw an error if the version tag is not zero but lower than the version tag of the implementation.</li>
+<li>The producer may use version tags greater than 10000 to indicate non-standard versions of the format.</li>
+</ul>
+</li>
+</ul>
+<p>This specification sets no upper bound on the lookup table sizes. Instead, as in <a href="../serialization/#overly-large-lookup-tables">Jelly-RDF</a>, each consumer SHOULD define the largest tables it is willing to allocate and reject a stream that asks for more – see <a href="#overly-large-lookup-tables">security considerations</a>. The RECOMMENDED defaults are <strong>16384</strong> names, <strong>4096</strong> prefixes, and <strong>256</strong> datatypes, and consumers SHOULD let the user raise or lower them.</p>
+<h4 id="repeating-the-stream-options">Repeating the stream options (stream concatenation)</h4>
+<p>This section describes <code>FLAT</code> streams. In a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>, the stream options may be repeated only in the first frame of a result set. There, the lookups are emptied as described below, and the new options (such as the lookup sizes and <code>rdf_version</code>) apply from that frame on. They MUST be valid on their own, and the consumer MAY throw an error if it does not support them. The other rules of this section do not apply to <code>PUNCTUATED</code> streams.</p>
+<p>A frame other than the first one MAY contain the stream options. Doing so <strong>resets the state of the stream</strong>:</p>
+<ul>
+<li>The name, prefix, and datatype lookups are emptied, and their identifier numbering restarts from 1.</li>
+<li>The <a href="#result-set-header">result set header</a> ceases to be in effect – the same frame MUST restate it.</li>
+<li>A <a href="#stream-trailer">trailer</a> without an error, seen earlier in the stream, ceases to apply: the result set does not end there, and the rows of the following frames are added to it. A trailer with an error does not cease to apply – the result set stays incomplete.</li>
+</ul>
+<p>The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a <code>FLAT</code> stream always describes exactly one result set. The consumer MUST throw an error otherwise.</p>
+<p>The repeated stream options need not be identical to the previous ones, but they MUST be valid on their own. The consumer MAY throw an error if it does not support the new options.</p>
+<p>Blank node labels are <strong>not</strong> reset – they remain <a href="#blank-node-columns">scoped to the whole stream</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">What this is for</p>
+<p>This exists so that two Jelly-SPARQL files holding results of the same query can be concatenated into one valid file.</p>
+<p>It is <strong>not</strong> a general mid-stream reconfiguration mechanism, and it is <strong>not</strong> a way for a consumer to join a stream that is already in progress. If you want frames that can be decoded independently, see the <a href="#ordering">note on independently decodable frames</a> instead.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Because blank node labels are not reset, concatenating two files that happen to use the same blank node label will merge those blank nodes into one. If that matters for your use case, rename the labels of one of the files before concatenating.</p>
+</div>
+<h3 id="result-set-header">Result set header</h3>
+<p>The result set header declares the variables of the result set and maps each of them to one column. The header is stored in the <code>variables</code> field (2) of <code>SparqlResultsFrame</code> (repeated <code>SparqlVariable</code>).</p>
+<p>The header MUST be present in the <a href="#stream-types">first frame of a result set</a> with a solution sequence, and in every frame that <a href="#repeating-the-stream-options">repeats the stream options</a>, unless the frame has a <a href="#boolean-results">boolean result</a>. It MUST NOT be present in a frame with a boolean result.</p>
+<p>The <code>SparqlVariable</code> message contains the following fields:</p>
+<ul>
+<li><code>name</code> (1) – the name of the variable, without the leading <code>?</code> or <code>$</code>. It SHOULD conform to the <a href="https://www.w3.org/TR/sparql12-query/#rVARNAME"><code>VARNAME</code> production of SPARQL 1.2</a>. It MUST NOT be empty. Consumers MAY check this.</li>
+<li><code>column_index</code> (2) – 0-based index of the <a href="#columns">column</a> that contains the values of this variable.</li>
+</ul>
+<p>The variables MUST be listed in projection order, that is, in the order in which they appear in the <code>SELECT</code> clause of the query. Consumers MUST preserve this order.</p>
+<p>The variable names in one header SHOULD be unique. Consumers MAY check this.</p>
+<h4 id="column-indices">Column indices</h4>
+<p>The <code>column_index</code> of a variable is an index into the <em>virtual concatenation</em> of all the column lists of a frame, taken in field number order: <code>iri_columns</code> (7) first, then <code>bnode_columns</code> (8), <code>literal_columns</code> (9), and finally <code>poly_columns</code> (10).</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>If a frame has 2 IRI columns, 1 blank node column, and 2 literal columns, the column indices are assigned as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th><code>column_index</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iri_columns[0]</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>iri_columns[1]</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>bnode_columns[0]</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>literal_columns[0]</code></td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>literal_columns[1]</code></td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>Let <em>N</em> be the number of variables declared by the header in effect for a frame. The following rules apply:</p>
+<ul>
+<li>A frame MUST contain either exactly <em>N</em> columns in total, counting all four column lists together, or no columns at all. The consumer MUST throw an error otherwise.</li>
+<li>A frame that contains no columns MUST have <code>row_count</code> equal to 0, unless <em>N</em> is 0. The consumer MUST throw an error otherwise.</li>
+<li>The <code>column_index</code> values of the header MUST form a permutation of the integers from 0 to <em>N</em> − 1, that is, every column MUST be referenced by exactly one variable. The consumer MUST throw an error otherwise.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the columns are grouped by type, the column order within a frame is generally not the projection order of the variables. The producer is free to assign the columns in any order that respects the grouping.</p>
+</div>
+<h4 id="restating-the-header">Restating the header</h4>
+<p>A later frame MAY restate the header to change the column layout in the middle of a stream. This is needed when the values of a variable stop fitting the column type used so far – for example, when a variable that was only bound to IRIs encounters a literal and has to move to a <a href="#polymorphic-columns">polymorphic column</a>.</p>
+<p>The following rules apply to a restated header:</p>
+<ul>
+<li>It MUST list exactly the same variables, with the same names, in the same order, as the header of the first frame of the result set. Only the <code>column_index</code> values may differ. The consumer MUST throw an error if a restated header declares different variables.</li>
+<li>It takes effect for the frame it appears in, and for all subsequent frames, until it is restated again.</li>
+<li>A frame MAY restate a header identical to the one currently in effect. Producers SHOULD NOT do this, unless they are deliberately making every frame <a href="#ordering">independently decodable</a>.</li>
+</ul>
+<h4 id="zero-variable-result-sets">Zero-variable result sets</h4>
+<p>A result set may have no variables at all. In this case the <code>variables</code> field is empty, and the <code>row_count</code> of each frame conveys the number of empty solutions in it. Frames of such a stream contain no columns.</p>
+<p>An empty <code>variables</code> field in the <a href="#stream-types">first frame of a result set</a>, or in a frame with the <a href="#stream-options">stream options</a> set, MUST be interpreted as declaring a zero-variable result set, unless the frame has a <a href="#boolean-results">boolean result</a>. An empty <code>variables</code> field in any other frame MUST be interpreted as "the header is not restated in this frame".</p>
+<h3 id="boolean-results">Boolean results</h3>
+<p>A boolean result (the result of an <code>ASK</code> query) consists of exactly one frame, with the <code>ask_result</code> field (11) set to a <a href="../reference/#sparqlaskresult"><code>SparqlAskResult</code></a> message. The <code>SparqlAskResult</code> message has a single field:</p>
+<ul>
+<li><code>value</code> (1) – the boolean value of the result. This field is OPTIONAL and defaults to <code>false</code>.</li>
+</ul>
+<p>The following rules apply:</p>
+<ul>
+<li>The <code>ask_result</code> field MUST NOT be set in any frame other than the <a href="#stream-types">first frame of a result set</a>. The consumer SHOULD throw an error otherwise.</li>
+<li>The frame with a boolean result MUST NOT declare any variables, MUST NOT contain any columns, and MUST have <code>row_count</code> equal to 0. The consumer SHOULD throw an error otherwise.</li>
+<li>The frame with the boolean result is the only frame of its result set. In a <code>FLAT</code> stream, no frame may follow it. In a <code>PUNCTUATED</code> stream, the next frame, if any, MUST start a new result set, so the frame with the boolean result MUST then have a trailer. The consumer SHOULD throw an error otherwise.</li>
+</ul>
+<p>Consequently, <code>FLAT</code> streams with boolean results cannot be concatenated the way <a href="#repeating-the-stream-options">solution sequences can</a>. To send several boolean results in one stream, use a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>metadata</code> and <code>trailer</code> fields may still be used in a frame with a boolean result.</p>
+</div>
+<h3 id="stream-trailer">Stream trailer</h3>
+<p>The <code>trailer</code> field (12) of <code>SparqlResultsFrame</code> contains a <a href="../reference/#sparqlresultstrailer"><code>SparqlResultsTrailer</code></a> message, which marks the end of a result set and says whether the result set is complete. The message has a single field:</p>
+<ul>
+<li><code>error</code> (1) – an empty string (the default value) means the result set is complete. A non-empty value is a human-readable, UTF-8 explanation of why the producer could not produce the complete result.</li>
+</ul>
+<p>The following rules apply:</p>
+<ul>
+<li>A producer MUST set the <code>trailer</code> field in the last frame of every result set, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a result set ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.</li>
+<li>In a <code>FLAT</code> stream, a frame with a trailer MUST NOT be followed by any frame without the <a href="#stream-options">stream options</a>. The consumer SHOULD throw an error otherwise. In other words: a trailer either ends the stream, or ends a segment of a concatenated stream. In a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>, the frame after a trailer starts a new result set.</li>
+<li>A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY end a solution sequence with a frame that contains only the trailer, with <code>row_count</code> equal to 0. This is not possible after a frame with a boolean result, which must have the trailer itself. In a <code>PUNCTUATED</code> stream, a frame with only a trailer that directly follows another frame with a trailer does not end the previous result set: it is a result set of its own, with zero variables and no solutions.</li>
+<li>If a consumer reaches the end of the stream without having seen a trailer for the last result set, it SHOULD treat that result set as truncated, and SHOULD report this to the caller.</li>
+<li>If a consumer sees a trailer with a non-empty <code>error</code>, it MUST treat the result set it ends as incomplete, and MUST signal an error to the caller. It MAY still hand over the rows it read before the trailer, and SHOULD include the message in the error. In a <code>FLAT</code> stream, this applies even if the stream options are <a href="#repeating-the-stream-options">repeated</a> after the trailer, and the stream ends with a trailer without an error. In a <code>PUNCTUATED</code> stream, the error applies only to the result set it ends, and the stream may go on with the next result set.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Why a trailer</p>
+<p>A producer that fails part-way through a query (e.g., due to a federation timeout or a broken backend) has already written some rows by the time it finds out. Without a trailer, the bytes it has written are indistinguishable from a complete, shorter result set, and a consumer would silently return wrong answers.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A producer whose process dies outright cannot write a trailer at all. That is why the absence of a trailer means "likely truncated" rather than "complete".</p>
+</div>
+<h3 id="prefix-name-and-datatype-lookup-entries">Prefix, name, and datatype lookup entries</h3>
+<p>Jelly-SPARQL uses the same lookup table mechanism as <a href="../serialization/#prefix-name-and-datatype-lookup-entries">Jelly-RDF</a> to compress IRIs and datatypes. All the rules specified there apply here as well, with two differences: the entries are transmitted in a <a href="#packed-lookup-entries">packed form</a>, and there is an additional constraint on <a href="#the-working-set-of-a-frame">the working set of a frame</a>.</p>
+<p>The lookup tables are stream-scoped: their contents are kept from one frame to the next, and their identifier numbering continues across frames – also from one result set to the next in a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>.</p>
+<h4 id="packed-lookup-entries">Packed lookup entries</h4>
+<p>Lookup entries are stored in the following fields of <code>SparqlResultsFrame</code>. Each field contains a repeated <a href="../reference/#rdflookupentrypacked"><code>RdfLookupEntryPacked</code></a> message:</p>
+<ul>
+<li><code>names</code> (4) – entries of the name lookup.</li>
+<li><code>prefixes</code> (5) – entries of the prefix lookup.</li>
+<li><code>datatypes</code> (6) – entries of the datatype lookup.</li>
+</ul>
+<p>Lookup entries are often assigned consecutive identifiers. A packed entry states the identifier once and then lists the values of a whole run of consecutive entries, which saves the framing of every entry after the first.</p>
+<p>The <code>RdfLookupEntryPacked</code> message contains the following fields:</p>
+<ul>
+<li><code>id</code> (1) – 1-based identifier of the <strong>first</strong> value in this entry. The default value of 0 follows the same rule as in Jelly-RDF: it MUST be interpreted as <code>previous_id + 1</code>, where <code>previous_id</code> is the last identifier assigned by the previous entry of <em>the same lookup table</em> in the stream. If 0 appears in the first entry of a given lookup table in the stream, it MUST be interpreted as 1.</li>
+<li><code>values</code> (2) – the values of the entries, in UTF-8. The first value is assigned the identifier <code>id</code>, and every following value is assigned the identifier of the previous one plus 1.</li>
+</ul>
+<p>A packed entry with zero values MUST NOT be written. Consumers MAY throw an error if they encounter one.</p>
+<h4 id="the-working-set-of-a-frame">The working set of a frame</h4>
+<p>All lookup entries of a frame are applied <strong>before any column of the frame is decoded</strong>. This allows the columns of a frame to be decoded independently of each other.</p>
+<p>As a consequence, every lookup identifier referenced by the columns of a frame MUST still contain the intended value after all of the frame's entries have been applied. In other words: <strong>the working set of a single frame must fit in the lookup tables.</strong> A producer MUST NOT overwrite, within one frame, an identifier that the same frame's columns still refer to.</p>
+<p>If a producer cannot satisfy this, it MUST end the frame and start a new one. If a single row cannot be encoded even in an otherwise empty frame, the producer MUST throw an error – the configured lookup table sizes are too small for these results.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A consumer cannot detect a violation of this rule. It will silently decode the affected terms to the wrong values. This is a producer-side obligation.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A simple way to implement this on the producer's side is to track which identifiers the current frame has touched (assigned or referenced), and to end the frame before a row could touch an identifier that is already in that set. If the lookup uses an LRU eviction policy, everything the frame has touched sits at the recent end, so the frame stays safe exactly as long as it has not touched every identifier of the table.</p>
+</div>
+<h3 id="columns">Columns</h3>
+<p>A column stores the cells of one variable across all <code>row_count</code> rows of a frame, in row order. A cell is either a <strong>bound</strong> RDF term or <strong>unbound</strong>.</p>
+<p>There are four column types, each in its own repeated field of <code>SparqlResultsFrame</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Message type</th>
+<th>Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iri_columns</code> (7)</td>
+<td><a href="../reference/#sparqliricolumn"><code>SparqlIriColumn</code></a></td>
+<td>IRIs only</td>
+</tr>
+<tr>
+<td><code>bnode_columns</code> (8)</td>
+<td><a href="../reference/#sparqlbnodecolumn"><code>SparqlBnodeColumn</code></a></td>
+<td>blank nodes only</td>
+</tr>
+<tr>
+<td><code>literal_columns</code> (9)</td>
+<td><a href="../reference/#sparqlliteralcolumn"><code>SparqlLiteralColumn</code></a></td>
+<td>literals only</td>
+</tr>
+<tr>
+<td><code>poly_columns</code> (10)</td>
+<td><a href="../reference/#sparqlpolycolumn"><code>SparqlPolyColumn</code></a></td>
+<td>RDF terms of any type</td>
+</tr>
+</tbody>
+</table>
+<p>Producers SHOULD use a monomorphic column (IRI, blank node, or literal) whenever all the values of a variable in a frame are of the same type, and use a polymorphic column only for variables whose values mix term types.</p>
+<p>Every column of a frame contains:</p>
+<ul>
+<li>A list of <strong>run values</strong> – the values of the column, with each run of consecutive equal values stored exactly once, and unbound cells not stored at all.</li>
+<li>The <code>layouts</code> list – a description of where the sequence of cells deviates from "each run value occupies exactly one cell", see <a href="#sequence-layout">sequence layout</a>.</li>
+</ul>
+<p>A column whose cells are all unbound in a frame is encoded as an empty message, of any of the four types. A column MUST NOT decode to more than <code>row_count</code> cells. If it decodes to fewer, the remaining cells at the end of the column are unbound.</p>
+<h4 id="sequence-layout">Sequence layout</h4>
+<p>The <code>layouts</code> field of every column type is a flat list of <strong>exceptions</strong> to the rule "each run value occupies exactly one cell". When every cell of a column is bound and no value repeats in consecutive rows, <code>layouts</code> is empty.</p>
+<p>Each exception is one varint token, optionally followed by one extension varint:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>token = (skip &lt;&lt; 5) | (kind &lt;&lt; 4) | len_code
+</span></code></pre></div>
+<ul>
+<li><code>skip</code> – bits 5 and up. The number of run values that occupy exactly one cell each since the previous exception, or since the start of the column.</li>
+<li><code>kind</code> – bit 4. <code>0</code> = repeat run, <code>1</code> = unbound run.</li>
+<li><code>len_code</code> – bits 0–3. If its value is 0–14, the run length code <code>len</code> is equal to it. If its value is 15, then <code>len</code> is 15 plus the value of the next varint in the <code>layouts</code> list (the <em>extension varint</em>).</li>
+</ul>
+<p>The run lengths are interpreted as follows:</p>
+<ul>
+<li><strong>Repeat run</strong> – the run value at the current position occupies <code>len + 2</code> cells.</li>
+<li><strong>Unbound run</strong> – there are <code>len + 1</code> consecutive unbound cells.</li>
+</ul>
+<p>An unbound run sits <strong>before</strong> the run value at the current position, or after the last run value once all run values have been consumed. This makes the order of an unbound run and a repeat run at the same position unambiguous.</p>
+<p>Decoding a column proceeds as follows, where <em>m</em> is the number of run values and <em>n</em> is <code>row_count</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>i = 0      # index into the run values
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pos = 0    # index into the cells
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>for each exception (skip, kind, len) in layouts:
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    emit run values i .. i+skip, one cell each;  i += skip;  pos += skip
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    if kind == 0:   # repeat run
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        emit run value i into (len + 2) cells;  i += 1;  pos += len + 2
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    else:           # unbound run
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        emit (len + 1) unbound cells;  pos += len + 1
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>emit run values i .. m, one cell each      # implicit tail
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>emit unbound cells until pos == n          # padding
+</span></code></pre></div>
+<p>A frame is corrupt, and the consumer MUST throw an error, if any of the following is true for any of its columns:</p>
+<ul>
+<li><code>i + skip &gt; m</code> – a <code>skip</code> runs past the last run value.</li>
+<li>A repeat run starts when <code>i == m</code> – the run points past the last run value.</li>
+<li><code>len_code</code> is 15 and the token is not followed by an extension varint.</li>
+<li>The column decodes to more than <code>row_count</code> cells.</li>
+</ul>
+<p>Producers MUST merge adjacent runs. In particular, a producer MUST NOT emit two unbound runs separated by <code>skip == 0</code>. Producers SHOULD omit trailing unbound runs and rely on the padding rule instead (see: <a href="#columns">Columns</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A token stays a single byte as long as <code>skip &lt;= 3</code>. Repeat runs of up to 16 cells and unbound runs of up to 15 cells fit in the token without an extension varint.</p>
+<p>The <code>skip</code> field occupies the upper 27 bits of the token, which is where the <a href="#result-frames">maximum row count</a> of 2<sup>27</sup> − 1 comes from.</p>
+</div>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>Consider a column of 8 cells with the following contents (<code>_</code> marks an unbound cell):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>A  B  B  B  _  _  C  C
+</span></code></pre></div>
+<p>The run values are <code>A</code>, <code>B</code>, <code>C</code> – three values for eight cells. The layout is:</p>
+<ul>
+<li><code>skip = 1</code> (the single <code>A</code>), <code>kind = 0</code> (repeat run), <code>len = 1</code> (because <code>B</code> occupies <code>1 + 2 = 3</code> cells) → token = <code>(1 &lt;&lt; 5) | (0 &lt;&lt; 4) | 1</code> = <code>33</code>.</li>
+<li><code>skip = 0</code>, <code>kind = 1</code> (unbound run), <code>len = 1</code> (because there are <code>1 + 1 = 2</code> unbound cells) → token = <code>(0 &lt;&lt; 5) | (1 &lt;&lt; 4) | 1</code> = <code>17</code>.</li>
+<li><code>skip = 0</code>, <code>kind = 0</code> (repeat run), <code>len = 0</code> (because <code>C</code> occupies <code>0 + 2 = 2</code> cells) → token = <code>0</code>.</li>
+</ul>
+<p>So <code>layouts = [33, 17, 0]</code>.</p>
+<p>Now consider a column of 42 cells: <code>A</code>, then <code>B</code> repeated 40 times, then <code>C</code>. The repeat run of <code>B</code> needs <code>len = 40 − 2 = 38</code>, which does not fit in <code>len_code</code>. So <code>len_code = 15</code>, and the extension varint is <code>38 − 15 = 23</code>:</p>
+<ul>
+<li><code>skip = 1</code> (the single <code>A</code>), <code>kind = 0</code> (repeat run), <code>len_code = 15</code> → token = <code>(1 &lt;&lt; 5) | (0 &lt;&lt; 4) | 15</code> = <code>47</code>, followed by the extension varint <code>23</code>.</li>
+</ul>
+<p>The <code>C</code> at the end is covered by the implicit tail, so <code>layouts = [47, 23]</code>.</p>
+</details>
+<h4 id="iri-columns">IRI columns</h4>
+<p>An IRI column is a <a href="../reference/#sparqliricolumn"><code>SparqlIriColumn</code></a> message with the following fields:</p>
+<ul>
+<li><code>name_ids</code> (1) – the name identifiers of the run values, in row order. The length of this list is the number of run values in the column.</li>
+<li><code>layouts</code> (2) – the <a href="#sequence-layout">sequence layout</a>.</li>
+<li><code>prefix_ids</code> (3) – the prefix identifiers of the run values, in row order.</li>
+</ul>
+<p>The IRIs are reconstructed exactly as in <a href="../serialization/#iris">Jelly-RDF</a>: the prefix and the name are resolved through the prefix and name lookups and concatenated.</p>
+<p>The <code>name_ids</code> list follows the <code>name_id</code> inference rule of <a href="../serialization/#iris"><code>RdfIri</code></a>: a value of 0 means "previous <code>name_id</code> + 1". <strong>The inference state resets at the start of every column in every frame</strong>, where 0 means <code>name_id = 1</code>.</p>
+<p>The <code>prefix_ids</code> list MUST have one of three lengths:</p>
+<table>
+<thead>
+<tr>
+<th>Length</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Every run value has <code>prefix_id = 0</code>, that is, no prefix. This is the case when the prefix lookup is disabled.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Every run value uses the prefix given by the single entry. This is the case for a column of IRIs sharing one namespace.</td>
+</tr>
+<tr>
+<td><code>len(name_ids)</code></td>
+<td>One entry per run value.</td>
+</tr>
+</tbody>
+</table>
+<p>In the third form, the <code>prefix_id</code> inference rule of <code>RdfIri</code> applies along the list: a value of 0 means "the same prefix as the previous IRI in this column". <strong>The inference state resets at the start of every column in every frame</strong>, starting from prefix 0 (no prefix).</p>
+<p>The consumer MUST throw an error if the length of <code>prefix_ids</code> is none of the three allowed values.</p>
+<div class="admonition note">
+<p class="admonition-title">Difference from Jelly-RDF</p>
+<p>In Jelly-RDF, the <code>prefix_id</code> and <code>name_id</code> inference state runs across the whole stream, in a strict order of rows and terms within rows. In Jelly-SPARQL it is <strong>per column, per frame</strong>. That is what lets a consumer decode the columns of a frame in any order, or in parallel, given only the lookup tables.</p>
+</div>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>A column holding, in four consecutive rows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>https://a.org/x1
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>https://a.org/x2
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>https://a.org/x1
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>https://b.org/z
+</span></code></pre></div>
+<p>Assume the prefix lookup holds <code>https://a.org/</code> at id 1 and <code>https://b.org/</code> at id 2, and the name lookup holds <code>x1</code> at 1, <code>x2</code> at 2, and <code>z</code> at 3.</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">SparqlIriColumn</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">name_ids</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">      </span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="w">      </span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">prefix_ids</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="s">"same prefix as the previous IRI"</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">layouts</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">empty</span><span class="o">:</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="n">cell</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">bound</span><span class="p">,</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">consecutive</span><span class="w"> </span><span class="n">cells</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">equal</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The same column in a frame where every IRI is in the <code>https://a.org/</code> namespace would have <code>prefix_ids: [1]</code> instead – one entry for the whole column.</p>
+</details>
+<h4 id="blank-node-columns">Blank node columns</h4>
+<p>A blank node column is a <a href="../reference/#sparqlbnodecolumn"><code>SparqlBnodeColumn</code></a> message with the following fields:</p>
+<ul>
+<li><code>values</code> (1) – the run values, that is, the blank node labels, in row order.</li>
+<li><code>layouts</code> (2) – the <a href="#sequence-layout">sequence layout</a>.</li>
+</ul>
+<p>Blank node labels are represented as plain UTF-8 strings.</p>
+<p>Blank node labels are <strong>scoped to the result set</strong>. In a <code>FLAT</code> stream, that is the entire result stream. In a <a href="#stream-types"><code>PUNCTUATED</code> stream</a>, it is each result set on its own. Two cells in one result set with the same label MUST be interpreted as referring to the same blank node, regardless of which frame they are in, and regardless of whether the <a href="#repeating-the-stream-options">stream options were repeated</a> between them. Two cells with different labels MUST be interpreted as referring to different blank nodes. Two cells in different result sets of a <code>PUNCTUATED</code> stream MUST be interpreted as referring to different blank nodes, even if they have the same label.</p>
+<h4 id="literal-columns">Literal columns</h4>
+<p>A literal column is a <a href="../reference/#sparqlliteralcolumn"><code>SparqlLiteralColumn</code></a> message with the following fields:</p>
+<ul>
+<li><code>lex_values</code> (1) – the lexical forms of the run values, in row order. The length of this list is the number of run values in the column.</li>
+<li><code>layouts</code> (2) – the <a href="#sequence-layout">sequence layout</a>.</li>
+<li><code>literal_kinds</code> (3) – the literal kinds of the run values, in row order, see below.</li>
+<li><code>langtags</code> (4) – the language tags that the literal kinds refer to, as UTF-8 strings.</li>
+<li><code>langtag_directions</code> (5) – the <a href="#base-direction">base directions</a> of the language tags, parallel to <code>langtags</code>, as <a href="../reference/#rdfbasedirection"><code>RdfBaseDirection</code></a> values.</li>
+</ul>
+<p>Each run value is a lexical form plus a <strong>literal kind</strong>, which says what sort of literal it is. A literal kind is an unsigned integer <em>v</em>:</p>
+<table>
+<thead>
+<tr>
+<th>Literal kind <em>v</em></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>A simple literal, that is, a literal with the datatype <code>http://www.w3.org/2001/XMLSchema#string</code>.</td>
+</tr>
+<tr>
+<td>odd <em>v</em></td>
+<td>A literal with the datatype of the <a href="#prefix-name-and-datatype-lookup-entries">datatype lookup</a> entry with identifier (<em>v</em> + 1) / 2.</td>
+</tr>
+<tr>
+<td>even <em>v</em> &gt; 0</td>
+<td>A language-tagged string with the language tag <code>langtags[</code><em>v</em> / 2 − 1<code>]</code> (a 0-based index), and the base direction <code>langtag_directions[</code><em>v</em> / 2 − 1<code>]</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>So the datatype identifiers 1, 2, 3, … are the literal kinds 1, 3, 5, …, and the language tags at the indices 0, 1, 2, … are the literal kinds 2, 4, 6, ….</p>
+<p>The <code>literal_kinds</code> list MUST have one of three lengths:</p>
+<table>
+<thead>
+<tr>
+<th>Length</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Every run value is a simple literal.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Every run value has the literal kind given by the single entry. This is the case for a column of values that share one datatype, or one language tag and base direction.</td>
+</tr>
+<tr>
+<td><code>len(lex_values)</code></td>
+<td>One entry per run value.</td>
+</tr>
+</tbody>
+</table>
+<p>The consumer MUST throw an error if the length of <code>literal_kinds</code> is none of the three allowed values, or if a literal kind refers to an index past the end of <code>langtags</code>.</p>
+<p>The following rules apply to the language tags:</p>
+<ul>
+<li>Each entry of <code>langtags</code> SHOULD be a valid <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> language tag.</li>
+<li>Producers SHOULD list the language tags in the order in which the run values first use them, and SHOULD NOT list a language tag that is not used by any run value. Consumers MAY check this.</li>
+<li>The same language tag MAY appear in <code>langtags</code> more than once, with different base directions. Producers SHOULD NOT list the same pair of language tag and base direction twice.</li>
+<li><code>langtag_directions</code> MUST be empty, or have exactly as many entries as <code>langtags</code>. An empty list means that no language tag of the column has a base direction. The consumer MUST throw an error if the list has any other length.</li>
+<li>Consumers are not required to check the entries of <code>langtag_directions</code> that are not used by any run value.</li>
+<li>Producers SHOULD leave <code>langtag_directions</code> empty in a stream that declares <code>RDF_VERSION_1_1</code>, because such a stream has no <a href="#base-direction">base directions</a>.</li>
+</ul>
+<p>A literal kind that refers to a datatype MUST NOT refer to an entry containing <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#langString</code> or <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString</code>, because a literal with that datatype and no language tag is not a valid RDF term. Language-tagged strings always use a language tag from <code>langtags</code>. The consumer SHOULD throw an error otherwise.</p>
+<p>A simple literal does not need an <code>xsd:string</code> entry in the datatype lookup: the producer can use the literal kind 0 instead. A literal kind referring to an <code>xsd:string</code> entry is also legal and produces the same result.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This design allows for efficiently storing columns in which every value has the same literal kind – think of a <code>?count</code> column, or a <code>?label</code> column filtered to one language.</p>
+</div>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>Consider a column containing, in four consecutive rows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>"cat"@en
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>"42"^^xsd:integer
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>"chat"@fr
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>"dog"@en
+</span></code></pre></div>
+<p>Assume the datatype lookup contains <code>xsd:integer</code> at id 1.</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">SparqlLiteralColumn</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">lex_values</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s">"cat"</span><span class="p">,</span><span class="w"> </span><span class="s">"42"</span><span class="p">,</span><span class="w"> </span><span class="s">"chat"</span><span class="p">,</span><span class="w"> </span><span class="s">"dog"</span><span class="p">]</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">literal_kinds</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="n">langtags</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="n">datatype</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">(</span><span class="n">xsd</span><span class="o">:</span><span class="n">integer</span><span class="p">)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="p">&gt;</span><span class="w"> </span><span class="n">langtags</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="n">langtags</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s">"en"</span><span class="p">,</span><span class="w"> </span><span class="s">"fr"</span><span class="p">]</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">langtag_directions</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">empty</span><span class="o">:</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="n">directions</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>A column of the same four rows, but with every value tagged <code>@en</code>, would have <code>literal_kinds: [2]</code> and <code>langtags: ["en"]</code> instead.</p>
+</details>
+<h4 id="polymorphic-columns">Polymorphic columns</h4>
+<p>A polymorphic column is a <a href="../reference/#sparqlpolycolumn"><code>SparqlPolyColumn</code></a> message. It stores RDF terms of any type. Its run values are split by term type into <strong>sub-columns</strong>, one per type, and the <code>kinds</code> field says which sub-column stores each run value. The message has the following fields:</p>
+<ul>
+<li><code>kinds</code> (1) – the term kind of each run value, in row order, see below.</li>
+<li><code>layouts</code> (2) – the <a href="#sequence-layout">sequence layout</a> of the whole column.</li>
+<li><code>iris</code> (3) – the IRIs of the column, as a <a href="../reference/#sparqliricolumn"><code>SparqlIriColumn</code></a>.</li>
+<li><code>literals</code> (4) – the literals of the column, as a <a href="../reference/#sparqlliteralcolumn"><code>SparqlLiteralColumn</code></a>.</li>
+<li><code>bnodes</code> (5) – the blank nodes of the column, as a <a href="../reference/#sparqlbnodecolumn"><code>SparqlBnodeColumn</code></a>.</li>
+<li><code>triple_terms</code> (6) – the <a href="#triple-terms">triple terms</a> of the column, each an <a href="../reference/#rdftripleterm"><code>RdfTripleTerm</code></a> message.</li>
+</ul>
+<p>The run values of each sub-column are read exactly as in the monomorphic column of the same type: an IRI sub-column as an <a href="#iri-columns">IRI column</a>, with its own <code>name_id</code> and <code>prefix_id</code> inference state, a literal sub-column as a <a href="#literal-columns">literal column</a>, with its own literal kinds and language tags, and a blank node sub-column as a <a href="#blank-node-columns">blank node column</a>. The sub-columns do not have a sequence layout of their own: the producer MUST NOT set their <code>layouts</code> field. The consumer SHOULD ignore it, and MAY throw an error if it is set. A sub-column that is not set has no run values.</p>
+<p>The <strong>number of run values</strong> of a polymorphic column is the total number of run values in its sub-columns, including the triple terms.</p>
+<p>The <code>kinds</code> field packs one term kind per run value into 2 bits, four run values per byte, starting from the least significant bits of the first byte:</p>
+<table>
+<thead>
+<tr>
+<th>Term kind</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>The next run value of <code>iris</code>.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>The next run value of <code>literals</code>.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The next run value of <code>bnodes</code>.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The next run value of <code>triple_terms</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The run values of the column are obtained by going through the term kinds in order, and taking the next run value from the sub-column corresponding to that kind. Then the <code>layouts</code> of the column are applied to these run values, as in any other column.</p>
+<p>The consumer MUST throw an error if any of the following is true:</p>
+<ul>
+<li><code>kinds</code> does not have exactly ⌈<em>m</em> / 4⌉ bytes, where <em>m</em> is the number of run values of the column.</li>
+<li>The unused bits of the last byte of <code>kinds</code> are not 0.</li>
+<li>The <code>kinds</code> field refers to more run values of a sub-column than the sub-column has.</li>
+</ul>
+<p>Like in the monomorphic columns, the inference state of each sub-column resets at the start of every column in every frame.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keeping the values of each type in their own sub-column means that the IRIs of a polymorphic column are still two flat lists of integers, and its literals are a list of strings. The cost of mixing types is 2 bits per run value.</p>
+</div>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<p>A column containing, in five consecutive rows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>https://a.org/x
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>_:b1
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>"hello"
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>"hello"
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>https://a.org/y
+</span></code></pre></div>
+<p>Assume the prefix lookup contains <code>https://a.org/</code> at id 1, and the name lookup has <code>x</code> at 1 and <code>y</code> at 2. The run values are <code>x</code>, <code>_:b1</code>, <code>"hello"</code>, <code>y</code>, with the term kinds 0, 2, 1, 0, and <code>"hello"</code> occupies two cells.</p>
+<div class="language-protobuf highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">SparqlPolyColumn</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">layouts</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mi">64</span><span class="p">]</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="na">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">repeat</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">cells</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">kinds</span><span class="o">:</span><span class="w"> </span><span class="s">"\x18"</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="mi">0</span><span class="n">b00_01_10_00</span><span class="o">:</span><span class="w"> </span><span class="n">iri</span><span class="p">,</span><span class="w"> </span><span class="n">bnode</span><span class="p">,</span><span class="w"> </span><span class="n">literal</span><span class="p">,</span><span class="w"> </span><span class="n">iri</span><span class="w"> </span><span class="p">(</span><span class="n">least</span><span class="w"> </span><span class="n">significant</span><span class="w"> </span><span class="n">bits</span><span class="w"> </span><span class="n">first</span><span class="p">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="n">iris</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name_ids</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">prefix_ids</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="n">literals</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">lex_values</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s">"hello"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">bnodes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">values</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s">"b1"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="rdf-terms">RDF terms</h3>
+<h4 id="rdf-version">RDF version</h4>
+<p>The <code>rdf_version</code> field (5) of the <a href="#stream-options">stream options</a> announces which RDF terms may occur in the stream. Its values follow the <a href="https://www.w3.org/TR/rdf12-concepts/#defined-version-labels">version labels of RDF 1.2</a>:</p>
+<table>
+<thead>
+<tr>
+<th><code>RdfVersion</code> value</th>
+<th>Version label</th>
+<th>Base directions</th>
+<th>Triple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RDF_VERSION_UNSPECIFIED</code> (0)</td>
+<td>none</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>RDF_VERSION_1_1</code> (1)</td>
+<td><code>1.1</code></td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>RDF_VERSION_1_2_BASIC</code> (2)</td>
+<td><code>1.2-basic</code></td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>RDF_VERSION_1_2</code> (3)</td>
+<td><code>1.2</code></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>The following rules apply:</p>
+<ul>
+<li>If <code>rdf_version</code> is <code>RDF_VERSION_UNSPECIFIED</code>, no version is announced, and the consumer can assume RDF 1.2: the stream MAY contain any term of RDF 1.2.</li>
+<li>The consumer MUST throw an error if <code>rdf_version</code> has a value that is not listed above.</li>
+<li>Producers SHOULD declare a version. It is RECOMMENDED to declare the lowest version that allows every term the producer knows in advance it may write. A producer that cannot know in advance which terms the results will contain (for example, because it streams them from a store that supports RDF 1.2) MAY declare a higher version than the terms turn out to need.</li>
+<li>If a version is declared, the stream MUST NOT contain a term that the version does not allow. If it does, the consumer MAY throw an error, or it MAY ignore the declared version and read the term.</li>
+<li>A consumer that does not support the declared version SHOULD throw an error when it reads the stream options, rather than when it first meets a term it cannot represent.</li>
+<li>When the stream options are <a href="#repeating-the-stream-options">repeated</a>, the new <code>rdf_version</code> applies from that frame on.</li>
+</ul>
+<h4 id="base-direction">Base direction</h4>
+<p>In RDF 1.2, a language-tagged string may have a base direction: <code>ltr</code> (left-to-right) or <code>rtl</code> (right-to-left). Such a literal has the datatype <code>http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString</code>.</p>
+<p>A base direction is an <a href="../reference/#rdfbasedirection"><code>RdfBaseDirection</code></a> value: <code>RDF_BASE_DIRECTION_UNSPECIFIED</code> (0, the default: no base direction), <code>RDF_BASE_DIRECTION_LTR</code> (1), or <code>RDF_BASE_DIRECTION_RTL</code> (2). It is encoded in the <code>langtag_directions</code> field of <a href="#literal-columns">literal columns</a>, and in the <code>direction</code> field of <a href="#literals-in-triple-terms">literals in triple terms</a>.</p>
+<p>The following rules apply:</p>
+<ul>
+<li>The consumer MUST throw an error if the base direction of a literal has a value that is not listed above.</li>
+<li>A stream that declares <code>RDF_VERSION_1_1</code> MUST NOT contain a literal with a base direction other than <code>RDF_BASE_DIRECTION_UNSPECIFIED</code>.</li>
+</ul>
+<!-- Note for editors: the following 2 sub-sections are here temporarily until we move them to Jelly-RDF 1.2 -->
+
+<h4 id="triple-terms">Triple terms</h4>
+<p>A triple term is encoded as an <a href="../reference/#rdftripleterm"><code>RdfTripleTerm</code></a> message. Triple terms can only occur in <a href="#polymorphic-columns">polymorphic columns</a>, in the <code>triple_terms</code> field (6) of <code>SparqlPolyColumn</code>, and not in a stream that declares <code>RDF_VERSION_1_1</code> or <code>RDF_VERSION_1_2_BASIC</code>. If <code>triple_terms</code> is not empty in such a stream, the consumer MAY throw an error (see <a href="#rdf-version">RDF version</a>).</p>
+<p><code>RdfTripleTerm</code> has the following fields:</p>
+<ul>
+<li>the <code>subject</code> oneof – <code>s_iri</code> (1), an <code>RdfIri</code>, or <code>s_bnode</code> (2), a blank node label;</li>
+<li><code>p_iri</code> (5) – the predicate, an <code>RdfIri</code>;</li>
+<li>the <code>object</code> oneof – <code>o_iri</code> (9), an <code>RdfIri</code>; <code>o_bnode</code> (10), a blank node label; <code>o_literal</code> (11), an <code>RdfLiteral2</code> (see <a href="#literals-in-triple-terms">below</a>); or <code>o_triple_term</code> (12), a nested <code>RdfTripleTerm</code>.</li>
+</ul>
+<p>The following rules apply:</p>
+<ul>
+<li>The subject, the predicate, and the object MUST all be set. The consumer MUST throw an error if any of them is missing.</li>
+<li>The IRIs of all the triple terms of one polymorphic column share one <code>RdfIri</code> inference state. It follows the rules of <a href="../serialization/#iris"><code>RdfIri</code></a> in Jelly-RDF: a <code>name_id</code> of 0 means "previous <code>name_id</code> + 1", and a <code>prefix_id</code> of 0 means "the same prefix as the previous IRI". It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms.</li>
+<li>This state is separate from the state of the <code>iris</code> sub-column. Like the other inference states, it resets at the start of every column in every frame, where a <code>name_id</code> of 0 means 1 and a <code>prefix_id</code> of 0 means no prefix.</li>
+<li>The blank node labels of a triple term have the same <a href="#blank-node-columns">scope</a> as all other blank node labels in the result set.</li>
+<li>Triple terms may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.</li>
+</ul>
+<h5 id="literals-in-triple-terms">Literals in triple terms</h5>
+<p>A literal in the object position of a triple term is an <a href="../reference/#rdfliteral2"><code>RdfLiteral2</code></a> message. Its fields 1–3 (<code>lex</code>, <code>langtag</code>, <code>datatype</code>) are the same as in the <a href="../serialization/#literals"><code>RdfLiteral</code></a> message of Jelly-RDF, so a literal without a base direction is encoded in exactly the same bytes in both. <code>RdfLiteral2</code> adds the <code>direction</code> field (4), with the <a href="#base-direction">base direction</a> of a language-tagged string.</p>
+<p>The following rules apply:</p>
+<ul>
+<li><code>direction</code> MUST NOT be set unless <code>langtag</code> is set. The consumer MUST throw an error otherwise.</li>
+<li><code>datatype</code> MUST NOT be 0, and MUST NOT refer to <code>rdf:langString</code> or <code>rdf:dirLangString</code>. The consumer MUST throw an error if it is 0, and SHOULD throw an error if it refers to <code>rdf:langString</code> or <code>rdf:dirLangString</code>.</li>
+</ul>
+<h2 id="delimited">Delimited variant of Jelly-SPARQL</h2>
+<p>Protobuf messages <a href="https://protobuf.dev/programming-guides/techniques/#streaming">are not self-delimiting</a>, so a byte stream holding more than one message needs a delimiter between them. Jelly-SPARQL uses the same convention as <a href="../serialization/#delimited-variant-of-jelly">Jelly-RDF</a>: a Protobuf varint holding the length of the message in bytes, prepended before it.</p>
+<p>A byte stream in the <strong>delimited variant</strong> consists of a series of delimited <code>SparqlResultsFrame</code> messages.</p>
+<p>A Jelly-SPARQL stream stored in a file, or sent in an HTTP message body, with the <code>application/x-jelly-sparql</code> <a href="#internet-media-type-and-file-extension">media type</a> MUST use the delimited variant. This applies also when the stream consists of a single frame.</p>
+<p>Transports that provide their own message framing (for example gRPC, MQTT, or Kafka) send one bare, non-delimited <code>SparqlResultsFrame</code> message per transport message.</p>
+<h2 id="internet-media-type-and-file-extension">Internet media type and file extension</h2>
+<p>The RECOMMENDED media type for Jelly-SPARQL is <code>application/x-jelly-sparql</code>. The RECOMMENDED file extension is <code>.jellys</code>.</p>
+<p>The same media type is used for solution sequences and for boolean results – the two are distinguished by the contents of the first frame of each result set, not by the media type. The same holds for the <a href="#stream-types">stream type</a>, which is set in the stream options.</p>
+<p>The bytes MUST be in the <a href="#delimited">delimited variant</a>.</p>
+<h3 id="use-with-the-sparql-12-protocol">Use with the SPARQL 1.2 Protocol</h3>
+<p>A service implementing the <a href="https://www.w3.org/TR/sparql12-protocol/">SPARQL 1.2 Protocol</a> MAY offer Jelly-SPARQL as a query results format. The following applies:</p>
+<ul>
+<li>Jelly-SPARQL is a results format for <code>SELECT</code> and <code>ASK</code> queries. <code>CONSTRUCT</code> and <code>DESCRIBE</code> queries return RDF graphs, and should use <a href="../serialization/">Jelly-RDF</a> (<code>application/x-jelly-rdf</code>) instead.</li>
+<li>A service that streams the response SHOULD flush the connection after each frame, so that the client can start processing solutions before the query has finished.</li>
+<li>A service that fails part-way through a query MUST write a <a href="#stream-trailer">trailer</a> with a non-empty <code>error</code> before closing the connection, unless it cannot write anything more. The HTTP status line has already been sent by then, so the trailer is the only place left to say what went wrong.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The last point is the main practical reason for the trailer. A <code>200 OK</code> response whose body stops early looks exactly like a complete, shorter result set.</p>
+</div>
+<h2 id="security-considerations">Security considerations</h2>
+<p><em>This section is not part of the specification.</em></p>
+<p>The same security considerations apply to Jelly-SPARQL as to <a href="../serialization/#security-considerations">Jelly-RDF</a>, in particular those about Protocol Buffers, <a href="#overly-large-lookup-tables">overly large lookup tables</a>, and invalid lookup entry identifiers.</p>
+<h3 id="overly-large-lookup-tables">Overly large lookup tables</h3>
+<p>For untrusted input, consumers must always validate that the requested sizes of the name, prefix, and datatype lookup tables are not overly large and are supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector. See also the <a href="../serialization/#overly-large-lookup-tables">Jelly-RDF specification</a>.</p>
+<p>The recommended mitigation is the same as in Jelly-RDF: each implementation defines a maximum allowed lookup size and checks the requested size against it, rejecting the stream if it is larger. The limit should be configurable, so that a user who trusts the producer can raise it.</p>
+<p>The sizes RECOMMENDED as defaults for that limit are 16384 names, 4096 prefixes, and 256 datatypes. They are larger than the Jelly-RDF defaults because a frame of SPARQL results touches more distinct terms than a frame of RDF statements does, and because <a href="#the-working-set-of-a-frame">the working set of a frame must fit in the tables</a>.</p>
+<h3 id="overly-large-row-counts">Overly large row counts</h3>
+<p>The <code>row_count</code> field of a frame is not bounded by the size of the frame: a frame of a few bytes can declare a row count in the tens of millions. A consumer that allocates a per-row buffer of <code>row_count</code> elements before decoding the columns would be a denial-of-service vector.</p>
+<p>The recommended mitigation is to grow the decoding buffers to the size actually needed as the columns are decoded, and to validate <code>row_count</code> against a configurable limit before allocating anything.</p>
+<h3 id="column-layouts">Column layouts</h3>
+<p>The layout tokens of a column decide how many cells the consumer will emit when decoding the column. A consumer must validate every token against the number of run values it actually has and against <code>row_count</code>, as described in <a href="#sequence-layout">sequence layout</a>, before emitting anything. In particular, the extension varint of an escaped length token is attacker-controlled and must not be trusted to fit into the remaining space of the row buffer.</p>
+<h3 id="deeply-nested-triple-terms">Deeply nested triple terms</h3>
+<p><code>RdfTripleTerm</code> is a recursive message: the object of a triple term may be another triple term. A malicious producer could send a triple term nested deeply enough to overflow the consumer's stack while parsing or converting it. The recommended mitigation is the same as in <a href="../serialization/#infinite-recursion-of-rdf-star-quoted-triples">Jelly-RDF</a>: limit the nesting depth accepted by the Protocol Buffers parser. A consumer that does not support triple terms can also reject any stream that declares <code>RDF_VERSION_1_2</code> up front. It cannot do so for a stream that declares no version, so it still needs the depth limit.</p>
+<h3 id="query-results-content">Query results content</h3>
+<p>Jelly-SPARQL is a general serialization format for SPARQL query results, and as such may be used to transmit malicious or misleading content. Please refer to the <a href="https://www.w3.org/TR/sparql12-results-json/#security">security considerations of the SPARQL 1.2 Query Results JSON Format</a> and to the <a href="https://www.w3.org/TR/rdf12-turtle/#sec-mediaReg">RDF 1.2 Turtle specification</a>.</p>
+<h2 id="implementations">Implementations</h2>
+<p><em>This section is not part of the specification.</em></p>
+<p>The following implementations of Jelly-SPARQL are available:</p>
+<ul>
+<li><a href="https://w3id.org/jelly/jelly-jvm/dev/">Jelly-JVM implementation</a><ul>
+<li>Implemented actors: producer, consumer</li>
+<li>Supported libraries: <a href="https://jena.apache.org/">Apache Jena</a>, <a href="https://rdf4j.org/">RDF4J</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../serialization/">Jelly-RDF serialization format specification</a></li>
+<li><a href="../patch/">Jelly-Patch format specification</a></li>
+<li><a href="../reference/">Jelly Protobuf reference</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2026</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2026</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+        <span style="font-size: 1.1em;">
+        <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m245.83 214.87-33.22 17.28c-9.43-19.58-25.24-19.93-27.46-19.93-22.13 0-33.22 14.61-33.22 43.84 0 23.57 9.21 43.84 33.22 43.84 14.47 0 24.65-7.09 30.57-21.26l30.55 15.5c-6.17 11.51-25.69 38.98-65.1 38.98-22.6 0-73.96-10.32-73.96-77.05 0-58.69 43-77.06 72.63-77.06 30.72-.01 52.7 11.95 65.99 35.86zm143.05 0-32.78 17.28c-9.5-19.77-25.72-19.93-27.9-19.93-22.14 0-33.22 14.61-33.22 43.84 0 23.55 9.23 43.84 33.22 43.84 14.45 0 24.65-7.09 30.54-21.26l31 15.5c-2.1 3.75-21.39 38.98-65.09 38.98-22.69 0-73.96-9.87-73.96-77.05 0-58.67 42.97-77.06 72.63-77.06 30.71-.01 52.58 11.95 65.56 35.86zM247.56 8.05C104.74 8.05 0 123.11 0 256.05c0 138.49 113.6 248 247.56 248 129.93 0 248.44-100.87 248.44-248 0-137.87-106.62-248-248.44-248zm.87 450.81c-112.54 0-203.7-93.04-203.7-202.81 0-105.42 85.43-203.27 203.72-203.27 112.53 0 202.82 89.46 202.82 203.26-.01 121.69-99.68 202.82-202.84 202.82z"></path></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M314.9 194.4v101.4h-28.3v120.5h-77.1V295.9h-28.3V194.4c0-4.4 1.6-8.2 4.6-11.3 3.1-3.1 6.9-4.7 11.3-4.7H299c4.1 0 7.8 1.6 11.1 4.7 3.1 3.2 4.8 6.9 4.8 11.3zm-101.5-63.7c0-23.3 11.5-35 34.5-35s34.5 11.7 34.5 35c0 23-11.5 34.5-34.5 34.5s-34.5-11.5-34.5-34.5zM247.6 8C389.4 8 496 118.1 496 256c0 147.1-118.5 248-248.4 248C113.6 504 0 394.5 0 256 0 123.1 104.7 8 247.6 8zm.8 44.7C130.2 52.7 44.7 150.6 44.7 256c0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8.1-113.8-90.2-203.3-202.8-203.3z"></path></svg></span>
+        </span>Creative Commons Attribution 4.0</a><br />Jelly's documentation is licensed under CC BY 4.0. The code is licensed under Apache 2.0. See also: <strong><a href="/latest/licensing">licensing</a></strong>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Jelly-RDF" target="_blank" rel="noopener" title="Jelly on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/A8sN5XwVa5" target="_blank" rel="noopener" title="Community Discord server" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

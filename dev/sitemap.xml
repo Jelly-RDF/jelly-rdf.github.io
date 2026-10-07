@@ -25,6 +25,10 @@
          <lastmod>2026-10-07</lastmod>
     </url>
     <url>
+         <loc>https://jelly-rdf.github.io/dev/conformance/sparql-test-cases/</loc>
+         <lastmod>2026-10-07</lastmod>
+    </url>
+    <url>
          <loc>https://jelly-rdf.github.io/dev/contributing/</loc>
          <lastmod>2026-10-07</lastmod>
     </url>
@@ -70,6 +74,10 @@
     </url>
     <url>
          <loc>https://jelly-rdf.github.io/dev/specification/serialization/</loc>
+         <lastmod>2026-10-07</lastmod>
+    </url>
+    <url>
+         <loc>https://jelly-rdf.github.io/dev/specification/sparql/</loc>
          <lastmod>2026-10-07</lastmod>
     </url>
     <url>
