@@ -14,14 +14,12 @@ REPO_ROOT = PROJECT_ROOT / "submodules/protobuf"
 PROTOBUF_REPO = "https://github.com/Jelly-RDF/jelly-protobuf.git"
 JELLY_CLI_REPO = "https://github.com/Jelly-RDF/cli"
 
-FROM_MANIFEST = REPO_ROOT / "test/rdf/from_jelly/manifest.ttl"
-TO_MANIFEST = REPO_ROOT / "test/rdf/to_jelly/manifest.ttl"
 
 MF = Namespace("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#")
 
 ALLOWED_FILE_PATTERNS = (
-    r"in\.jelly$", r"out\.jelly$", r"out_\d+\.(nt|nq)$",
-    r".*\.(nt|nq|ttl|jelly)$"
+    r"in\.jellys?$", r"out\.jellys?$", r"out_\d+\.(nt|nq)$",
+    r".*\.(nt|nq|ttl|jellys?|srj)$"
 )
 
 def sh(cmd, cwd=None) -> str:
@@ -167,15 +165,21 @@ def render_tables(cases: list[dict], repo_https: str, sha: str) -> str:
             out.append("\n")
     return "".join(out)
 
-def generate_test_table():
+def generate_test_table(suite: str = "rdf"):
     try:
         sha = sh(["git","rev-parse","HEAD"],cwd=REPO_ROOT)
     except Exception as e:
         print(f"Warning: Could not get git SHA for protobuf submodule. Error: {e}")
         sha = "main"
 
-    from_tests = parse_manifest(FROM_MANIFEST, REPO_ROOT)
-    to_tests = parse_manifest(TO_MANIFEST, REPO_ROOT)
+    from_manifest = REPO_ROOT / f"test/{suite}/from_jelly/manifest.ttl"
+    to_manifest = REPO_ROOT / f"test/{suite}/to_jelly/manifest.ttl"
+    if not from_manifest.exists() or not to_manifest.exists():
+        print(f"Warning: the test manifests for '{suite}' are missing in the protobuf submodule")
+        return "*The test manifests are not available in this version of the protobuf submodule.*\n"
+
+    from_tests = parse_manifest(from_manifest, REPO_ROOT)
+    to_tests = parse_manifest(to_manifest, REPO_ROOT)
 
     def stats(ts):
         c=Counter(x["polarity"] for x in ts)
@@ -194,8 +198,8 @@ def generate_test_table():
     )
     md.append(
         "**Manifests used to generate this page:** "
-        f"[from_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{FROM_MANIFEST.relative_to(REPO_ROOT).as_posix()}) · "
-        f"[to_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{TO_MANIFEST.relative_to(REPO_ROOT).as_posix()})\n\n"
+        f"[from_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{from_manifest.relative_to(REPO_ROOT).as_posix()}) · "
+        f"[to_jelly]({PROTOBUF_REPO.rstrip('.git')}/blob/{sha}/{to_manifest.relative_to(REPO_ROOT).as_posix()})\n\n"
     )
     md.append(f"- **All tests:** {nf+nt}\n")
     md.append(f"- **From Jelly:** {nf} (positive: {pf}, negative: {nfneg})\n")

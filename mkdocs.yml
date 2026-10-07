@@ -111,6 +111,7 @@ nav:
     - 'specification/index.md'
     - RDF serialization format: 'specification/serialization.md'
     - RDF Patch serialization format: 'specification/patch.md'
+    - SPARQL results format: 'specification/sparql.md'
     - gRPC RDF streaming protocol: 'specification/streaming.md'
     - Protobuf reference: 'specification/reference.md'
     - Protobuf source: 'specification/protobuf-source.md'
@@ -120,6 +121,7 @@ nav:
     - Reporting conformance: 'conformance/reporting-conformance.md'
     - Jelly-RDF test cases: 'conformance/rdf-test-cases.md'
     - Jelly-RDF conformance reports: 'conformance/rdf-reports.md'
+    - Jelly-SPARQL test cases: 'conformance/sparql-test-cases.md'
     
   - Contributing:
     - 'contributing/index.md'

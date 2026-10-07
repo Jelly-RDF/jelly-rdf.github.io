@@ -19,10 +19,12 @@ Submit the EARL file (in Turtle format) via pull request [to this directory]({{ 
 
 ### Where to find the test cases
 
-See the [Jelly-RDF test cases](rdf-test-cases.md) page for details on the available tests and how to run them.
+See the [Jelly-RDF test cases](rdf-test-cases.md) and [Jelly-SPARQL test cases](sparql-test-cases.md) pages for details on the available tests and how to run them.
 
 ## See also
 
 - Jelly-RDF
     - [Test cases](rdf-test-cases.md)
     - [Conformance reports](rdf-reports.md)
+- Jelly-SPARQL
+    - [Test cases](sparql-test-cases.md)
