@@ -89,18 +89,18 @@ Within a frame, solutions are stored **column-wise**: one column per result vari
 
 !!! note "Why columns?"
 
-    In a row-oriented layout, every bound value needs its own length-delimited sub-message with a `oneof` selecting the term type, which costs several bytes of framing per value and one object per value on the consumer's side. Grouping the values of one variable together means the term type is stated once per column instead of once per value, values that repeat in consecutive rows can be collapsed cheaply, and a reader can keep a whole column in a primitive array.
+    In a row-oriented layout, every bound value needs its own length-delimited sub-message with a `oneof` selecting the term type, which costs several bytes of framing per value and one object per value on the consumer's side. Grouping the values of one variable together means the term type is stated once per column instead of once per value, values that repeat in consecutive rows can be collapsed cheaply (see [sequence layout](#sequence-layout)), and a reader can keep a whole column in a primitive array.
 
 ### Stream types
 
 A result stream represents either a single result set, or a sequence of result sets. This is set by the `stream_type` field (2) of the [stream options](#stream-options), a [`SparqlStreamType`](reference.md#sparqlstreamtype) value:
 
-- `SPARQL_STREAM_TYPE_FLAT` (0) – default value. The entire stream is a single result set.
+- `SPARQL_STREAM_TYPE_FLAT` (0) – default value. The entire stream is a single result set, ended by a [trailer](#stream-trailer).
 - `SPARQL_STREAM_TYPE_PUNCTUATED` (1) – the stream is a sequence of result sets, each ended by a [trailer](#stream-trailer).
 
 The consumer MUST throw an error if `stream_type` has a value that is not listed above.
 
-In a `FLAT` stream, the **first frame of the result set** is the first frame of the stream. In a `PUNCTUATED` stream, the first frame of each result set is the first frame of the stream, and every frame that directly follows a frame with a trailer.
+The first frame of the stream is the **first frame of a result set**. In a `PUNCTUATED` stream, every frame that directly follows a frame with a trailer is also the first frame of a result set.
 
 The following rules apply to `PUNCTUATED` streams:
 
@@ -126,7 +126,7 @@ Consumers are not required to support `PUNCTUATED` streams. A consumer that does
 
 A result frame is a message of type [`SparqlResultsFrame`](reference.md#sparqlresultsframe). A frame contains a batch of rows (solutions), together with any [lookup entries](#prefix-name-and-datatype-lookup-entries) it needs. It is RECOMMENDED to keep the serialized size of a frame below 1 MB.
 
-A result stream MUST contain at least one frame. The consumer MUST throw an error otherwise. The first frame MUST contain the [stream options](#stream-options) and either the [result set header](#result-set-header) or the [boolean result](#boolean-results).
+A result stream MUST contain at least one frame. An empty input (zero bytes) is not a valid result stream, and the consumer MUST throw an error if it reads one. The first frame MUST contain the [stream options](#stream-options) and either the [result set header](#result-set-header) or the [boolean result](#boolean-results).
 
 The number of rows in a frame is given by the `row_count` field (3). It MUST NOT be greater than 2<sup>27</sup> − 1, which is the largest number of cells the [sequence layout](#sequence-layout) of a column can address. The consumer MUST throw an error otherwise.
 
@@ -211,7 +211,7 @@ A frame other than the first one MAY contain the stream options. Doing so **rese
 
 - The name, prefix, and datatype lookups are emptied, and their identifier numbering restarts from 1.
 - The [result set header](#result-set-header) ceases to be in effect – the same frame MUST restate it.
-- A [trailer](#stream-trailer) without an error, seen earlier in the stream, ceases to apply. A trailer with an error does not – the result set stays incomplete.
+- A [trailer](#stream-trailer) without an error, seen earlier in the stream, ceases to apply: the result set does not end there, and the rows of the following frames are added to it. A trailer with an error does not cease to apply – the result set stays incomplete.
 
 The reset takes effect before anything else in the frame is processed. The restated header MUST declare the same variables, with the same names, in the same order, as the header of the first frame, because a `FLAT` stream always describes exactly one result set. The consumer MUST throw an error otherwise.
 
@@ -237,12 +237,12 @@ The header MUST be present in the [first frame of a result set](#stream-types) w
 
 The `SparqlVariable` message contains the following fields:
 
-- `name` (1) – the name of the variable, without the leading `?` or `$`. It SHOULD conform to the [`VARNAME` production of SPARQL 1.2](https://www.w3.org/TR/sparql12-query/#rVARNAME). It MUST NOT be empty. Consumers are not required to check this.
+- `name` (1) – the name of the variable, without the leading `?` or `$`. It SHOULD conform to the [`VARNAME` production of SPARQL 1.2](https://www.w3.org/TR/sparql12-query/#rVARNAME). It MUST NOT be empty. Consumers MAY check this.
 - `column_index` (2) – 0-based index of the [column](#columns) that contains the values of this variable.
 
 The variables MUST be listed in projection order, that is, in the order in which they appear in the `SELECT` clause of the query. Consumers MUST preserve this order.
 
-The variable names in one header SHOULD be unique. Consumers are not required to check this.
+The variable names in one header SHOULD be unique. Consumers MAY check this.
 
 #### Column indices
 
@@ -456,6 +456,12 @@ Producers MUST merge adjacent runs. In particular, a producer MUST NOT emit two 
 
     So `layouts = [33, 17, 0]`.
 
+    Now consider a column of 42 cells: `A`, then `B` repeated 40 times, then `C`. The repeat run of `B` needs `len = 40 − 2 = 38`, which does not fit in `len_code`. So `len_code = 15`, and the extension varint is `38 − 15 = 23`:
+
+    - `skip = 1` (the single `A`), `kind = 0` (repeat run), `len_code = 15` → token = `(1 << 5) | (0 << 4) | 15` = `47`, followed by the extension varint `23`.
+
+    The `C` at the end is covered by the implicit tail, so `layouts = [47, 23]`.
+
 #### IRI columns
 
 An IRI column is a [`SparqlIriColumn`](reference.md#sparqliricolumn) message with the following fields:
@@ -556,7 +562,7 @@ The consumer MUST throw an error if the length of `literal_kinds` is none of the
 The following rules apply to the language tags:
 
 - Each entry of `langtags` SHOULD be a valid [BCP 47](https://tools.ietf.org/html/bcp47) language tag.
-- Producers SHOULD list the language tags in the order in which the run values first use them, and SHOULD NOT list a language tag that is not used by any run value. Consumers are not required to check this.
+- Producers SHOULD list the language tags in the order in which the run values first use them, and SHOULD NOT list a language tag that is not used by any run value. Consumers MAY check this.
 - The same language tag MAY appear in `langtags` more than once, with different base directions. Producers SHOULD NOT list the same pair of language tag and base direction twice.
 - `langtag_directions` MUST be empty, or have exactly as many entries as `langtags`. An empty list means that no language tag of the column has a base direction. The consumer MUST throw an error if the list has any other length.
 - Consumers are not required to check the entries of `langtag_directions` that are not used by any run value.
