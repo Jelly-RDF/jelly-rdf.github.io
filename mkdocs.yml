@@ -122,6 +122,7 @@ nav:
     - Jelly-RDF test cases: 'conformance/rdf-test-cases.md'
     - Jelly-RDF conformance reports: 'conformance/rdf-reports.md'
     - Jelly-SPARQL test cases: 'conformance/sparql-test-cases.md'
+    - Jelly-SPARQL conformance reports: 'conformance/sparql-reports.md'
     
   - Contributing:
     - 'contributing/index.md'

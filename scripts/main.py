@@ -139,5 +139,5 @@ def define_env(env):
 
 
     @env.macro
-    def conformance_report():
-        return generate_conformance_report()
+    def conformance_report(suite: str = 'rdf'):
+        return generate_conformance_report(suite)

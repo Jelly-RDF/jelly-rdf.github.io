@@ -11,7 +11,7 @@ Report results using **EARL 1.0** ([Evaluation and Report Language](https://www.
 
 ### Where to submit / how it’s used
 
-Submit the EARL file (in Turtle format) via pull request [to this directory]({{ git_tree_link('tree/main/docs/conformance/reports') }}). Submitted EARL files are then aggregated into a human-readable table like [this one for Jelly-RDF](rdf-reports.md) and published on the Jelly website.
+Submit the EARL file (in Turtle format) via pull request [to this directory]({{ git_tree_link('tree/main/docs/conformance/reports') }}). Submitted EARL files are then aggregated into human-readable tables, one [for Jelly-RDF](rdf-reports.md) and one [for Jelly-SPARQL](sparql-reports.md), and published on the Jelly website.
 
 !!! note "Example EARL report"
 
@@ -28,3 +28,4 @@ See the [Jelly-RDF test cases](rdf-test-cases.md) and [Jelly-SPARQL test cases](
     - [Conformance reports](rdf-reports.md)
 - Jelly-SPARQL
     - [Test cases](sparql-test-cases.md)
+    - [Conformance reports](sparql-reports.md)
