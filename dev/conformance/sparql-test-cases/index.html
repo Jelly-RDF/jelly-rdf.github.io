@@ -16,7 +16,7 @@
         <link rel="prev" href="../rdf-reports/">
       
       
-        <link rel="next" href="../../contributing/">
+        <link rel="next" href="../sparql-reports/">
       
       
         
@@ -998,6 +998,8 @@
       
         
       
+        
+      
     
     
     
@@ -1627,6 +1629,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparql-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-SPARQL conformance reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2352,12 +2382,8 @@
 
 <h1 id="jelly-sparql-test-cases">Jelly-SPARQL test cases</h1>
 <p>This page lists the conformance test cases defined for the <a href="../../specification/sparql/">Jelly-SPARQL format</a>, along with instructions for running them.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Jelly-SPARQL is an experimental draft, and so is its test suite. Both may change.</p>
-</div>
 <p>Machine-readable definitions of the test cases are available in the <a href="https://github.com/Jelly-RDF/jelly-protobuf/blob/main/test/sparql">jelly-protobuf repository</a>.</p>
-<p>See also instructions on <a href="../reporting-conformance/">reporting conformance</a>.</p>
+<p>See also instructions on <a href="../reporting-conformance/">reporting conformance</a> and the <a href="../sparql-reports/">page listing conformance reports of implementations</a>.</p>
 <h2 id="test-categories">Test categories</h2>
 <p>Categories indicate supported features: <code>select_rdf_1_1</code> (solution sequences with IRIs, blank nodes, and literals), <code>ask</code> (boolean results), <code>select_rdf_1_2_basic</code> (literals with a base direction, RDF 1.2 Basic), <code>select_rdf_1_2</code> (triple terms, RDF 1.2), <code>punctuated</code> (streams with a sequence of result sets, the <a href="../../specification/sparql/#stream-types"><code>PUNCTUATED</code> stream type</a>).</p>
 <p>Tests in the <code>select_rdf_1_2_basic</code> category are marked with <code>mf:requires jellyt:requirementRdf12Basic</code>, tests in the <code>select_rdf_1_2</code> category with <code>mf:requires jellyt:requirementRdf12</code>, and tests in the <code>punctuated</code> category with <code>mf:requires jellyt:requirementPunctuated</code>. If your implementation does not support a given feature, you should skip the corresponding tests.</p>
@@ -4035,7 +4061,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 7, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 8, 2026</span>
   </span>
 
     

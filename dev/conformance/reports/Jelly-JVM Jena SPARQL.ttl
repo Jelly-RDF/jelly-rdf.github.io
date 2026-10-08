@@ -1,0 +1,2537 @@
+PREFIX earl: <http://www.w3.org/ns/earl#>
+PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc:   <http://purl.org/dc/terms/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+<> foaf:primaryTopic <#impl> ;
+   dc:issued "2026-10-07T20:59:27.916025214"^^xsd:dateTime ;
+   foaf:maker <#assertor> .
+
+<#developer> a foaf:Group ;
+  foaf:name "Jelly-JVM contributors" ;
+  foaf:homepage <https://w3id.org/jelly/jelly-jvm> .
+
+<#assertor> a earl:Software, earl:Assertor ;
+  foaf:name "Jelly-JVM integration test suite" ;
+  foaf:homepage <https://github.com/Jelly-RDF/jelly-jvm/tree/main/integration-tests> .
+
+<#impl> a doap:Project, earl:TestSubject, earl:Software ;
+  doap:name "Jelly-JVM (Jena 6.2.0)" ;
+  doap:homepage <https://w3id.org/jelly/jelly-jvm> ;
+  doap:description "Jelly-JVM integration with Jena 6.2.0"@en ;
+  doap:programming-language "Java" ;
+  doap:developer <#developer> ;
+  doap:release [
+    doap:name "Jelly-JVM dev" ;
+    doap:revision "dev" ;
+    dc:created "2026-10-07"^^xsd:date
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.930"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.939"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.942"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.972"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.976"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.984"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.986"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.989"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:25.991"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.018"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.020"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.022"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.023"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_014> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_014> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.025"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_015> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_015> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.026"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_016> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_016> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.027"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_017> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_017> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.028"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_018> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_018> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.029"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_019> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_019> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.030"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_020> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_020> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.032"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_021> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_021> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.033"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_022> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_022> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.097"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_023> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_023> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.101"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_024> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_024> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.103"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_025> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_025> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.104"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_026> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_026> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.105"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_027> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_027> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.106"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_028> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_028> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.107"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_029> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_029> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.107"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_030> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_030> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.108"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_031> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_031> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.109"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_032> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_032> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.110"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_033> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_033> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.111"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_034> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_034> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.112"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_035> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_035> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.113"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_036> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_036> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.113"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_037> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_037> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.114"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_038> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_038> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.115"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_039> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_039> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.116"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_040> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_040> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.118"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_041> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_041> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.119"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_042> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_042> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.120"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_043> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_043> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.122"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_044> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_044> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.123"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_045> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_045> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.124"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_046> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_046> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.125"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_047> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_047> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.126"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_048> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_048> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.127"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_049> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_049> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.128"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_050> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_050> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.129"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_051> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_051> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.130"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_052> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_052> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.131"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_053> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_053> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.131"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_054> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_054> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.132"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_055> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_055> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.133"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_056> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_056> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.135"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_057> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_057> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.136"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_058> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_058> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.136"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_059> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_059> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.138"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_060> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_060> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.139"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_061> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_061> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.139"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_062> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_062> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.140"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_063> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_063> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.142"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_064> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_064> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.144"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_065> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_065> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.146"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_066> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_066> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.147"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_067> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_067> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.148"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_068> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_068> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.149"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_069> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_069> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.150"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_070> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_070> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.152"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_071> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_071> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.153"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_072> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_072> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.154"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_073> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_073> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.155"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_074> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_074> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.156"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_075> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_075> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.157"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_076> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_076> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.158"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_077> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_077> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.159"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_078> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_078> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.160"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.162"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.163"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.164"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.165"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.165"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.166"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.167"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.167"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.168"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.168"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.169"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.170"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.170"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_014> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_014> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.171"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_015> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_015> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.171"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_016> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_016> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.172"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_017> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_017> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.172"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_018> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_018> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.173"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_019> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_019> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.173"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_020> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_020> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.174"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_021> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_021> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.174"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_022> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_022> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.175"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_023> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_023> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.175"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_024> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_024> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.176"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_025> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_025> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.176"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_026> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_026> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.177"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_027> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_027> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.177"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_028> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_028> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.178"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_029> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_029> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.178"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_030> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_030> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.179"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_031> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_031> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.179"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_032> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_032> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.180"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_033> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_033> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.180"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_034> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_034> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.181"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_035> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_035> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.181"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_036> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_036> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.181"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_037> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_037> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.182"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_038> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_038> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.182"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_039> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_039> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.183"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_040> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_040> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.183"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_041> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_041> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.184"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_042> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_042> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.185"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_043> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_043> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.185"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_044> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_044> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.186"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_045> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_045> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.188"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_046> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_046> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.188"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_047> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_047> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.189"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_048> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_048> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.191"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_049> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_049> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.191"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_050> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_050> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.193"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_051> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_051> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.195"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_052> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_052> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.198"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_053> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_053> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.199"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_054> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_054> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.200"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_055> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_055> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.202"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_056> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_056> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.203"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_057> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_057> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.204"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_neg_058> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/neg_058> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.205"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.211"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.212"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.212"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.213"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.213"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.214"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.214"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_neg_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/neg_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.215"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_neg_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/neg_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.215"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_ask_neg_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/ask/neg_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.215"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.218"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.219"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.220"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.221"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.223"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.223"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.224"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.224"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_basic_neg_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2_basic/neg_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.225"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.228"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.230"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.231"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.232"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.233"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.234"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.235"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.235"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.236"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.237"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.237"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.238"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.239"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_014> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_014> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.239"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_015> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_015> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.241"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.242"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.243"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.244"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.245"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.245"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.246"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.246"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.247"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.247"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_neg_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/neg_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.248"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.250"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.251"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.252"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.253"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.254"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.255"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.256"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.257"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.257"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.258"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.259"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.259"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.260"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.260"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.260"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.261"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.262"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.262"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_punctuated_neg_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/punctuated/neg_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.263"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.277"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.281"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.282"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.284"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_005> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_005> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.287"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_006> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_006> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.289"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_007> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_007> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.290"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_008> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_008> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.290"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_009> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_009> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.291"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_010> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_010> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.319"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_011> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_011> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.323"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_012> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_012> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.325"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_013> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_013> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.327"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_014> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_014> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.328"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_pos_015> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/pos_015> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.329"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_neg_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/neg_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.330"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_neg_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/neg_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.333"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_neg_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/neg_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.334"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_1_neg_004> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_1/neg_004> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.335"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_ask_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/ask/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.336"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_ask_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/ask/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.337"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_2_basic_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_2_basic/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.338"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_2_basic_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_2_basic/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.340"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_2_basic_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_2_basic/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.342"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_2_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_2/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.345"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_select_rdf_1_2_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/select_rdf_1_2/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.346"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_punctuated_pos_001> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/punctuated/pos_001> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.348"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_punctuated_pos_002> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/punctuated/pos_002> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.350"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_to_jelly_punctuated_pos_003> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/to_jelly/punctuated/pos_003> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-07T20:59:26.351"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
