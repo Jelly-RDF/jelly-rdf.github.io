@@ -217,7 +217,7 @@ def _render_reports_section_md(
     return "\n".join(lines)
 
 
-def generate_conformance_report() -> str:
+def generate_conformance_report(suite: str = "rdf") -> str:
     reports_dir = Path("docs/conformance/reports")
     paths = [p for p in reports_dir.glob("*.ttl") if p.name != "example-report.ttl"]
 
@@ -229,12 +229,16 @@ def generate_conformance_report() -> str:
     for p in paths:
         try:
             g = _load_graph(p)
-            graphs[p] = g
         except Exception:
+            continue
+        outcomes = {
+            t: o for t, o in _read_assertions(g).items() if f"/test/{suite}/" in t
+        }
+        if not outcomes:
             continue
         key, label = _impl_key_label(g)
         impl_labels.setdefault(key, label)
-        outcomes = _read_assertions(g)
+        graphs[p] = g
         per_impl_outcomes.setdefault(key, {}).update(outcomes)
         test_set.update(outcomes.keys())
 

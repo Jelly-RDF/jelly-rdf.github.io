@@ -2,13 +2,9 @@
 
 This page lists the conformance test cases defined for the [Jelly-SPARQL format](../specification/sparql.md), along with instructions for running them.
 
-!!! warning
-
-    Jelly-SPARQL is an experimental draft, and so is its test suite. Both may change.
-
 Machine-readable definitions of the test cases are available in the [jelly-protobuf repository]({{ git_test_link('sparql') }}).
 
-See also instructions on [reporting conformance](reporting-conformance.md).
+See also instructions on [reporting conformance](reporting-conformance.md) and the [page listing conformance reports of implementations](sparql-reports.md).
 
 ## Test categories
 
