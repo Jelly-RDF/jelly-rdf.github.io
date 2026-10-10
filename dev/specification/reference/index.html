@@ -3914,13 +3914,13 @@ All terms must also be set in quoted triples (RDF-star).</p>
 <p>Logical stream type, according to the RDF Stream Taxonomy (RDF-STaX).
 Type 0 is reserved for the unspecified stream type.
 The rest of the type numbers follow the taxonomical structure of RDF-STaX.
-For example: 1 is a subtype of 0, 13 and 23 are subtypes of 3, 
+For example: 1 is a subtype of 0, 13 and 23 are subtypes of 3,
 114 is a subtype of 14, etc.</p>
-<p>Types 1–4 correspond to the four base concrete stream types. Their 
-subtypes can be in most cases simply processed in the same way as 
+<p>Types 1–4 correspond to the four base concrete stream types. Their
+subtypes can be in most cases simply processed in the same way as
 the base types.
-Therefore, implementations can take the modulo 10 of the stream 
-type to determine the base type of the stream and use this information 
+Therefore, implementations can take the modulo 10 of the stream
+type to determine the base type of the stream and use this information
 to select the appropriate processing logic.</p>
 <p>RDF-STaX version: 1.1.2
 <a href="https://w3id.org/stax/1.1.2">https://w3id.org/stax/1.1.2</a></p>
@@ -4318,7 +4318,7 @@ RDF 1.2 Basic data, which is valid RDF 1.2 data.</p>
 <p>Each run value is a lexical form plus a literal kind, which says whether it
 is a simple literal, a literal with a datatype from the datatype lookup, or a
 language-tagged string with one of the column&#39;s language tags. A column in
-which every value has the same kind states the kind once, which lets readers 
+which every value has the same kind states the kind once, which lets readers
 keep the column in a string array instead of one object per value.</p>
 <table>
 <thead>
@@ -4675,7 +4675,7 @@ In a PUNCTUATED stream, the frame after a trailer starts a new result set.</p>
 <tr>
 <td>SPARQL_STREAM_TYPE_FLAT</td>
 <td>0</td>
-<td>The entire stream is a single result set. This is the default. protolint:disable:next ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH</td>
+<td>The entire stream is a single result set. This is the default. buf:lint:ignore ENUM_ZERO_VALUE_SUFFIX</td>
 </tr>
 <tr>
 <td>SPARQL_STREAM_TYPE_PUNCTUATED</td>
@@ -4889,7 +4889,7 @@ In a PUNCTUATED stream, the frame after a trailer starts a new result set.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 8, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 10, 2026</span>
   </span>
 
     
@@ -4899,7 +4899,7 @@ In a PUNCTUATED stream, the frame after a trailer starts a new result set.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 8, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 10, 2026</span>
   </span>
 
     
