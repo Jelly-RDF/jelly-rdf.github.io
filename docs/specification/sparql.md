@@ -188,7 +188,7 @@ The stream options message contains the following fields:
 - `stream_type` (2) – the [stream type](#stream-types), as a [`SparqlStreamType`](reference.md#sparqlstreamtype) value. This field is OPTIONAL and defaults to `SPARQL_STREAM_TYPE_FLAT`, a single result set.
 - `rdf_version` (5) – the [version of RDF](#rdf-version) whose terms may occur in the stream, as an [`RdfVersion`](reference.md#rdfversion) value. This field is OPTIONAL and defaults to `RDF_VERSION_UNSPECIFIED`.
 - `max_name_table_size` (9), `max_prefix_table_size` (10), and `max_datatype_table_size` (11) – maximum sizes of the [lookup tables](#prefix-name-and-datatype-lookup-entries). The rules for these fields are the same as for the fields with the same names in the [Jelly-RDF stream options](serialization.md#stream-options). In particular, `max_name_table_size` is REQUIRED and MUST be at least 128.
-- `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED. The rules are the same as for the [Jelly-RDF version tag](serialization.md#version-tag).
+- `version` (15) – [version tag](#versioning) of the stream. This field is REQUIRED. The rules listed in the [Jelly-RDF version tag](serialization.md#version-tag) section apply, using the version tags of Jelly-SPARQL. The Jelly-RDF rule about version tags 1 and 2 does not apply.
 
 The limits on the lookup table sizes that consumers SHOULD apply, and their RECOMMENDED defaults, are the same as in [Jelly-RDF](serialization.md#stream-options).
 
@@ -265,7 +265,7 @@ The following rules apply:
 - A producer MUST set the `trailer` field in the last frame of every result set, both when the result set is complete and when the producer stops because of an error it can report. The only case in which a result set ends without a trailer is when the producer cannot write one at all, for example because its process died or the connection was lost.
 - In a `FLAT` stream, a frame with a trailer MUST NOT be followed by any frame without the [stream options](#stream-options). The consumer SHOULD throw an error otherwise. In other words: a trailer either ends the stream, or ends a segment of a concatenated stream. In a [`PUNCTUATED` stream](#stream-types), the frame after a trailer starts a new result set.
 - A frame with a trailer MAY also contain rows, lookup entries, a header, or a boolean result. A producer that has nothing left to write MAY end a solution sequence with a frame that contains only the trailer, with `row_count` equal to 0. This is not possible after a frame with a boolean result, which must have the trailer itself. In a `PUNCTUATED` stream, a frame with only a trailer that directly follows another frame with a trailer does not end the previous result set: it is a result set of its own, with zero variables and no solutions.
-- If a consumer reaches the end of the stream without having seen a trailer for the last result set, it SHOULD treat that result set as truncated, and SHOULD report this to the caller.
+- If a consumer reaches the end of the stream without having seen a trailer for the last result set, it SHOULD treat that result set as truncated, and SHOULD report this to the caller. A missing trailer is not an error in the stream: the consumer MUST NOT reject the rows it has read only because the trailer is missing.
 - If a consumer sees a trailer with a non-empty `error`, it MUST treat the result set it ends as incomplete, and MUST signal an error to the caller. It MAY still hand over the rows it read before the trailer, and SHOULD include the message in the error. In a `FLAT` stream, this applies even if the stream options are [repeated](#repeating-the-stream-options) after the trailer, and the stream ends with a trailer without an error. In a `PUNCTUATED` stream, the error applies only to the result set it ends, and the stream may go on with the next result set.
 
 !!! note "Why a trailer"
@@ -278,7 +278,7 @@ The following rules apply:
 
 ### Prefix, name, and datatype lookup entries
 
-Jelly-SPARQL uses the same lookup table mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries) to compress IRIs and datatypes, including [packed lookup entries](serialization.md#packed-lookup-entries) and the rule that [the working set of a batch](serialization.md#the-working-set-of-a-batch) must fit in the lookup tables. All the rules specified there apply here as well, where a batch is one `SparqlResultsFrame`.
+Jelly-SPARQL uses the same lookup table mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries) to compress IRIs and datatypes, including [packed lookup entries](serialization.md#packed-lookup-entries) and the rule that [the working set of a batch](serialization.md#the-working-set-of-a-batch) must fit in the lookup tables. All the rules specified there apply here as well, where a batch is one `SparqlResultsFrame`, and a statement is one row (solution).
 
 The packed lookup entries are stored in the following fields of `SparqlResultsFrame`:
 

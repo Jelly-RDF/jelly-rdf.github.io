@@ -265,7 +265,7 @@ Jelly uses a common mechanism of lookup tables for IRI prefixes, IRI names (post
 - The lookups are indexed from `1`.
 - The lookup can be modified at any point in the stream, using lookup entries. A lookup entry sets the value for a given identifier. The modification MUST be applied to everything that follows it in the stream (see also [the working set of a batch](#the-working-set-of-a-batch)).
 - The first use of a given identifier MUST be after a value is set for it. If the consumer encounters an identifier that has no value in the lookup, it SHOULD throw an error.
-- The maximum size of the lookup is communicated in the [stream options](#stream-options). The producer of the stream MUST NOT exceed the maximum size of the lookup. The consumer MAY implement the lookup as a fixed-size array, or extend it dynamically.
+- The maximum size of the lookup is communicated in the [stream options](#stream-options). The producer of the stream MUST NOT exceed the maximum size of the lookup. The consumer SHOULD throw an error if a lookup entry has an identifier greater than the maximum size of the lookup. The consumer MAY implement the lookup as a fixed-size array, or extend it dynamically.
 - The lookups are kept from one frame to the next. They are emptied only when the stream options are [restated](#restating-the-stream-options).
 - The producer may use any strategy to update the lookup.
 
@@ -565,11 +565,13 @@ A batch is corrupt, and the consumer MUST throw an error, if any of the followin
 - `len_code` is 15 and the token is not followed by an extension varint.
 - The column decodes to more than `row_count` cells.
 
-Producers MUST merge adjacent runs. In particular, a producer MUST NOT emit two unbound runs separated by `skip == 0`. Producers SHOULD omit trailing unbound runs and rely on the padding rule instead (see: [Columns](#columns)).
+Producers SHOULD merge adjacent runs. In particular, a producer SHOULD NOT emit two unbound runs separated by `skip == 0`. Producers SHOULD omit trailing unbound runs and rely on the padding rule instead (see: [Columns](#columns)).
+
+Consumers MUST decode a column in which runs were not merged (e.g., equal values in consecutive cells stored as separate run values) as described above, with each run value in its own cells.
 
 !!! note
 
-    A token stays encoded as a single varint as long as `skip <= 3`. Repeat runs of up to 16 cells and unbound runs of up to 15 cells fit in the token without an extension varint.
+    A token stays a single byte as long as `skip <= 3`. Repeat runs of up to 16 cells and unbound runs of up to 15 cells fit in the token without an extension varint.
 
     The `skip` field occupies the upper 27 bits of the token, which is where the [maximum row count](#column-batches) of 2<sup>27</sup> − 1 comes from.
 
