@@ -32,7 +32,7 @@ Tests in the `select_rdf_1_2_basic` category are marked with `mf:requires jellyt
 - Some positive tests have no [stream trailer](../specification/sparql.md#stream-trailer). The implementation may report such a stream as possibly truncated, but it must not fail these tests because of that.
 - Tests of rules that the specification states with SHOULD rather than MUST are marked with the `jellyt:featureShouldLevel` feature (`mf:notable` property). An implementation may fail them and still conform to the specification.
 
-See also [the test manifest vocabulary]({{ git_test_link('vocabulary.ttl') }}) for details on how the test cases are defined in RDF.
+See also [the test manifest vocabulary]({{ git_test_link('test-manifest.yaml') }}) for details on how the test cases are defined in RDF. The vocabulary is a [LinkML](https://linkml.io) schema, and it is also published in RDFS and SHACL with every [release of jelly-protobuf](https://github.com/Jelly-RDF/jelly-protobuf/releases).
 
 ## Test summary
 
