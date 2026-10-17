@@ -1,21 +1,14 @@
 # See: https://mkdocs-macros-plugin.readthedocs.io/en/latest
 
 import os
-from pathlib import Path
 from scripts.generate_test_table import generate_test_table
 from scripts.generate_report import generate_conformance_report
-import re
 
 
 def define_env(env):
 
-    try:
-        with open(Path(os.environ.get('PROTO_PATH'), 'rdf.proto'), 'r') as file:
-            # Find the version of RDF-STaX
-            _stax_version = re.search(r'https://w3id.org/stax/(\d+\.\d+\.\d+)', file.read()).group(1)
-    except Exception as e:
-        print('Warning: Failed to read RDF-STaX version, using dev as the default: ', e)
-        _stax_version = 'dev'
+    # RDF-STaX is deprecated in Jelly, so its version is fixed.
+    _stax_version = '1.1.2'
 
     @env.macro
     def proto_version():
@@ -62,6 +55,12 @@ def define_env(env):
         return 'Draft specification *(use the version selector on the top bar to find a stable specification)*' if (
             git_tag() == 'main'
         ) else f'Stable specification ({proto_version()})'
+
+    @env.macro
+    def rdf_1_1_link(anchor: str = ''):
+        """Link to the last Jelly-RDF 1.1 specification (row layout)."""
+        link = 'https://w3id.org/jelly/1.1.3/specification/serialization/'
+        return f'{link}#{anchor}' if anchor else link
 
     @env.macro
     def stax_version():

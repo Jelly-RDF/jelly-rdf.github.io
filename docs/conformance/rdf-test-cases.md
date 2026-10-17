@@ -29,7 +29,7 @@ If your implementation does not support a given feature, you should skip the cor
 - Generally, the test cases use the delimited form of Jelly-RDF. If non-delimited files are used, the test is marked with the `jellyt:featureNonDelimited` feature (`mf:notable` property).
 - Blank node identifiers in the input files should be considered to all come from the same blank node pool, i.e. blank nodes should be considered equal if they have the same identifier.
 
-See also [the test manifest vocabulary]({{ git_test_link('vocabulary.ttl') }}) for details on how the test cases are defined in RDF.
+See also [the test manifest vocabulary]({{ git_test_link('test-manifest.yaml') }}) for details on how the test cases are defined in RDF. The vocabulary is a [LinkML](https://linkml.io) schema, and it is also published in RDFS and SHACL with every [release of jelly-protobuf](https://github.com/Jelly-RDF/jelly-protobuf/releases).
 
 ## Test summary
 
