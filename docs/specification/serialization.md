@@ -30,7 +30,7 @@ The following assumptions are used in this document:
 
 {% include "./includes/conformance.md" %}
 
-To claim conformance with this specification, an implementation MUST pass all applicable tests from the [Jelly-RDF conformance test suite](../conformance/rdf-test-cases.md), and MUST provide a conformance report as described on the [reporting conformance](../conformance/reporting-conformance.md) page. Implementations SHOULD pass the conformance tests marked with the `SHOULD` conformance level (`jellyt:featureShouldLevel`).
+To claim conformance with this specification, an implementation MUST pass all applicable tests from the [Jelly-RDF conformance test suite](../conformance/rdf-test-cases.md) (and, for reading Jelly-RDF 1.0 and 1.1 streams, from the [Jelly-RDF 1.1 test suite](../conformance/rdf-1-1-test-cases.md)), and MUST provide a conformance report as described on the [reporting conformance](../conformance/reporting-conformance.md) page. Implementations SHOULD pass the conformance tests marked with the `SHOULD` conformance level (`jellyt:featureShouldLevel`).
 
 !!! note
 
@@ -234,6 +234,8 @@ The stream type indicates whether the stream is one RDF graph or dataset, or a s
 
 - `RDF_STREAM_TYPE_FLAT` (0) – default value. The entire stream is one RDF graph (physical type `TRIPLES`) or one RDF dataset (physical type `QUADS`). [Blank node labels](#blank-nodes) are scoped to the whole stream. [Message boundaries](#message-boundaries) MUST NOT be used. The consumer SHOULD throw an error otherwise.
 - `RDF_STREAM_TYPE_MESSAGES` (1) – the stream is an [RDF Message Stream or RDF Message Log](https://w3c-cg.github.io/rsp/spec/messages). Each message is an RDF graph (physical type `TRIPLES`) or an RDF dataset (physical type `QUADS`). The messages are delimited by [message boundaries](#message-boundaries). [Blank node labels](#blank-nodes) are scoped to one message. The lookup tables and the [namespace declarations](#namespace-declarations) are kept from one message to the next.
+
+Support for the `RDF_STREAM_TYPE_MESSAGES` stream type is OPTIONAL. A consumer that does not support it SHOULD throw an error when it reads stream options with this stream type.
 
 Consumers SHOULD throw an error if the stream type has a value that is not listed above.
 
@@ -813,8 +815,6 @@ Two occurrences of the same label within one scope MUST be interpreted as referr
 !!! note
 
     Many RDF libraries (e.g., Eclipse RDF4J, Apache Jena) use internal identifiers for blank nodes, which can be used as the labels in Jelly streams. You can also use a different format, for example with shorter labels to preserve space.
-
-<!-- DONE SO FAR -->
 
 #### Triple terms
 
