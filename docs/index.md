@@ -225,19 +225,15 @@
 
 ## How fast is it?
 
-*Fast.* Jelly was specifically designed to serialize and deserialize streams of RDF data faster than N-Triples or other binary formats, while being [more compact than Turtle](performance/index.md#grouped-streaming-serialized-size).
+*Fast.* Jelly was specifically designed to read and write RDF data much faster than N-Triples or other binary formats, while being [more compact](performance/rdf.md#serialized-size).
 
-The benchmarks below were performed on streams of RDF graphs or datasets, but Jelly is also good at handling streams of triples or quads ("classic" serialization). The benchmark was performed with Jelly-JVM 2.7.0 with Apache Jena 5.3.0. See: **[more benchmark results and details about the benchmark setup](performance/index.md)**.
+The benchmarks below were performed with Jelly-JVM 4.0.0, Apache Jena 6.2.0, and Eclipse RDF4J 6.1.0. See: **[more benchmark results and details about the benchmark setup](performance/index.md)**.
 
-<figure markdown="span">
-  ![Serialization speed bar plot](assets/benchmarks/grouped_ser.png){ width="100%" }
-  <figcaption markdown style="max-width: 100%;">Serialization speed of a stream of RDF graphs or RDF datasets, averaged over 13 datasets (RiverBench 2.1.0 profile [`stream-mixed-rdfstar`](https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar), task [`stream-serialization-throughput`](https://w3id.org/riverbench/v/2.1.0/tasks/stream-serialization-throughput)).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).<br>[More details about the benchmark](performance/index.md).</figcaption>
-</figure>
+--8<-- "snippets/home/a-overview-rdf.html"
 
-<figure markdown="span">
-  ![Deserialization speed bar plot](assets/benchmarks/grouped_des.png){ width="100%" }
-  <figcaption markdown style="max-width: 100%;">Deserialization (parsing) speed of a stream of RDF graphs or RDF datasets, averaged over 13 datasets (RiverBench 2.1.0 profile [`stream-mixed-rdfstar`](https://w3id.org/riverbench/v/2.1.0/profiles/stream-mixed-rdfstar), task [`stream-deserialization-throughput`](https://w3id.org/riverbench/v/2.1.0/tasks/stream-deserialization-throughput)).<br>* Partial results for RDF/XML and JSON-LD (some datasets not supported).<br>[More details about the benchmark](performance/index.md).</figcaption>
-</figure>
+--8<-- "snippets/home/f-size-rdf-triples.html"
+
+--8<-- "snippets/home/notes.html"
 
 ## What can I use it for?
 

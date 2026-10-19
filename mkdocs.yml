@@ -79,6 +79,10 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+  - assets/charts/jelly-charts.css
+
+extra_javascript:
+  - assets/charts/jelly-charts.js
 
 extra:
   version:
@@ -105,7 +109,8 @@ nav:
 
   - Performance: 
     - 'performance/index.md'
-    - RDF4J benchmarks: 'performance/rdf4j.md'
+    - Jelly-RDF: 'performance/rdf.md'
+    - Jelly-SPARQL: 'performance/sparql.md'
 
   - Protocol specification:
     - 'specification/index.md'
