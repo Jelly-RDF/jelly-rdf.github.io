@@ -18,12 +18,6 @@ The following code is licensed under the [Apache License, Version 2.0](https://w
 {% include "./proto/patch.proto" %}
 ```
 
-## `rdf2.proto`
-
-```protobuf
-{% include "./proto/rdf2.proto" %}
-```
-
 ## `sparql.proto`
 
 ```protobuf

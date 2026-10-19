@@ -8,13 +8,17 @@
 
 !!! info
 
-    It is highly recommended to first read the [RDF Patch specification](https://afs.github.io/rdf-delta/rdf-patch.html). Jelly-Patch is an implementation of RDF Patch built on top of [Jelly-RDF](serialization.md).
+    It is highly recommended to first read the [RDF Patch specification](https://afs.github.io/rdf-delta/rdf-patch.html). Jelly-Patch is an implementation of RDF Patch built on top of [Jelly-RDF 1.1]({{ rdf_1_1_link() }}).
+
+!!! note "RDF 1.2"
+
+    Jelly-Patch uses the RDF term encoding of Jelly-RDF 1.1. It supports RDF 1.1 and RDF-star (quoted triples), but not RDF 1.2. A later version of Jelly-Patch may move to the encoding of [Jelly-RDF 1.2](serialization.md).
 
 This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`patch.proto`]({{ git_proto_link('patch.proto') }})).
 
 The following assumptions are used in this document:
 
-- The Jelly-Patch format is based on [Jelly RDF serialization format](serialization.md), version `{{ proto_version() }}`. All concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.
+- The Jelly-Patch format is based on the [Jelly RDF serialization format, version 1.1]({{ rdf_1_1_link() }}) (Jelly-RDF 1.1). All concepts, definitions, and Protobuf messages defined there apply also here, unless explicitly stated otherwise.
 - The basis for the terms used is the RDF 1.1 specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/)).
 - Additionally, the RDF 1.1 Turtle specification ([W3C Recommendation 25 February 2014](https://www.w3.org/TR/2014/REC-turtle-20140225/)) is used in parts as a basis for selected definitions.
 - The RDF Patch specification document ([RDF Delta, Andy Seaborne](https://afs.github.io/rdf-delta/rdf-patch.html)) is used as the basis for RDF Patch concepts and definitions.
@@ -60,7 +64,7 @@ The following versions of the protocol are defined:
 
 !!! note
 
-    See also the notes about the practical implications of this in the [Jelly-RDF specification](serialization.md#forward-compatibility).
+    See also the notes about the practical implications of this in the [Jelly-RDF specification]({{ rdf_1_1_link('forward-compatibility') }}).
 
 ## Actors and implementations
 
@@ -74,7 +78,7 @@ Jelly-Patch uses [Protocol Buffers version 3](https://protobuf.dev/programming-g
 
 The Jelly-Patch format describes a *stream* (i.e., and ordered sequence) of *patch frames*. The frames may be sent one-by-one using a dedicated streaming protocol (e.g., [gRPC](streaming.md), MQTT, Kafka) or written in sequence to a byte stream (e.g., a file or socket). When writing multiple frames to a byte stream, the frames MUST be delimited – see the [delimited variant](#delimited-variant).
 
-The semantics of the patch frames (i.e., how should the frames be interpreted) are decided by the *[patch stream type](#patch-stream-types)*. The statements in the stream may be either RDF triples or quads, depending on the *[statement stream type](#statement-types)*. Jelly-Patch uses the same compression mechanisms as [Jelly-RDF](serialization.md) to compress the statements.
+The semantics of the patch frames (i.e., how should the frames be interpreted) are decided by the *[patch stream type](#patch-stream-types)*. The statements in the stream may be either RDF triples or quads, depending on the *[statement stream type](#statement-types)*. Jelly-Patch uses the same compression mechanisms as [Jelly-RDF 1.1]({{ rdf_1_1_link() }}) to compress the statements.
 
 ### Patch frames
 
@@ -88,7 +92,7 @@ Implementations MAY choose to adopt a **non-standard** solution where the order 
 
 !!! note
 
-    See also the notes about the practical implications of this in the [Jelly-RDF specification](serialization.md#ordering).
+    See also the notes about the practical implications of this in the [Jelly-RDF specification]({{ rdf_1_1_link('ordering') }}).
 
 ### Patch rows
 
@@ -142,11 +146,11 @@ The statement type MUST be explicitly specified in the [patch stream options](#p
 
 - `STATEMENT_TYPE_UNSPECIFIED` (0) – default value. This statement type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
 - `STATEMENT_TYPE_TRIPLES` (1) – in this case, the statements in the stream MUST be interpreted as RDF triples (graph is unspecified). The stream MUST NOT contain any `RdfQuad` or `RdfPatchNamespace` messages with the `graph` oneof set to any value.
-- `STATEMENT_TYPE_QUADS` (2) – in this case, the statements in the stream MUST be interpreted as RDF quads. If the `graph` oneof in the `RdfQuad` or `RdfPatchNamespace` message is not set, it MUST be interpreted as a repeated graph term, in line with the [Jelly-RDF format specification](serialization.md#repeated-terms).
+- `STATEMENT_TYPE_QUADS` (2) – in this case, the statements in the stream MUST be interpreted as RDF quads. If the `graph` oneof in the `RdfQuad` or `RdfPatchNamespace` message is not set, it MUST be interpreted as a repeated graph term, in line with the [Jelly-RDF format specification]({{ rdf_1_1_link('repeated-terms') }}).
 
 !!! note
 
-    Statement types in Jelly-Patch work differently to [Jelly-RDF's physical stream types](serialization.md#physical-stream-types). Instead of restricting which types of messages are valid in the stream, we always use `RdfQuad`, and the statement type option simply tells us how to interpret the messages.
+    Statement types in Jelly-Patch work differently to [Jelly-RDF's physical stream types]({{ rdf_1_1_link('physical-stream-types') }}). Instead of restricting which types of messages are valid in the stream, we always use `RdfQuad`, and the statement type option simply tells us how to interpret the messages.
 
     Note that in the RDF 1.1 spec there is a clear difference between a "triple" and a "triple in the default graph" which would be a quad. A "triple" does not specify which graph it belongs to – it may be the default graph, or it may be a named graph. In practice, only some RDF implementations make the distinction between a triple and a triple in the default graph (e.g., Apache Jena). Others, like Eclipse RDF4J always assume that the triple is in the default graph.
 
@@ -176,7 +180,7 @@ The patch stream options message contains the following fields:
 
 ### Prefix, name, and datatype lookup entries
 
-Jelly-Patch uses the same IRI and datatype compression mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries). All rules specified for Jelly-RDF also apply here.
+Jelly-Patch uses the same IRI and datatype compression mechanism as [Jelly-RDF]({{ rdf_1_1_link('prefix-name-and-datatype-lookup-entries') }}). All rules specified for Jelly-RDF also apply here.
 
 ### RDF statements
 
@@ -187,7 +191,7 @@ Add and delete operations on RDF statements (`A` and `D` in RDF Patch) are alway
 
 #### Repeated terms
 
-Jelly-Patch uses the same repeated term encoding as [Jelly-RDF](serialization.md#repeated-terms) for `RdfQuad` messages. The only difference is in handling the `graph` oneof in streams with type `STATEMENT_TYPE_TRIPLES`, where the `graph` oneof MUST NOT be set and is not used for repeated term encoding.
+Jelly-Patch uses the same repeated term encoding as [Jelly-RDF]({{ rdf_1_1_link('repeated-terms') }}) for `RdfQuad` messages. The only difference is in handling the `graph` oneof in streams with type `STATEMENT_TYPE_TRIPLES`, where the `graph` oneof MUST NOT be set and is not used for repeated term encoding.
 
 In Jelly-Patch, the type of the operation (add or delete) does not affect the repeated term encoding. An empty term in a `RdfQuad` message MUST be interpreted as a repeated term from the last `RdfQuad` or `RdfNamespaceDeclaration` (in case of `graph`) message in the stream, regardless of whether both operations are of the same type (add and add, or delete and delete) or not (add and delete, or delete and add).
 
@@ -199,7 +203,7 @@ Add and delete operations of namespace declarations (`PA` and `PD` in RDF Patch)
 - `value` (2) – the IRI of the namespace as an `RdfIri` message. This field is REQUIRED for the namespace add operation (`PA`) and OPTIONAL for the namespace delete operation (`PD`).
 - `graph` oneof (3–6, fields `g_iri`, `g_bnode`, `g_default_graph`, `g_literal`) – the graph term of the namespace declaration.
 
-The `graph` oneof follows the [Jelly-RDF graph node encoding](serialization.md#rdf-terms-and-graph-nodes). The `graph` oneof MUST NOT be set to any value in streams with type `STATEMENT_TYPE_TRIPLES`. In streams with type `STATEMENT_TYPE_QUADS`, the `graph` oneof MUST be set to one of the possible values, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
+The `graph` oneof follows the [Jelly-RDF graph node encoding]({{ rdf_1_1_link('rdf-terms-and-graph-nodes') }}). The `graph` oneof MUST NOT be set to any value in streams with type `STATEMENT_TYPE_TRIPLES`. In streams with type `STATEMENT_TYPE_QUADS`, the `graph` oneof MUST be set to one of the possible values, unless a repeated term is used (see: [Repeated terms](#repeated-terms)).
 
 In repeated term encoding, the `graph` oneof of `RdfPatchNamespace` MUST be interpreted in the same manner as if it appeared in a `RdfQuad` message. When `STREAM_TYPE_QUADS` is used and the `graph` oneof is not set to any value, it MUST be interpreted as a repeated graph term from the last `RdfQuad` or `RdfNamespaceDeclaration` message in the stream, regardless of whether both operations are of the same type (add and add, or delete and delete) or not (add and delete, or delete and add).
 
@@ -247,11 +251,11 @@ Repeated term encoding MUST NOT be used for the `value` oneof in the `RdfPatchHe
 
 ### RDF terms and graph nodes
 
-Jelly-Patch uses the same RDF term and graph node encoding as [Jelly-RDF](serialization.md#rdf-terms-and-graph-nodes).
+Jelly-Patch uses the same RDF term and graph node encoding as [Jelly-RDF]({{ rdf_1_1_link('rdf-terms-and-graph-nodes') }}).
 
 RDF term encoding is also used for the `h_iri`, `h_bnode`, `h_literal`, and `h_triple_term` fields in the `value` oneof of the `RdfPatchHeader` message ([reference](reference.md#rdfpatchheader)).
 
-RDF graph node encoding is also used for the `g_iri`, `g_bnode`, `g_default_graph`, and `g_literal` fields in the `graph` oneof of the `RdfPatchNamespace` message ([reference](reference.md#rdfpatchnamespace)). Additionally, RDF IRI encoding [defined in Jelly-RDF](serialization.md#iris) is used for the `value` field in the `RdfPatchNamespace` message.
+RDF graph node encoding is also used for the `g_iri`, `g_bnode`, `g_default_graph`, and `g_literal` fields in the `graph` oneof of the `RdfPatchNamespace` message ([reference](reference.md#rdfpatchnamespace)). Additionally, RDF IRI encoding [defined in Jelly-RDF]({{ rdf_1_1_link('iris') }}) is used for the `value` field in the `RdfPatchNamespace` message.
 
 The same rules about the order of processing RDF IRIs, RDF terms, RDF graph nodes, and their lookup references also apply here. The terms and graph nodes present in `RdfPatchHeader` and `RdfPatchNamespace` messages MUST be processed as if they were present in the `RdfQuad` messages, in the order in which their rows appear in the stream. In `RdfPatchNamespace`, the IRI in the `value` field MUST be processed before the RDF term in the `graph` oneof.
 
@@ -336,7 +340,7 @@ A byte stream (or file) in the delimited variant MUST consist of a series of del
 
 !!! note
 
-    See also notes about the delimited variant in the [Jelly-RDF specification](serialization.md#delimited-variant-of-jelly).
+    See also notes about the delimited variant in the [Jelly-RDF specification]({{ rdf_1_1_link('delimited-variant-of-jelly') }}).
 
 ## Internet media type and file extension
 
@@ -348,7 +352,7 @@ The files SHOULD be saved in the [delimited variant of Jelly-Patch](#delimited-v
 
 *This section is not part of the specification.*
 
-The same security considerations apply to Jelly-Patch as to Jelly-RDF. Please refer to the [Jelly-RDF specification](serialization.md#security-considerations) for more information.
+The same security considerations apply to Jelly-Patch as to Jelly-RDF. Please refer to the [Jelly-RDF specification]({{ rdf_1_1_link('security-considerations') }}) for more information.
 
 ## Implementations
 
