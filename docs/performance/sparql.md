@@ -2,7 +2,7 @@
 
 The following results were obtained by benchmarking [Jelly-JVM]({{ jvm_link() }}) 4.0.0 against the SPARQL query results formats built into Apache Jena and Eclipse RDF4J. For RDF serialization, see [Jelly-RDF benchmarks](rdf.md).
 
-The charts are interactive – hover over them for details. The data behind each chart is listed below it.
+The charts are interactive – hover over them for details.
 
 ## Benchmark setup
 

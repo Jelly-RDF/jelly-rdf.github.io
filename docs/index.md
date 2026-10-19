@@ -225,7 +225,7 @@
 
 ## How fast is it?
 
-*Fast.* Jelly was specifically designed to serialize and deserialize streams of RDF data faster than N-Triples or other binary formats, while being [more compact than Turtle](performance/rdf.md#serialized-size).
+*Fast.* Jelly was specifically designed to read and write RDF data much faster than N-Triples or other binary formats, while being [more compact](performance/rdf.md#serialized-size).
 
 The benchmarks below were performed with Jelly-JVM 4.0.0, Apache Jena 6.2.0, and Eclipse RDF4J 6.1.0. See: **[more benchmark results and details about the benchmark setup](performance/index.md)**.
 

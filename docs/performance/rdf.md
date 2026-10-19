@@ -2,21 +2,21 @@
 
 The following results were obtained by benchmarking [Jelly-JVM]({{ jvm_link() }}) 4.0.0 against the RDF serialization formats built into Apache Jena and Eclipse RDF4J. For SPARQL query results, see [Jelly-SPARQL benchmarks](sparql.md).
 
-The benchmarks were performed on flat RDF streams – streams of RDF triples or quads. This is the "classic" serialization – equivalent to, for example, N-Triples or N-Quads.
+The benchmarks were performed on flat streams of RDF triples or quads.
 
-The charts are interactive – hover over them for details. The data behind each chart is listed below it.
+The charts are interactive – hover over them for details.
 
 ## Benchmark setup
 
 All benchmarks were performed on the first 100,000 statements of each dataset in [RiverBench](https://w3id.org/riverbench/v/dev) (development version, October 2026), except `yago-annotated-facts`, which uses RDF-star. Out of the 13 used datasets, 3 include RDF quads (`assist-iot-weather-graphs`, `citypulse-traffic-graphs`, `nanopubs`).
 
-- Each method/dataset combination was run in 3 separate JVM forks, each with 5 × 1 s warmup and 5 × 1 s measurement. The result for a dataset is the median of the 3 forks.
+- Each method/dataset combination was run in 3 separate JVM forks (sweeps), each with 5 × 1 s warmup and 5 × 1 s measurement. The result for a dataset is the median of the 3 sweeps.
 - Serialization: the data was preloaded into memory and serialized to a null output stream.
-- Deserialization: the data was deserialized from a byte array in memory. The deserializer was emitting only a stream of triples/quads, without any further processing.
+- Deserialization: the data was deserialized from a byte array input stream in memory. The deserializer was emitting only a stream of triples/quads, without any further processing.
 - All parsers and writers were configured to skip optional work that can be turned off in the library: IRI, language tag, and datatype validation, blank node relabeling, and pretty-printing. Writers that use prefixes were given the prefixes of the dataset.
 - Averages are geometric means over the datasets.
 
-Hardware: NVIDIA DGX Spark (GB10 Grace Blackwell Superchip with 10 Cortex-X925 and 10 Cortex-A725 cores; 128 GB unified memory). The benchmarks were pinned to 5 Cortex-X925 cores (3.9 GHz) and are single-threaded. The disk was not used during the benchmarks (all data was in memory).
+Hardware: NVIDIA DGX Spark (GB10 Grace Blackwell Superchip with 10 Cortex-X925 and 10 Cortex-A725 cores, 128 GB unified memory). The benchmarks were pinned to 5 Cortex-X925 cores (3.9 GHz) and are single-threaded. The disk was not used during the benchmarks (all data was in memory).
 
 Software: Linux kernel 6.17, GraalVM CE 25.4 (Java 25.0.4), Apache Jena 6.2.0, Eclipse RDF4J 6.1.0, [Jelly-JVM]({{ jvm_link() }}) 4.0.0.
 

@@ -104,6 +104,10 @@
   }
 
   function init() {
+    // Vega's tooltip <div> hangs off <body>, so it outlives instant navigation, while its <style>
+    // in <head> does not; on the next page it would show up unstyled at the bottom. Drop it here,
+    // the next chart makes a new one.
+    document.getElementById("vg-tooltip-element")?.remove();
     renderAll(false);
   }
 
