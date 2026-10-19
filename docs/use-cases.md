@@ -35,7 +35,6 @@
     - Jelly is used as [one of the serialization formats](https://w3id.org/riverbench/v/dev/documentation/dataset-release-format) for distributing datasets in RiverBench.
     - Jelly is also used for [distributing the RDF metadata](https://w3id.org/riverbench/v/dev/documentation/metadata) of benchmark datasets, tasks, and other resources.
     - This is implemented in the [ci-worker](https://github.com/RiverBench/ci-worker) application – a Scala 3 program making heavy use of [Jelly-JVM's]({{ jvm_link() }}) streaming capabilities.
-- **[Jelly-JVM benchmark code](https://github.com/Jelly-RDF/jvm-benchmarks)**. This code was used to produce the benchmark results for Jelly-JVM 2.7.0.
 - **[RDF Stream Taxonomy (RDF-STaX)](https://w3id.org/stax)** uses Jelly for distributing the RDF-STaX ontology and the living literature review of RDF streaming.
     - This is implemented using [jelly-cli](https://github.com/Jelly-RDF/cli). Source code: [GitHub](https://github.com/RDF-STaX/ci-worker).
 
