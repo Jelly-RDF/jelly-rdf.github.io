@@ -63,13 +63,9 @@ The following versions of the protocol are defined:
 Streams with version tag 1 or 2 (Jelly-RDF 1.0.x and 1.1.x) use the *row layout*, in which a stream frame is a list of rows, containing statements and lookup entries. Streams with version tag 3 (Jelly-RDF 1.2.x) use the *column layout* described in this document. Both layouts use the same Protobuf messages for stream frames and stream options, so a consumer can determine which layout is in use by examining the `version` field of the [stream options](#stream-options).
 
 - If the stream options of a stream have version tag 1 or 2, the consumer MUST read the stream as described in the [Jelly-RDF 1.1 specification]({{ rdf_1_1_link() }}). This document does not apply to such a stream.
-- A producer MAY write a stream with version tag 1 or 2. It MUST then follow the [Jelly-RDF 1.1 specification]({{ rdf_1_1_link() }}), and this document does not apply to that stream.
+- A producer MAY write a stream with version tag 1 or 2, for example so that consumers that support only Jelly-RDF 1.0 or 1.1 can read it. It MUST then follow the [Jelly-RDF 1.1 specification]({{ rdf_1_1_link() }}), and this document does not apply to that stream.
 
 Following the [backward compatibility](#backward-compatibility) rules, a consumer that fully implements this specification MUST be able to read streams with version tags 1 and 2.
-
-!!! note
-
-    Every Jelly-RDF consumer can read the row layout, while the column layout needs a consumer that supports Jelly-RDF 1.2. If your files must be readable by older consumers, write them as Jelly-RDF 1.1.
 
 ### Backward compatibility
 
@@ -110,6 +106,19 @@ Within a frame, the RDF terms of statements are stored in columns: all subjects 
 !!! note "Messages used only by Jelly-RDF 1.0 and 1.1"
 
     `rdf.proto` also contains messages used only by the row layout of Jelly-RDF 1.0.x and 1.1.x (and by [Jelly-Patch](patch.md)): `RdfTriple`, `RdfQuad`, `RdfGraphStart`, `RdfGraphEnd`, `RdfDefaultGraph`, `RdfNameEntry`, `RdfPrefixEntry`, `RdfDatatypeEntry`, `LogicalStreamType`, and all fields of `RdfStreamRow` except `options`. They are not used in Jelly-RDF 1.2 streams and are not described in this document.
+
+### Stream types
+
+The stream type indicates whether the stream is one RDF graph or dataset, or a sequence of RDF Messages. It is set in the `stream_type` field (5) of the [stream options](#stream-options), as an [`RdfStreamType`](reference.md#rdfstreamtype) value:
+
+- `RDF_STREAM_TYPE_FLAT` (0) – default value. The entire stream is one RDF graph (physical type `TRIPLES`) or one RDF dataset (physical type `QUADS`). [Blank node labels](#blank-nodes) are scoped to the whole stream. [Message boundaries](#message-boundaries) MUST NOT be used. The consumer SHOULD throw an error otherwise.
+- `RDF_STREAM_TYPE_MESSAGES` (1) – the stream is an [RDF Message Stream or RDF Message Log](https://w3c-cg.github.io/rsp/spec/messages). Each message is an RDF graph (physical type `TRIPLES`) or an RDF dataset (physical type `QUADS`). The messages are delimited by [message boundaries](#message-boundaries). [Blank node labels](#blank-nodes) are scoped to one message. The lookup tables and the [namespace declarations](#namespace-declarations) are kept from one message to the next.
+
+An RDF Message is a unit of RDF data, as defined by the [RDF Messages specification](https://w3c-cg.github.io/rsp/spec/messages). One RDF Message may span many [stream frames](#stream-frames), and one frame may contain many RDF Messages.
+
+Support for the `RDF_STREAM_TYPE_MESSAGES` stream type is OPTIONAL. A consumer that does not support it SHOULD throw an error when it reads stream options with this stream type.
+
+Consumers MUST throw an error if the stream type has a value that is not listed above.
 
 ### Stream frames
 
@@ -196,7 +205,7 @@ Streams with version tags 1 and 2 are read as described in [earlier versions](#e
 
 #### Restating the stream options (stream concatenation) { #restating-the-stream-options }
 
-A frame after the first non-empty frame MAY contain the stream options again. This is called *restating* the stream options. It makes Jelly-RDF 1.2 and newer streams concatenable: a Jelly-RDF file can be appended to another one with the same physical type and stream type without changes, and the result is a valid stream.
+A frame after the first non-empty frame MAY contain the stream options again. This is called *restating* the stream options. It makes Jelly-RDF 1.2 and newer streams concatenable: a Jelly-RDF file can be appended to another one with the same physical type and stream type without changes, and the result is a valid stream. The other options of the two files, such as the lookup table sizes or the RDF version, may differ. Jelly-RDF 1.0 and 1.1 files cannot be concatenated with Jelly-RDF 1.2 files.
 
 Restating the stream options has the following effects, which take place before the column batch of the same frame is processed:
 
@@ -207,37 +216,24 @@ Restating the stream options has the following effects, which take place before 
 
 The `physical_type` and `stream_type` fields MUST have the same values in all stream options of a stream. The consumer SHOULD throw an error otherwise. The other fields may differ from the previous stream options, and apply to the frames that follow, until the stream options are restated again. The restated stream options MUST be valid on their own. The consumer MAY throw an error if it does not support the new options (e.g., because they ask for too large lookup tables).
 
-!!! note "What this is for"
+!!! note
 
-    This exists so that two Jelly-RDF files can be concatenated into one valid file, as long as they have the same physical type and stream type. The other options, such as the lookup table sizes or the RDF version, may differ. Jelly-RDF 1.0 and 1.1 files cannot be concatenated with Jelly-RDF 1.2 files.
-
-    It is **not** a way for a consumer to join a stream that is already in progress. If you want frames that can be decoded independently, see the [note on independently decodable frames](#ordering) instead.
+    Restating the stream options is **not** a way for a consumer to join a stream that is already in progress. If you want frames that can be decoded independently, see the [note on independently decodable frames](#ordering) instead.
 
 ### Physical stream types
 
 The physical type of the stream MUST be explicitly specified in the [stream options](#stream-options). The following types are defined in the `PhysicalStreamType` enum ([reference](reference.md#physicalstreamtype)):
 
-- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
+- `PHYSICAL_STREAM_TYPE_UNSPECIFIED` (0) – default value. This physical stream type MUST NOT be used. Consumers MUST throw an error if this value is used.
 - `PHYSICAL_STREAM_TYPE_TRIPLES` (1) – stream of [RDF triples](https://www.w3.org/TR/rdf12-concepts/#section-triples). In this case, the column batches MUST NOT have the `graphs` column set. The consumer SHOULD throw an error otherwise.
 - `PHYSICAL_STREAM_TYPE_QUADS` (2) – stream of RDF quads: triples, each in the default graph or in a named graph. See [column batches](#column-batches) for how the graphs are encoded.
-- `PHYSICAL_STREAM_TYPE_GRAPHS` (3) – used only in Jelly-RDF 1.0.x and 1.1.x. This physical stream type MUST NOT be used. Consumers SHOULD throw an error if this value is used.
+- `PHYSICAL_STREAM_TYPE_GRAPHS` (3) – used only in Jelly-RDF 1.0.x and 1.1.x. This physical stream type MUST NOT be used. Consumers MUST throw an error if this value is used.
 
-Consumers SHOULD throw an error if the physical stream type has a value that is not listed above.
+Consumers MUST throw an error if the physical stream type has a value that is not listed above.
 
 !!! note
 
     In Jelly-RDF 1.1, the `GRAPHS` type was used to send triples grouped by graph. In Jelly-RDF 1.2, use `QUADS` instead.
-
-### Stream types
-
-The stream type indicates whether the stream is one RDF graph or dataset, or a sequence of RDF Messages. It is set in the `stream_type` field (5) of the [stream options](#stream-options), as an [`RdfStreamType`](reference.md#rdfstreamtype) value:
-
-- `RDF_STREAM_TYPE_FLAT` (0) – default value. The entire stream is one RDF graph (physical type `TRIPLES`) or one RDF dataset (physical type `QUADS`). [Blank node labels](#blank-nodes) are scoped to the whole stream. [Message boundaries](#message-boundaries) MUST NOT be used. The consumer SHOULD throw an error otherwise.
-- `RDF_STREAM_TYPE_MESSAGES` (1) – the stream is an [RDF Message Stream or RDF Message Log](https://w3c-cg.github.io/rsp/spec/messages). Each message is an RDF graph (physical type `TRIPLES`) or an RDF dataset (physical type `QUADS`). The messages are delimited by [message boundaries](#message-boundaries). [Blank node labels](#blank-nodes) are scoped to one message. The lookup tables and the [namespace declarations](#namespace-declarations) are kept from one message to the next.
-
-Support for the `RDF_STREAM_TYPE_MESSAGES` stream type is OPTIONAL. A consumer that does not support it SHOULD throw an error when it reads stream options with this stream type.
-
-Consumers SHOULD throw an error if the stream type has a value that is not listed above.
 
 ### RDF version
 
@@ -245,10 +241,10 @@ The `rdf_version` field (6) of the [stream options](#stream-options) announces w
 
 | `RdfVersion` value            | Version label | Base directions | Triple terms |
 | ----------------------------- | ------------- | --------------- | ------------ |
-| `RDF_VERSION_UNSPECIFIED` (0) | none          | yes             | yes          |
-| `RDF_VERSION_1_1` (1)         | `1.1`         | no              | no           |
-| `RDF_VERSION_1_2_BASIC` (2)   | `1.2-basic`   | yes             | no           |
-| `RDF_VERSION_1_2` (3)         | `1.2`         | yes             | yes          |
+| `RDF_VERSION_UNSPECIFIED` (0) | none          | ✅              | ✅           |
+| `RDF_VERSION_1_1` (1)         | `1.1`         | ❌              | ❌           |
+| `RDF_VERSION_1_2_BASIC` (2)   | `1.2-basic`   | ✅              | ❌           |
+| `RDF_VERSION_1_2` (3)         | `1.2`         | ✅              | ✅           |
 
 The following rules apply, following the behavior of other RDF 1.2 serialization formats:
 
@@ -341,7 +337,7 @@ The elements of a batch MUST be processed in the following order:
 
 The `row_count` field (1) is the number of statements (rows) in the batch. It MUST NOT be greater than 2<sup>27</sup> − 1, which is the largest number of cells the [sequence layout](#sequence-layout) of a column can address. The consumer MUST throw an error otherwise.
 
-The *i*-th statement of the batch is made up of the *i*-th cells of the `subjects`, `predicates`, and `objects` columns (and the `graphs` column, in a `QUADS` stream). A column field that is not set is treated in the same way as an empty [column](#columns), in which all cells are unbound. The following rules apply to the columns:
+Each column stores the RDF terms of one position of the statements (subject, predicate, object, or graph name), with one cell per statement, in the order of the statements. To read a statement, take the cells at the same position in each column: the first statement of the batch is made up of the first cell of the `subjects` column, the first cell of the `predicates` column, and the first cell of the `objects` column (and the first cell of the `graphs` column, in a `QUADS` stream). The second statement is made up of the second cells, and so on. A column field that is not set is treated in the same way as an empty [column](#columns), in which all cells are unbound. The following rules apply to the columns:
 
 - `subjects` (6) – MUST contain only IRIs and blank nodes.
 - `predicates` (7) – MUST contain only IRIs.
@@ -358,9 +354,29 @@ The *i*-th statement of the batch is made up of the *i*-th cells of the `subject
 
     Most columns are cheap to encode. A batch of statements about one subject has a `subjects` column with one value and one [repeat run](#sequence-layout). A batch of quads in one named graph has a `graphs` column with one value and one repeat run. A batch of quads in the default graph does not need the `graphs` column at all.
 
+??? example "Example (click to expand)"
+
+    Consider a stream with physical type `QUADS` and a batch with these three statements, in N-Quads notation with the prefix `ex:` used for brevity:
+
+    ```
+    ex:alice ex:knows ex:bob .
+    ex:alice ex:name "Alice" ex:g1 .
+    ex:bob ex:name "Bob" ex:g1 .
+    ```
+
+    The batch has `row_count: 3`, and its columns contain the following cells (`_` marks an unbound cell):
+
+    | Statement | `subjects` | `predicates` | `objects` | `graphs` |
+    | --------- | ---------- | ------------ | --------- | -------- |
+    | 1         | `ex:alice` | `ex:knows`   | `ex:bob`  | `_` (default graph) |
+    | 2         | `ex:alice` | `ex:name`    | `"Alice"` | `ex:g1`  |
+    | 3         | `ex:bob`   | `ex:name`    | `"Bob"`   | `ex:g1`  |
+
+    Each of the four columns is then encoded as an `RdfColumn`, as described in [columns](#columns). The `subjects` column has the run values `ex:alice` and `ex:bob`, with `ex:alice` taking up two cells. The `objects` column mixes IRIs and literals, so it needs the [`kinds`](#term-types) field. See the [full example](#example) for a complete encoding of a similar batch.
+
 #### Message boundaries
 
-In a stream with stream type `RDF_STREAM_TYPE_MESSAGES`, the statements are split into RDF Messages by the `message_lengths` field (15) of the column batches. In a stream with stream type `RDF_STREAM_TYPE_FLAT`, this field MUST be empty (see [stream types](#stream-types)).
+In a stream of [RDF Messages](#stream-types) (stream type `RDF_STREAM_TYPE_MESSAGES`), the statements of the stream are split into messages. The frame boundaries do not mark where a message ends. Instead, the ends of the messages are written explicitly, in the `message_lengths` field (15) of the column batches. In a stream with stream type `RDF_STREAM_TYPE_FLAT`, this field MUST be empty.
 
 At any point of the stream, the *current message* is made up of the statements that were not yet assigned to any message. It may include statements from earlier frames. Each value of `message_lengths`, in order, adds that many more statements of the batch to the current message, and then ends the current message. In particular:
 
@@ -387,57 +403,6 @@ At the end of the stream, if the current message has any statements, it ends the
 !!! note
 
     A producer that writes one message per frame simply sets `message_lengths: [row_count]` in every frame. A producer with small messages can put many of them in one frame.
-
-### Namespace declarations
-
-IRI namespace declarations are not a formal part of the RDF abstract data model. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are stored in the `namespaces` field (5) of a [column batch](#column-batches), as `RdfNamespaceDeclaration` messages ([reference](reference.md#rdfnamespacedeclaration)). The message has the following fields:
-
-- `name` (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the [`PN_PREFIX` production in RDF 1.2 Turtle](https://www.w3.org/TR/rdf12-turtle/#grammar-production-PN_PREFIX). Note that the `:` character (colon) is not part of the name. An empty string (the default value) is allowed.
-- `value` (2) – the IRI of the namespace as an [`RdfIri`](#iris) message. This field is REQUIRED.
-
-The following rules apply:
-
-- The IRIs of the namespace declarations of one batch are one [IRI sequence](#iris), in the order of the declarations. It is separate from the IRI sequences of the columns.
-- A namespace declaration stays in effect until the same name is declared again. Namespace declarations are kept from one RDF Message to the next, and when the stream options are [restated](#restating-the-stream-options).
-- The namespace declarations of a batch are processed before its statements.
-
-!!! note
-
-    Namespace declarations have no effect on the interpretation of the stream in terms of the RDF abstract data model. They are meant to be used only to preserve human-readable prefixes between the producer and the consumer.
-
-??? example "Example (click to expand)"
-
-    To encode the Turtle namespace declaration `PREFIX ex: <http://example.com/>` you would use the following column batch:
-
-    ```protobuf
-    RdfColumnBatch {
-        prefixes: [{ values: ["http://example.com/"] }]
-        # id 0, interpreted as 1
-        names: [{ values: [""] }]
-        # We must define an empty name entry, because the name part is always required
-        namespaces: [{
-            name: "ex"
-            value: {
-                prefix_id: 1
-                # name_id 0, interpreted as 1 (first IRI of the sequence)
-            }
-        }]
-    }
-    ```
-
-    Alternatively, if not using the prefix lookup table:
-
-    ```protobuf
-    RdfColumnBatch {
-        names: [{ values: ["http://example.com/"] }]
-        namespaces: [{
-            name: "ex"
-            value: {}
-            # prefix_id 0, interpreted as no prefix (first IRI of the sequence)
-            # name_id 0, interpreted as 1
-        }]
-    }
-    ```
 
 ### Columns
 
@@ -731,7 +696,7 @@ The blank nodes of a column are stored in the `bnodes` field (9) of `RdfColumn`:
 
 The triple terms of a column are stored in the `triple_terms` field (10) of `RdfColumn`, as [`RdfTripleTerm`](#triple-terms) messages, in row order. Triple terms cannot occur in a stream that declares `RDF_VERSION_1_1` or `RDF_VERSION_1_2_BASIC`. If `triple_terms` is not empty in such a stream, the consumer MAY throw an error (see [RDF version](#rdf-version)).
 
-The IRIs of all the triple terms of one column are one [IRI sequence](#iris), which starts at the start of the column, in every batch. It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms. This sequence is separate from the sequence of the other IRIs of the column (`name_ids` and `prefix_ids`).
+The IRIs of all the triple terms of one column are one [IRI sequence](#iris), which starts at the start of the column, in every batch. It advances through the triple terms in order, and through the IRIs of each triple term in the order subject, predicate, object, recursively into nested triple terms. This sequence is separate from the sequence of the other IRIs of the column (`name_ids` and `prefix_ids`). See [triple terms](#triple-terms) for how a triple term and its nested triple terms are encoded, and [IRIs](#iris) for the inference rules of an IRI sequence.
 
 ### RDF terms
 
@@ -829,6 +794,53 @@ The following rules apply:
 - The subject, the predicate, and the object MUST all be set. The consumer MUST throw an error if any of them is missing.
 - The IRIs in the triple terms follow the rules of the [IRI sequence](#iris) of the triple terms of their column, see [triple terms in columns](#triple-terms-in-columns).
 - Triple terms may be nested up to arbitrary depth. The consumer SHOULD throw an error if the depth of the nesting exceeds the capabilities of the implementation.
+
+### Namespace declarations
+
+IRI namespace declarations are not a formal part of the RDF abstract data model. They are a convenience / cosmetic feature of the serialization format to allow preserving associations between short namespace names and full IRIs. Namespace declarations are stored in the `namespaces` field (5) of a [column batch](#column-batches), as `RdfNamespaceDeclaration` messages ([reference](reference.md#rdfnamespacedeclaration)). The message has the following fields:
+
+- `name` (1) – the short name of the namespace, encoded in UTF-8. It SHOULD conform to the [`PN_PREFIX` production in RDF 1.2 Turtle](https://www.w3.org/TR/rdf12-turtle/#grammar-production-PN_PREFIX). Note that the `:` character (colon) is not part of the name. An empty string (the default value) is allowed.
+- `value` (2) – the IRI of the namespace as an [`RdfIri`](#iris) message. This field is REQUIRED.
+
+The following rules apply:
+
+- The IRIs of the namespace declarations of one batch are one [IRI sequence](#iris), in the order of the declarations. It is separate from the IRI sequences of the columns.
+- A namespace declaration stays in effect until the same name is declared again. Namespace declarations are kept from one RDF Message to the next, and when the stream options are [restated](#restating-the-stream-options).
+- The namespace declarations of a batch are processed before its statements.
+
+??? example "Example (click to expand)"
+
+    To encode the Turtle namespace declaration `PREFIX ex: <http://example.com/>` you would use the following column batch:
+
+    ```protobuf
+    RdfColumnBatch {
+        prefixes: [{ values: ["http://example.com/"] }]
+        # id 0, interpreted as 1
+        names: [{ values: [""] }]
+        # We must define an empty name entry, because the name part is always required
+        namespaces: [{
+            name: "ex"
+            value: {
+                prefix_id: 1
+                # name_id 0, interpreted as 1 (first IRI of the sequence)
+            }
+        }]
+    }
+    ```
+
+    Alternatively, if not using the prefix lookup table:
+
+    ```protobuf
+    RdfColumnBatch {
+        names: [{ values: ["http://example.com/"] }]
+        namespaces: [{
+            name: "ex"
+            value: {}
+            # prefix_id 0, interpreted as no prefix (first IRI of the sequence)
+            # name_id 0, interpreted as 1
+        }]
+    }
+    ```
 
 ### Example
 
@@ -974,7 +986,7 @@ The Jelly serialization format is based on Protocol Buffers, which handles all b
 
 For untrusted input, consumers must always validate that the requested sizes of the name, prefix, and datatype lookup tables are not overly large and are supported by the consumer. A malicious producer could attempt to exhaust the memory of the consumer by requesting a lookup table of several gigabytes or more. This would constitute a denial-of-service vector.
 
-The recommended mitigation is for each implementation to define a maximum allowed lookup size and check the requested size against it, rejecting the stream if it is larger. The limit should be configurable, so that a user who trusts the producer can raise it. The sizes recommended as defaults for that limit are 16384 names, 4096 prefixes, and 256 datatypes (see [stream options](#stream-options)).
+The recommended mitigation is for each implementation to define a maximum allowed lookup size and check the requested size against it, rejecting the stream if it is larger. The limit should be configurable, so that a user who trusts the producer can raise it. See [stream options](#stream-options) for the recommended defaults.
 
 !!! info
 
@@ -1002,7 +1014,7 @@ The layout tokens of a column decide how many cells the consumer will emit when 
 
 `RdfTripleTerm` is a recursive message: the object of a triple term may be another triple term. A malicious producer could send a triple term nested deeply enough to overflow the consumer's stack while parsing or converting it, which could be used as a denial-of-service vector.
 
-The official Protobuf implementations are not vulnerable to this type of attack, as they include a message recursion limit (100 by default). Implementations should verify that their Protobuf library supports this limit and that it is set to a reasonable value. A consumer that does not support triple terms can also reject any stream that declares `RDF_VERSION_1_2` up front. It cannot do so for a stream that declares no version, so it still needs the depth limit.
+The official Protobuf implementations are not vulnerable to this type of attack, as they include a message recursion limit (100 by default). Implementations should verify that their Protobuf library supports this limit and that it is set to a reasonable value.
 
 !!! info
 

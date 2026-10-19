@@ -276,6 +276,10 @@ The following rules apply:
 
     A producer whose process dies outright cannot write a trailer at all. That is why the absence of a trailer means "likely truncated" rather than "complete".
 
+!!! note "Trailers in boolean results"
+
+    A [boolean result](#boolean-results) (the result of an `ASK` query) is a single frame, so that frame is both the first and the last frame of its result set. It therefore also contains the trailer, next to the `ask_result` field. The trailer works the same as in a solution sequence: an empty `error` means the result is complete, and a non-empty `error` means the consumer must treat the result as incomplete and signal an error to the caller.
+
 ### Prefix, name, and datatype lookup entries
 
 Jelly-SPARQL uses the same lookup table mechanism as [Jelly-RDF](serialization.md#prefix-name-and-datatype-lookup-entries) to compress IRIs and datatypes, including [packed lookup entries](serialization.md#packed-lookup-entries) and the rule that [the working set of a batch](serialization.md#the-working-set-of-a-batch) must fit in the lookup tables. All the rules specified there apply here as well, where a batch is one `SparqlResultsFrame`, and a statement is one row (solution).
@@ -310,6 +314,13 @@ The `rdf_version` field (5) of the [stream options](#stream-options) announces w
 ## Delimited variant of Jelly-SPARQL { #delimited }
 
 Jelly-SPARQL uses the same [delimited variant as Jelly-RDF](serialization.md#delimited-variant-of-jelly), and the same rules apply: a byte stream in the delimited variant consists of a series of delimited `SparqlResultsFrame` messages. A producer that writes a Jelly-SPARQL stream to a file, or sends it in an HTTP message body with the `application/x-jelly-sparql` [media type](#internet-media-type-and-file-extension), MUST use the delimited variant.
+
+!!! note "Delimited streams and `PUNCTUATED` streams"
+
+    The two are unrelated and work at different levels:
+
+    - The **delimited variant** is about how the **frames** are separated in a byte stream. Each frame is prefixed with its length, so that a consumer reading a file or a socket knows where one frame ends and the next one starts. It is not needed with transports that send each frame as a separate message (for example gRPC, MQTT, or Kafka).
+    - The [**`PUNCTUATED` stream type**](#stream-types) is about how the **result sets** are separated in a stream. Each result set ends with a [trailer](#stream-trailer). It is set in the stream options and does not depend on the transport.
 
 ## Internet media type and file extension
 

@@ -10,6 +10,10 @@
 
     It is highly recommended to first read the [RDF Patch specification](https://afs.github.io/rdf-delta/rdf-patch.html). Jelly-Patch is an implementation of RDF Patch built on top of [Jelly-RDF 1.1]({{ rdf_1_1_link() }}).
 
+!!! note "RDF 1.2"
+
+    Jelly-Patch uses the RDF term encoding of Jelly-RDF 1.1. It supports RDF 1.1 and RDF-star (quoted triples), but not RDF 1.2. A later version of Jelly-Patch may move to the encoding of [Jelly-RDF 1.2](serialization.md).
+
 This document is accompanied by the [Jelly Protobuf reference](reference.md) and the Protobuf definition itself ([`patch.proto`]({{ git_proto_link('patch.proto') }})).
 
 The following assumptions are used in this document:
