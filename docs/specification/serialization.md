@@ -64,6 +64,7 @@ Streams with version tag 1 or 2 (Jelly-RDF 1.0.x and 1.1.x) use the *row layout*
 
 - If the stream options of a stream have version tag 1 or 2, the consumer MUST read the stream as described in the [Jelly-RDF 1.1 specification]({{ rdf_1_1_link() }}). This document does not apply to such a stream.
 - A producer MAY write a stream with version tag 1 or 2, for example so that consumers that support only Jelly-RDF 1.0 or 1.1 can read it. It MUST then follow the [Jelly-RDF 1.1 specification]({{ rdf_1_1_link() }}), and this document does not apply to that stream.
+- In a stream with version tag 1 or 2, the fields added in Jelly-RDF 1.2 MUST NOT be set: `RdfStreamFrame.columns`, `RdfStreamOptions.stream_type`, `RdfStreamOptions.rdf_version`, and `RdfLiteral.direction`. The consumer MAY ignore these fields if they are set.
 
 Following the [backward compatibility](#backward-compatibility) rules, a consumer that fully implements this specification MUST be able to read streams with version tags 1 and 2.
 
