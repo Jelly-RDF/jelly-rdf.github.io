@@ -2925,6 +2925,7 @@
 <ul>
 <li>If the stream options of a stream have version tag 1 or 2, the consumer MUST read the stream as described in the <a href="https://w3id.org/jelly/1.1.3/specification/serialization/">Jelly-RDF 1.1 specification</a>. This document does not apply to such a stream.</li>
 <li>A producer MAY write a stream with version tag 1 or 2, for example so that consumers that support only Jelly-RDF 1.0 or 1.1 can read it. It MUST then follow the <a href="https://w3id.org/jelly/1.1.3/specification/serialization/">Jelly-RDF 1.1 specification</a>, and this document does not apply to that stream.</li>
+<li>In a stream with version tag 1 or 2, the fields added in Jelly-RDF 1.2 MUST NOT be set: <code>RdfStreamFrame.columns</code>, <code>RdfStreamOptions.stream_type</code>, <code>RdfStreamOptions.rdf_version</code>, and <code>RdfLiteral.direction</code>. The consumer MAY ignore these fields if they are set.</li>
 </ul>
 <p>Following the <a href="#backward-compatibility">backward compatibility</a> rules, a consumer that fully implements this specification MUST be able to read streams with version tags 1 and 2.</p>
 <h3 id="backward-compatibility">Backward compatibility</h3>
