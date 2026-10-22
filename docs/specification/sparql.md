@@ -17,10 +17,10 @@ The following assumptions are used in this document:
 | Document information | |
 | --- | --- |
 | **Author:** | [Piotr Sowiński](https://ostrzyciel.eu) ([Ostrzyciel](https://github.com/Ostrzyciel)), Anastasiya Danilenka ([adanilenka](https://github.com/adanilenka)) |
-| **Version:** | experimental (dev) |
+| **Version:** | {{ sparql_version() }} |
 | **Date:** | {{ git_revision_date_localized }} |
 | **Permanent URL:** | [`https://w3id.org/jelly/{{ proto_version() }}/specification/sparql`](https://w3id.org/jelly/{{ proto_version() }}/specification/sparql) |
-| **Document status**: | Experimental draft specification |
+| **Document status**: | {{ specification_status(sparql_version()) }} |
 | **License:** | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
 {% include "./includes/start_info.md" %}
@@ -44,9 +44,9 @@ The format follows the [Semantic Versioning 2.0](https://semver.org/) scheme. Ea
 
 The following versions of the format are defined:
 
-| Version tag | Semantic version    | Last release date                 | Changes                         |
-| ----------- | ------------------- | --------------------------------- | ------------------------------- |
-| 1           | 1.0.0               | Not finalized yet (draft)         | (initial version)               |
+| Version tag | Semantic version | Last release date | Changes                         |
+| ----------- | ---------------- | ----------------- | ------------------------------- |
+| 1           | 1.0.0            | October 23, 2026  | (initial version)               |
 
 Jelly-SPARQL has its own version tag, which is independent of the version tags of [Jelly-RDF](serialization.md#versioning) and [Jelly-Patch](patch.md#versioning).
 

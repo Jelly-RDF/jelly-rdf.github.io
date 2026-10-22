@@ -9,19 +9,19 @@ To use Jelly, pick an implementation that matches your tech stack:
 - **[rdfjs-jelly](https://github.com/pietercolpaert/rdfjs-jelly)** *(unofficial, community-led)* – written in JavaScript.
 - **[Locorda](https://locorda.dev/rdf/jelly/)** *(unofficial, community-led)* – written in Dart.
 
-You can also [create your own implementation](#implementing-jelly). Because Jelly is built on top of [Protocol Buffers](https://protobuf.dev/), you can generate most of the code automatically in any popular programming language.
+You can also [create your own implementation](#implementing-jelly). Because Jelly is built on top of [Protocol Buffers](https://protobuf.dev/), you can generate a lot of the code automatically in any popular programming language.
 
 ## What can it do?
 
 Jelly is designed to be a protocol for *streaming* RDF knowledge graphs, but it can also be used with static RDF datasets. Jelly was designed to be fast, well-compressed, and versatile.
 
-- Jelly can work with **any RDF knowledge graph data**, including RDF 1.1, RDF-star, and generalized RDF.
+- Jelly can work with **any RDF knowledge graph data**, including RDF 1.1 and RDF 1.2.
 - Jelly can be used to represent **streams of triples or quads** and also **graphs or datasets** ([RDF Messages](https://w3c-cg.github.io/rsp/spec/messages)).
 - Jelly can also be used to represent a **single graph or dataset**.
+- Jelly-SPARQL can be used to [**send SPARQL query results**](specification/sparql.md) (`SELECT` and `ASK`), using the same compression as Jelly-RDF.
 - Jelly-Patch can be used to [**record changes** to RDF datasets](specification/patch.md), including add/delete operations and transactions.
 - Jelly can be used for **streaming data over the network** (e.g., with MQTT, Kafka, gRPC), but also for **working with flat files**.
 - Jelly can **compress RDF data on the fly**, without having to know the data in advance.
-- Jelly is super-fast and lightweight, scaling down to **IoT** and up to **high-performance servers**.
 
 ## Quick start
 
@@ -41,6 +41,7 @@ You can also install `jelly-cli` manually by downloading the [latest release](ht
 
 - Run `jelly-cli rdf to-jelly some-rdf-file.ttl > output.jelly` to convert an RDF file to Jelly.
 - Run `jelly-cli rdf from-jelly output.jelly` to convert the Jelly file back to RDF.
+- Run `jelly-cli sparql to-jelly results.srj > results.jellys` to convert SPARQL query results to Jelly.
 - Run `jelly-cli --help` to see all available commands.
 
 You can find more information about `jelly-cli` in **[its README on GitHub](https://github.com/Jelly-RDF/cli)**.
@@ -65,7 +66,27 @@ Go see the **[Jelly-JVM getting started guide for devs]({{ jvm_link('getting-sta
 
 See the **[pyjelly getting started guide]({{ python_link('getting-started') }})**. It contains examples and code snippets for using Jelly with or without RDFLib, as well as other libraries like NetworkX.
 
+### Migrating from Jelly-RDF 1.1 to 1.2
+
+Jelly-RDF 1.2 files can't be read by parsers that only support Jelly-RDF 1.1. The other way around works fine – parsers that support Jelly-RDF 1.2 can also read Jelly-RDF 1.1 and 1.0 files.
+
+To convert your existing files to Jelly-RDF 1.2, use [`jelly-cli`](https://github.com/Jelly-RDF/cli):
+
+```shell
+jelly-cli rdf to-jelly --in-format jelly old.jelly > new.jelly
+```
+
+If you need to send data to an older parser, you can also convert a Jelly-RDF 1.2 file back to 1.1:
+
+```shell
+jelly-cli rdf to-jelly --in-format jelly --opt.jelly-version=1.1 new.jelly > old.jelly
+```
+
 ## How does it work – encoding
+
+!!! note
+
+    This guide describes the new Jelly-RDF 1.2 columnar encoding. To read about the Jelly-RDF 1.1 row-based encoding, see [the old guide](https://w3id.org/jelly/1.1.x/user-guide).
 
 RDF data consists of triples (subject, predicate, object) or quads (subject, predicate, object, graph name). We will use these three triples in the N-Triples format as a running example:
 
@@ -101,7 +122,9 @@ This allows us to reuse repeating prefixes and names while saving on the seriali
 | `RdfIri(1, 1)` | `RdfIri(1, 3)` | `RdfLiteral("Jelly")` |
 | `"b1"` | `RdfIri(1, 3)` | `RdfLiteral("Serialization format", "en")` |
 
-Notice that we have repeated IRIs in the first and second column. Jelly can compress that, by applying a method similar to Turtle's colons and semicolons, but a bit more general. If we have two consecutive triples/quads with the exact same subject, predicate, object, or graph name, we simply... don't write the repeated term:
+Jelly stores this table column by column – all subjects together, then all predicates, all objects, and all graph names. Within a column, the values are further split by type: IRIs go into one list, literals into another, blank nodes into yet another, and so on. If a column mixes types (like our objects column), Jelly adds 2 bits per value to say which list it comes from.
+
+Notice that we have repeated IRIs in the first and second column. Jelly can compress that, by applying a method similar to Turtle's colons and semicolons, but a bit more general. If a column has the exact same term in consecutive triples/quads, we write the term only once:
 
 | Subject | Predicate | Object |
 | ------- | --------- | ------ |
@@ -109,17 +132,17 @@ Notice that we have repeated IRIs in the first and second column. Jelly can comp
 | *(empty)* | `RdfIri(1, 3)` | `RdfLiteral("Jelly")` |
 | `"b1"` | *(empty)* | `RdfLiteral("Serialization format", "en")` |
 
-Jelly parsers detect these missing values and automatically fill them in with values from previous rows. These empty terms take up exactly 0 bytes on the wire, which makes this method very efficient.
+Each column also has a short list of *layout* notes, which tell the parser where a term repeats and for how many rows, so that the parser can fill the repeated terms back in. One repeated term usually costs one one byte, and only a few bytes even if it repeats for thousands of rows, which makes this method very efficient.
 
-Jelly also applies a delta compression scheme to prefix and name IDs. [You can find the details in the spec](specification/serialization.md), but the short version is that we use `0` to indicate `previous + 1` ID in the case of names, and `previous` ID in the case of prefixes. For our triples, this allows us to replace all name IDs with zeroes:
+Jelly also applies a delta compression scheme to prefix and name IDs. [You can find the details in the spec](specification/serialization.md), but the short version is that within each column we use `0` to indicate `previous + 1` ID in the case of names, and `previous` ID in the case of prefixes. For our triples, this allows us to replace most name IDs with zeroes:
 
 | Subject | Predicate | Object |
 | ------- | --------- | ------ |
-| `RdfIri(1, 0)` | `RdfIri(2, 0)` | `"b1"` |
+| `RdfIri(1, 0)` | `RdfIri(2, 2)` | `"b1"` |
 | *(empty)* | `RdfIri(1, 0)` | `RdfLiteral("Jelly")` |
 | `"b1"` | *(empty)* | `RdfLiteral("Serialization format", "en")` |
 
-The value of `0` takes up exactly zero bytes – that's the same trick as with repeated terms, allowing us to save even more space.
+The value of `0` takes up just one byte, no matter how large the lookup is, allowing us to save even more space.
 
 Jelly's encoding scheme was designed to work in a fully streaming manner. We can compress RDF data by only looking at one triple at a time, and we use a strictly limited amount of memory for that. **This allows Jelly to work with datasets of any size** – billions, trillions, and beyond.
 
@@ -141,79 +164,56 @@ That's the basics – [see the spec for details](specification/serialization.md)
     rows {
       options {
         physical_type: PHYSICAL_STREAM_TYPE_TRIPLES
-        rdf_star: true
         max_name_table_size: 4000
         max_prefix_table_size: 150
         max_datatype_table_size: 32
-        version: 1
+        version: 3
       }
     }
-    rows {
-      prefix {
-        value: "https://example.org/"
+    columns {
+      row_count: 3
+      names {
+        values: "jelly"
+        values: "type"
+        values: "label"
       }
-    }
-    rows {
-      name {
-        value: "jelly"
+      prefixes {
+        values: "https://example.org/"
+        values: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       }
-    }
-    rows {
-      prefix {
-        value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      subjects {
+        kinds: "\b"
+        layouts: 0
+        name_ids: 0
+        prefix_ids: 1
+        bnodes: "b1"
       }
-    }
-    rows {
-      name {
-        value: "type"
+      predicates {
+        layouts: 32
+        name_ids: 2
+        name_ids: 0
+        prefix_ids: 2
+        prefix_ids: 1
       }
-    }
-    rows {
-      quad {
-        s_iri {
-          prefix_id: 1
-        }
-        p_iri {
-          prefix_id: 2
-        }
-        o_bnode: "b1"
-        g_default_graph {
-        }
-      }
-    }
-    rows {
-      name {
-        value: "label"
-      }
-    }
-    rows {
-      quad {
-        p_iri {
-          prefix_id: 1
-        }
-        o_literal {
-          lex: "Jelly"
-        }
-      }
-    }
-    rows {
-      quad {
-        s_bnode: "b1"
-        o_literal {
-          lex: "Serialization format"
-          langtag: "en"
-        }
+      objects {
+        kinds: "\026"
+        lex_values: "Jelly"
+        lex_values: "Serialization format"
+        literal_kinds: 0
+        literal_kinds: 2
+        langtags: "en"
+        bnodes: "b1"
       }
     }
     ```
 
 ### What Jelly does and does not compress
 
-Jelly is pretty good at compressing IRI-heavy RDF data, but it doesn't compress the text in the IRIs themselves. Same applies to blank node identifiers, language tags, and literal contents. If you care about small file size, **you should compress your Jelly file with your compressor of choice**, like gzip, bzip, or zstd. We found zstd to work particularly well in practice. While Jelly by itself can make datasets ~6x smaller (this largely depends on the dataset), with zstd compression, you can sometimes get it up to 100x.
+Jelly is pretty good at compressing IRI-heavy RDF data, but it doesn't compress the text in the IRIs themselves. Same applies to blank node identifiers, language tags, and literal contents. If you care about small file size, **you should compress your Jelly file with your compressor of choice**, like gzip, bzip, or zstd. We found zstd to work particularly well in practice. While Jelly by itself can make datasets ~8x smaller than N-Triples (this largely depends on the dataset), with zstd compression, you can sometimes get it up to 100x.
 
 ## How does it work – streams
 
-A stream is just a sequence of items. We want to only look at one element of the stream at a time – this limits memory usage and allows us to process infinitely long streams.
+A stream is just a sequence of items, possibly a very long one. We want to only look at a fixed number of elements of the stream at a time – this limits memory usage and allows us to process infinitely long streams.
 
 The most basic kind of RDF stream is what you would see in an N-Triples or N-Quads file – after all, it's just a sequence of triples:
 
@@ -259,18 +259,18 @@ ex:sensor ex:measuredProperty ex:temperature ;
     ex:value "280.6"^^xsd:decimal .
 ```
 
-We call this an *RDF Message Stream*, or, alternatively, a *grouped RDF stream*. A Jelly parser can unpack this and process the messages one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in message 1, and then again in message 2, we will only have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (geography).
+We call this an *RDF Message Stream*. A Jelly parser can unpack this and process the messages one by one. The best part is that the compression (explained [above](#how-does-it-work--encoding)) is applied **across the entire stream**. So, if an IRI appears in message 1, and then again in message 2, we will have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (cartography).
 
 !!! note
 
-    Jelly predates the RDF Messages proposal, but it implements the same concept. Originally Jelly called these "frames" instead of "messages", and internally the code still uses the term "frames".
+    Jelly predates the RDF Messages proposal, but it implements the same concept. Up to Jelly-RDF 1.1, each message was sent as one stream frame. Since Jelly-RDF 1.2, there is native support for RDF messages in the Jelly specification, and messages use dedicated delimiters. This allows for many messages in one stream frame, or for messages that span multiple stream frames.
 
 **As a summary:**
 
 - **Flat RDF stream** – just a sequence of triples or quads. Great for processing a single file.
-- **RDF Message Stream / grouped RDF stream** – a sequence of messages. Great if you have many small files.
+- **RDF Message Stream** – a sequence of messages. Great if you have many small files.
 
-Jelly can record in its files whether the stream is flat or grouped, but this annotation is entirely optional, and parsers can ignore it. In fact, in both cases the physical layout of the stream is the same, only the interpretation of it changes. One important difference is that when using RDF Messages (grouped streams), the blank node identifiers are scoped to the message, so you can have the same blank node identifier in different messages without them being considered the same node.
+Jelly records the stream type in the file header. Support for RDF Message Streams is optional in parsers. The physical layout of the stream is almost the same in both cases – a grouped stream just has extra delimiting markers. One important difference is that when using RDF Messages, the blank node identifiers are scoped to the message, so you can have the same blank node identifier in different messages without them being considered the same node.
 
 The following sections contain more details about stream types in Jelly.
 
@@ -278,58 +278,34 @@ The following sections contain more details about stream types in Jelly.
 
 ### Stream frames
 
-All stream types use the same concept of **stream frames** – discrete elements into which the stream is divided. Each frame contains a number of **rows**, which are the actual RDF data (RDF triples, quads, etc.). Jelly does not enforce the semantics of stream frames, although it does have a mechanism to suggest to consumers and producers how should they understand the stream. Still, you can interpret the stream however you like.
+Stream frames are batches of RDF statements (triples or quads), stored in columns. The frames have no meaning of their own – the producer can pick any frame size it likes.
 
-!!! question "Why doesn't Jelly enforce the semantics of stream frames?"
+### Physical types (triples vs. quads)
 
-    There are many, many ways in which streams of RDF data can be used – there are different use cases, network protocols, QoS settings, ordering guarantees, stream semantics, etc. One stream is also often viewed from different perspectives by the different actors producing and consuming it. Picking and enforcing specific semantics for stream frames would hopelessly overcomplicate the protocol and make it less useful in some use cases.
+The physical type tells you whether the stream contains triples or quads. There are two physical stream types in Jelly:
 
-    Jelly does have a system of **logical stream types** based on the RDF Stream Taxonomy ([RDF-STaX](https://w3id.org/stax)), which can be used to suggest how the stream should be interpreted. However, these are just suggestions – you can interpret the stream however you like.
+- **`TRIPLES`**: data is encoded using triple statements. There is no information about the graph name in this type of stream.
+- **`QUADS`**: data is encoded using quad statements. Each quad has a graph name, which can also be the default graph.
 
-### Stream types
+!!! note
 
-Jelly has the notions of **physical stream types** and **logical stream types**. The physical type tells you how Jelly sends the data on the wire, which is a technical detail. The logical type tells you how you should interpret the stream. Specifying the logical type is optional and is only a suggestion to the consumer. You can **always** interpret the stream however you like.
+    Jelly-RDF 1.1 also had the `GRAPHS` type, which was removed in Jelly-RDF 1.2. You can do the exact same thing with `QUADS`, which is simpler.
 
-There are three physical stream types in Jelly:
+### Stream types (flat vs. messages) { #stream-types }
 
-- **`TRIPLES`**: Data is encoded using triple statements. There is no information about the graph name in this type of stream.
-- **`QUADS`**: Data is encoded using quad statements. Each quad has a graph name, which can also be the default graph.
-- **`GRAPHS`**: Data is encoded using named graphs, where the graph name can also be the default graph. Each named graph can contain multiple triples.
+The stream type tells you whether the whole stream is one RDF graph or dataset (`FLAT`), or a sequence of RDF Messages (`MESSAGES`).
 
-!!! warning
-
-    The `GRAPHS` type is a left-over from a previous version of the format and right now its usefulness is limited – you can do the exact same thing with `QUADS`, which is simpler. In new projects, we recommend using `QUADS` instead.
-
-As for logical stream types, they are taken directly from [RDF-STaX]({{ stax_link('taxonomy') }}) – see the RDF-STaX website for a complete list of them. The following table summarizes which physical stream types may be used for each logical stream type. Please note that the table covers only the cases that are directly supported by the [Jelly protocol specification](specification/index.md) and its official implementations.
-
-| RDF-STaX (logical type) / Physical type | `TRIPLES` | `QUADS` | `GRAPHS` |
-|:--|:-:|:-:|:-:|
-| [Graph stream]({{ stax_link('taxonomy#rdf-graph-stream') }}) | Framed | ✘ | ✘ |
-| [Subject graph stream]({{ stax_link('taxonomy#rdf-subject-graph-stream') }}) | Framed | ✘ | ✘ |
-| [Dataset stream]({{ stax_link('taxonomy#rdf-dataset-stream') }}) | ✘ | Framed | Framed |
-| [Named graph stream]({{ stax_link('taxonomy#rdf-named-graph-stream') }}) | ✘ | Framed | Framed |
-| [Timestamped named graph stream]({{ stax_link('taxonomy#timestamped-rdf-named-graph-stream') }}) | ✘ | Framed | Framed |
-| [Flat triple stream]({{ stax_link('taxonomy#flat-rdf-triple-stream') }}) | Continuous | ✘ | ✘ |
-| [Flat quad stream]({{ stax_link('taxonomy#flat-rdf-quad-stream') }}) | ✘ | Continuous | Continuous |
-
-
-The values in the table mean the following:
-
-- **Framed**: Each stream frame corresponds to exactly one logical element of the stream type. For example, in a graph stream, each frame corresponds to a single RDF graph. This usage pattern is common in real-time streaming scenarios like IoT systems.
-- **Continuous**: The stream is a continuous sequence of logical elements. For example, in a flat triple stream, the stream is just a sequence of triples.
-- **✘**: The physical stream type is not directly supported for the logical stream type. However, you may still find a way to use it, depending on your use case.
-
-The flat logical stream types ([flat RDF triple stream]({{ stax_link('taxonomy#flat-rdf-triple-stream') }}) and [flat RDF quad stream]({{ stax_link('taxonomy#flat-rdf-quad-stream') }}) in RDF-STaX) can also be treated as a single RDF graph or RDF dataset, respectively.
+The Jelly-RDF 1.1 equivalent was logical stream types, taken directly from [RDF-STaX]({{ stax_link('taxonomy') }}).
 
 ### Common patterns cookbook
 
-Below you will find some common patterns for using Jelly. These are just examples – you can use Jelly in many other ways. All of the presented patterns are supported in the [Jelly-JVM implementation]( {{ jvm_link('user/reactive') }}) with the Reactive Streaming module.
+Below you will find some common patterns for using Jelly. All of the presented patterns are supported in the [Jelly-JVM implementation]( {{ jvm_link('user/reactive') }}) with the Reactive Streaming module.
 
 #### Flat RDF triple stream – "just a bunch of triples"
 
 Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.
 
-This means you are using logically a [flat RDF triple stream]({{ stax_link('taxonomy#flat-rdf-triple-stream') }}). It can be physically encoded as as `TRIPLES` stream, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):
+This means you are using the `FLAT` stream type and the `TRIPLES` physical type, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):
 
 ??? example "Example (click to expand)"
 
@@ -352,7 +328,7 @@ You can then send these frames one-by-one over gRPC or Kafka, or write them to a
 
 In this case we have (for example) an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like [SOSA/SSN](https://www.w3.org/TR/vocab-ssn/)). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.
 
-This means you are using logically an [RDF graph stream]({{ stax_link('taxonomy#rdf-graph-stream') }}). You can encode it as a `TRIPLES` stream, where the stream frames correspond to different unnamed (default) graphs:
+This means you are using the `MESSAGES` stream type and the `TRIPLES` physical type, where the messages correspond to different unnamed (default) graphs. The simplest way is to put each graph in its own stream frame:
 
 ??? example "Example (click to expand)"
 
@@ -362,20 +338,22 @@ This means you are using logically an [RDF graph stream]({{ stax_link('taxonomy#
         - Triple 2 (of graph 1)
         - ...
         - Triple 134 (of graph 1)
+        - End of message
     - Stream frame 2
         - Triple 1 (of graph 2)
         - Triple 2 (of graph 2)
         - ...
         - Triple 97 (of graph 2)
+        - End of message
     - ...
 
-The consumer will be able to read the graphs one frame at a time, without having to know how many graphs there are in total.
+The consumer will be able to read the graphs one message at a time, without having to know how many graphs there are in total.
 
-[RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its triple streams (see [example](https://w3id.org/riverbench/datasets/lod-katrina/dev)). Note that in RiverBench the stream may be equivalently considered "just a bunch of triples" – the serialization is the same, it only depends on the interpretation on the side of the consumer.
+[RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its triple streams (see [example](https://w3id.org/riverbench/datasets/lod-katrina/dev)).
 
 #### Flat RDF quad stream – "just a bunch of quads"
 
-You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This is logically a [flat RDF quad stream]({{ stax_link('taxonomy#flat-rdf-quad-stream') }}). It can be physically encoded as a `QUADS` stream, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):
+You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This means you are using the `FLAT` stream type and the `QUADS` physical type, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):
 
 ??? example "Example (click to expand)"
 
@@ -394,9 +372,9 @@ You want to stream a lot of quads – similar to the "just a bunch of triples" c
 
 The mechanism is exactly the same as with a flat RDF triple stream.
 
-#### RDF dataset stream (as `QUADS`)
+#### RDF dataset stream
 
-You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This is logically an [RDF dataset stream]({{ stax_link('taxonomy#rdf-dataset-stream') }}), which can be physically encoded as a `QUADS` stream, where the stream frames correspond to different datasets:
+You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This means you are using the `MESSAGES` stream type and the `QUADS` physical type, where the messages correspond to different datasets:
 
 ??? example "Example (click to expand)"
 
@@ -406,16 +384,18 @@ You want to stream RDF datasets – similar to the "a stream of graphs" case abo
         - Quad 2 (of dataset 1)
         - ...
         - Quad 454 (of dataset 1)
+        - End of message
     - Stream frame 2
         - Quad 1 (of dataset 2)
         - Quad 2 (of dataset 2)
         - ...
         - Quad 323 (of dataset 2)
+        - End of message
     - ...
 
 The mechanism is exactly the same as with a triple stream of graphs.
 
-[RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its RDF dataset streams (see [example](https://w3id.org/riverbench/datasets/nanopubs/dev)). Note that in RiverBench the stream may be equivalently considered a flat RDF quad stream – the serialization is the same, it only depends on the interpretation on the side of the consumer.
+[RiverBench](http://w3id.org/riverbench) uses this pattern for distributing its RDF dataset streams (see [example](https://w3id.org/riverbench/datasets/nanopubs/dev)).
 
 ## Ordering and delivery guarantees
 
@@ -432,7 +412,7 @@ Note that Jelly by default also assumes that frames are delivered at least once.
 
 ## Delimited vs. non-delimited Jelly
 
-Protobuf messages by default [are not delimited](https://protobuf.dev/programming-guides/techniques/#streaming). This means that when you serialize a Protobuf message (e.g., a Jelly stream frame), the serialization does not include any information about where the message ends. This is fine when there is something else telling the parser where the message ends – for example, when you're sending the message over a gRPC, Kafka, or MQTT stream, the streaming protocol tells the parser how long the message is. However, if you wanted to write multiple stream frames to a file, you would need to add some kind of delimiter between the frames – otherwise the parser would not know where one frame ends and the next one begins.
+Protobuf messages by default [are not delimited](https://protobuf.dev/programming-guides/techniques/#streaming). This means that when you serialize a Protobuf message (e.g., a Jelly stream frame), the serialization does not include any information about where the message ends. This is fine when there is something else telling the parser where the message ends – for example, when you're sending the message over a gRPC, Kafka or MQTT stream – the streaming protocol tells the parser how long the message is. However, if you wanted to write multiple stream frames to a file, you would need to add some kind of delimiter between the frames – otherwise the parser would not know where one frame ends and the next one begins.
 
 So, to summarize:
 
@@ -454,11 +434,16 @@ You can read more about how this works in the [serialization format specificatio
 
 ## Sample files
 
-`foaf.jelly` is a simple Jelly file that may be useful when trying to understand how the format works. You can download it here:
+`foaf-1.2.jelly` is a simple Jelly file that may be useful when trying to understand how the format works. You can download it here:
+
+- [:octicons-download-24: foaf-1.2.jelly](assets/samples/foaf-1.2.jelly)
+- [:octicons-download-24: foaf.ttl](assets/samples/foaf.ttl) – same file in the Turtle format.
+- [:octicons-download-24: foaf-1.2.jelly.txt](assets/samples/foaf-1.2.jelly.txt) – text representation of the Jelly file, for debugging purposes.
+
+The same file is also available in the older Jelly-RDF 1.0 format:
 
 - [:octicons-download-24: foaf.jelly](assets/samples/foaf.jelly)
-- [:octicons-download-24: foaf.ttl](assets/samples/foaf.ttl) – same file in the Turtle format.
-- [:octicons-download-24: foaf.jelly.txt](assets/samples/foaf.jelly.txt) – text representation of the Jelly file, for debugging purposes.
+- [:octicons-download-24: foaf.jelly.txt](assets/samples/foaf.jelly.txt)
 
 You can find more example datasets (including ones with millions of triples) **[on this page](use-cases.md#example-datasets-in-the-jelly-format)**. The [conformance test cases](conformance/rdf-test-cases.md) contain dozens of valid Jelly files testing all features of the format.
 

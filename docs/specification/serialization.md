@@ -52,7 +52,7 @@ The following versions of the protocol are defined:
 | 2           | 1.1.1 | March 10, 2025 | Added `RdfStreamFrame.metadata` |
 | 2           | 1.1.2 | June 12, 2025 | Bugfixes: [#35](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/35), [#43](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/43), [#44](https://github.com/Jelly-RDF/jelly-rdf.github.io/pull/44) |
 | 2           | 1.1.3 | September 30, 2025 | Added the conformance test suite |
-| 3           | 1.2.0 **(current)** | {{ git_revision_date_localized }} | *(in development)* New column layout of stream frames, RDF 1.2, RDF Messages, concatenable streams. See [changes from Jelly-RDF 1.1](#changes-from-jelly-rdf-11). |
+| 3           | 1.2.0 **(current)** | October 23, 2026 | New column layout of stream frames, RDF 1.2, RDF Messages, concatenable streams. See [changes from Jelly-RDF 1.1](#changes-from-jelly-rdf-11). |
 
 !!! note
     
