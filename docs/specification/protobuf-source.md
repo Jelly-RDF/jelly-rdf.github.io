@@ -12,16 +12,16 @@ The following code is licensed under the [Apache License, Version 2.0](https://w
 {% include "./proto/rdf.proto" %}
 ```
 
-## `patch.proto`
-
-```protobuf
-{% include "./proto/patch.proto" %}
-```
-
 ## `sparql.proto`
 
 ```protobuf
 {% include "./proto/sparql.proto" %}
+```
+
+## `patch.proto`
+
+```protobuf
+{% include "./proto/patch.proto" %}
 ```
 
 ## `grpc.proto`
@@ -34,6 +34,6 @@ The following code is licensed under the [Apache License, Version 2.0](https://w
 
 - [Jelly Protobuf reference](reference.md)
 - [Jelly-RDF specification](serialization.md)
-- [Jelly-Patch specification](patch.md)
 - [Jelly-SPARQL specification](sparql.md)
+- [Jelly-Patch specification](patch.md)
 - [gRPC streaming protocol specification](streaming.md)

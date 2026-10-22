@@ -2,7 +2,7 @@
 
 # Jelly
 
-**Jelly** is a high-performance binary serialization format and streaming protocol for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), [Titanium]({{ jvm_link( 'user/titanium' ) }}), and [Neo4j]({{ jvm_link('getting-started-neo4j') }})) and [Python]({{ python_link() }}) (works with [RDFLib]({{ python_link( 'getting-started' ) }})).
+**Jelly** is a high-performance binary serialization format for [RDF](https://en.wikipedia.org/wiki/Resource_Description_Framework) knowledge graphs and SPARQL result sets. Jelly has implementations for the [JVM]({{ jvm_link() }}) (works with [Apache Jena]({{ jvm_link( 'getting-started-devs' ) }}), [RDF4J]({{ jvm_link( 'user/rdf4j' ) }}), [Titanium]({{ jvm_link( 'user/titanium' ) }}), and [Neo4j]({{ jvm_link('getting-started-neo4j') }})), [Python]({{ python_link() }}) (works with [RDFLib]({{ python_link( 'getting-started' ) }})), and [more](user-guide.md).
 
 <div class="grid cards" style="clear: right;" markdown>
 
@@ -10,7 +10,7 @@
 
     ---
 
-    Jelly is blazing-fast by design, and can work with streams of triples, graphs, datasets, and more.
+    Jelly is blazing-fast by design, and can work with simple RDF files, RDF streams, and SPARQL result sets.
 
     [:octicons-arrow-right-24: Getting started](user-guide.md)
 
@@ -222,6 +222,9 @@
 
             **[See the full installation and user guide.]({{ python_link( 'rdflib-neo4j-integration' ) }})**
 
+!!! tip "NEW: Jelly-RDF is now 2x faster, Jelly-SPARQL joins the family"
+
+    Jelly-RDF 1.2 (supported in [Jelly-JVM 4.x]({{ jvm_link() }})) features a new columnar layout with better compression and [faster read/write performance](performance/rdf.md). [Jelly-SPARQL](specification/sparql.md) is a new format for SPARQL result sets, which is also [super-fast](performance/sparql.md).
 
 ## How fast is it?
 
@@ -243,7 +246,8 @@ Common use cases for Jelly include:
 - **Inter-service communication** – efficiently exchange RDF data between microservices in complex backend applications.
 - **Database dumps and bulk loads** – quickly write and read large RDF datasets, reducing storage space and time needed for database maintenance tasks.
 - **Streaming ingest** – eliminate ingestion bottlenecks in systems processing large amounts of incoming streaming data.
-- **Database replication and change capture (new!)** – record add/delete operations in RDF datasets with transaction support using **[Jelly-Patch](specification/patch.md)**.
+- **SPARQL result sets (new!)** – efficiently serialize and deserialize SPARQL query results using [Jelly-SPARQL](specification/sparql.md).
+- **Database replication and change capture** – record add/delete operations in RDF datasets with transaction support using **[Jelly-Patch](specification/patch.md)**.
 
 See also [concrete examples of Jelly being used](use-cases.md), along with [example datasets](use-cases.md#example-datasets-in-the-jelly-format).
 

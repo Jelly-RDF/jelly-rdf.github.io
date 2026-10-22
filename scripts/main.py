@@ -20,8 +20,17 @@ def define_env(env):
             return 'dev'
         else:
             return tag.replace('v', '')
-    
-    
+
+
+    # Jelly-SPARQL is versioned independently of jelly-protobuf releases.
+    # Update this when releasing a new version of Jelly-SPARQL.
+    _sparql_version = '1.0.0'
+
+    @env.macro
+    def sparql_version():
+        return 'dev' if proto_version() == 'dev' else _sparql_version
+
+
     @env.macro
     def git_tag():
         return os.environ.get('TAG', 'main')
@@ -51,10 +60,10 @@ def define_env(env):
     
 
     @env.macro
-    def specification_status():
+    def specification_status(version: str = None):
         return 'Draft specification *(use the version selector on the top bar to find a stable specification)*' if (
             git_tag() == 'main'
-        ) else f'Stable specification ({proto_version()})'
+        ) else f'Stable specification ({version or proto_version()})'
 
     @env.macro
     def rdf_1_1_link(anchor: str = ''):

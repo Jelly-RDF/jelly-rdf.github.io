@@ -1,0 +1,79 @@
+# Frame 0
+rows {
+  options {
+    physical_type: PHYSICAL_STREAM_TYPE_TRIPLES
+    max_name_table_size: 4000
+    max_prefix_table_size: 150
+    max_datatype_table_size: 32
+    version: 3
+  }
+}
+columns {
+  row_count: 9
+  names {
+    values: "Piotr"
+    values: "type"
+    values: "Person"
+    values: "givenName"
+    values: "familyName"
+    values: "homepage"
+    values: "ostrzyciel.eu"
+    values: "Organization"
+    values: "name"
+    values: "url"
+    values: "neverblink.eu"
+    values: "worksFor"
+  }
+  prefixes {
+    values: "https://neverblink.eu/example#"
+    values: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    values: "http://xmlns.com/foaf/0.1/"
+    values: "https://schema.org/"
+    values: "https://"
+  }
+  subjects {
+    kinds: "\b"
+    layouts: 3
+    layouts: 1
+    name_ids: 0
+    name_ids: 1
+    prefix_ids: 1
+    bnodes: "0000"
+  }
+  predicates {
+    layouts: 0
+    name_ids: 2
+    name_ids: 4
+    name_ids: 0
+    name_ids: 0
+    name_ids: 2
+    name_ids: 9
+    name_ids: 0
+    name_ids: 12
+    prefix_ids: 2
+    prefix_ids: 3
+    prefix_ids: 0
+    prefix_ids: 0
+    prefix_ids: 2
+    prefix_ids: 4
+    prefix_ids: 0
+    prefix_ids: 0
+  }
+  objects {
+    kinds: "P\020\002"
+    name_ids: 3
+    name_ids: 3
+    name_ids: 7
+    name_ids: 0
+    name_ids: 11
+    prefix_ids: 3
+    prefix_ids: 4
+    prefix_ids: 5
+    prefix_ids: 4
+    prefix_ids: 5
+    lex_values: "Piotr"
+    lex_values: "Sowiński"
+    lex_values: "NeverBlink"
+    bnodes: "0000"
+  }
+}

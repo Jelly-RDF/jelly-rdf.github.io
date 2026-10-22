@@ -8,8 +8,8 @@ See the specification pages for more details:
 
 - Specification documents:
     - [RDF serialization format specification](serialization.md) – for serializing streams of RDF triples, quads, graphs, datasets.
+    - [SPARQL results format specification](sparql.md) – for serializing SPARQL query results (solution sequences and boolean results).
     - [RDF Patch format specification](patch.md) – for serializing streams of changes to RDF data.
-    - [SPARQL results format specification](sparql.md) – for serializing SPARQL query results (solution sequences and boolean results). **Early draft.**
     - [gRPC RDF streaming protocol specification](streaming.md) – for exchaning Jelly-RDF over the network.
 - Protobuf definitions:
     - [Protobuf reference](reference.md)
