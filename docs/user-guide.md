@@ -275,7 +275,7 @@ The physical type tells you whether the stream contains triples or quads. There 
 
     Jelly-RDF 1.1 also had the `GRAPHS` type, which was removed in Jelly-RDF 1.2. You can do the exact same thing with `QUADS`, which is simpler.
 
-### Stream types (flat vs. messages)
+### Stream types (flat vs. messages) { #stream-types }
 
 The stream type tells you whether the whole stream is one RDF graph or dataset (`FLAT`), or a sequence of RDF Messages (`MESSAGES`).
 
