@@ -1,0 +1,13 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX schema: <https://schema.org/>
+PREFIX : <https://neverblink.eu/example#>
+
+:Piotr a foaf:Person , schema:Person ;
+    foaf:givenName "Piotr" ;
+    foaf:familyName "Sowiński" ;
+    foaf:homepage <https://ostrzyciel.eu> ;
+    schema:worksFor [
+        a schema:Organization ;
+        schema:name "NeverBlink" ;
+        schema:url <https://neverblink.eu>
+    ] .

@@ -1,0 +1,2815 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Jelly is a high-performance RDF streaming protocol">
+      
+      
+      
+        <link rel="canonical" href="https://jelly-rdf.github.io/1.2.x/user-guide/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../performance/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/jelly_color.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>User guide - Jelly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../assets/charts/jelly-charts.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+    
+        
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jelly – User guide" />
+    <meta property="og:description" content="Jelly is a high-performance RDF streaming protocol" />
+    <meta property="og:image" content="https://w3id.org/jelly/dev/assets/social.png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="google-site-verification" content="JMy5zT6f11aw--RbVdmvGDEfHi_khf67nj7XDkz0KvA" />
+
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jelly-user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Jelly" class="md-header__button md-logo" aria-label="Jelly" data-md-component="logo">
+      
+  <img src="../assets/jelly_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jelly
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2c-1.05 0-2.05.16-3 .46 4.06 1.27 7 5.04 7 9.54s-2.94 8.27-7 9.54c.95.3 1.95.46 3 .46a10 10 0 0 0 10-10A10 10 0 0 0 9 2"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <!--
+  Adapted from: https://github.com/squidfunk/mkdocs-material/blob/ab1511074c6eb03063b9258e8e42a117a57f5853/src/templates/partials/source.html
+
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Repository information -->
+<a
+  href="https://github.com/Jelly-RDF/jelly-protobuf"
+  title="Go to repository"
+  class="md-source"
+  data-md-component="source"
+>
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jelly-RDF/jelly-protobuf
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Jelly" class="md-nav__button md-logo" aria-label="Jelly" data-md-component="logo">
+      
+  <img src="../assets/jelly_white.png" alt="logo">
+
+    </a>
+    Jelly
+  </label>
+  
+    <div class="md-nav__source">
+      <!--
+  Adapted from: https://github.com/squidfunk/mkdocs-material/blob/ab1511074c6eb03063b9258e8e42a117a57f5853/src/templates/partials/source.html
+
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Repository information -->
+<a
+  href="https://github.com/Jelly-RDF/jelly-protobuf"
+  title="Go to repository"
+  class="md-source"
+  data-md-component="source"
+>
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jelly-RDF/jelly-protobuf
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-can-it-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What can it do?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apache-jena-rdf4j-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apache Jena / RDF4J plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neo4j-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Neo4j plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java-scala-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java &amp; Scala programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrating-from-jelly-rdf-11-to-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrating from Jelly-RDF 1.1 to 1.2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-it-work-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How does it work – encoding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How does it work – encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-jelly-does-and-does-not-compress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Jelly does and does not compress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-it-work-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How does it work – streams
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streams-and-stream-types-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streams and stream types in detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Streams and stream types in detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-types-triples-vs-quads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physical types (triples vs. quads)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream types (flat vs. messages)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-cookbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common patterns cookbook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common patterns cookbook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flat-rdf-triple-stream-just-a-bunch-of-triples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flat RDF triple stream – "just a bunch of triples"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-graph-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF graph stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flat-rdf-quad-stream-just-a-bunch-of-quads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flat RDF quad stream – "just a bunch of quads"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-dataset-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF dataset stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordering-and-delivery-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordering and delivery guarantees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delimited-vs-non-delimited-jelly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delimited vs. non-delimited Jelly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delimited vs. non-delimited Jelly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-jelly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing Jelly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Implementations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://w3id.org/jelly/jelly-jvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java / JVM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://w3id.org/jelly/pyjelly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Jelly-RDF/jelly_rs" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust (experimental)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pietercolpaert/rdfjs-jelly" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript (community)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://locorda.dev/rdf/jelly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dart (community)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../performance/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/rdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-RDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/sparql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-SPARQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../specification/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol specification
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Protocol specification
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/serialization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDF serialization format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/sparql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SPARQL results format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/patch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RDF Patch serialization format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/streaming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC RDF streaming protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/protobuf-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specification/media-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File extensions and media types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test cases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Test cases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conformance/reporting-conformance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting conformance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conformance/rdf-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-RDF 1.2 test cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conformance/rdf-1-1-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-RDF 1.1 test cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conformance/rdf-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-RDF conformance reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conformance/sparql-test-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-SPARQL test cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conformance/sparql-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jelly-SPARQL conformance reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../contributing/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/code_of_conduct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code of conduct
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use cases and datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../licensing/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing and citation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Licensing and citation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects and funding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-can-it-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What can it do?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apache-jena-rdf4j-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apache Jena / RDF4J plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neo4j-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Neo4j plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java-scala-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java &amp; Scala programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrating-from-jelly-rdf-11-to-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrating from Jelly-RDF 1.1 to 1.2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-it-work-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How does it work – encoding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How does it work – encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-jelly-does-and-does-not-compress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Jelly does and does not compress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-it-work-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How does it work – streams
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streams-and-stream-types-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streams and stream types in detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Streams and stream types in detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-types-triples-vs-quads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Physical types (triples vs. quads)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stream types (flat vs. messages)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-cookbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common patterns cookbook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common patterns cookbook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flat-rdf-triple-stream-just-a-bunch-of-triples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flat RDF triple stream – "just a bunch of triples"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-graph-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF graph stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flat-rdf-quad-stream-just-a-bunch-of-quads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flat RDF quad stream – "just a bunch of quads"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rdf-dataset-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDF dataset stream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordering-and-delivery-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordering and delivery guarantees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delimited-vs-non-delimited-jelly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delimited vs. non-delimited Jelly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delimited vs. non-delimited Jelly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-jelly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementing Jelly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Jelly-RDF/jelly-rdf.github.io/edit/main/docs/user-guide.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="jelly-user-guide">Jelly user guide</h1>
+<p>To use Jelly, pick an implementation that matches your tech stack:</p>
+<ul>
+<li><strong><a href="https://github.com/Jelly-RDF/cli">jelly-cli</a></strong> – command-line tool, works on Windows, macOS, and Linux.</li>
+<li><strong><a href="https://w3id.org/jelly/jelly-jvm/3.7.3/">Jelly-JVM</a></strong> – written in Java, integrated with Apache Jena, RDF4J, Titanium, and Neo4j.</li>
+<li><strong><a href="https://w3id.org/jelly/pyjelly/0.8.1/">pyjelly</a></strong> – written in Python, integrated with RDFLib. Can also be used without RDFLib.</li>
+<li><strong><a href="https://github.com/Jelly-RDF/jelly_rs">jelly_rs</a></strong> <em>(experimental)</em> – written in Rust, integrated with Sophia.</li>
+<li><strong><a href="https://github.com/pietercolpaert/rdfjs-jelly">rdfjs-jelly</a></strong> <em>(unofficial, community-led)</em> – written in JavaScript.</li>
+<li><strong><a href="https://locorda.dev/rdf/jelly/">Locorda</a></strong> <em>(unofficial, community-led)</em> – written in Dart.</li>
+</ul>
+<p>You can also <a href="#implementing-jelly">create your own implementation</a>. Because Jelly is built on top of <a href="https://protobuf.dev/">Protocol Buffers</a>, you can generate a lot of the code automatically in any popular programming language.</p>
+<h2 id="what-can-it-do">What can it do?</h2>
+<p>Jelly is designed to be a protocol for <em>streaming</em> RDF knowledge graphs, but it can also be used with static RDF datasets. Jelly was designed to be fast, well-compressed, and versatile.</p>
+<ul>
+<li>Jelly can work with <strong>any RDF knowledge graph data</strong>, including RDF 1.1 and RDF 1.2.</li>
+<li>Jelly can be used to represent <strong>streams of triples or quads</strong> and also <strong>graphs or datasets</strong> (<a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages</a>).</li>
+<li>Jelly can also be used to represent a <strong>single graph or dataset</strong>.</li>
+<li>Jelly-SPARQL can be used to <a href="../specification/sparql/"><strong>send SPARQL query results</strong></a> (<code>SELECT</code> and <code>ASK</code>), using the same compression as Jelly-RDF.</li>
+<li>Jelly-Patch can be used to <a href="../specification/patch/"><strong>record changes</strong> to RDF datasets</a>, including add/delete operations and transactions.</li>
+<li>Jelly can be used for <strong>streaming data over the network</strong> (e.g., with MQTT, Kafka, gRPC), but also for <strong>working with flat files</strong>.</li>
+<li>Jelly can <strong>compress RDF data on the fly</strong>, without having to know the data in advance.</li>
+</ul>
+<h2 id="quick-start">Quick start</h2>
+<h3 id="cli-tool"><a href="https://github.com/Jelly-RDF/cli">CLI tool</a></h3>
+<p>The easiest way to do something with Jelly is with the <a href="https://github.com/Jelly-RDF/cli"><code>jelly-cli</code></a> command line tool.</p>
+<p>For Linux, macOS, and WSL on Windows, install it with the following command:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>.<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-sSfL<span class="w"> </span>https://w3id.org/jelly/setup-cli.sh<span class="o">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>jelly-cli
+</span></code></pre></div>
+<p>You can also install <code>jelly-cli</code> manually by downloading the <a href="https://github.com/Jelly-RDF/cli/releases/latest">latest release</a>, including a version for Windows without WSL and a platform-independent JAR file.</p>
+<ul>
+<li>Run <code>jelly-cli rdf to-jelly some-rdf-file.ttl &gt; output.jelly</code> to convert an RDF file to Jelly.</li>
+<li>Run <code>jelly-cli rdf from-jelly output.jelly</code> to convert the Jelly file back to RDF.</li>
+<li>Run <code>jelly-cli sparql to-jelly results.srj &gt; results.jellys</code> to convert SPARQL query results to Jelly.</li>
+<li>Run <code>jelly-cli --help</code> to see all available commands.</li>
+</ul>
+<p>You can find more information about <code>jelly-cli</code> in <strong><a href="https://github.com/Jelly-RDF/cli">its README on GitHub</a></strong>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example Jelly files</p>
+<p>Go check out the <strong><a href="../use-cases/#example-datasets-in-the-jelly-format">Use cases page</a></strong> where we list links to example datasets in the Jelly format.</p>
+</div>
+<h3 id="apache-jena-rdf4j-plugins">Apache Jena / RDF4J plugins</h3>
+<p>Check out the <strong><a href="https://w3id.org/jelly/jelly-jvm/3.7.3/getting-started-plugins">dedicated guide for installing plugins in Jena and RDF4J</a></strong>. You can use them to quickly add Jelly support to, for example, Apache Jena Fuseki and load Jelly files just like any other RDF file.</p>
+<h3 id="neo4j-plugin">Neo4j plugin</h3>
+<p>We also have a plugin for Neo4j, extending the official neosemantics plugin. <strong><a href="https://w3id.org/jelly/jelly-jvm/3.7.3/getting-started-neo4j">Check out installation instructions and usage guide.</a></strong></p>
+<h3 id="java-scala-programming">Java &amp; Scala programming</h3>
+<p>Go see the <strong><a href="https://w3id.org/jelly/jelly-jvm/3.7.3/getting-started-devs">Jelly-JVM getting started guide for devs</a></strong>. It contains a lot of examples and code snippets for using Jelly in Java and Scala, with Jena, RDF4J, and Titanium.</p>
+<h3 id="python-programming">Python programming</h3>
+<p>See the <strong><a href="https://w3id.org/jelly/pyjelly/0.8.1/getting-started">pyjelly getting started guide</a></strong>. It contains examples and code snippets for using Jelly with or without RDFLib, as well as other libraries like NetworkX.</p>
+<h3 id="migrating-from-jelly-rdf-11-to-12">Migrating from Jelly-RDF 1.1 to 1.2</h3>
+<p>Jelly-RDF 1.2 files can't be read by parsers that only support Jelly-RDF 1.1. The other way around works fine – parsers that support Jelly-RDF 1.2 can also read Jelly-RDF 1.1 and 1.0 files.</p>
+<p>To convert your existing files to Jelly-RDF 1.2, use <a href="https://github.com/Jelly-RDF/cli"><code>jelly-cli</code></a>:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>jelly-cli<span class="w"> </span>rdf<span class="w"> </span>to-jelly<span class="w"> </span>--in-format<span class="w"> </span>jelly<span class="w"> </span>old.jelly<span class="w"> </span>&gt;<span class="w"> </span>new.jelly
+</span></code></pre></div>
+<p>If you need to send data to an older parser, you can also convert a Jelly-RDF 1.2 file back to 1.1:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>jelly-cli<span class="w"> </span>rdf<span class="w"> </span>to-jelly<span class="w"> </span>--in-format<span class="w"> </span>jelly<span class="w"> </span>--opt.jelly-version<span class="o">=</span><span class="m">1</span>.1<span class="w"> </span>new.jelly<span class="w"> </span>&gt;<span class="w"> </span>old.jelly
+</span></code></pre></div>
+<h2 id="how-does-it-work-encoding">How does it work – encoding</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This guide describes the new Jelly-RDF 1.2 columnar encoding. To read about the Jelly-RDF 1.1 row-based encoding, see <a href="https://w3id.org/jelly/1.1.x/user-guide">the old guide</a>.</p>
+</div>
+<p>RDF data consists of triples (subject, predicate, object) or quads (subject, predicate, object, graph name). We will use these three triples in the N-Triples format as a running example:</p>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</span> <span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="p">.</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Jelly"</span> <span class="p">.</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Serialization format"</span><span class="o">@</span><span class="ge">en</span> <span class="p">.</span>
+</span></code></pre></div>
+<p>You can read that as "Jelly is an instance of a serialization format".</p>
+<p>Jelly encodes a sequence of triples or quads as a binary stream, using efficient encoding. The first thing it does is splitting IRIs into prefixes and postfixes (we call postfixes "names"):</p>
+<ul>
+<li>Prefixes:<ul>
+<li><code>[1]: https://example.org/</code></li>
+<li><code>[2]: http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></li>
+</ul>
+</li>
+<li>Names:<ul>
+<li><code>[1]: jelly</code></li>
+<li><code>[2]: type</code></li>
+<li><code>[3]: label</code></li>
+</ul>
+</li>
+</ul>
+<p>They are communicated in the stream as part of a dynamically changing lookup table. If we run out of IDs, we remove old entries in the lookup to free up space. Each prefix and name is assigned a numerical ID starting with 1. We can now efficiently construct IRIs as a pair of IDs (1st ID is the prefix, the 2nd ID is the name):</p>
+<ul>
+<li><code>https://example.org/jelly</code> -&gt; <code>RdfIri(1, 1)</code></li>
+<li><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</code> -&gt; <code>RdfIri(2, 2)</code></li>
+<li><code>https://example.org/label</code> -&gt; <code>RdfIri(1, 3)</code></li>
+</ul>
+<p>This allows us to reuse repeating prefixes and names while saving on the serialized size. We also apply the same principle to datatype IRIs (they are not split in half, though). When we apply this across our 3 triples, we will get (in simplified form):</p>
+<table>
+<thead>
+<tr>
+<th>Subject</th>
+<th>Predicate</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RdfIri(1, 1)</code></td>
+<td><code>RdfIri(2, 2)</code></td>
+<td><code>"b1"</code></td>
+</tr>
+<tr>
+<td><code>RdfIri(1, 1)</code></td>
+<td><code>RdfIri(1, 3)</code></td>
+<td><code>RdfLiteral("Jelly")</code></td>
+</tr>
+<tr>
+<td><code>"b1"</code></td>
+<td><code>RdfIri(1, 3)</code></td>
+<td><code>RdfLiteral("Serialization format", "en")</code></td>
+</tr>
+</tbody>
+</table>
+<p>Jelly stores this table column by column – all subjects together, then all predicates, all objects, and all graph names. Within a column, the values are further split by type: IRIs go into one list, literals into another, blank nodes into yet another, and so on. If a column mixes types (like our objects column), Jelly adds 2 bits per value to say which list it comes from.</p>
+<p>Notice that we have repeated IRIs in the first and second column. Jelly can compress that, by applying a method similar to Turtle's colons and semicolons, but a bit more general. If a column has the exact same term in consecutive triples/quads, we write the term only once:</p>
+<table>
+<thead>
+<tr>
+<th>Subject</th>
+<th>Predicate</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RdfIri(1, 1)</code></td>
+<td><code>RdfIri(2, 2)</code></td>
+<td><code>"b1"</code></td>
+</tr>
+<tr>
+<td><em>(empty)</em></td>
+<td><code>RdfIri(1, 3)</code></td>
+<td><code>RdfLiteral("Jelly")</code></td>
+</tr>
+<tr>
+<td><code>"b1"</code></td>
+<td><em>(empty)</em></td>
+<td><code>RdfLiteral("Serialization format", "en")</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each column also has a short list of <em>layout</em> notes, which tell the parser where a term repeats and for how many rows, so that the parser can fill the repeated terms back in. One repeated term usually costs one one byte, and only a few bytes even if it repeats for thousands of rows, which makes this method very efficient.</p>
+<p>Jelly also applies a delta compression scheme to prefix and name IDs. <a href="../specification/serialization/">You can find the details in the spec</a>, but the short version is that within each column we use <code>0</code> to indicate <code>previous + 1</code> ID in the case of names, and <code>previous</code> ID in the case of prefixes. For our triples, this allows us to replace most name IDs with zeroes:</p>
+<table>
+<thead>
+<tr>
+<th>Subject</th>
+<th>Predicate</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RdfIri(1, 0)</code></td>
+<td><code>RdfIri(2, 2)</code></td>
+<td><code>"b1"</code></td>
+</tr>
+<tr>
+<td><em>(empty)</em></td>
+<td><code>RdfIri(1, 0)</code></td>
+<td><code>RdfLiteral("Jelly")</code></td>
+</tr>
+<tr>
+<td><code>"b1"</code></td>
+<td><em>(empty)</em></td>
+<td><code>RdfLiteral("Serialization format", "en")</code></td>
+</tr>
+</tbody>
+</table>
+<p>The value of <code>0</code> takes up just one byte, no matter how large the lookup is, allowing us to save even more space.</p>
+<p>Jelly's encoding scheme was designed to work in a fully streaming manner. We can compress RDF data by only looking at one triple at a time, and we use a strictly limited amount of memory for that. <strong>This allows Jelly to work with datasets of any size</strong> – billions, trillions, and beyond.</p>
+<p>That's the basics – <a href="../specification/serialization/">see the spec for details</a>.</p>
+<details class="example">
+<summary>Full translation of the example to Jelly</summary>
+<p>The running example was translated to a text-based readable version of Jelly with <a href="https://github.com/Jelly-RDF/cli">jelly-cli</a>:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>jelly-cli<span class="w"> </span>rdf<span class="w"> </span>to-jelly<span class="w"> </span>--opt.physical-type<span class="o">=</span>triples<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>jelly-cli<span class="w"> </span>rdf<span class="w"> </span>from-jelly<span class="w"> </span>--out-format<span class="w"> </span>jelly-text
+</span></code></pre></div>
+<p>Output:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="err">#</span><span class="w"> </span><span class="err">Frame</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">rows</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="err">op</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="err">physical_</span><span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">PHYSICAL_STREAM_TYPE_TRIPLES</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="err">max_</span><span class="kc">na</span><span class="err">me_</span><span class="kc">ta</span><span class="err">ble_size</span><span class="p">:</span><span class="w"> </span><span class="mi">4000</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="err">max_pre</span><span class="kc">f</span><span class="err">ix_</span><span class="kc">ta</span><span class="err">ble_size</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="err">max_da</span><span class="kc">tat</span><span class="err">ype_</span><span class="kc">ta</span><span class="err">ble_size</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="err">versio</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">colum</span><span class="kc">ns</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="err">row_cou</span><span class="kc">nt</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span><span class="kc">na</span><span class="err">mes</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="err">values</span><span class="p">:</span><span class="w"> </span><span class="s2">"jelly"</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="err">values</span><span class="p">:</span><span class="w"> </span><span class="s2">"type"</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="err">values</span><span class="p">:</span><span class="w"> </span><span class="s2">"label"</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">  </span><span class="err">pre</span><span class="kc">f</span><span class="err">ixes</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="err">values</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/"</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="err">values</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">  </span><span class="err">subjec</span><span class="kc">ts</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="err">ki</span><span class="kc">n</span><span class="err">ds</span><span class="p">:</span><span class="w"> </span><span class="s2">"\b"</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="err">layou</span><span class="kc">ts</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="kc">na</span><span class="err">me_ids</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix_ids</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">    </span><span class="err">b</span><span class="kc">n</span><span class="err">odes</span><span class="p">:</span><span class="w"> </span><span class="s2">"b1"</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">  </span><span class="err">predica</span><span class="kc">tes</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">    </span><span class="err">layou</span><span class="kc">ts</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">    </span><span class="kc">na</span><span class="err">me_ids</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">    </span><span class="kc">na</span><span class="err">me_ids</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">    </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix_ids</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="w">    </span><span class="err">pre</span><span class="kc">f</span><span class="err">ix_ids</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">  </span><span class="err">objec</span><span class="kc">ts</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">    </span><span class="err">ki</span><span class="kc">n</span><span class="err">ds</span><span class="p">:</span><span class="w"> </span><span class="s2">"\026"</span>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="w">    </span><span class="err">lex_values</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jelly"</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="w">    </span><span class="err">lex_values</span><span class="p">:</span><span class="w"> </span><span class="s2">"Serialization format"</span>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="w">    </span><span class="err">li</span><span class="kc">teral</span><span class="err">_ki</span><span class="kc">n</span><span class="err">ds</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="w">    </span><span class="err">li</span><span class="kc">teral</span><span class="err">_ki</span><span class="kc">n</span><span class="err">ds</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="w">    </span><span class="err">la</span><span class="kc">n</span><span class="err">g</span><span class="kc">ta</span><span class="err">gs</span><span class="p">:</span><span class="w"> </span><span class="s2">"en"</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="w">    </span><span class="err">b</span><span class="kc">n</span><span class="err">odes</span><span class="p">:</span><span class="w"> </span><span class="s2">"b1"</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h3 id="what-jelly-does-and-does-not-compress">What Jelly does and does not compress</h3>
+<p>Jelly is pretty good at compressing IRI-heavy RDF data, but it doesn't compress the text in the IRIs themselves. Same applies to blank node identifiers, language tags, and literal contents. If you care about small file size, <strong>you should compress your Jelly file with your compressor of choice</strong>, like gzip, bzip, or zstd. We found zstd to work particularly well in practice. While Jelly by itself can make datasets ~8x smaller than N-Triples (this largely depends on the dataset), with zstd compression, you can sometimes get it up to 100x.</p>
+<h2 id="how-does-it-work-streams">How does it work – streams</h2>
+<p>A stream is just a sequence of items, possibly a very long one. We want to only look at a fixed number of elements of the stream at a time – this limits memory usage and allows us to process infinitely long streams.</p>
+<p>The most basic kind of RDF stream is what you would see in an N-Triples or N-Quads file – after all, it's just a sequence of triples:</p>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</span> <span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="p">.</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">&lt;https://example.org/jelly&gt;</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Jelly"</span> <span class="p">.</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="nv">&lt;https://example.org/label&gt;</span> <span class="s">"Serialization format"</span><span class="o">@</span><span class="ge">en</span> <span class="p">.</span>
+</span></code></pre></div>
+<p>We call this a <em>flat RDF stream</em>. Jelly supports this kind of streams – you will find them useful in transferring large RDF files, query responses, database dumps, and so on.</p>
+<p>But, what if our stream contains a sequence of RDF graphs or datasets? For example, if we want to transfer the measurements of a temperature sensor, we would have:</p>
+<p>Graph 1:</p>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.4"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span></code></pre></div>
+<p>Graph 2:</p>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.6"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span></code></pre></div>
+<p>...and so on. In traditional RDF systems, you had two options. You could modify the data, wrap it in containers, or apply some other processing to make it fit into one graph. Or you could simply put each graph/dataset in a separate file. </p>
+<p><a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages</a> is a proposal by the RDF Stream Processing Community Group that offers a simpler way, fully implemented in Jelly. In this approach, multiple graphs or datasets can live within one file. We use <em>messages</em> as boundary markers:</p>
+<div class="language-turtle highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c"># Message 1</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.4"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c"># Message 2</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nn">ex</span><span class="p">:</span><span class="nt">sensor</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">measuredProperty</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">temperature</span> <span class="p">;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">unit</span> <span class="nn">ex</span><span class="p">:</span><span class="nt">Kelvin</span> <span class="p">;</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="nn">ex</span><span class="p">:</span><span class="nt">value</span> <span class="s">"280.6"</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">decimal</span> <span class="p">.</span>
+</span></code></pre></div>
+<p>We call this an <em>RDF Message Stream</em>. A Jelly parser can unpack this and process the messages one by one. The best part is that the compression (explained <a href="#how-does-it-work--encoding">above</a>) is applied <strong>across the entire stream</strong>. So, if an IRI appears in message 1, and then again in message 2, we will have to write it only once. This is very effective for data with repeating patterns, like IoT measurements, nanopublications, encyclopedic entries, or maps (cartography).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jelly predates the RDF Messages proposal, but it implements the same concept. Up to Jelly-RDF 1.1, each message was sent as one stream frame. Since Jelly-RDF 1.2, there is native support for RDF messages in the Jelly specification, and messages use dedicated delimiters. This allows for many messages in one stream frame, or for messages that span multiple stream frames.</p>
+</div>
+<p><strong>As a summary:</strong></p>
+<ul>
+<li><strong>Flat RDF stream</strong> – just a sequence of triples or quads. Great for processing a single file.</li>
+<li><strong>RDF Message Stream</strong> – a sequence of messages. Great if you have many small files.</li>
+</ul>
+<p>Jelly records the stream type in the file header. Support for RDF Message Streams is optional in parsers. The physical layout of the stream is almost the same in both cases – a grouped stream just has extra delimiting markers. One important difference is that when using RDF Messages, the blank node identifiers are scoped to the message, so you can have the same blank node identifier in different messages without them being considered the same node.</p>
+<p>The following sections contain more details about stream types in Jelly.</p>
+<h2 id="streams-and-stream-types-in-detail">Streams and stream types in detail</h2>
+<h3 id="stream-frames">Stream frames</h3>
+<p>Stream frames are batches of RDF statements (triples or quads), stored in columns. The frames have no meaning of their own – the producer can pick any frame size it likes.</p>
+<h3 id="physical-types-triples-vs-quads">Physical types (triples vs. quads)</h3>
+<p>The physical type tells you whether the stream contains triples or quads. There are two physical stream types in Jelly:</p>
+<ul>
+<li><strong><code>TRIPLES</code></strong>: data is encoded using triple statements. There is no information about the graph name in this type of stream.</li>
+<li><strong><code>QUADS</code></strong>: data is encoded using quad statements. Each quad has a graph name, which can also be the default graph.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jelly-RDF 1.1 also had the <code>GRAPHS</code> type, which was removed in Jelly-RDF 1.2. You can do the exact same thing with <code>QUADS</code>, which is simpler.</p>
+</div>
+<h3 id="stream-types">Stream types (flat vs. messages)</h3>
+<p>The stream type tells you whether the whole stream is one RDF graph or dataset (<code>FLAT</code>), or a sequence of RDF Messages (<code>MESSAGES</code>).</p>
+<p>The Jelly-RDF 1.1 equivalent was logical stream types, taken directly from <a href="https://w3id.org/stax/1.1.2/taxonomy">RDF-STaX</a>.</p>
+<h3 id="common-patterns-cookbook">Common patterns cookbook</h3>
+<p>Below you will find some common patterns for using Jelly. All of the presented patterns are supported in the <a href="https://w3id.org/jelly/jelly-jvm/3.7.3/user/reactive">Jelly-JVM implementation</a> with the Reactive Streaming module.</p>
+<h4 id="flat-rdf-triple-stream-just-a-bunch-of-triples">Flat RDF triple stream – "just a bunch of triples"</h4>
+<p>Let's say you want to stream a lot of triples from A to B – maybe you're doing some kind of data migration, or you're sending data to a data lake. You don't care about the graph they belong to – you just want to send a bunch of triples.</p>
+<p>This means you are using the <code>FLAT</code> stream type and the <code>TRIPLES</code> physical type, batching the triples into frames of an arbitrary size (let's say, 1000 triples each):</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Triple 1</li>
+<li>Triple 2</li>
+<li>...</li>
+<li>Triple 1000</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Triple 1001</li>
+<li>Triple 1002</li>
+<li>...</li>
+<li>Triple 2000</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>You can then send these frames one-by-one over gRPC or Kafka, or write them to a file. The consumer will be able to read the triples one frame at a time, without having to know how many triples there are in total.</p>
+<h4 id="rdf-graph-stream">RDF graph stream</h4>
+<p>In this case we have (for example) an IoT sensor that periodically emits an RDF graph that describes what the sensor saw (something like <a href="https://www.w3.org/TR/vocab-ssn/">SOSA/SSN</a>). The graphs may be of different sizes (depending on what the sensor saw) and they can be emitted at different rates (depending on how often the sensor is triggered). We want to stream these graphs to a server that will process them in real-time with no additional latency.</p>
+<p>This means you are using the <code>MESSAGES</code> stream type and the <code>TRIPLES</code> physical type, where the messages correspond to different unnamed (default) graphs. The simplest way is to put each graph in its own stream frame:</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Triple 1 (of graph 1)</li>
+<li>Triple 2 (of graph 1)</li>
+<li>...</li>
+<li>Triple 134 (of graph 1)</li>
+<li>End of message</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Triple 1 (of graph 2)</li>
+<li>Triple 2 (of graph 2)</li>
+<li>...</li>
+<li>Triple 97 (of graph 2)</li>
+<li>End of message</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>The consumer will be able to read the graphs one message at a time, without having to know how many graphs there are in total.</p>
+<p><a href="http://w3id.org/riverbench">RiverBench</a> uses this pattern for distributing its triple streams (see <a href="https://w3id.org/riverbench/datasets/lod-katrina/dev">example</a>).</p>
+<h4 id="flat-rdf-quad-stream-just-a-bunch-of-quads">Flat RDF quad stream – "just a bunch of quads"</h4>
+<p>You want to stream a lot of quads – similar to the "just a bunch of triples" case above, but you also want to include the graph node. This means you are using the <code>FLAT</code> stream type and the <code>QUADS</code> physical type, batching the quads into frames of an arbitrary size (let's say, 1000 quads each):</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Quad 1</li>
+<li>Quad 2</li>
+<li>...</li>
+<li>Quad 1000</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Quad 1001</li>
+<li>Quad 1002</li>
+<li>...</li>
+<li>Quad 2000</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>The mechanism is exactly the same as with a flat RDF triple stream.</p>
+<h4 id="rdf-dataset-stream">RDF dataset stream</h4>
+<p>You want to stream RDF datasets – similar to the "a stream of graphs" case above, but your elements are entire datasets. This means you are using the <code>MESSAGES</code> stream type and the <code>QUADS</code> physical type, where the messages correspond to different datasets:</p>
+<details class="example">
+<summary>Example (click to expand)</summary>
+<ul>
+<li>Stream frame 1<ul>
+<li>Stream options</li>
+<li>Quad 1 (of dataset 1)</li>
+<li>Quad 2 (of dataset 1)</li>
+<li>...</li>
+<li>Quad 454 (of dataset 1)</li>
+<li>End of message</li>
+</ul>
+</li>
+<li>Stream frame 2<ul>
+<li>Quad 1 (of dataset 2)</li>
+<li>Quad 2 (of dataset 2)</li>
+<li>...</li>
+<li>Quad 323 (of dataset 2)</li>
+<li>End of message</li>
+</ul>
+</li>
+<li>...</li>
+</ul>
+</details>
+<p>The mechanism is exactly the same as with a triple stream of graphs.</p>
+<p><a href="http://w3id.org/riverbench">RiverBench</a> uses this pattern for distributing its RDF dataset streams (see <a href="https://w3id.org/riverbench/datasets/nanopubs/dev">example</a>).</p>
+<h2 id="ordering-and-delivery-guarantees">Ordering and delivery guarantees</h2>
+<p>To be able to compress RDF streams on-the-fly, Jelly requires that stream frames are kept strictly in order (see also <a href="../specification/serialization/#ordering">the spec</a>). This is because the compression algorithm updates its lookup tables dynamically over the course of the stream, and a given frame depends on the lookups defined in previous frames. If the frames are out of order, the compression may fail.</p>
+<p>There are use cases where it's hard to guarantee strict ordering of messages, such as IoT messaging (e.g., MQTT with QoS 0) or high-throughput streams with parallel partitions (e.g., Kafka). In these cases you may want to employ one of these strategies:</p>
+<ul>
+<li><strong>Emit shared lookup tables at the start of the stream</strong>: If you know the vocabulary of the stream, you can emit most of the content of the lookup tables at the start of the stream, and then only update the lookup elements that vary frame-to-frame, keeping the updates local to the frame. This strategy is especially useful in IoT scenarios, where the vocabulary is usually known in advance. You don't need to modify the consumer in this case.<ul>
+<li>A variation of this strategy is to communicate the lookup tables over a separate channel before starting the stream. This is useful if you can't guarantee that the lookup tables will be delivered before the stream frames.</li>
+</ul>
+</li>
+<li><strong>Use a "frame ID" to keep track of the order</strong>: If you can't guarantee the order of the frames, you can add a "frame ID" to each frame, which will allow the consumer to reorder the frames before processing them. This strategy is useful in high-throughput scenarios, where you can't guarantee the order of the frames. You will need to modify the consumer to reorder the frames before processing them. However, handling failures in this scenario may be complicated.</li>
+<li><strong>Use partitions that are guaranteed to be in-order</strong>: If you can't guarantee the order of the frames, you can use partitions that are guaranteed to be in-order (e.g., Kafka partitions). Then, each partition should have its own set of lookups (essentially treating each partition as a separate stream in Jelly's terms). This strategy is useful in high-throughput scenarios.</li>
+</ul>
+<p>Note that Jelly by default also assumes that frames are delivered at least once. At-least-once delivery is good enough (as long as the order is kept), as lookup updates are idempotent – you may only need to de-duplicate the frames afterwards. At-most-once delivery requires you to make the frames independent of each other, such as with the IoT strategy above.</p>
+<h2 id="delimited-vs-non-delimited-jelly">Delimited vs. non-delimited Jelly</h2>
+<p>Protobuf messages by default <a href="https://protobuf.dev/programming-guides/techniques/#streaming">are not delimited</a>. This means that when you serialize a Protobuf message (e.g., a Jelly stream frame), the serialization does not include any information about where the message ends. This is fine when there is something else telling the parser where the message ends – for example, when you're sending the message over a gRPC, Kafka or MQTT stream – the streaming protocol tells the parser how long the message is. However, if you wanted to write multiple stream frames to a file, you would need to add some kind of delimiter between the frames – otherwise the parser would not know where one frame ends and the next one begins.</p>
+<p>So, to summarize:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Use case</th>
+<th style="text-align: left;">Jelly variant</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Jelly gRPC streaming protocol</td>
+<td style="text-align: left;">Non-delimited</td>
+<td style="text-align: left;">The gRPC protocol tells the parser how long the message is.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Streaming with Kafka, MQTT, or similar</td>
+<td style="text-align: left;">Non-delimited</td>
+<td style="text-align: left;">The streaming protocol tells the parser how long the message is.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Writing to a file</td>
+<td style="text-align: left;">Delimited</td>
+<td style="text-align: left;">You need to add a delimiter between the frames.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Writing to a raw network socket</td>
+<td style="text-align: left;">Delimited</td>
+<td style="text-align: left;">You need to add a delimiter between the frames.</td>
+</tr>
+</tbody>
+</table>
+<p>The delimited variant works by adding an integer before the stream frame that specifies the length of the frame, in bytes. That's it.</p>
+<p>You can read more about how this works in the <a href="../specification/serialization/#delimited-variant-of-jelly">serialization format specification</a>.</p>
+<h3 id="examples">Examples</h3>
+<ul>
+<li><a href="https://w3id.org/jelly/jelly-jvm/3.7.3/">Jelly-JVM</a> supports both variants, but uses them in different contexts. When writing to a Java byte stream (typically a file) with Apache Jena RIOT or RDF4J Rio, the delimited variant is used. However, the RIOT/Rio integrations can parse either delimited or non-delimited Jelly data. In the gRPC protocol, the non-delimited variant is used.</li>
+<li><a href="http://w3id.org/riverbench">RiverBench</a> publishes its RDF metadata and datasets as Jelly files. These files are always written using the delimited variant.</li>
+</ul>
+<h2 id="sample-files">Sample files</h2>
+<p><code>foaf-1.2.jelly</code> is a simple Jelly file that may be useful when trying to understand how the format works. You can download it here:</p>
+<ul>
+<li><a href="../assets/samples/foaf-1.2.jelly"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf-1.2.jelly</a></li>
+<li><a href="../assets/samples/foaf.ttl"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf.ttl</a> – same file in the Turtle format.</li>
+<li><a href="../assets/samples/foaf-1.2.jelly.txt"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf-1.2.jelly.txt</a> – text representation of the Jelly file, for debugging purposes.</li>
+</ul>
+<p>The same file is also available in the older Jelly-RDF 1.0 format:</p>
+<ul>
+<li><a href="../assets/samples/foaf.jelly"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf.jelly</a></li>
+<li><a href="../assets/samples/foaf.jelly.txt"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75"/><path d="M5.22 9.97a.75.75 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06"/></svg></span> foaf.jelly.txt</a></li>
+</ul>
+<p>You can find more example datasets (including ones with millions of triples) <strong><a href="../use-cases/#example-datasets-in-the-jelly-format">on this page</a></strong>. The <a href="../conformance/rdf-test-cases/">conformance test cases</a> contain dozens of valid Jelly files testing all features of the format.</p>
+<h2 id="implementing-jelly">Implementing Jelly</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is intended only for those who want to write a new Jelly implementation from scratch. It's much easier to use an existing implementation, such as the <a href="https://w3id.org/jelly/jelly-jvm/3.7.3/">JVM implementation</a>.</p>
+</div>
+<p>Implementing Jelly from scratch is greatly simplified by the existing Protobuf and RDF libraries. Essentially, the only thing you'll need to do is to glue them together:</p>
+<ul>
+<li>Find a Protobuf library for your language. You can find a list of official Protobuf implementations <a href="https://protobuf.dev/reference/">here</a> and a list of community-maintained implementations <a href="https://github.com/protocolbuffers/protobuf/blob/main/docs/third_party.md">here</a>.</li>
+<li>Use the library to generate the code for the Jelly messages (this usually involves using <code>protoc</code>). You can find the Protobuf definitions in the <a href="https://github.com/Jelly-RDF/jelly-protobuf">jelly-protobuf</a> repository.</li>
+<li>Find an RDF library for your language. You can find a list of RDF libraries <a href="https://github.com/semantalytics/awesome-semantic-web#programming">here</a>.</li>
+<li>Implement conversions to and/or from the RDF library's data structures. You can find an example of the conversion code in the <a href="https://github.com/Jelly-RDF/jelly-jvm">Jelly-JVM implementation</a> (<code>core</code>, <code>jena</code>, and <code>rdf4j</code> modules).</li>
+<li>In the implementation follow the <a href="../specification/">specification</a> to ensure compatibility.</li>
+</ul>
+<p>That's it! You may also want to implement streaming facilities, such as <a href="https://www.reactive-streams.org/">Reactive Streams</a> in Java/Scala. Implementing the <a href="../specification/streaming/">gRPC publish/subscribe mechanism</a> follows a very similar procedure – many Protobuf libraries have built-in support for gRPC with code generation.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="https://w3id.org/jelly/jelly-jvm/3.7.3/getting-started-devs">Jelly-JVM getting started guide</a></li>
+<li><a href="https://w3id.org/jelly/pyjelly/0.8.1/getting-started">pyjelly getting started guide</a></li>
+<li><a href="../use-cases/">Applications using Jelly</a></li>
+<li><a href="https://w3c-cg.github.io/rsp/spec/messages">RDF Messages spec</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2026</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 10, 2023</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+        <span style="font-size: 1.1em;">
+        <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m245.83 214.87-33.22 17.28c-9.43-19.58-25.24-19.93-27.46-19.93-22.13 0-33.22 14.61-33.22 43.84 0 23.57 9.21 43.84 33.22 43.84 14.47 0 24.65-7.09 30.57-21.26l30.55 15.5c-6.17 11.51-25.69 38.98-65.1 38.98-22.6 0-73.96-10.32-73.96-77.05 0-58.69 43-77.06 72.63-77.06 30.72-.01 52.7 11.95 65.99 35.86zm143.05 0-32.78 17.28c-9.5-19.77-25.72-19.93-27.9-19.93-22.14 0-33.22 14.61-33.22 43.84 0 23.55 9.23 43.84 33.22 43.84 14.45 0 24.65-7.09 30.54-21.26l31 15.5c-2.1 3.75-21.39 38.98-65.09 38.98-22.69 0-73.96-9.87-73.96-77.05 0-58.67 42.97-77.06 72.63-77.06 30.71-.01 52.58 11.95 65.56 35.86zM247.56 8.05C104.74 8.05 0 123.11 0 256.05c0 138.49 113.6 248 247.56 248 129.93 0 248.44-100.87 248.44-248 0-137.87-106.62-248-248.44-248zm.87 450.81c-112.54 0-203.7-93.04-203.7-202.81 0-105.42 85.43-203.27 203.72-203.27 112.53 0 202.82 89.46 202.82 203.26-.01 121.69-99.68 202.82-202.84 202.82z"></path></svg></span> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M314.9 194.4v101.4h-28.3v120.5h-77.1V295.9h-28.3V194.4c0-4.4 1.6-8.2 4.6-11.3 3.1-3.1 6.9-4.7 11.3-4.7H299c4.1 0 7.8 1.6 11.1 4.7 3.1 3.2 4.8 6.9 4.8 11.3zm-101.5-63.7c0-23.3 11.5-35 34.5-35s34.5 11.7 34.5 35c0 23-11.5 34.5-34.5 34.5s-34.5-11.5-34.5-34.5zM247.6 8C389.4 8 496 118.1 496 256c0 147.1-118.5 248-248.4 248C113.6 504 0 394.5 0 256 0 123.1 104.7 8 247.6 8zm.8 44.7C130.2 52.7 44.7 150.6 44.7 256c0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8.1-113.8-90.2-203.3-202.8-203.3z"></path></svg></span>
+        </span>Creative Commons Attribution 4.0</a><br />Jelly's documentation is licensed under CC BY 4.0. The code is licensed under Apache 2.0. See also: <strong><a href="/latest/licensing">licensing</a></strong>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Jelly-RDF" target="_blank" rel="noopener" title="Jelly on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/A8sN5XwVa5" target="_blank" rel="noopener" title="Community Discord server" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../assets/charts/jelly-charts.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

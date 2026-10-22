@@ -1,0 +1,126 @@
+syntax = "proto3";
+package eu.ostrzyciel.jelly.core.proto.v1.sparql;
+
+// Jelly-SPARQL: binary serialization for SPARQL query results
+// (solution sequences and boolean ASK results), based on the Jelly-RDF term
+// encoding (rdf.proto).
+// Specification document:
+// https://w3id.org/jelly/1.2.0/specification/sparql
+// Protocol version: 1.0.0
+//
+// The results are transmitted as a stream of frames. Each frame contains a
+// batch of solutions (rows) in a columnar layout: one column per variable.
+// The columns (RdfColumn) and their sequence layout encoding are defined in
+// rdf.proto, and shared with the column layout of Jelly-RDF.
+//
+// The first frame has the header: stream options and the variable names, one
+// per column. The stream ends with a trailer, which says whether the result
+// set is complete.
+//
+// By default, a stream contains one result set (SPARQL_STREAM_TYPE_FLAT). A
+// stream of type SPARQL_STREAM_TYPE_PUNCTUATED contains a sequence of result
+// sets instead, each ended by a trailer.
+
+import "rdf.proto";
+
+// Stream options for SPARQL result streams.
+message SparqlResultsOptions {
+  // Name of the stream (completely optional).
+  // This may be used for, e.g., topic names in a pub/sub system.
+  string stream_name = 1;
+  // Type of the stream: one result set, or a sequence of result sets.
+  // Defaults to SPARQL_STREAM_TYPE_FLAT.
+  SparqlStreamType stream_type = 2;
+  // Version of RDF whose terms may occur in the stream.
+  //   RDF_VERSION_1_1       – no triple terms, no base directions
+  //   RDF_VERSION_1_2_BASIC – base directions, no triple terms
+  //   RDF_VERSION_1_2       – base directions and triple terms
+  // Unspecified (the default) means that no version is announced: the stream
+  // may contain any RDF 1.2 term.
+  RdfVersion rdf_version = 5;
+  // Maximum size of the name lookup table
+  // (required, must be >= 128)
+  uint32 max_name_table_size = 9;
+  // Maximum size of the prefix lookup table
+  // (required if the prefix lookup is used)
+  uint32 max_prefix_table_size = 10;
+  // Maximum size of the datatype lookup table
+  // (required if datatype literals are used)
+  uint32 max_datatype_table_size = 11;
+  // Protocol version (required)
+  // For Jelly-SPARQL 1.0.x, the value must be 1.
+  // For custom extensions, the value must be 10000 or higher.
+  uint32 version = 15;
+}
+
+// Type of a SPARQL result stream.
+enum SparqlStreamType {
+  // The entire stream is a single result set. This is the default.
+  // buf:lint:ignore ENUM_ZERO_VALUE_SUFFIX
+  SPARQL_STREAM_TYPE_FLAT = 0;
+  // The stream is a sequence of result sets, each ended by a frame with a
+  // trailer. The lookup tables are kept from one result set to the next.
+  SPARQL_STREAM_TYPE_PUNCTUATED = 1;
+}
+
+// Boolean result of a SPARQL ASK query.
+message SparqlAskResult {
+  // The boolean value of the result.
+  bool value = 1;
+}
+
+// End-of-result-set marker, saying whether the result set is complete.
+// Producers must write it in the last frame of every result set, unless they
+// cannot write anything more at all (for example, because the process died).
+message SparqlResultsTrailer {
+  // Empty (the default) means the result set is complete.
+  // A non-empty value is a human-readable explanation of why the producer
+  // could not complete the result set (e.g., query failure mid-evaluation).
+  string error = 1;
+}
+
+// SPARQL results frame – base message of a SPARQL result stream.
+// A frame contains a batch of rows (solutions).
+message SparqlResultsFrame {
+  // Stream options.
+  // Must be set in the first frame of the stream. May be set again in a
+  // later frame, which empties the lookup tables.
+  SparqlResultsOptions options = 1;
+  // Result set header: the names of the variables, in projection (SELECT
+  // clause) order, without the leading "?" or "$".
+  // Set in the first frame of a result set with a solution sequence, and in
+  // a frame that contains the options.
+  repeated string variables = 2;
+  // Number of rows (solutions) in this frame. At most 2^27 - 1.
+  uint32 row_count = 3;
+  // Entries in the name lookup table.
+  repeated RdfLookupEntryPacked names = 4;
+  // Entries in the prefix lookup table.
+  //
+  // Note: the prefixes in the lookup table can be arbitrary strings, and are
+  // NOT meant to be user-facing. They are only used for IRI compression.
+  repeated RdfLookupEntryPacked prefixes = 5;
+  // Entries in the datatype lookup table.
+  repeated RdfLookupEntryPacked datatypes = 6;
+  // Columns, one per variable, in the order of `variables`, or none.
+  repeated RdfColumn columns = 7;
+  // Boolean (ASK) result.
+  // If set, the result set is a boolean result instead of a solution
+  // sequence. A boolean result is always the only frame of its result set.
+  SparqlAskResult ask_result = 8;
+  // End-of-result-set marker. See SparqlResultsTrailer.
+  SparqlResultsTrailer trailer = 9;
+  // Arbitrary metadata
+  // The keys are UTF-8 encoded strings, the values are byte arrays.
+  // The metadata does not affect the result data in any way, treat it
+  // as comments in a text file.
+  //
+  // Well-known keys (their values must be valid UTF-8):
+  //   link – zero or more IRIs separated by LF (U+000A), describing the
+  //          result set as a whole (not the frame). Corresponds to head.link
+  //          in the SPARQL Query Results JSON format.
+  //
+  // All other keys may be used by implementations in any way they see fit,
+  // and their values are arbitrary bytes.
+  map<string, bytes> metadata = 15;
+}
