@@ -66,6 +66,22 @@ Go see the **[Jelly-JVM getting started guide for devs]({{ jvm_link('getting-sta
 
 See the **[pyjelly getting started guide]({{ python_link('getting-started') }})**. It contains examples and code snippets for using Jelly with or without RDFLib, as well as other libraries like NetworkX.
 
+### Migrating from Jelly-RDF 1.1 to 1.2
+
+Jelly-RDF 1.2 files can't be read by parsers that only support Jelly-RDF 1.1. The other way around works fine – parsers that support Jelly-RDF 1.2 can also read Jelly-RDF 1.1 and 1.0 files.
+
+To convert your existing files to Jelly-RDF 1.2, use [`jelly-cli`](https://github.com/Jelly-RDF/cli):
+
+```shell
+jelly-cli rdf to-jelly --in-format jelly old.jelly > new.jelly
+```
+
+If you need to send data to an older parser, you can also convert a Jelly-RDF 1.2 file back to 1.1:
+
+```shell
+jelly-cli rdf to-jelly --in-format jelly --opt.jelly-version=1.1 new.jelly > old.jelly
+```
+
 ## How does it work – encoding
 
 !!! note
