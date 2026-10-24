@@ -29,19 +29,72 @@ The same datasets, hardware, software, and method were used as in the [Jelly-RDF
 
 --8<-- "snippets/performance/a-overview-sparql.html"
 
+Throughput, geometric mean over 10 datasets. Log scale.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- ‡ RDF4J's TSV parser runs on a thread pool, so this uses more than one core
+
+</div>
+
+--8<-- "snippets/performance/a-overview-sparql.data.html"
+
 ### Throughput and serialized size
 
 --8<-- "snippets/performance/b-speed-size-sparql.html"
+
+Serialized size (uncompressed) against throughput, geometric mean over 10 datasets. Log scale. Top left is better.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- ‡ RDF4J's TSV parser runs on a thread pool, so this uses more than one core
+
+</div>
+
+--8<-- "snippets/performance/b-speed-size-sparql.data.html"
 
 ### Throughput per dataset
 
 --8<-- "snippets/performance/c-heatmap-sparql.html"
 
+Throughput on each dataset, in cells/s.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- † not lossless on this dataset; left out of averages
+- ‡ RDF4J's TSV parser runs on a thread pool, so this uses more than one core
+- § the 3 sweeps differ by more than 10%
+
+</div>
+
+--8<-- "snippets/performance/c-heatmap-sparql.data.html"
+
 --8<-- "snippets/performance/d-spread-sparql.html"
+
+Throughput on each dataset (dots) and the geometric mean over 10 datasets (bar). Log scale. Hollow dots: not lossless, left out of the mean.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- † not lossless on this dataset; left out of averages
+- ‡ RDF4J's TSV parser runs on a thread pool, so this uses more than one core
+- § the 3 sweeps differ by more than 10%
+
+</div>
+
+--8<-- "snippets/performance/d-spread-sparql.data.html"
 
 ### Serialized size
 
 --8<-- "snippets/performance/f-size-sparql.html"
+
+Serialized size in bytes/row, uncompressed and with zstd, geometric mean over 10 datasets. Log scale.
+{ .jc-caption }
+
+--8<-- "snippets/performance/f-size-sparql.data.html"
 
 ## See also
 

@@ -232,11 +232,22 @@
 
 The benchmarks below were performed with Jelly-JVM 4.0.0, Apache Jena 6.2.0, and Eclipse RDF4J 6.1.0. See: **[more benchmark results and details about the benchmark setup](performance/index.md)**.
 
---8<-- "snippets/home/a-overview-rdf.html"
+Throughput, geometric mean over 13 datasets (10 for RDF/JSON and RDF/XML). Log scale.
+{ .jc-caption }
 
---8<-- "snippets/home/f-size-rdf-triples.html"
+--8<-- "snippets/performance/a-overview-rdf.html"
 
---8<-- "snippets/home/notes.html"
+Serialized size in bytes/statement, uncompressed and with zstd, geometric mean over 10 datasets. Log scale.
+{ .jc-caption }
+
+--8<-- "snippets/performance/f-size-rdf-triples.html"
+
+<div class="jelly-chart-notes" markdown>
+
+- \* buffering writer: drops duplicate statements (write throughput still counts every input statement)
+- ° RDF4J's writer is given an OutputStream and writes it one character at a time. With a BufferedWriter it could be 1.28–1.56× faster
+
+</div>
 
 ## What can I use it for?
 
