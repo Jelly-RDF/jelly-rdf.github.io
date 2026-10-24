@@ -10,11 +10,14 @@
 [data-md-color-scheme="slate"] .jelly-chart:not(.jc-ready) .jc-static svg { filter: invert(0.88) hue-rotate(180deg); }
 .jelly-chart figcaption { text-align: left; max-width: none; font-size: 0.85em; margin-top: 0.6em; }
 .jelly-chart figcaption p { margin: 0 0 0.4em; }
-.md-typeset .jelly-chart figcaption.jc-caption-top { margin: 0 0 0.6em; }
-/* caveat notes shown once below several charts (homepage) */
-.jelly-chart-notes { font-size: 0.85em; margin: -0.5em 0 1.5em; }
-.md-typeset .jelly-chart-notes .jc-notes { list-style: none; padding-left: 0; margin: 0; opacity: 0.8; }
-.jelly-chart-notes .jc-flag { display: inline-block; min-width: 1em; font-weight: bold; }
+/* On the site the caption and notes are written in Markdown next to the chart:
+   a paragraph marked { .jc-caption } and a <div class="jelly-chart-notes" markdown> list. */
+.md-typeset figure.jelly-chart:has(+ .jc-caption), .md-typeset .jc-caption + figure.jelly-chart { margin: 0.6em 0; }
+.md-typeset p.jc-caption { font-size: 0.85em; margin: 0.6em 0; }
+.md-typeset .jelly-chart-notes { font-size: 0.85em; margin: 0.4em 0 1em; opacity: 0.8; }
+.md-typeset .jelly-chart-notes ul { list-style: none; padding-left: 0; margin: 0; }
+.md-typeset .jelly-chart-notes ul li { margin: 0 0 0.15em; }
+.md-typeset .jelly-chart + .jelly-chart details.jc-data, .md-typeset .jelly-chart-notes + .jelly-chart details.jc-data { margin-top: 0.6em; }
 .jelly-chart .jc-summary, .jelly-chart .jc-notes { margin: 0.2em 0 0.4em; padding-left: 1.2em; }
 .jelly-chart .jc-notes { list-style: none; padding-left: 0; opacity: 0.8; }
 .jelly-chart .jc-flag { display: inline-block; min-width: 1em; font-weight: bold; }
@@ -51,4 +54,13 @@ body #vg-tooltip-element { font-family: Roboto, 'Helvetica Neue', Arial, sans-se
 body #vg-tooltip-element { transition: visibility 0s linear 80ms; }
 body #vg-tooltip-element.visible { transition: visibility 0s; }
 body #vg-tooltip-element table tr td.key { white-space: nowrap; max-width: none; }
+/* vega-tooltip drops its dark-theme class in the same step as it hides the box. With the hide
+   delayed above, the box would show vega-tooltip's default white for those 80 ms, a white flash
+   in dark mode. So in dark mode the box is dark whether or not the class is there. */
+body[data-md-color-scheme="slate"] #vg-tooltip-element { background-color: rgba(32, 32, 32, 0.9); border: 1px solid #f5f5f5; color: white; }
+body[data-md-color-scheme="slate"] #vg-tooltip-element table tr td.key { color: #bfbfbf; }
+@media (prefers-color-scheme: dark) {
+  body:not([data-md-color-scheme]) #vg-tooltip-element { background-color: rgba(32, 32, 32, 0.9); border: 1px solid #f5f5f5; color: white; }
+  body:not([data-md-color-scheme]) #vg-tooltip-element table tr td.key { color: #bfbfbf; }
+}
 body #vg-tooltip-element table tr td.value { max-width: 300px; max-height: none; font-variant-numeric: tabular-nums; }

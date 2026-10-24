@@ -2,7 +2,7 @@
 // Without JS the static SVG in each figure stays visible.
 (function () {
   const CDN = ["https://cdn.jsdelivr.net/npm/vega@6.2.0", "https://cdn.jsdelivr.net/npm/vega-lite@6.4.1", "https://cdn.jsdelivr.net/npm/vega-embed@7.0.2"];
-  const DARK_SWAP = {"#009485": "#2fc2b2", "#80868f": "#9ba1aa", "#b4b9c0": "#5d636c", "#1f2328": "#e3e6ea", "#5c636e": "#a6adb7", "#e4e7eb": "#343944", "#9aa1ab": "#5f6672", "#c2504a": "#e0716b", "#f2f5f5": "#262a33", "#7fc4bc": "#2a7d74", "#00453e": "#6fe3d4", "#ffffff": "#10141a", "#fffffe": "#1e2029"};
+  const DARK_SWAP = {"#009485": "#2fc2b2", "#80868f": "#9ba1aa", "#b4b9c0": "#5d636c", "#a9aeb6": "#6c737d", "#1f2328": "#e3e6ea", "#5c636e": "#a6adb7", "#e4e7eb": "#343944", "#9aa1ab": "#5f6672", "#c2504a": "#e0716b", "#f2f5f5": "#262a33", "#7fc4bc": "#2a7d74", "#00453e": "#6fe3d4", "#ffffff": "#10141a", "#fffffe": "#1e2029"};
   let loading = null;
 
   function loadScript(src) {
