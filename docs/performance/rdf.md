@@ -36,25 +36,90 @@ Software: Linux kernel 6.17, GraalVM CE 25.4 (Java 25.0.4), Apache Jena 6.2.0, E
     max_datatype_table_size = 32;
     ```
 
+!!! tip "How much faster is Jelly-RDF 1.2 than 1.1?"
+    
+    See the [dedicated Jelly-RDF 1.1 vs 1.2 comparison](rdf-1-1-vs-1-2.md) for details on the performance improvements.
+
 ## Results
 
 ### Throughput
 
 --8<-- "snippets/performance/a-overview-rdf.html"
 
+Throughput, geometric mean over 13 datasets (10 for RDF/JSON and RDF/XML, which don't support quads). Log scale.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- \* buffering writer: drops duplicate statements (write throughput still counts every input statement)
+- ° RDF4J's writer is given an OutputStream and writes it one character at a time. With a BufferedWriter it could be 1.28–1.56× faster
+
+</div>
+
+--8<-- "snippets/performance/a-overview-rdf.data.html"
+
 ### Throughput and serialized size
 
 --8<-- "snippets/performance/b-speed-size-rdf-triples.html"
+
+Serialized size (uncompressed) against throughput, geometric mean over 10 datasets. Log scale. Top left is better.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- \* buffering writer: drops duplicate statements (write throughput still counts every input statement)
+- ° RDF4J's writer is given an OutputStream and writes it one character at a time. With a BufferedWriter it could be 1.28–1.56× faster
+
+</div>
+
+--8<-- "snippets/performance/b-speed-size-rdf-triples.data.html"
 
 ### Throughput per dataset
 
 --8<-- "snippets/performance/c-heatmap-rdf.html"
 
+Throughput on each dataset, in statements/s. The last 3 datasets contain quads.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- \* buffering writer: drops duplicate statements (write throughput still counts every input statement)
+- § the 3 sweeps differ by more than 10%
+- ° RDF4J's writer is given an OutputStream and writes it one character at a time. With a BufferedWriter it could be 1.28–1.56× faster
+
+</div>
+
+--8<-- "snippets/performance/c-heatmap-rdf.data.html"
+
 --8<-- "snippets/performance/d-spread-rdf-triples.html"
+
+Throughput on each dataset (dots) and the geometric mean over 10 datasets (bar). Log scale.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- \* buffering writer: drops duplicate statements (write throughput still counts every input statement)
+- § the 3 sweeps differ by more than 10%
+- ° RDF4J's writer is given an OutputStream and writes it one character at a time. With a BufferedWriter it could be 1.28–1.56× faster
+
+</div>
+
+--8<-- "snippets/performance/d-spread-rdf-triples.data.html"
 
 ### Serialized size
 
 --8<-- "snippets/performance/f-size-rdf-triples.html"
+
+Serialized size in bytes/statement, uncompressed and with zstd, geometric mean over 10 datasets. Log scale.
+{ .jc-caption }
+
+<div class="jelly-chart-notes" markdown>
+
+- \* buffering writer: drops duplicate statements (write throughput still counts every input statement)
+
+</div>
+
+--8<-- "snippets/performance/f-size-rdf-triples.data.html"
 
 ## See also
 
