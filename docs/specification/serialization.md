@@ -1035,14 +1035,22 @@ Jelly does not provide any built-in mechanisms for encryption, authentication, o
 
 The following implementations of the Jelly RDF serialization format specification are available:
 
-- [Jelly-JVM implementation]({{ jvm_link() }})
+- [Jelly-JVM]({{ jvm_link() }})
     - Specification version: {{ proto_version() }}
     - Implemented actors: producer, consumer
     - Supported RDF libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/), [Titanium RDF API](https://github.com/filip26/titanium-rdf-api)
-- [pyjelly implementation]( {{ python_link() }} )
+- [pyjelly]( {{ python_link() }} )
     - Specification version: 1.1.x
     - Implemented actors: producer, consumer
     - Supported RDF libraries: [rdflib](https://rdflib.readthedocs.io/), generic integration (no RDF library)
+- [rdfjs-jelly](https://github.com/pietercolpaert/rdfjs-jelly) *(unofficial, community-led)*
+    - Specification version: 1.2.x
+    - Implemented actors: producer, consumer
+    - Supported RDF libraries: any [RDF/JS](https://rdf.js.org/) library
+- [Locorda](https://locorda.dev/rdf/jelly/) *(unofficial, community-led)*
+    - Specification version: 1.1.x
+    - Implemented actors: producer, consumer
+    - Supported RDF libraries: [Locorda RDF](https://github.com/locorda/rdf)
 
 See the **[conformance reports](../conformance/rdf-reports.md)** for details on the supported features of each implementation.
 

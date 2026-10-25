@@ -358,9 +358,12 @@ Jelly-SPARQL is a general serialization format for SPARQL query results, and as 
 
 The following implementations of Jelly-SPARQL are available:
 
-- [Jelly-JVM implementation]({{ jvm_link() }})
+- [Jelly-JVM]({{ jvm_link() }})
     - Implemented actors: producer, consumer
     - Supported libraries: [Apache Jena](https://jena.apache.org/), [RDF4J](https://rdf4j.org/)
+- [rdfjs-jelly](https://github.com/pietercolpaert/rdfjs-jelly) *(unofficial, community-led)*
+    - Implemented actors: producer, consumer
+    - Supported libraries: any [RDF/JS](https://rdf.js.org/) library
 
 ## See also
 
