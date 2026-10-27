@@ -7,7 +7,7 @@ The charts are interactive – hover over them for details.
 **Jump to:**
 
 - **[Jelly-JVM](#jelly-jvm)** – Apache Jena and Eclipse RDF4J
-- **[pyjelly](#pyjelly)** – RDFLib
+- **[pyjelly](#pyjelly)** – RDFLib and the generic API
 
 ## Jelly-JVM
 
@@ -72,13 +72,13 @@ Size (uncompressed) against throughput on each of the 13 datasets. Each line con
 
 ### Benchmark setup
 
-The same datasets, hardware, software, and method were used as in the [pyjelly Jelly-RDF benchmarks](rdf.md#pyjelly), with pyjelly's streaming API and the "big" preset. Three versions were compared:
+The same datasets, hardware, software, and method were used as in the [pyjelly Jelly-RDF benchmarks](rdf.md#pyjelly), with pyjelly's streaming API and the "big" preset. Throughput was measured with RDFLib terms and with the terms of pyjelly's [generic API]({{ python_link('generic-sink') }}), which does not use RDFLib. Three versions were compared:
 
 - **0.8 (Jelly-RDF 1.0)** – pyjelly 0.8.2, Jelly-RDF 1.0, frame size 250 (its defaults)
 - **0.9 (Jelly-RDF 1.1)** – pyjelly 0.9.0 writing Jelly-RDF 1.1, frame size 1024
 - **0.9 (Jelly-RDF 1.2)** – pyjelly 0.9.0, Jelly-RDF 1.2, frame size 1024
 
-Each of the three versions was run 6 times for every dataset. The result for a dataset is the median of the 6 runs.
+Each of the three versions was run 6 times for every dataset. The result for a dataset is the median of the 6 runs. Serialized sizes are from the RDFLib integration (the generic API writes the same bytes in 0.9.0, and within 3% of them in 0.8.2).
 
 ### Results
 
