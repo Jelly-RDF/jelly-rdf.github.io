@@ -5,7 +5,7 @@ PREFIX dc:   <http://purl.org/dc/terms/>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 
 <> foaf:primaryTopic <#impl> ;
-   dc:issued "2026-10-07T20:59:27.916434368"^^xsd:dateTime ;
+   dc:issued "2026-10-26T21:07:45.418479194"^^xsd:dateTime ;
    foaf:maker <#assertor> .
 
 <#developer> a foaf:Group ;
@@ -23,9 +23,9 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   doap:programming-language "Java" ;
   doap:developer <#developer> ;
   doap:release [
-    doap:name "Jelly-JVM dev" ;
-    doap:revision "dev" ;
-    dc:created "2026-10-07"^^xsd:date
+    doap:name "Jelly-JVM 4.0.1" ;
+    doap:revision "4.0.1" ;
+    dc:created "2026-10-25"^^xsd:date
   ] .
 
 <#sparql_from_jelly_select_rdf_1_1_pos_001> a earl:Assertion ;
@@ -35,7 +35,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.374"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.383"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -46,7 +46,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.375"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.385"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -57,7 +57,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.376"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.386"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -68,7 +68,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.386"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.394"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -79,7 +79,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.388"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.395"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -90,7 +90,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.390"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.397"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -101,7 +101,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.391"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.397"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -112,7 +112,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.392"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.398"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -123,7 +123,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.393"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.399"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -134,7 +134,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.408"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.411"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -145,7 +145,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.409"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.412"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -156,7 +156,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.410"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.413"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -167,7 +167,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.411"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.413"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -178,7 +178,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.413"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.414"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -189,7 +189,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.415"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.416"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -200,7 +200,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.416"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.416"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -211,7 +211,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.417"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.417"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -222,7 +222,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.418"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.418"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -233,7 +233,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.419"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.418"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -244,7 +244,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.419"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.419"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -255,7 +255,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.421"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.419"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -266,7 +266,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.496"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.485"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -277,7 +277,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.498"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.487"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -288,7 +288,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.499"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.488"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -299,7 +299,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.500"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.489"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -310,7 +310,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.501"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.490"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -321,7 +321,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.502"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.490"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -332,7 +332,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.502"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.491"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -343,7 +343,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.503"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.491"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -354,7 +354,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.504"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.491"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -365,7 +365,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.504"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.492"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -376,7 +376,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.505"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.492"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -387,7 +387,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.505"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.492"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -398,7 +398,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.506"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.493"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -409,7 +409,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.506"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.493"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -420,7 +420,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.507"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.493"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -431,7 +431,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.507"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.494"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -442,7 +442,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.507"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.494"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -453,7 +453,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.508"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.495"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -464,7 +464,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.508"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.495"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -475,7 +475,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.509"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.496"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -486,7 +486,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.509"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.497"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -497,7 +497,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.510"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.497"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -508,7 +508,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.510"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.497"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -519,7 +519,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.510"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.498"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -530,7 +530,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.511"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.498"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -541,7 +541,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.511"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.499"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -552,7 +552,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.512"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.499"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -563,7 +563,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.512"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.499"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -574,7 +574,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.513"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.500"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -585,7 +585,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.513"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.500"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -596,7 +596,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.514"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.500"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -607,7 +607,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.514"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.501"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -618,7 +618,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.514"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.501"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -629,7 +629,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.515"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.502"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -640,7 +640,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.515"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.502"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -651,7 +651,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.516"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.503"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -662,7 +662,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.516"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.504"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -673,7 +673,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.517"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.505"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -684,7 +684,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.517"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.506"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -695,7 +695,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.518"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.507"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -706,7 +706,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.518"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.508"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -717,7 +717,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.519"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.508"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -728,7 +728,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.519"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.509"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -739,7 +739,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.520"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.509"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -750,7 +750,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.520"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.509"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -761,7 +761,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.520"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.510"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -772,7 +772,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.521"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.510"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -783,7 +783,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.521"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.511"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -794,7 +794,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.522"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.511"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -805,7 +805,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.522"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.512"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -816,7 +816,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.523"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.512"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -827,7 +827,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.523"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.512"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -838,7 +838,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.523"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.512"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -849,7 +849,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.524"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.513"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -860,7 +860,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.524"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.513"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -871,7 +871,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.525"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.514"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -882,7 +882,18 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.525"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.514"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_1_pos_079> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_1/pos_079> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-26T21:07:43.515"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -893,7 +904,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.525"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.515"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -904,7 +915,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.526"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.516"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -915,7 +926,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.526"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.516"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -926,7 +937,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.526"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.516"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -937,7 +948,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.526"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.517"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -948,7 +959,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.527"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.517"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -959,7 +970,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.527"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.517"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -970,7 +981,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.527"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.517"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -981,7 +992,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.527"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.518"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -992,7 +1003,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.527"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.518"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1003,7 +1014,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.528"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.518"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1014,7 +1025,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.528"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.519"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1025,7 +1036,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.528"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.519"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1036,7 +1047,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.528"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.519"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1047,7 +1058,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.528"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.520"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1058,7 +1069,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.529"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.520"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1069,7 +1080,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.529"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.520"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1080,7 +1091,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.529"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.521"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1091,7 +1102,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.529"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.521"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1102,7 +1113,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.530"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.521"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1113,7 +1124,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.530"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.521"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1124,7 +1135,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.530"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.522"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1135,7 +1146,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.530"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.522"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1146,7 +1157,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.530"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.522"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1157,7 +1168,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.531"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.522"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1168,7 +1179,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.531"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.523"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1179,7 +1190,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.531"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.523"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1190,7 +1201,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.531"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.523"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1201,7 +1212,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.531"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.524"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1212,7 +1223,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.532"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.524"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1223,7 +1234,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.532"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.524"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1234,7 +1245,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.532"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.524"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1245,7 +1256,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.532"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.525"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1256,7 +1267,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.533"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.525"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1267,7 +1278,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.533"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.525"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1278,7 +1289,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.533"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.525"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1289,7 +1300,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.533"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.526"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1300,7 +1311,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.533"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.526"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1311,7 +1322,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.534"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.526"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1322,7 +1333,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.534"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.526"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1333,7 +1344,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.534"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.527"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1344,7 +1355,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.534"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.527"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1355,7 +1366,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.535"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.527"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1366,7 +1377,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.535"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.527"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1377,7 +1388,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.535"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.528"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1388,7 +1399,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.535"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.528"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1399,7 +1410,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.536"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.528"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1410,7 +1421,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.536"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.529"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1421,7 +1432,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.536"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.529"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1432,7 +1443,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.536"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.529"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1443,7 +1454,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.536"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.529"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1454,7 +1465,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.537"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.530"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1465,7 +1476,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.537"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.530"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1476,7 +1487,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.537"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.531"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1487,7 +1498,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.537"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.531"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1498,7 +1509,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.537"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.531"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1509,7 +1520,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.538"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.532"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1520,7 +1531,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.538"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.532"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1531,7 +1542,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.538"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.533"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1542,7 +1553,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.539"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.533"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1553,7 +1564,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.539"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.533"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1564,7 +1575,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.539"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.534"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1575,7 +1586,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.539"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.534"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1586,7 +1597,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.540"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.534"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1597,7 +1608,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.540"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.534"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1608,7 +1619,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.540"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.535"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1619,7 +1630,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.540"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.535"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1630,7 +1641,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.540"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.535"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1641,7 +1652,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.541"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.536"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1652,7 +1663,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.541"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.536"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1663,7 +1674,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.542"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.537"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1674,7 +1685,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.542"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.538"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1685,7 +1696,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.543"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.539"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1696,7 +1707,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.544"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.540"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1707,7 +1718,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.544"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.540"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1718,7 +1729,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.544"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.540"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1729,7 +1740,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.544"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.540"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1740,7 +1751,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.546"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.542"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1751,7 +1762,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.547"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.542"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1762,7 +1773,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.548"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.543"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1773,7 +1784,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.548"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.543"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1784,7 +1795,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.549"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.544"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1795,7 +1806,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.549"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.544"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1806,7 +1817,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.549"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.545"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1817,7 +1828,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.550"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.545"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1828,7 +1839,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.550"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.546"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1839,7 +1850,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.551"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.546"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1850,7 +1861,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.552"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.546"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1861,7 +1872,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.552"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.547"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1872,7 +1883,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.552"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.547"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1883,7 +1894,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.553"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.548"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1894,7 +1905,18 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.554"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.549"^^xsd:dateTime ;
+    earl:outcome earl:passed
+  ] .
+
+<#sparql_from_jelly_select_rdf_1_2_pos_016> a earl:Assertion ;
+  earl:assertedBy <#assertor> ;
+  earl:subject    <#impl> ;
+  earl:test       <https://github.com/Jelly-RDF/jelly-protobuf/tree/main/test/sparql/from_jelly/select_rdf_1_2/pos_016> ;
+  earl:mode       earl:automatic ;
+  earl:result [
+    a earl:TestResult ;
+    dc:date "2026-10-26T21:07:43.550"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1905,7 +1927,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.554"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.550"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1916,7 +1938,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.554"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.550"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1927,7 +1949,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.554"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.550"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1938,7 +1960,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.555"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.551"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1949,7 +1971,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.555"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.551"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1960,7 +1982,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.555"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.551"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1971,7 +1993,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.555"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.551"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1982,7 +2004,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.556"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.552"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -1993,7 +2015,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.556"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.552"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2004,7 +2026,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.556"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.552"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2015,7 +2037,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.557"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.553"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2026,7 +2048,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.558"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.554"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2037,7 +2059,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.559"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.555"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2048,7 +2070,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.559"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.556"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2059,7 +2081,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.559"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.556"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2070,7 +2092,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.560"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.557"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2081,7 +2103,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.561"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.557"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2092,7 +2114,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.561"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.558"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2103,7 +2125,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.563"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.558"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2114,7 +2136,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.563"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.559"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2125,7 +2147,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.564"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.559"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2136,7 +2158,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.564"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.559"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2147,7 +2169,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.564"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.560"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2158,7 +2180,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.565"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.560"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2169,7 +2191,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.565"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.560"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2180,7 +2202,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.565"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.560"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2191,7 +2213,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.566"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.560"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2202,7 +2224,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.566"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.560"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2213,7 +2235,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.566"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.561"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2224,7 +2246,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.571"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.564"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2235,7 +2257,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.572"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.565"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2246,7 +2268,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.573"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.566"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2257,7 +2279,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.575"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.567"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2268,7 +2290,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.576"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.568"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2279,7 +2301,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.577"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.568"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2290,7 +2312,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.578"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.569"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2301,7 +2323,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.578"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.569"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2312,7 +2334,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.579"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.569"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2323,7 +2345,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.596"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.579"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2334,7 +2356,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.599"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.582"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2345,7 +2367,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.601"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.583"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2356,7 +2378,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.601"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.584"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2367,7 +2389,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.602"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.584"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2378,7 +2400,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.602"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.584"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2389,7 +2411,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.606"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.586"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2400,7 +2422,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.607"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.587"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2411,7 +2433,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.608"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.587"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2422,7 +2444,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.608"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.588"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2433,7 +2455,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.609"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.588"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2444,7 +2466,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.610"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.589"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2455,7 +2477,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.611"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.589"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2466,7 +2488,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.612"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.590"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2477,7 +2499,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.612"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.591"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2488,7 +2510,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.613"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.592"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2499,7 +2521,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.614"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.592"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2510,7 +2532,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.615"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.594"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2521,7 +2543,7 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.616"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.595"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
 
@@ -2532,6 +2554,6 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
   earl:mode       earl:automatic ;
   earl:result [
     a earl:TestResult ;
-    dc:date "2026-10-07T20:59:26.617"^^xsd:dateTime ;
+    dc:date "2026-10-26T21:07:43.596"^^xsd:dateTime ;
     earl:outcome earl:passed
   ] .
