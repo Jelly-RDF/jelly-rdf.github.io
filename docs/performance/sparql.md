@@ -13,7 +13,7 @@ The charts are interactive – hover over them for details.
 
 ### Benchmark setup
 
-The same datasets, hardware, software, and method were used as in the [Jelly-RDF benchmarks](rdf.md#benchmark-setup). Each of the 13 datasets was turned into a single SPARQL result set with one row per statement. Throughput is given in cells (bound values) per second.
+The same datasets, hardware, software, and method were used as in the [Jelly-RDF benchmarks](rdf.md#benchmark-setup). Each of the 13 datasets was turned into a single SPARQL result set with one row per statement. Throughput is given in cells (rows × variables) per second.
 
 #### Tested methods
 
@@ -98,7 +98,7 @@ Throughput on each dataset (dots) and the geometric mean over 10 datasets (bar).
 
 --8<-- "snippets/performance/f-size-sparql.html"
 
-Serialized size in bytes/row, uncompressed and with zstd, geometric mean over 10 datasets. Log scale.
+Serialized size in bytes/cell, uncompressed and with zstd, geometric mean over 10 datasets. Log scale.
 { .jc-caption }
 
 --8<-- "snippets/performance/f-size-sparql.data.html"
@@ -164,7 +164,7 @@ Throughput on each dataset (dots) and the geometric mean over 13 datasets (bar; 
 
 --8<-- "snippets/performance/py-f-size-sparql.html"
 
-Serialized size in bytes/row, uncompressed and with zstd, geometric mean over 13 datasets. Log scale.
+Serialized size in bytes/cell, uncompressed and with zstd, geometric mean over 13 datasets. Log scale.
 { .jc-caption }
 
 --8<-- "snippets/performance/py-f-size-sparql.data.html"
