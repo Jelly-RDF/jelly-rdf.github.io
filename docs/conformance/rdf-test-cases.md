@@ -48,7 +48,7 @@ If your implementation does not support a given feature, you should skip the cor
 - The test cases use the delimited variant of Jelly-RDF. If a non-delimited file is used, the test is marked with the `jellyt:featureNonDelimited` feature (`mf:notable` property).
 - Tests of rules that the specification states with SHOULD rather than MUST are marked with the `jellyt:featureShouldLevel` feature (`mf:notable` property). An implementation may fail them and still conform to the specification.
 
-See also [the test manifest vocabulary]({{ git_test_link('test-manifest.yaml') }}) for details on how the test cases are defined in RDF. The vocabulary is a [LinkML](https://linkml.io) schema, and it is also published in RDFS and SHACL with every [release of jelly-protobuf](https://github.com/Jelly-RDF/jelly-protobuf/releases).
+See also [the test manifest vocabulary]({{ git_test_link('test-manifest.yaml') }}) for details on how the test cases are defined in RDF. The vocabulary is a [LinkML](https://linkml.ohi.dev) schema, and it is also published in RDFS and SHACL with every [release of jelly-protobuf](https://github.com/Jelly-RDF/jelly-protobuf/releases).
 
 ## Test summary
 
