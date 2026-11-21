@@ -107,6 +107,8 @@ nav:
     - JavaScript (community): 'https://github.com/pietercolpaert/rdfjs-jelly'
     - Dart (community): 'https://locorda.dev/rdf/jelly/'
 
+  - Tools and datasets: 'use-cases.md'
+
   - Performance: 
     - 'performance/index.md'
     - Jelly-RDF: 'performance/rdf.md'
@@ -134,7 +136,7 @@ nav:
   - Contributing:
     - 'contributing/index.md'
     - Code of conduct: 'contributing/code_of_conduct.md'
-  - Use cases and datasets: 'use-cases.md'
+  
   - Licensing and citation: 
     - 'licensing/index.md'
     - 'Projects and funding': 'licensing/projects.md'
