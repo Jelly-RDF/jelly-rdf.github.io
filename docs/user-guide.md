@@ -9,6 +9,8 @@ To use Jelly, pick an implementation that matches your tech stack:
 - **[rdfjs-jelly](https://github.com/pietercolpaert/rdfjs-jelly)** *(unofficial, community-led)* – written in JavaScript.
 - **[Locorda](https://locorda.dev/rdf/jelly/)** *(unofficial, community-led)* – written in Dart.
 
+There are **[many tools and libraries](use-cases.md)** that support Jelly, including an IDE plugin, RMLMapper, Morph-KGC, KGX, kglab, and more.
+
 You can also [create your own implementation](#implementing-jelly). Because Jelly is built on top of [Protocol Buffers](https://protobuf.dev/), you can generate a lot of the code automatically in any popular programming language.
 
 ## What can it do?

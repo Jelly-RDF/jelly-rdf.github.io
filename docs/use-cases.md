@@ -14,6 +14,8 @@
     - The library supports Jelly as one of the serialization formats, including processing streams of multiple nanopublications.
 - **[TopBraid SHACL](https://github.com/TopQuadrant/shacl)** – library and CLI tool for validating RDF and reasoning with SHACL shapes.
     - The CLI tool supports reading and writing Jelly files by setting the format to `jelly`.
+- **[RDF and SPARQL JetBrains IDE plugin](https://rdfandsparql.com/)** – IDE plugin for working with RDF and SPARQL.
+    - The plugin supports converting to/from Jelly, inspecting Jelly files, and creating SPARQL endpoints from Jelly files.
 
 ## [pyjelly]({{ python_link() }})
 
